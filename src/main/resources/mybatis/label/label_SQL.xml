@@ -12,10 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ltitle
 	  ,ldescription
 	  ,lbgcolor
+	  ,pno
 	) VALUES (
 	  #{ltitle}
 	  ,#{ldescription}
 	  ,#{lbgcolor}
+	  ,#{pno}
 	)
     ]]>  
     </insert>
@@ -23,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 2016.03.28 ino로 ino에 붙은 모든 label 정보 가져오기 -->
 	<select id="getLabelsByIno" parameterType="int" resultType="com.nbreds.projectPlanning.label.VO.Label">
     <![CDATA[
-    SELECT l.lno, ltitle, ldescription, lbgcolor
+    SELECT l.lno, ltitle, ldescription, lbgcolor, pno
     FROM Label l
     JOIN IssueLabel il
     ON l.lno = il.lno
@@ -34,8 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 2016.03.28 등록 된 모든 label 정보 가져오기 -->
 	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
     <![CDATA[
-    SELECT lno, ltitle, ldescription, lbgcolor
-    FROM Label l
+    SELECT lno, ltitle, ldescription, lbgcolor, pno
+    FROM Label
 	]]>
 	</select>
 	

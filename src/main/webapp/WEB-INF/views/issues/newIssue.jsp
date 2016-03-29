@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<% int lno = 0; %>
+<%
+	int lno = 0;
+%>
 <style>
 .btn-width {
 	width: 200px;
@@ -16,8 +18,7 @@
 				<li><a href="/">Go to DashBoard</a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
-				<li><a href="/${uno}/${pno}">Project<span
-						class="sr-only">(current)</span></a></li>
+				<li><a href="/${uno}/${pno}">Project<span class="sr-only">(current)</span></a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
 				<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
@@ -43,15 +44,16 @@
 						<div class="form-group">
 							<label for="inputTitle" class="col-lg-2 control-label">Title</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="ititle" name="ititle"
-									placeholder="Issue Title">
+								<input type="text" class="form-control" id="ititle"
+									name="ititle" placeholder="Issue Title">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="inputDesc" class="col-lg-2 control-label">Description</label>
 							<div class="col-lg-10">
-								<textarea class="form-control" rows="8" id="idescription" name="idescription"></textarea>
+								<textarea class="form-control" rows="8" id="idescription"
+									name="idescription"></textarea>
 								<span class="help-block">help 설명</span>
 							</div>
 						</div>
@@ -87,10 +89,10 @@
 							<label for="inputWeight" class="col-lg-2 control-label">Weight</label>
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-width"
-									style="text-align: left; margin-left: 15px;"><span id="selectedWeight">Select Weight</span></a>
-								<a href="#" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown"><span class="caret"
-									style="height: 10px; margin-top: 10px;"></span></a>
+									style="text-align: left; margin-left: 15px;"><span
+									id="selectedWeight">Select Weight</span></a> <a href="#"
+									class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
+									class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
 									<li><a href="#" id="weight0">No Weight</a></li>
 									<li><a href="#" id="weight1">1</a></li>
@@ -115,14 +117,24 @@
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
 									<c:forEach var="labels" items="${labels}" varStatus="status">
-										<li class="ltitle">
-										<a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
+										<li class="ltitle"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
 									</c:forEach>
 								</ul>
+								<div style="margin-left: 15px; margin-top: 50px;">
+									<input style="width: 0px; height: 33px;" class="form-control input-lg" type="text" id="inputLarge">
+								</div>
 							</div>
 						</div>
-						<textarea id="textarea" class="example" rows="1"></textarea>
-						<br><br><br><br><br><br><br><br><br><br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
 						<div class="form-group">
 							<div class="col-lg-10 col-lg-offset-2">
 								<button type="reset" class="btn btn-default">Cancel</button>
@@ -135,153 +147,74 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-		$('#textarea').textext({
-			plugins : 'tags'
-		});
-		
-		// $(".text-tag > .text-button > .text-remove").click(handler);
-		$('.ltitle > a').bind('click', handler);
-		
-		$('#test').click(handler2);
-		
-		function handler() {
-			console.log("handler 호출됨");
-			var text = $(this).text();
-			var lno = $(this).attr("alt");
-			$('#textarea').textext()[0].tags().addTags(
-					[ text ]);
-			
-			$('.text-tags > .text-tag').append("<input type=hidden id=lno1 value="+lno+">");
-			$('#lno').val(lno);
-			/* if($('#lno').val() == "") {
-				$('#lno').val(lno);
-			} else {
-				$('#lno').val($('#lno').val() + "," + lno);
-			}
-			console.log($(".text-wrap > input:hidden").val()); */
-			
-			/* $('.text-remove').click(function() {
-				var splitedLno = $('#lno').val().split(",");
-				$('.ltitle > a').each(function() {
-					var lnos = $(this).attr('alt');
-					console.log(lnos);
-				}); */
-					/* console.log(lno);
-					console.log(splitedLno);
-					for (var i = 0; i < splitedLno.length; i++) {
-						lno1 = splitedLno[i];
-						if (lno1 == lno) {
-							splitedLno.splice(i, 1);
-						}
-					} */
-				
-				//$('#lno').val();
-			//});
-		}
-		
-		function handler2() {
-			console.log("handler2 호출됨");
-			//var originalValue = $(".text-wrap > input:hidden").val();
-			//var convertedValue = originalValue.substring(1, originalValue.length - 1).replace(/\"/g,'').split(",");
-			
-			$('.text-tags > #lno1').each(function() {
-				var lno = $(this).val();
-				//var lnos = $(this).attr('alt');
-				//console.log(lnos);
-				console.log(lno);
-				
+			$('#inputLarge').textext({
+				plugins : 'tags'
 			});
-			//console.log(convertedValue);
-		}
-		/* $('.ltitle > a').bind('click', function(e) {
-			var text = $(this).text();
-			var lno = $(this).attr("alt");
-			$('#textarea').textext()[0].tags().addTags(
-					[ text ]);
-			if($('#lno').val() == "") {
-				$('#lno').val(lno);
-			} else {
-				$('#lno').val($('#lno').val() + "," + lno);
-			}
-		}); */
-		
-		/* $('.ltitle > a').click(function() {
-			texts = $(this).text();
-			console.log(texts);
-			$('#addtag').bind('click',
-					function(e) {
-						$('#textarea').textext()[0].tags().addTags(
-								[ $('#tagname').val() ]);
-						$('#tagname').val('');
-					});
-		}); */
-		<%-- for (var j = 0; j < <%= i %>; j++) {
-			console.log($("#label" + j).text());
-			$("#label" + j).click(handler);
-		}
-		
-		function handler() {
-			$("#label" + j).bind('click',
-					function(e) {
-						$('#textarea').textext()[0].tags().addTags(
-								[ $("#label" + j).text() ]);
-						// $('#tagname').val('');
-					});
-		} --%>
-		/* $('#textarea').textext({
-			plugins : 'tags'
-		});
 
-		$('#addtag').bind('click',
-				function(e) {
-					$('#textarea').textext()[0].tags().addTags(
-							[ $('#tagname').val() ]);
-					$('#tagname').val('');
-				}); */
-		
-		$(function () {
-			$('#weight0').click(function () {
-				$('#selectedWeight').text($('#weight0').text());
-				//$('#weight').val($('#selectedWeight').text());
+			$('.ltitle > a').bind('click', handler);
+
+			$('#test').click(handler2);
+
+			function handler() {
+				console.log("handler 호출됨");
+				var text = $(this).text();
+				var lno = $(this).attr("alt");
+				$('#inputLarge').textext()[0].tags().addTags([ text ]);
+				$('.text-tags > .text-tag').last().append(
+						"<input type=hidden id=lno1 value="+lno+">");
+			}
+
+			function handler2() {
+				console.log("handler2 호출됨");
+				var lno = "";
+				$('.text-tags > .text-tag > #lno1').each(function() {
+					lno += $(this).val() + ",";
+				});
+				$('#lno').val(lno.substring(0, lno.length - 1));
+			}
+
+			$(function() {
+				$('#weight0').click(function() {
+					$('#selectedWeight').text($('#weight0').text());
+					//$('#weight').val($('#selectedWeight').text());
+				});
+				$('#weight1').click(function() {
+					$('#selectedWeight').text($('#weight1').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight2').click(function() {
+					$('#selectedWeight').text($('#weight2').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight3').click(function() {
+					$('#selectedWeight').text($('#weight3').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight4').click(function() {
+					$('#selectedWeight').text($('#weight4').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight5').click(function() {
+					$('#selectedWeight').text($('#weight5').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight6').click(function() {
+					$('#selectedWeight').text($('#weight6').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight7').click(function() {
+					$('#selectedWeight').text($('#weight7').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight8').click(function() {
+					$('#selectedWeight').text($('#weight8').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
+				$('#weight9').click(function() {
+					$('#selectedWeight').text($('#weight9').text());
+					$('#iweight').val($('#selectedWeight').text());
+				});
 			});
-			$('#weight1').click(function () {
-				$('#selectedWeight').text($('#weight1').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight2').click(function () {
-				$('#selectedWeight').text($('#weight2').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight3').click(function () {
-				$('#selectedWeight').text($('#weight3').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight4').click(function () {
-				$('#selectedWeight').text($('#weight4').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight5').click(function () {
-				$('#selectedWeight').text($('#weight5').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight6').click(function () {
-				$('#selectedWeight').text($('#weight6').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight7').click(function () {
-				$('#selectedWeight').text($('#weight7').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight8').click(function () {
-				$('#selectedWeight').text($('#weight8').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-			$('#weight9').click(function () {
-				$('#selectedWeight').text($('#weight9').text());
-				$('#iweight').val($('#selectedWeight').text());
-			});
-		});
-		
 		</script>
 		<jsp:include
 			page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

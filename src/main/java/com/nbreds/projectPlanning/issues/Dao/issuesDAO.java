@@ -43,7 +43,7 @@ public class issuesDAO {
 		return sqlSession.selectOne("project.getUserForNo", uno);
 	}
 	
-	public void closeIssue(Map<String, String> param) {
+	public void closeIssue(Map<String, Object> param) {
 		sqlSession.update("issues.closeIssue", param);
 	}
 }

@@ -43,7 +43,7 @@ public class issuesService {
 		return issuesdao.getUserForNo(uno);
 	}
 	
-	public void closeIssue(Map<String, String> param) {
+	public void closeIssue(Map<String, Object> param) {
 		issuesdao.closeIssue(param);
 	}
 }

@@ -48,11 +48,9 @@
 								aria-expanded="false"><span class="caret"
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li class="divider"></li>
-								<li><a href="#">4</a></li>
+								<c:forEach var="users" items="${userList}">
+									<li><a href="/${uno}/${pno}/issues/${stat}/${users.uno}">${users.uname}</a></li>
+								</c:forEach>
 							</ul>
 						</div>
 						<!-- <div class="btn-group">

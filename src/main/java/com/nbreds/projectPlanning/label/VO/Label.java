@@ -11,6 +11,7 @@ public class Label {
 	private String ltitle;
 	private String ldescription;
 	private String lbgcolor;
+	private String pno;
 	private List<Issues> inos = new ArrayList<Issues>(); // 다대다 관계이므로 ino가 n개일 때 담아 놓는 List
 	
 	public int getLno() {
@@ -36,6 +37,12 @@ public class Label {
 	}
 	public void setLbgcolor(String lbgcolor) {
 		this.lbgcolor = lbgcolor;
+	}
+	public String getPno() {
+		return pno;
+	}
+	public void setPno(String pno) {
+		this.pno = pno;
 	}
 	public List<Issues> getInos() {
 		return inos;
