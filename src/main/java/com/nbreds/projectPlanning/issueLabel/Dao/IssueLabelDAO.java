@@ -8,7 +8,7 @@ import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 
 @Repository
 public class IssueLabelDAO {
-	//dss
+	//dsssds
 	@Autowired
 	private SqlSession sqlSession;
 	
