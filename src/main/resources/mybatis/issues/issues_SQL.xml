@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="issues">
+	<insert id="saveIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+	  INSERT INTO Issues (
+	  ititle
+	  ,idescription
+	  ,iweight
+	  ,mno
+	  ,pno
+	  ,uno
+	) VALUES (
+	  #{ititle}
+	  ,#{idescription}
+	  ,#{iweight}
+	  ,#{mno}
+	  ,#{pno}
+	  ,#{uno}
+	)
+    ]]>
+	</insert>
+
+	<!-- 2016.03.28 모든 issues list 가져오기 -->
+	<select id="getAllIssues" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT 
+    	i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname
+    ]]>
+		<if test="mno != null">
+			, mtitle
+		</if>
+    <![CDATA[
+    FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+    ]]>
+		<if test="mno != null">
+			JOIN Milestones m
+			ON i.mno = m.mno and i.pno = m.pno
+		</if>
+	<![CDATA[
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<!-- 2016.03.28 ino로 issue 하나 가져오기 (detailIssue.jsp 에서 사용) -->
+	<select id="getIssuesByIno" parameterType="int"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT ino, ititle, idescription, iweight, istatement, mno, pno, i.uno, uname
+    FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+    WHERE ino = #{ino}
+	]]>
+	</select>
+
+	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
+	<select id="getIssuesByPno" parameterType="map" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT 
+    	ino, ititle, idescription, iweight, istatement, mno, pno, i.uno, uname
+    FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	where pno=#{pno}
+	]]>
+	<if test="istatement != null">
+	and istatement=#{istatement}
+	</if>
+	<![CDATA[
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    UPDATE Issues SET
+	    ititle = #{ititle},
+		idescription = #{idescription},
+		iweight = #{iweight},
+		mno = #{mno}
+	WHERE ino = #{ino}
+	]]>
+	</update>
+
+	<delete id="removeIssues" parameterType="int">
+    <![CDATA[
+    DELETE FROM Issues 
+	WHERE ino = #{ino};
+    ]]>
+	</delete>
+
+	<update id="closeIssue" parameterType="Map">
+    <![CDATA[
+    UPDATE Issues SET
+	    istatement = #{istatement}
+	WHERE ino = #{ino}
+	]]>
+	</update>
+</mapper>

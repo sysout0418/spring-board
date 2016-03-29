@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="milestones">
+    <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <![CDATA[
+	  insert into Milestones (
+	  mtitle
+	  ,mdescription
+	  ,mduedate
+	  ,pno
+	) VALUES (
+	  #{mtitle}
+	  ,#{mdescription}
+	  ,#{mduedate}
+	  ,#{pno}
+	)
+    ]]>  
+    </insert>
+    
+    <select id="getMilestonesByPno" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <![CDATA[
+    select mno, mtitle, mdescription, mduedate, mstatement, pno FROM Milestones
+	where pno=#{pno}
+	]]>
+	<if test="mstatement != null">
+	and mstatement=#{mstatement}
+	</if>
+	<![CDATA[
+	order by mno desc  
+	]]>
+    </select>
+    
+    <select id="getMilestoneBymno" parameterType="int" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <![CDATA[
+    select mno, mtitle, mdescription, mduedate, mstatement, pno FROM Milestones
+	where mno=#{mno}
+	order by mno desc
+	]]>
+    </select>
+    
+    <update id="editMilestoneBymno" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <![CDATA[
+	   UPDATE Milestones SET
+	  mtitle = #{mtitle}
+	  ,mdescription = #{mdescription}
+	  ,mduedate = #{mduedate}
+	WHERE mno = #{mno}
+	]]> 
+    </update>
+    
+    <delete id="removeMilestone" parameterType="int">
+    <![CDATA[
+    delete from Milestones where mno = #{mno};
+    ]]>  
+    </delete>
+    
+    <update id="closeMilestone" parameterType="int">
+    <![CDATA[
+	   UPDATE Milestones SET
+	  mstatement = "001"
+	WHERE mno = #{mno}
+	]]> 
+    </update>
+    
+    <update id="reopenMilestone" parameterType="int">
+    <![CDATA[
+	   UPDATE Milestones SET
+	  mstatement = "000"
+	WHERE mno = #{mno}
+	]]> 
+    </update>
+    
+    <select id="getJoinMilestones" parameterType="hashmap" resultType="hashmap">
+    <![CDATA[
+    SELECT M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
+	FROM Milestones M, Project P, User U
+	WHERE M.pno = P.pno AND P.uno = U.uno OR P.pmember like '%' #{uno} '%'
+	]]>
+	<if test="mstatement != null">
+	and mstatement=#{mstatement}
+	</if>
+	<![CDATA[
+	order by mno desc  
+	]]>
+    </select>
+</mapper>
