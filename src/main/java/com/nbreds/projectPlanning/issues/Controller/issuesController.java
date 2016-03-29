@@ -47,7 +47,6 @@ public class issuesController {
 	@RequestMapping("/{uno}/{pno}/issues/{statement}")
 	public String issuesList(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
 			@PathVariable("statement") String stat, Model model) {
-		System.out.println("호출됨...");
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
 		Map<String, Object> param = new HashMap<String, Object>();

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<% int lno = 0; %>
 <style>
 .btn-width {
 	width: 200px;
@@ -34,6 +35,7 @@
 					<input type="hidden" value="${uno}" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="" name="iweight" id="iweight">
+					<input type="hidden" value="" name="lno" id="lno">
 					<fieldset>
 						<legend class="page-header">
 							<h3>New Issue</h3>
@@ -112,18 +114,20 @@
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<% int i = 0; %>
 									<c:forEach var="labels" items="${labels}" varStatus="status">
-										<li><a href="#" id="label<%= i %>" name="${labels.lno}">${labels.ltitle}</a></li>
-										<% i++; %>
+										<li class="ltitle">
+										<a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
 									</c:forEach>
 								</ul>
 							</div>
-						</div><br><br><br><br><br><br><br><br><br><br>
+						</div>
+						<textarea id="textarea" class="example" rows="1"></textarea>
+						<br><br><br><br><br><br><br><br><br><br>
 						<div class="form-group">
 							<div class="col-lg-10 col-lg-offset-2">
 								<button type="reset" class="btn btn-default">Cancel</button>
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" id="submit" class="btn btn-primary">Submit</button>
+								<button type="button" id="test" class="btn btn-primary">test</button>
 							</div>
 						</div>
 					</fieldset>
@@ -131,9 +135,99 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-		$('#${}').click(function() {
-			console.log($("#4").val());
+		$('#textarea').textext({
+			plugins : 'tags'
 		});
+		
+		// $(".text-tag > .text-button > .text-remove").click(handler);
+		$('.ltitle > a').bind('click', handler);
+		
+		$('#test').click(handler2);
+		
+		function handler() {
+			console.log("handler 호출됨");
+			var text = $(this).text();
+			var lno = $(this).attr("alt");
+			$('#textarea').textext()[0].tags().addTags(
+					[ text ]);
+			
+			$('.text-tags > .text-tag').append("<input type=hidden id=lno1 value="+lno+">");
+			$('#lno').val(lno);
+			/* if($('#lno').val() == "") {
+				$('#lno').val(lno);
+			} else {
+				$('#lno').val($('#lno').val() + "," + lno);
+			}
+			console.log($(".text-wrap > input:hidden").val()); */
+			
+			/* $('.text-remove').click(function() {
+				var splitedLno = $('#lno').val().split(",");
+				$('.ltitle > a').each(function() {
+					var lnos = $(this).attr('alt');
+					console.log(lnos);
+				}); */
+					/* console.log(lno);
+					console.log(splitedLno);
+					for (var i = 0; i < splitedLno.length; i++) {
+						lno1 = splitedLno[i];
+						if (lno1 == lno) {
+							splitedLno.splice(i, 1);
+						}
+					} */
+				
+				//$('#lno').val();
+			//});
+		}
+		
+		function handler2() {
+			console.log("handler2 호출됨");
+			//var originalValue = $(".text-wrap > input:hidden").val();
+			//var convertedValue = originalValue.substring(1, originalValue.length - 1).replace(/\"/g,'').split(",");
+			
+			$('.text-tags > #lno1').each(function() {
+				var lno = $(this).val();
+				//var lnos = $(this).attr('alt');
+				//console.log(lnos);
+				console.log(lno);
+				
+			});
+			//console.log(convertedValue);
+		}
+		/* $('.ltitle > a').bind('click', function(e) {
+			var text = $(this).text();
+			var lno = $(this).attr("alt");
+			$('#textarea').textext()[0].tags().addTags(
+					[ text ]);
+			if($('#lno').val() == "") {
+				$('#lno').val(lno);
+			} else {
+				$('#lno').val($('#lno').val() + "," + lno);
+			}
+		}); */
+		
+		/* $('.ltitle > a').click(function() {
+			texts = $(this).text();
+			console.log(texts);
+			$('#addtag').bind('click',
+					function(e) {
+						$('#textarea').textext()[0].tags().addTags(
+								[ $('#tagname').val() ]);
+						$('#tagname').val('');
+					});
+		}); */
+		<%-- for (var j = 0; j < <%= i %>; j++) {
+			console.log($("#label" + j).text());
+			$("#label" + j).click(handler);
+		}
+		
+		function handler() {
+			$("#label" + j).bind('click',
+					function(e) {
+						$('#textarea').textext()[0].tags().addTags(
+								[ $("#label" + j).text() ]);
+						// $('#tagname').val('');
+					});
+		} --%>
 		/* $('#textarea').textext({
 			plugins : 'tags'
 		});
