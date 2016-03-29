@@ -34,14 +34,14 @@
 <table class="table">
 <c:forEach var="milestone" items="${list}">
 <tr>
-	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>><a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br/>0 Issues</td>
+	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>><a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br/>0 Issues<br/>expires at ${milestone.mduedate}</td>
 	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 		0% complete<br/>
 		<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>
 		<c:if test="${milestone.mstatement == '000'}">
 		<a href="/milestones/edit/${uno}/${pno}/${milestone.mno}" class="btn btn-default" >Edit</a>
 		<a href="/milestones/closeMilestone/${uno}/${pno}/${milestone.mno}" class="btn btn-warning">Close Milestone</a>
-		<a href="/milestones/remove/${uno}/${pno}/${milestone.mno}" class="btn btn-danger">Delete</a>
+		<a href="/milestones/remove/${uno}/${pno}/${milestone.mno}" class="btn btn-danger">Remove</a>
 		</c:if>
 	</td>
 </tr>

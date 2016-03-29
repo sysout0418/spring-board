@@ -4,19 +4,19 @@
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-2 col-md-2 sidebar">
-   	<ul class="nav nav-sidebar" style="height: 30px; text-align: center;">
-    	<li><a href="/">Go to DashBoard</a></li>
-  	</ul>
-    <ul class="nav nav-sidebar">
-		<li><a href="/${uno}/${pno}">Project</a></li>
+	<ul class="nav nav-sidebar">
+		<li><a href="/">MyProjects</a></li>
+	    <li><a href="/regist">Regist</a></li>
+	    <li><a href="/search">Search</a></li>
+	    <li><a href="/list">Projects</a></li>
 	</ul>
 	<ul class="nav nav-sidebar">
-		<li class="active"><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
-	    <li><a href="/${uno}/${pno}/issues">Issues</a></li>
+		<li class="active"><a href="/milestones/open">Milestones</a></li>
+	    <li><a href="/issues">Issues</a></li>
 	</ul>
- 	<ul class="nav nav-sidebar">
-    	<li><a href="">Settings</a></li>
-    </ul>
+	<ul class="nav nav-sidebar">
+	    <li><a href="">Profile Settings</a></li>
+	</ul>
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 <!-- Begin page content -->
@@ -25,31 +25,31 @@
 <tr><td>
 <c:if test="${milestone.mstatement=='000'}"><span class="label label-success">Open</span></c:if>
 <c:if test="${milestone.mstatement=='001'}"><span class="label label-danger">Closed</span></c:if>
-Milestone #${mno}
-<div style="float: right;">
-<a href="/milestones/edit/${uno}/${pno}/${milestone.mno}" class="btn btn-default">Edit</a>
-<c:if test="${milestone.mstatement=='000'}">
-<a href="/milestones/closeMilestone/${uno}/${pno}/${milestone.mno}" class="btn btn-warning">Close Milestone</a>
-</c:if>
-<c:if test="${milestone.mstatement=='001'}">
-<a href="/milestones/reopenMilestone/${uno}/${pno}/${milestone.mno}" class="btn btn-default">Reopen Milestone</a>
-</c:if>
-<a href="/milestones/remove/${uno}/${pno}/${milestone.mno}" class="btn btn-danger">Remove</a>
-</div>
+Milestone ${milestone.mtitle}
 </td></tr>
-<tr><td>
-<h4>${milestone.mtitle}</h4>  	
-${milestone.mdescription}
+<tr><td colspan="4" style="background-color: #faf9f9">
+<h3>${milestone.mtitle}</h3>
 </td></tr>
-<tr><td>
+<tr style="background-color: #faf9f9">
+	<td>Project</td>
+	<td>Open issues</td>
+	<td>State</td>
+	<td>Due date</td>
+</tr>
+<tr>
+	<td><a href="/${uno}/${milestone.pno}/milestone/${milestone.mno}">${uname} / ${pname}</a></td>
+	<td>0</td>
+	<td><c:if test="${milestone.mstatement=='000'}">Open</c:if><c:if test="${milestone.mstatement=='001'}">Closed</c:if></td>
+	<td>${milestone.mduedate}</td>
+<tr>
+<td colspan="4">
 <h4>Progress</h4>  	
 0 issues: 0 open and 0 closed 0% complete
 <div style="float: right;">
-<button type="button" class="btn btn-default">New Issue</button>
 <button type="button" class="btn btn-default">Browse Issue</button>
 </div>
 </td></tr>
-<tr><td>
+<tr><td colspan="4">
 <div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>
 </td></tr>
 </table>

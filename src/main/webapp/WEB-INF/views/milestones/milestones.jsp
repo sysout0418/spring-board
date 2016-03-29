@@ -25,18 +25,21 @@
 <div role="tabpanel">
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-	<li role="presentation"<c:if test="${stat=='open'}"> class="active"</c:if>><a href="/${uno}/${pno}/milestones/open">Open</a></li>
-	<li role="presentation"<c:if test="${stat=='closed'}"> class="active"</c:if>><a href="/${uno}/${pno}/milestones/closed">Closed</a></li>
-	<li role="presentation"<c:if test="${stat=='all'}"> class="active"</c:if>><a href="/${uno}/${pno}/milestones/all">All</a></li>
-	<li style="width:1000px;"><div style="float: right;"><a href="/${uno}/${pno}/milestones/new" class="btn btn-success">New Milestone</a></div></li>
+	<li role="presentation"<c:if test="${stat=='open'}"> class="active"</c:if>><a href="/milestones/open">Open</a></li>
+	<li role="presentation"<c:if test="${stat=='closed'}"> class="active"</c:if>><a href="/milestones/closed">Closed</a></li>
+	<li role="presentation"<c:if test="${stat=='all'}"> class="active"</c:if>><a href="/milestones/all">All</a></li>
 </ul>
 </div>
 <table class="table">
 <c:forEach var="milestone" items="${list}">
 <tr>
-	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>><a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br/>0 Issues</td>
 	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
-		0% complete<br/>
+		<a href="/milestone/${milestone.mno}">${milestone.mtitle}</a><br/>
+		0 Issues<br/>
+		<mark style="background-color: #f8fafc"><span style="font-size: 0.8em">${milestone.uname} / ${milestone.pname}</span></mark>
+	</td>
+	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
+		<div style="text-align: right">0% complete</div>
 		<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>
 	</td>
 </tr>

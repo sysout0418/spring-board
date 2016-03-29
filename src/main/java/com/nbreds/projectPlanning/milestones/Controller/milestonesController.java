@@ -46,7 +46,6 @@ public class milestonesController {
 			param.put("uno", uno);
 			list = service.getJoinMilestones(param);
 		}
-		
 		model.addAttribute("stat", stat);
 		model.addAttribute("list", list);
 		
@@ -152,5 +151,20 @@ public class milestonesController {
 		service.reopenMilestone(mno);
 		
 		return "redirect:/"+uno+"/"+pno+"/milestone/"+mno;
+	}
+	
+	@RequestMapping("/milestone/{mno}")
+	public String  detailMilestone(@PathVariable("mno") int mno, Model model, HttpSession session){
+		String uno = String.valueOf(session.getAttribute("user_no")); //세션의 uno
+		Milestones milestone = service.getMilestoneBymno(mno);
+		String uname = service.getUnameByUno(uno);
+		String pname = service.getPnameByPno(milestone.getPno());
+		
+		model.addAttribute("uno", uno);
+		model.addAttribute("uname", uname);
+		model.addAttribute("pname", pname);
+		model.addAttribute("milestone", milestone);
+		
+		return "/milestones/detailMilestone_dash";
 	}
 }

@@ -75,15 +75,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getJoinMilestones" parameterType="hashmap" resultType="hashmap">
     <![CDATA[
-    SELECT M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
-	FROM Milestones M, Project P, User U
-	WHERE M.pno = P.pno AND P.uno = U.uno OR P.pmember like '%' #{uno} '%'
+    SELECT M.mno, M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
+	FROM Project P inner join Milestones M on M.pno = P.pno
+	             inner join User U on P.uno = U.uno
+	WHERE 
 	]]>
 	<if test="mstatement != null">
-	and mstatement=#{mstatement}
+	M.mstatement=#{mstatement} AND 
 	</if>
 	<![CDATA[
-	order by mno desc  
+	(P.pmember like '%' #{uno} '%' OR P.uno = #{uno})
+	ORDER BY M.mno DESC
+	]]> 
+    </select>
+    
+    <select id="getPnameByPno" parameterType="int" resultType="String">
+    <![CDATA[
+    select pname FROM Project
+	where pno=#{pno}
+	]]>
+    </select>
+    
+    <select id="getUnameByUno" parameterType="String" resultType="String">
+    <![CDATA[
+    select uname FROM User
+	where uno=#{uno}
 	]]>
     </select>
 </mapper>

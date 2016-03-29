@@ -46,4 +46,12 @@ public class milestonesDAO {
 	public List<String> getJoinMilestones(HashMap<String, Object> param) {
 		return sqlSession.selectList("milestones.getJoinMilestones", param);
 	}
+
+	public String getPnameByPno(int pno) {
+		return sqlSession.selectOne("milestones.getPnameByPno", pno);
+	}
+
+	public String getUnameByUno(String uno) {
+		return sqlSession.selectOne("milestones.getUnameByUno", uno);
+	}
 }

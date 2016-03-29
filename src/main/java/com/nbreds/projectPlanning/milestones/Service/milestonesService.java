@@ -46,4 +46,12 @@ public class milestonesService {
 	public List<String> getJoinMilestones(HashMap<String, Object> param) {
 		return milestonesdao.getJoinMilestones(param);
 	}
+
+	public String getPnameByPno(int pno) {
+		return milestonesdao.getPnameByPno(pno);
+	}
+
+	public String getUnameByUno(String uno) {
+		return milestonesdao.getUnameByUno(uno);
+	}
 }
