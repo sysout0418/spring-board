@@ -54,6 +54,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 <div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${completeIssuePercent}%;"></div></div>
 </td></tr>
 </table>
+<input type="hidden" id="uno" value="${uno}"/>
 <div role="tabpanel">
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
@@ -64,32 +65,32 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 <!-- Tab panes -->
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="issues">
-		<ul id="sortable1" class="connectedSortable">
-		  <li>Unstarted Issues (open and unassigned)</li>
+		<ul id="unstarted1" class="connectedSortable">
+		  <li style="background-color: #f7f8fa">Unstarted Issues (open and unassigned)</li>
 		  <li>Drag and drop available</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '000' && issue.uno == ''}">
-		  <li class="ui-state-default">${issue.ititle}</li>
+		  <li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
 		  </c:if>
 		  </c:forEach>
 		</ul>
 		 
-		<ul id="sortable2" class="connectedSortable">
-		  <li>Unstarted Issues (open and assigned)</li>
+		<ul id="unstarted2" class="connectedSortable">
+		  <li style="background-color: #f7f8fa">Unstarted Issues (open and assigned)</li>
 		  <li>Drag and drop available</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '000' && issue.uno != ''}">
-		  <li class="ui-state-default">${issue.ititle}</li>
+		  <li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
 		  </c:if>
 		  </c:forEach>
 		</ul>
 		
-		<ul id="sortable3" class="connectedSortable">
-		  <li>Completed Issues (closed)</li>
+		<ul id="completed" class="connectedSortable">
+		  <li style="background-color: #f7f8fa">Completed Issues (closed)</li>
 		  <li>Drag and drop available</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '001'}">
-		  <li class="ui-state-default">${issue.ititle}</li>
+		  <li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
 		  </c:if>
 		  </c:forEach>
 		</ul>
@@ -104,7 +105,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 </div>
 </div>
   <style>
-  #sortable1, #sortable2, #sortable3 {
+  #unstarted1, #unstarted2, #completed {
     border: 1px solid #eee;
     width: 370px;
     min-height: 20px;
@@ -114,17 +115,30 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
     float: left;
     margin-right: 30px;
   }
-  #sortable1 li, #sortable2 li, #sortable3 li {
+  #unstarted1 li, #unstarted2 li, #completed li {
     margin: 0 5px 5px 5px;
     padding: 5px;
     font-size: 0.9em;
     width: 360px;
+    height: 35px;
   }
   </style>
   <script>
   $(function() {
-    $( "#sortable1, #sortable2, #sortable3" ).sortable({
-      connectWith: ".connectedSortable"
+    $( "#unstarted1, #unstarted2, #completed" ).sortable({
+      connectWith: ".connectedSortable",
+      cursor: "move",
+      placeholder: "ui-state-highlight",
+      receive: function(event, ui){
+    	  var item = ui.item.attr("id");
+    	  var place = $(this).attr('id');
+    	  var uno = $('#uno').val();
+    	  $.ajax({      
+    	        type:"POST",  
+    	        url:'/milestones/ajax',      
+    	        data:{"item" : item, "place" : place, "uno" : uno}
+    	    });  
+      }
     }).disableSelection();
   });
   </script>

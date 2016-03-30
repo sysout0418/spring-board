@@ -71,4 +71,8 @@ public class milestonesService {
 	public int countOpenIssuesByMno(int mno) {
 		return milestonesdao.countOpenIssuesByMno(mno);
 	}
+
+	public void editIssueByIno(HashMap<String, Object> param) {
+		milestonesdao.editIssueByIno(param);
+	}
 }

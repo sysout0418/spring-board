@@ -216,4 +216,29 @@ public class milestonesController {
 		
 		return "redirect:/"+uno+"/"+pno+"/milestone/"+mno;
 	}
+	
+	@RequestMapping(value="/milestones/ajax", method = RequestMethod.POST)
+	public void ajax(int item, String place, int uno){
+		HashMap<String, Object> param = new HashMap<>();
+		if(place.equals("unstarted1")){
+			param.put("ino", item);
+			param.put("istatement", "000");
+			param.put("uno", 0);
+			service.editIssueByIno(param);
+		}
+		else if(place.equals("unstarted2")){
+			param.put("ino", item);
+			param.put("istatement", "000");
+			param.put("uno", uno);
+			service.editIssueByIno(param);
+		}
+		else if(place.equals("completed")){
+			param.put("ino", item);
+			param.put("istatement", "001");
+			service.editIssueByIno(param);
+		}
+		else{
+			
+		}
+	}
 }

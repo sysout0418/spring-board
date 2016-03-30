@@ -64,7 +64,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="issues">
 		<ul id="sortable1" class="connectedSortable">
-		  <li>Open</li>
+		  <li style="background-color: #f7f8fa">Open</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '000'}">
 		  <li class="ui-state-default">${issue.ititle}</li>
@@ -73,7 +73,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 		</ul>
 		 
 		<ul id="sortable2" class="connectedSortable">
-		  <li>Closed</li>
+		  <li style="background-color: #f7f8fa">Closed</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '001'}">
 		  <li class="ui-state-default">${issue.ititle}</li>
