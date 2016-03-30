@@ -26,17 +26,17 @@
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" 
+							<c:if test="${stat=='open'}"> class="active"</c:if>>
+							<a href="/${uno}/${pno}/issues/open">Open</a></li>
 						<li role="presentation"
-							<c:if test="${stat=='open'}"> class="active"</c:if>><a
-							href="/${uno}/${pno}/issues/open">Open</a></li>
+							<c:if test="${stat=='closed'}"> class="active"</c:if>>
+							<a href="/${uno}/${pno}/issues/closed">Closed</a></li>
 						<li role="presentation"
-							<c:if test="${stat=='closed'}"> class="active"</c:if>><a
-							href="/${uno}/${pno}/issues/closed">Closed</a></li>
-						<li role="presentation"
-							<c:if test="${stat=='all'}"> class="active"</c:if>><a
-							href="/${uno}/${pno}/issues/all">All</a></li>
-						<li style="position: absolute; right: 200px;"><a
-							href="/${uno}/${pno}/issues/new" class="btn btn-success">+
+							<c:if test="${stat=='all'}"> class="active"</c:if>>
+							<a href="/${uno}/${pno}/issues/all">All</a></li>
+						<li style="position: absolute; right: 200px;">
+							<a href="/${uno}/${pno}/issues/new" class="btn btn-success">+
 								New Issues</a></li>
 					</ul>
 
@@ -49,7 +49,7 @@
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
 								<c:forEach var="users" items="${userList}">
-									<li><a href="/${uno}/${pno}/issues/${stat}/${users.uno}">${users.uname}</a></li>
+									<li><a id="userNo" alt="${users.uno}" href="#">${users.uname}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -85,11 +85,9 @@
 								aria-expanded="false"><span class="caret"
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li class="divider"></li>
-								<li><a href="#">4</a></li>
+								<c:forEach var="label" items="${allLabelList}">
+									<li><a id="labelNo" alt="${label.lno }" href="#" style="text-color: ${label.lbgcolor}">${label.ltitle}</a></li>
+								</c:forEach>
 							</ul>
 						</div>
 						<div class="btn-group">

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.registProject.Service.registService;
+import com.nbreds.projectPlanning.issueLabel.Service.IssueLabelService;
+import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.issuesService;
 import com.nbreds.projectPlanning.issues.VO.Issues;
 import com.nbreds.projectPlanning.label.Service.labelService;
@@ -38,6 +40,9 @@ public class issuesController {
 
 	@Autowired
 	labelService labelService;
+	
+	@Autowired
+	IssueLabelService issueLabelService;
 
 	@Autowired
 	milestonesService milestoneService;
@@ -53,6 +58,7 @@ public class issuesController {
 			@PathVariable("statement") String stat, Model model) {
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
+		List<Label> allLabelList = labelService.getAllLabel();
 		List<User> userList = registService.getAllUserNameAndNo();
 		Map<String, Object> param = new HashMap<String, Object>();
 		if (stat.equals("open")) {
@@ -82,6 +88,7 @@ public class issuesController {
 		model.addAttribute("stat", stat);
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
+		model.addAttribute("allLabelList", allLabelList);
 
 		return "/Project/myProjects/Issues/issues";
 	}
@@ -111,13 +118,23 @@ public class issuesController {
 
 	// issue 등록 요청
 	@RequestMapping("/issues/regist")
-	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issues issues, BindingResult result) {
+	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issues issues, @ModelAttribute("Issues2") IssueLabel issueLabel, BindingResult result) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 		logger.info("weight : " + issues.getIweight());
 		logger.info("pno : " + issues.getPno());
+		logger.info("lno : " + issues.getLno());
+		String[] lnos = String.valueOf(issues.getLno()).split(",");
 		issuesService.saveIssues(issues);
-
+		int lastInsertIno = issuesService.getLastIno();
+		issueLabel.setIno(lastInsertIno);
+		if (lnos != null && lnos.length > 0) {
+			for (int i = 0; i < lnos.length; i++) {
+				issueLabel.setLno(Integer.parseInt(lnos[i]));
+				issueLabelService.saveIssueLabel(issueLabel);
+			}
+		}
+		
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 
@@ -166,25 +183,44 @@ public class issuesController {
 	@RequestMapping("/{uno}/{pno}/issues/{statement}/{searchUno}")
 	public String searchIssueByUno(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("statement") String stat, 
 			@PathVariable("searchUno") int searchUno, Model model) {
+		logger.info("searchUno : " + searchUno);
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issues> issuesList = new ArrayList<Issues>();
+		List<Label> labelList = new ArrayList<Label>();
+		List<User> userList = registService.getAllUserNameAndNo();
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("searchUno", searchUno);
 			param.put("istatement", "000");
-			issuesList = issuesService.getIssuesByPno(param);
+			issuesList = issuesService.getIssuesByUno(param);
+			for (int i = 0; i < issuesList.size(); i++) {
+				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				issuesList.get(i).setLabels(labelList);
+			}
 		} if (stat.equals("closed")) {
 			param.put("pno", pno);
 			param.put("searchUno", searchUno);
 			param.put("istatement", "001");
-			issuesList = issuesService.getIssuesByPno(param);
+			issuesList = issuesService.getIssuesByUno(param);
+			System.out.println(issuesList.size());
+			for (int i = 0; i < issuesList.size(); i++) {
+				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				issuesList.get(i).setLabels(labelList);
+			}
 		} else {
 			param.put("pno", pno);
 			param.put("searchUno", searchUno);
-			issuesList = issuesService.getIssuesByPno(param);
+			issuesList = issuesService.getIssuesByUno(param);
+			for (int i = 0; i < issuesList.size(); i++) {
+				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				issuesList.get(i).setLabels(labelList);
+			}
 		}
 		
+		model.addAttribute("stat", stat);
+		model.addAttribute("searchUno", searchUno);
 		model.addAttribute("issuesList", issuesList);
+		model.addAttribute("userList", userList);
 		
 		return "/Project/myProjects/Issues/issues";
 	}

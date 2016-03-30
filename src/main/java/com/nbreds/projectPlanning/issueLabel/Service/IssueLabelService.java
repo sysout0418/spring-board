@@ -12,7 +12,7 @@ public class IssueLabelService {
 	@Autowired
 	IssueLabelDAO issueLabelDAO;
 	
-	public void saveIssues(IssueLabel issueLabel) {
+	public void saveIssueLabel(IssueLabel issueLabel) {
 		issueLabelDAO.saveIssueLabel(issueLabel);
 	}
 	

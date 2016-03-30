@@ -26,9 +26,16 @@ public class issuesDAO {
 	public Issues getIssuesByIno(int ino) {
 		return sqlSession.selectOne("issues.getIssuesByIno", ino);
 	}
-	
+
 	public List<Issues> getIssuesByPno(Map<String, Object> param) {
 		return sqlSession.selectList("issues.getIssuesByPno", param);
+	}
+	
+	public List<Issues> getIssuesByUno(Map<String, Object> param) {
+		System.out.println(param.get("pno"));
+		System.out.println(param.get("searchUno"));
+		System.out.println(param.get("istatement"));
+		return sqlSession.selectList("issues.getIssuesByUno", param);
 	}
 	
 	public void updateIssueByIno(Issues issues) {
@@ -45,5 +52,9 @@ public class issuesDAO {
 	
 	public void closeIssue(Map<String, Object> param) {
 		sqlSession.update("issues.closeIssue", param);
+	}
+	
+	public int getLastIno() {
+		return sqlSession.selectOne("issues.getLastIno");
 	}
 }

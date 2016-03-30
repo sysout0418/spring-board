@@ -26,9 +26,13 @@ public class issuesService {
 	public Issues getIssuesByIno(int ino) {
 		return issuesdao.getIssuesByIno(ino);
 	}
-	
+
 	public List<Issues> getIssuesByPno(Map<String, Object> param) {
 		return issuesdao.getIssuesByPno(param);
+	}
+	
+	public List<Issues> getIssuesByUno(Map<String, Object> param) {
+		return issuesdao.getIssuesByUno(param);
 	}
 	
 	public void updateIssueByIno(Issues issues) {
@@ -45,5 +49,9 @@ public class issuesService {
 	
 	public void closeIssue(Map<String, Object> param) {
 		issuesdao.closeIssue(param);
+	}
+	
+	public int getLastIno() {
+		return issuesdao.getLastIno();
 	}
 }

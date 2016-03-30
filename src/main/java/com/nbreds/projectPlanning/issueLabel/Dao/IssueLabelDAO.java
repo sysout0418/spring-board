@@ -12,7 +12,7 @@ public class IssueLabelDAO {
 	private SqlSession sqlSession;
 	
 	public void saveIssueLabel(IssueLabel issueLabel) {
-		sqlSession.insert("issueLabel.saveIssueLabel", issueLabel);
+		sqlSession.insert("issuesLabel.saveIssueLabel", issueLabel);
 	}
 	
 }

@@ -170,7 +170,7 @@ public class listController {
 		logger.info("pdata : "+project.getPdata());
 		projectService.updateProject(project);
 		
-		return "redirect:/DetailProject?pno="+project.getPno();
+		return "redirect:/DetailProject/"+project.getPno();
 	}
 	
 	public String getCodeName(String code){

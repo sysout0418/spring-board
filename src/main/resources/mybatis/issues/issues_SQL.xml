@@ -4,6 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="issues">
+	<select id="getLastIno" resultType="int">
+	<![CDATA[	
+		select LAST_INSERT_ID()
+	]]>  
+	</select>
+	
 	<insert id="saveIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
 	  INSERT INTO Issues (
@@ -60,7 +66,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
-	<!-- 2016.03.29 uno != null인 경우 특정 pno 이슈 중 특정 uno가 올린 모든 Issue 가져오기도 됨 -->
 	<select id="getIssuesByPno" parameterType="map" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
     SELECT 
@@ -74,8 +79,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and istatement=#{istatement}
 	</if>
 	<![CDATA[
+    ORDER BY ino ASC
 	]]>
-	<if test="uno != null">
+	</select>
+	
+	<!-- 2016.03.29 uno != null인 경우 특정 pno 이슈 중 특정 uno가 올린 모든 Issue 가져오기-->
+	<select id="getIssuesByUno" parameterType="map" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT 
+    	ino, ititle, idescription, iweight, istatement, mno, pno, i.uno, uname
+    FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	where pno=#{pno}
+	]]>
+	<if test="istatement != null">
+	and istatement=#{istatement}
+	</if>
+	<![CDATA[
+	]]>
+	<if test="searchUno != null">
 	and i.uno=#{searchUno}
 	</if>
 	<![CDATA[

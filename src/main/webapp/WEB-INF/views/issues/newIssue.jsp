@@ -139,7 +139,6 @@
 							<div class="col-lg-10 col-lg-offset-2">
 								<button type="reset" class="btn btn-default">Cancel</button>
 								<button type="submit" id="submit" class="btn btn-primary">Submit</button>
-								<button type="button" id="test" class="btn btn-primary">test</button>
 							</div>
 						</div>
 					</fieldset>
@@ -153,7 +152,7 @@
 
 			$('.ltitle > a').bind('click', handler);
 
-			$('#test').click(handler2);
+			$('#submit').click(handler2);
 
 			function handler() {
 				console.log("handler 호출됨");

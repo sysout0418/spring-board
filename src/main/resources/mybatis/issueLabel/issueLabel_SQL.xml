@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="saveIssueLabel" parameterType="com.nbreds.projectPlanning.issueLabel.VO.IssueLabel">
     <![CDATA[
-	  INSERT INTO IssuesLabel (
+	  INSERT INTO IssueLabel (
 	  ino
 	  ,lno
 	) VALUES (
