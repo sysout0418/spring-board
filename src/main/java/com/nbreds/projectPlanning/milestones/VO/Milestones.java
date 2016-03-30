@@ -9,7 +9,10 @@ public class Milestones {
 	private int pno;
 	
 	private int countIssues;
-	private long completeIssuePercent;
+	private int completeIssuePercent;
+	
+	private String uname;
+	private String pname;
 	
 	public int getMno() {
 		return mno;
@@ -57,7 +60,20 @@ public class Milestones {
 	public long getCompleteIssuePercent() {
 		return completeIssuePercent;
 	}
-	public void setCompleteIssuePercent(long completeIssuePercent) {
+	public void setCompleteIssuePercent(int completeIssuePercent) {
 		this.completeIssuePercent = completeIssuePercent;
+	}
+	
+	public String getUname() {
+		return uname;
+	}
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
 	}
 }

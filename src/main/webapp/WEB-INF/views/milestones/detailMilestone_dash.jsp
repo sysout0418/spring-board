@@ -37,76 +37,77 @@ Milestone ${milestone.mtitle}
 	<td>Due date</td>
 </tr>
 <tr>
-	<td><a href="/${uno}/${milestone.pno}/milestone/${milestone.mno}">${uname} / ${pname}</a></td>
-	<td>0</td>
+	<td><a href="/${uno}/${milestone.pno}/milestone/${milestone.mno}">${milestone.uname} / ${milestone.pname}</a></td>
+	<td>${countOpenIssues}</td>
 	<td><c:if test="${milestone.mstatement=='000'}">Open</c:if><c:if test="${milestone.mstatement=='001'}">Closed</c:if></td>
 	<td>${milestone.mduedate}</td>
 <tr>
 <td colspan="4">
 <h4>Progress</h4>  	
-0 issues: 0 open and 0 closed 0% complete
+${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${countClosedIssues}" maxIntegerDigits="1"/> closed ${completeIssuePercent}% complete
 <div style="float: right;">
 <button type="button" class="btn btn-default">Browse Issue</button>
 </div>
 </td></tr>
 <tr><td colspan="4">
-<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>
+<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${completeIssuePercent}%;"></div></div>
 </td></tr>
 </table>
 <div role="tabpanel">
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-	<li role="presentation" class="active"><a href="#issues" aria-controls="home" role="tab" data-toggle="tab">Issues <span class="badge">0</span></a></li>
-	<li role="presentation"><a href="#participants" aria-controls="home" role="tab" data-toggle="tab">Participants <span class="badge">0</span></a></li>
+	<li role="presentation" class="active"><a href="#issues" aria-controls="home" role="tab" data-toggle="tab">Issues <span class="badge">${countIssues}</span></a></li>
+	<li role="presentation"><a href="#participants" aria-controls="home" role="tab" data-toggle="tab">Participants <span class="badge">${unameSize}</span></a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="issues">
 		<ul id="sortable1" class="connectedSortable">
-		  <li>Unstarted Issues (open and unassigned)</li>
-		  <li class="ui-state-default">Item 1</li>
+		  <li>Open</li>
+		  <c:forEach  var="issue" items="${issues}">
+		  <c:if test="${issue.istatement == '000'}">
+		  <li class="ui-state-default">${issue.ititle}</li>
+		  </c:if>
+		  </c:forEach>
 		</ul>
 		 
 		<ul id="sortable2" class="connectedSortable">
-		  <li>Unstarted Issues (open and unassigned)</li>
-		  <li class="ui-state-highlight">Item 2</li>
-		</ul>
-		
-		<ul id="sortable3" class="connectedSortable">
-		  <li>Completed Issues (closed)</li>
-		  <li class="ui-state-highlight">Item3</li>
+		  <li>Closed</li>
+		  <c:forEach  var="issue" items="${issues}">
+		  <c:if test="${issue.istatement == '001'}">
+		  <li class="ui-state-default">${issue.ititle}</li>
+		  </c:if>
+		  </c:forEach>
 		</ul>
 	</div>
-	<div role="tabpanel" class="tab-pane" id="participants">2</div>
-	<div role="tabpanel" class="tab-pane" id="labels">3</div>
+	<div role="tabpanel" class="tab-pane" id="participants">
+		<table class="table">
+		<c:forEach  var="uname" items="${uname}">
+		<tr><td>${uname}</td></tr>
+		</c:forEach>
+		</table>
+	</div>
 </div>
 </div>
-  <style>
-  #sortable1, #sortable2, #sortable3 {
-    border: 1px solid #eee;
-    width: 370px;
-    min-height: 20px;
-    list-style-type: none;
-    margin: 0;
-    padding: 5px 0 0 0;
-    float: left;
-    margin-right: 30px;
-  }
-  #sortable1 li, #sortable2 li, #sortable3 li {
-    margin: 0 5px 5px 5px;
-    padding: 5px;
-    font-size: 0.9em;
-    width: 360px;
-  }
-  </style>
-  <script>
-  $(function() {
-    $( "#sortable1, #sortable2, #sortable3" ).sortable({
-      connectWith: ".connectedSortable"
-    }).disableSelection();
-  });
-  </script>
+<style>
+#sortable1, #sortable2 {
+  border: 1px solid #eee;
+  width: 570px;
+  min-height: 20px;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px 0 0 0;
+  float: left;
+  margin-right: 30px;
+}
+#sortable1 li, #sortable2 li{
+  margin: 0 5px 5px 5px;
+  padding: 5px;
+  font-size: 0.9em;
+  width: 520px;
+}
+</style>
 </div>
  </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

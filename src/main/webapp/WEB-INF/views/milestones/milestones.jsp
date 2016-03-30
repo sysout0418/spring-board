@@ -35,12 +35,12 @@
 <tr>
 	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 		<a href="/milestone/${milestone.mno}">${milestone.mtitle}</a><br/>
-		0 Issues<br/>
+		${milestone.countIssues} Issues<br/>
 		<mark style="background-color: #f8fafc"><span style="font-size: 0.8em">${milestone.uname} / ${milestone.pname}</span></mark>
 	</td>
 	<td<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
-		<div style="text-align: right">0% complete</div>
-		<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>
+		<div style="text-align: right">${milestone.completeIssuePercent}% complete</div>
+		<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${milestone.completeIssuePercent}%;"></div></div>
 	</td>
 </tr>
 </c:forEach>

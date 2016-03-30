@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <div class="container-fluid">
 <div class="row">
@@ -25,7 +26,7 @@
 <tr><td>
 <c:if test="${milestone.mstatement=='000'}"><span class="label label-success">Open</span></c:if>
 <c:if test="${milestone.mstatement=='001'}"><span class="label label-danger">Closed</span></c:if>
-Milestone #${mno}
+Milestone #${mno} expires at ${milestone.mduedate}
 <div style="float: right;">
 <a href="/milestones/edit/${uno}/${pno}/${milestone.mno}" class="btn btn-default">Edit</a>
 <c:if test="${milestone.mstatement=='000'}">
@@ -43,21 +44,21 @@ ${milestone.mdescription}
 </td></tr>
 <tr><td>
 <h4>Progress</h4>  	
-0 issues: 0 open and 0 closed 0% complete
+${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${countClosedIssues}" maxIntegerDigits="1"/> closed ${completeIssuePercent}% complete
 <div style="float: right;">
 <button type="button" class="btn btn-default">New Issue</button>
 <button type="button" class="btn btn-default">Browse Issue</button>
 </div>
 </td></tr>
 <tr><td>
-<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div>
+<div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${completeIssuePercent}%;"></div></div>
 </td></tr>
 </table>
 <div role="tabpanel">
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
-	<li role="presentation" class="active"><a href="#issues" aria-controls="home" role="tab" data-toggle="tab">Issues <span class="badge">0</span></a></li>
-	<li role="presentation"><a href="#participants" aria-controls="home" role="tab" data-toggle="tab">Participants <span class="badge">0</span></a></li>
+	<li role="presentation" class="active"><a href="#issues" aria-controls="home" role="tab" data-toggle="tab">Issues <span class="badge">${countIssues}</span></a></li>
+	<li role="presentation"><a href="#participants" aria-controls="home" role="tab" data-toggle="tab">Participants <span class="badge">${unameSize}</span></a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -65,21 +66,41 @@ ${milestone.mdescription}
 	<div role="tabpanel" class="tab-pane active" id="issues">
 		<ul id="sortable1" class="connectedSortable">
 		  <li>Unstarted Issues (open and unassigned)</li>
-		  <li class="ui-state-default">Item 1</li>
+		  <li>Drag and drop available</li>
+		  <c:forEach  var="issue" items="${issues}">
+		  <c:if test="${issue.istatement == '000' && issue.uno == ''}">
+		  <li class="ui-state-default">${issue.ititle}</li>
+		  </c:if>
+		  </c:forEach>
 		</ul>
 		 
 		<ul id="sortable2" class="connectedSortable">
-		  <li>Unstarted Issues (open and unassigned)</li>
-		  <li class="ui-state-highlight">Item 2</li>
+		  <li>Unstarted Issues (open and assigned)</li>
+		  <li>Drag and drop available</li>
+		  <c:forEach  var="issue" items="${issues}">
+		  <c:if test="${issue.istatement == '000' && issue.uno != ''}">
+		  <li class="ui-state-default">${issue.ititle}</li>
+		  </c:if>
+		  </c:forEach>
 		</ul>
 		
 		<ul id="sortable3" class="connectedSortable">
 		  <li>Completed Issues (closed)</li>
-		  <li class="ui-state-highlight">Item3</li>
+		  <li>Drag and drop available</li>
+		  <c:forEach  var="issue" items="${issues}">
+		  <c:if test="${issue.istatement == '001'}">
+		  <li class="ui-state-default">${issue.ititle}</li>
+		  </c:if>
+		  </c:forEach>
 		</ul>
 	</div>
-	<div role="tabpanel" class="tab-pane" id="participants">2</div>
-	<div role="tabpanel" class="tab-pane" id="labels">3</div>
+	<div role="tabpanel" class="tab-pane" id="participants">
+		<table class="table">
+		<c:forEach  var="uname" items="${uname}">
+		<tr><td>${uname}</td></tr>
+		</c:forEach>
+		</table>
+	</div>
 </div>
 </div>
   <style>
