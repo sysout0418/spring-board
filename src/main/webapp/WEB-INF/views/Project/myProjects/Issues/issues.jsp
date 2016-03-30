@@ -42,14 +42,19 @@
 
 					<!-- Tab panes -->
 					<div class="tab-content well">
+						<input type="hidden" id="userNo" name="userNo" value="">
+						<input type="hidden" id="mno" name="mno" value="">
+						<input type="hidden" id="lno" name="lno" value="">
+						<input type="hidden" id="weight" name="weight" value="">
 						<div class="btn-group">
-							<a href="#" class="btn btn-default">Author</a> <a href="#"
+							<a href="#" class="btn btn-default"><span id="selectedAssign">Assignee</span></a> <a href="#"
 								class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 								aria-expanded="false"><span class="caret"
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
 								<c:forEach var="users" items="${userList}">
-									<li><a id="userNo" alt="${users.uno}" href="#">${users.uname}</a></li>
+									<li class="userNo1">
+									<a alt="${users.uno}" href="#">${users.uname}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -67,42 +72,39 @@
 							</ul>
 						</div> -->
 						<div class="btn-group">
-							<a href="#" class="btn btn-default">Milestone</a> <a href="#"
+							<a href="#" class="btn btn-default"><span id="selectedMilestone">Milestone</span></a> <a href="#"
 								class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 								aria-expanded="false"><span class="caret"
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li class="divider"></li>
-								<li><a href="#">4</a></li>
+								<c:forEach var="milestone" items="${allMilestoneList}">
+								<li class="milestoneNo"><a id="milestoneNo" alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
+								</c:forEach>
 							</ul>
 						</div>
 						<div class="btn-group">
-							<a href="#" class="btn btn-default">Label</a> <a href="#"
+							<a href="#" class="btn btn-default"><span id="selectedLabel">Label</span></a> <a href="#"
 								class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 								aria-expanded="false"><span class="caret"
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
 								<c:forEach var="label" items="${allLabelList}">
-									<li><a id="labelNo" alt="${label.lno }" href="#" style="text-color: ${label.lbgcolor}">${label.ltitle}</a></li>
+									<li class="labelNo"><a id="labelNo" alt="${label.lno}" href="#" style="text-color: ${label.lbgcolor}">${label.ltitle}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
 						<div class="btn-group">
-							<a href="#" class="btn btn-default">Weight</a> <a href="#"
+							<a href="#" class="btn btn-default"><span id="selectedWeight">Weight</span></a> <a href="#"
 								class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 								aria-expanded="false"><span class="caret"
 								style="height: 10px; margin-top: 10px;"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li class="divider"></li>
-								<li><a href="#">4</a></li>
+								<% for (int i = 1; i < 10; i++) { %>
+									<li class="weight"><a href="#"><%= i %></a></li>
+								<% } %>
 							</ul>
 						</div>
+						<a href="#" id="searchBtn" class="btn btn-info">Search</a>
 					</div>
 					<form name="frm" id="frm" method="post">
 						<input type="hidden" name="isCheckCbListAll" value="F">
@@ -156,6 +158,40 @@
 			</div>
 		</div>
 		<script type="text/javascript">
+			$('.dropdown-menu > .userNo1 > a').bind('click', function() {
+				var userName = $(this).text();
+				var userNo = $(this).attr("alt");
+				console.log(userNo);
+				$("#userNo").val(userNo);
+				$("#selectedAssign").text(userName);
+			});
+			$('.dropdown-menu > .milestoneNo > a').bind('click', function() {
+				var mTitle = $(this).text();
+				var milestoneNo = $(this).attr("alt");
+				console.log(milestoneNo);
+				$("#mno").val(milestoneNo);
+				$("#selectedMilestone").text(mTitle);
+			});
+			$('.dropdown-menu > .labelNo > a').bind('click', function() {
+				var lTitle = $(this).text();
+				var labelNo = $(this).attr("alt");
+				console.log(labelNo);
+				$("#lno").val(labelNo);
+				$("#selectedLabel").text(lTitle);
+			});
+			$('.dropdown-menu > .weight > a').bind('click', function() {
+				var weight = $(this).text();
+				console.log(weight);
+				$("#weight").val(weight);
+				$("#selectedWeight").text(weight);
+			});
+		
+			$('#searchBtn').click(function() {
+				$('#searchBtn').attr("href", "/${uno}/${pno}/issues/${stat}/search?userNo=" 
+						+ $("#userNo").val() + "&mno=" + $("#mno").val()
+						+ "&lno=" + $("#lno").val() + "&weight=" + $("#weight").val());
+			});
+			
 			//문자열 공백제거 함수
 			String.prototype.stripspace = function() {
 				alert("호출.........");

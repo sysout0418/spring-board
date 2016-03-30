@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-	int lno = 0;
+	int i = 0;
 %>
 <style>
 .btn-width {
@@ -33,9 +33,10 @@
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
 				<form:form class="form-horizontal" method="post"
 					action="/issues/regist" commandName="Issues">
-					<input type="hidden" value="${uno}" name="uno" id="uno">
+					<input type="hidden" value="" name="userNo" id="userNo">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
-					<input type="hidden" value="" name="iweight" id="iweight">
+					<input type="hidden" value="" id="mno" name="mno">
+					<input type="hidden" value="" name="weight" id="weight">
 					<input type="hidden" value="" name="lno" id="lno">
 					<fieldset>
 						<legend class="page-header">
@@ -57,31 +58,33 @@
 								<span class="help-block">help 설명</span>
 							</div>
 						</div>
-						<%-- <div class="form-group">
+						<div class="form-group">
 							<label for="inputAssignee" class="col-lg-2 control-label">Assignee</label>
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-width"
-									style="text-align: left; margin-left: 15px;">select
-									assignee</a> <a href="#" class="btn btn-default dropdown-toggle"
+									style="text-align: left; margin-left: 15px;"><span id="selectedAssign">select
+									assignee</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<c:forEach var="users" items="${users}">
-										<li><a href="#">${users.uname}</a></li>
+									<c:forEach var="users" items="${userList}">
+										<li class="userNo1"><a href="#" alt="${users.uno }">${users.uname}</a></li>
 									</c:forEach>
 								</ul>
 							</div>
-						</div> --%>
+						</div>
 						<div class="form-group">
 							<label for="inputMilestone" class="col-lg-2 control-label">Milestone</label>
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-width"
-									style="text-align: left; margin-left: 15px;">Select
-									Milestone</a> <a href="#" class="btn btn-default dropdown-toggle"
+									style="text-align: left; margin-left: 15px;"><span id="selectedMilestone">Select
+									Milestone</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">마일스톤 연동</a></li>
+									<c:forEach var="milestone" items="${allMilestoneList}">
+										<li class="milestoneNo"><a href="#" alt="${milestone.mno}">${milestone.mtitle}</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -94,16 +97,9 @@
 									class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
 									class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="#" id="weight0">No Weight</a></li>
-									<li><a href="#" id="weight1">1</a></li>
-									<li><a href="#" id="weight2">2</a></li>
-									<li><a href="#" id="weight3">3</a></li>
-									<li><a href="#" id="weight4">4</a></li>
-									<li><a href="#" id="weight5">5</a></li>
-									<li><a href="#" id="weight6">6</a></li>
-									<li><a href="#" id="weight7">7</a></li>
-									<li><a href="#" id="weight8">8</a></li>
-									<li><a href="#" id="weight9">9</a></li>
+									<% for (i = 1; i < 10; i++) {%>
+										<li class="weight"><a href="#" id="weight<%=i%>"><%=i%></a></li>
+									<%}%>
 								</ul>
 							</div>
 						</div>
@@ -111,13 +107,13 @@
 							<label for="inputLabels" class="col-lg-2 control-label">Labels</label>
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-width"
-									style="text-align: left; margin-left: 15px;">Select Labels</a><a
+									style="text-align: left; margin-left: 15px;"><span id="selectedLabel">Select Labels</span></a><a
 									href="#" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
 									<c:forEach var="labels" items="${labels}" varStatus="status">
-										<li class="ltitle"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
+										<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
 									</c:forEach>
 								</ul>
 								<div style="margin-left: 15px; margin-top: 50px;">
@@ -150,70 +146,71 @@
 				plugins : 'tags'
 			});
 
-			$('.ltitle > a').bind('click', handler);
+			$('.labelNo > a').bind('click', function() {
+				var text = $(this).text();
+				var lno = $(this).attr("alt");
+				$('#inputLarge').textext()[0].tags().addTags([ text ]);
+				$('.text-tags > .text-tag').last().append(
+						"<input type=hidden id=lno1 value="+lno+">");
+			});
 
-			$('#submit').click(handler2);
+			$('#submit').click(function() {
+				var lno = "";
+				$('.text-tags > .text-tag > #lno1').each(function() {
+					lno += $(this).val() + ",";
+				});
+				$('#lno').val(lno.substring(0, lno.length - 1));
+			});
 
-			function handler() {
+			/* function handler() {
 				console.log("handler 호출됨");
 				var text = $(this).text();
 				var lno = $(this).attr("alt");
 				$('#inputLarge').textext()[0].tags().addTags([ text ]);
 				$('.text-tags > .text-tag').last().append(
 						"<input type=hidden id=lno1 value="+lno+">");
-			}
+			} */
 
-			function handler2() {
+			/* function handler2() {
 				console.log("handler2 호출됨");
 				var lno = "";
 				$('.text-tags > .text-tag > #lno1').each(function() {
 					lno += $(this).val() + ",";
 				});
 				$('#lno').val(lno.substring(0, lno.length - 1));
-			}
+			} */
 
-			$(function() {
-				$('#weight0').click(function() {
-					$('#selectedWeight').text($('#weight0').text());
-					//$('#weight').val($('#selectedWeight').text());
-				});
-				$('#weight1').click(function() {
-					$('#selectedWeight').text($('#weight1').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight2').click(function() {
-					$('#selectedWeight').text($('#weight2').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight3').click(function() {
-					$('#selectedWeight').text($('#weight3').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight4').click(function() {
-					$('#selectedWeight').text($('#weight4').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight5').click(function() {
-					$('#selectedWeight').text($('#weight5').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight6').click(function() {
-					$('#selectedWeight').text($('#weight6').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight7').click(function() {
-					$('#selectedWeight').text($('#weight7').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight8').click(function() {
-					$('#selectedWeight').text($('#weight8').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
-				$('#weight9').click(function() {
-					$('#selectedWeight').text($('#weight9').text());
-					$('#iweight').val($('#selectedWeight').text());
-				});
+			$('.dropdown-menu > .userNo1 > a').bind('click', function() {
+				var userName = $(this).text();
+				var userNo = $(this).attr("alt");
+				console.log(userNo);
+				$("#userNo").val(userNo);
+				$("#selectedAssign").text(userName);
 			});
+			
+			$('.dropdown-menu > .milestoneNo > a').bind('click', function() {
+				var mTitle = $(this).text();
+				var milestoneNo = $(this).attr("alt");
+				console.log(milestoneNo);
+				$("#mno").val(milestoneNo);
+				$("#selectedMilestone").text(mTitle);
+			});
+			
+			$('.dropdown-menu > .weight > a').bind('click', function() {
+				var weight = $(this).text();
+				//var weight = $(this).attr("alt");
+				//console.log(userNo);
+				$("#weight").val(weight);
+				$("#selectedWeight").text(weight);
+			});
+			
+			/* $('.dropdown-menu > .labelNo > a').bind('click', function() {
+				var lTitle = $(this).text();
+				var labelNo = $(this).attr("alt");
+				console.log(labelNo);
+				$("#lno").val(labelNo);
+				$("#selectedLabel").text(lTitle);
+			}); */
 		</script>
 		<jsp:include
 			page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

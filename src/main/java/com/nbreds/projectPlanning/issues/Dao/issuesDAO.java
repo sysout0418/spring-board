@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Repository
 public class issuesDAO {
@@ -31,11 +32,12 @@ public class issuesDAO {
 		return sqlSession.selectList("issues.getIssuesByPno", param);
 	}
 	
-	public List<Issues> getIssuesByUno(Map<String, Object> param) {
-		System.out.println(param.get("pno"));
-		System.out.println(param.get("searchUno"));
-		System.out.println(param.get("istatement"));
-		return sqlSession.selectList("issues.getIssuesByUno", param);
+	public List<Issues> searchIssues(Map<String, Object> param) {
+		return sqlSession.selectList("issues.searchIssues", param);
+	}
+	
+	public List<Milestones> getAllMilestone() {
+		return sqlSession.selectList("issues.getAllMilestone");
 	}
 	
 	public void updateIssueByIno(Issues issues) {

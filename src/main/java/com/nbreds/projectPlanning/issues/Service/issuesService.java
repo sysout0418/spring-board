@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.issues.Dao.issuesDAO;
 import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Service
 public class issuesService {
@@ -31,8 +32,12 @@ public class issuesService {
 		return issuesdao.getIssuesByPno(param);
 	}
 	
-	public List<Issues> getIssuesByUno(Map<String, Object> param) {
-		return issuesdao.getIssuesByUno(param);
+	public List<Issues> searchIssues(Map<String, Object> param) {
+		return issuesdao.searchIssues(param);
+	}
+	
+	public List<Milestones> getAllMilestone() {
+		return issuesdao.getAllMilestone();
 	}
 	
 	public void updateIssueByIno(Issues issues) {

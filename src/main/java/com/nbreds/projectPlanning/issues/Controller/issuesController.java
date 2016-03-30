@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.User;
@@ -56,9 +57,13 @@ public class issuesController {
 	@RequestMapping("/{uno}/{pno}/issues/{statement}")
 	public String issuesList(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
 			@PathVariable("statement") String stat, Model model) {
+		logger.info("uno : " + uno);
+		logger.info("pno : " + pno);
+		logger.info("statement : " + stat);
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
 		List<Label> allLabelList = labelService.getAllLabel();
+		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
 		List<User> userList = registService.getAllUserNameAndNo();
 		Map<String, Object> param = new HashMap<String, Object>();
 		if (stat.equals("open")) {
@@ -89,9 +94,19 @@ public class issuesController {
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
+		model.addAttribute("allMilestoneList", allMilestoneList);
 
 		return "/Project/myProjects/Issues/issues";
 	}
+	
+//	@RequestMapping(value = "/{uno}/{pno}/issues/{statement}", method = RequestMethod.GET)
+//	public String searchIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
+//			@PathVariable("statement") String stat, @RequestParam("userNo") int userNo,
+//			@RequestParam("mno") int mno, @RequestParam("lno") int lno, 
+//			@RequestParam("weight") int weight, Model model) {
+//		System.out.println(userNo);
+//		return "";
+//	}
 
 	// ino로 특정 issue 정보 불러오기
 	@RequestMapping("/{uno}/{pno}/issue/{ino}")
@@ -99,8 +114,10 @@ public class issuesController {
 			Model model) {
 		Issues issues = issuesService.getIssuesByIno(ino);
 		List<Label> labelList = labelService.getLabelsByIno(issues.getIno());
+		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
 		issues.setLabels(labelList);
 		model.addAttribute("issues", issues);
+		model.addAttribute("allMilestoneList", allMilestoneList);
 
 		return "issues/detailIssue";
 	}
@@ -109,9 +126,13 @@ public class issuesController {
 	@RequestMapping("/{uno}/{pno}/issues/new")
 	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
 		List<Label> labels = labelService.getAllLabel();
+		List<User> userList = registService.getAllUserNameAndNo();
+		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("labels", labels);
+		model.addAttribute("userList", userList);
+		model.addAttribute("allMilestoneList", allMilestoneList);
 
 		return "/issues/newIssue";
 	}
@@ -180,28 +201,42 @@ public class issuesController {
 		return "redirect:/" + uno + "/" + pno + "/issues/closed";
 	}
 	
-	@RequestMapping("/{uno}/{pno}/issues/{statement}/{searchUno}")
+	@RequestMapping("/{uno}/{pno}/issues/{statement}/search")
 	public String searchIssueByUno(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("statement") String stat, 
-			@PathVariable("searchUno") int searchUno, Model model) {
-		logger.info("searchUno : " + searchUno);
+			@RequestParam(value="userNo", required=false) Integer userNo,
+			@RequestParam(value="mno", required=false) Integer mno,
+			@RequestParam(value="lno", required=false) Integer lno,
+			@RequestParam(value="weight", required=false) Integer weight, Model model) {
+		logger.info("userNo : " + userNo);
+		logger.info("mno : " + mno);
+		logger.info("lno : " + lno);
+		logger.info("weight : " + weight);
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = registService.getAllUserNameAndNo();
+		List<Label> allLabelList = labelService.getAllLabel();
+		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
 		if (stat.equals("open")) {
 			param.put("pno", pno);
-			param.put("searchUno", searchUno);
 			param.put("istatement", "000");
-			issuesList = issuesService.getIssuesByUno(param);
+			param.put("userNo", userNo);
+			param.put("mno", mno);
+			param.put("lno", lno);
+			param.put("weight", weight);
+			issuesList = issuesService.searchIssues(param);
 			for (int i = 0; i < issuesList.size(); i++) {
 				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		} if (stat.equals("closed")) {
 			param.put("pno", pno);
-			param.put("searchUno", searchUno);
 			param.put("istatement", "001");
-			issuesList = issuesService.getIssuesByUno(param);
+			param.put("userNo", userNo);
+			param.put("mno", mno);
+			param.put("lno", lno);
+			param.put("weight", weight);
+			issuesList = issuesService.searchIssues(param);
 			System.out.println(issuesList.size());
 			for (int i = 0; i < issuesList.size(); i++) {
 				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
@@ -209,8 +244,11 @@ public class issuesController {
 			}
 		} else {
 			param.put("pno", pno);
-			param.put("searchUno", searchUno);
-			issuesList = issuesService.getIssuesByUno(param);
+			param.put("userNo", userNo);
+			param.put("mno", mno);
+			param.put("lno", lno);
+			param.put("weight", weight);
+			issuesList = issuesService.searchIssues(param);
 			for (int i = 0; i < issuesList.size(); i++) {
 				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
@@ -218,9 +256,11 @@ public class issuesController {
 		}
 		
 		model.addAttribute("stat", stat);
-		model.addAttribute("searchUno", searchUno);
+		model.addAttribute("searchUno", userNo);
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
+		model.addAttribute("allLabelList", allLabelList);
+		model.addAttribute("allMilestoneList", allMilestoneList);
 		
 		return "/Project/myProjects/Issues/issues";
 	}
