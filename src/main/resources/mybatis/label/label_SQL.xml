@@ -12,10 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ltitle
 	  ,ldescription
 	  ,lbgcolor
+	  ,pno
 	) VALUES (
 	  #{ltitle}
 	  ,#{ldescription}
 	  ,#{lbgcolor}
+	  ,#{pno}
 	)
     ]]>  
     </insert>
@@ -39,4 +41,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<select id="getLabelsByPno" parameterType="int" resultType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+    SELECT lno, ltitle, ldescription, lbgcolor
+    FROM Label
+    WHERE pno = #{pno}
+    ORDER BY lno DESC
+	]]>
+	</select>
 </mapper>

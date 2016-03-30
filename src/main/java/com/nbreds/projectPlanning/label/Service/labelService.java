@@ -24,4 +24,8 @@ public class labelService {
 	public List<Label> getAllLabel() {
 		return labeldao.getAllLabel();
 	}
+
+	public List<Label> getLabelsByPno(int pno) {
+		return labeldao.getLabelsByPno(pno);
+	}
 }

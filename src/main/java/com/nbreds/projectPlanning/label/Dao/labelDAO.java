@@ -24,4 +24,8 @@ public class labelDAO {
 	public List<Label> getAllLabel() {
 		return sqlSession.selectList("label.getAllLabel");
 	}
+
+	public List<Label> getLabelsByPno(int pno) {
+		return sqlSession.selectList("label.getLabelsByPno", pno);
+	}
 }
