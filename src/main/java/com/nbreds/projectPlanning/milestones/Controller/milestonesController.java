@@ -1,6 +1,7 @@
 package com.nbreds.projectPlanning.milestones.Controller;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.issues.VO.Issues;
 import com.nbreds.projectPlanning.milestones.Service.milestonesService;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
@@ -30,7 +31,7 @@ public class milestonesController {
 	@RequestMapping(value = "/milestones/{statement}", method = RequestMethod.GET)
 	public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no")); //세션의 uno
-		List<String> list;
+		List<Milestones> list;
 		HashMap<String, Object> param = new HashMap<>();
 		if(stat.equals("open")){
 			param.put("uno", uno);
@@ -46,6 +47,13 @@ public class milestonesController {
 			param.put("uno", uno);
 			list = service.getJoinMilestones(param);
 		}
+		for (Milestones milestone : list) {
+			int countIssues = service.countIssuesByMno(milestone.getMno());
+			double completeIssuePercent = service.countClosedIssueByMno(milestone.getMno());
+			milestone.setCountIssues(countIssues);
+			milestone.setCompleteIssuePercent((int)Math.round((completeIssuePercent / countIssues) *100));	
+		}
+		
 		model.addAttribute("stat", stat);
 		model.addAttribute("list", list);
 		
@@ -72,9 +80,9 @@ public class milestonesController {
 		}
 		for (Milestones milestone : list) {
 			int countIssues = service.countIssuesByMno(milestone.getMno());
-			double completeIssuePercent = service.countCompleteIssueByMno(milestone.getMno());
+			double completeIssuePercent = service.countClosedIssueByMno(milestone.getMno());
 			milestone.setCountIssues(countIssues);
-			milestone.setCompleteIssuePercent(Math.round((completeIssuePercent / countIssues) *100));
+			milestone.setCompleteIssuePercent((int)Math.round((completeIssuePercent / countIssues) *100));
 		}
 		
 		model.addAttribute("stat", stat);
@@ -83,9 +91,59 @@ public class milestonesController {
 		return "/Project/myProjects/Milestones/milestones";
 	}
 	
+	@RequestMapping("/milestone/{mno}")
+	public String  detailMilestone(@PathVariable("mno") int mno, Model model, HttpSession session){
+		String uno = String.valueOf(session.getAttribute("user_no")); //세션의 uno
+		Milestones milestone = service.getMilestoneBymno(mno);
+		
+		int countIssues = service.countIssuesByMno(mno); //총 issue갯수
+		int countOpenIssues = service.countOpenIssuesByMno(mno);//open issue갯수
+		double countClosedIssues = service.countClosedIssueByMno(mno);//closed issue갯수
+		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) *100); //완료 percentage
+		
+		List<Issues> issues = service.getIssuesBymno(mno);
+		HashSet<String> uname = new HashSet<>();
+		for (Issues issue : issues) {
+			String param = String.valueOf(issue.getUno());
+			uname.add(service.getUnameByUno(param));
+		}
+		
+		model.addAttribute("uno", uno);
+		model.addAttribute("countIssues", countIssues);
+		model.addAttribute("countOpenIssues", countOpenIssues);
+		model.addAttribute("countClosedIssues", countClosedIssues);
+		model.addAttribute("completeIssuePercent", completeIssuePercent);
+		model.addAttribute("issues", issues);
+		model.addAttribute("unameSize", uname.size());
+		model.addAttribute("uname", uname);
+		model.addAttribute("milestone", milestone);
+		
+		return "/milestones/detailMilestone_dash";
+	}
+	
 	@RequestMapping("/{uno}/{pno}/milestone/{mno}")
 	public String detailMilestone(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("mno") int mno, Model model) {
 		Milestones milestone = service.getMilestoneBymno(mno);
+		
+		int countIssues = service.countIssuesByMno(mno); //총 issue갯수
+		int countOpenIssues = service.countOpenIssuesByMno(mno);//open issue갯수
+		double countClosedIssues = service.countClosedIssueByMno(mno);//closed issue갯수
+		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) *100); //완료 percentage
+		
+		List<Issues> issues = service.getIssuesBymno(mno);
+		HashSet<String> uname = new HashSet<>();
+		for (Issues issue : issues) {
+			String param = String.valueOf(issue.getUno());
+			uname.add(service.getUnameByUno(param));
+		}
+		
+		model.addAttribute("countIssues", countIssues);
+		model.addAttribute("countOpenIssues", countOpenIssues);
+		model.addAttribute("countClosedIssues", countClosedIssues);
+		model.addAttribute("completeIssuePercent", completeIssuePercent);
+		model.addAttribute("issues", issues);
+		model.addAttribute("unameSize", uname.size());
+		model.addAttribute("uname", uname);
 		model.addAttribute("milestone", milestone);
 		
         return "milestones/detailMilestone";
@@ -157,20 +215,5 @@ public class milestonesController {
 		service.reopenMilestone(mno);
 		
 		return "redirect:/"+uno+"/"+pno+"/milestone/"+mno;
-	}
-	
-	@RequestMapping("/milestone/{mno}")
-	public String  detailMilestone(@PathVariable("mno") int mno, Model model, HttpSession session){
-		String uno = String.valueOf(session.getAttribute("user_no")); //세션의 uno
-		Milestones milestone = service.getMilestoneBymno(mno);
-		String uname = service.getUnameByUno(uno);
-		String pname = service.getPnameByPno(milestone.getPno());
-		
-		model.addAttribute("uno", uno);
-		model.addAttribute("uname", uname);
-		model.addAttribute("pname", pname);
-		model.addAttribute("milestone", milestone);
-		
-		return "/milestones/detailMilestone_dash";
 	}
 }

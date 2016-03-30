@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.issues.VO.Issues;
 import com.nbreds.projectPlanning.milestones.Dao.milestonesDAO;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
@@ -43,7 +44,7 @@ public class milestonesService {
 		milestonesdao.reopenMilestone(mno);
 	}
 
-	public List<String> getJoinMilestones(HashMap<String, Object> param) {
+	public List<Milestones> getJoinMilestones(HashMap<String, Object> param) {
 		return milestonesdao.getJoinMilestones(param);
 	}
 
@@ -59,7 +60,15 @@ public class milestonesService {
 		return milestonesdao.countIssuesByMno(mno);
 	}
 
-	public int countCompleteIssueByMno(int mno) {
-		return milestonesdao.countCompleteIssueByMno(mno);
+	public int countClosedIssueByMno(int mno) {
+		return milestonesdao.countClosedIssueByMno(mno);
+	}
+
+	public List<Issues> getIssuesBymno(int mno) {
+		return milestonesdao.getIssuesBymno(mno);
+	}
+
+	public int countOpenIssuesByMno(int mno) {
+		return milestonesdao.countOpenIssuesByMno(mno);
 	}
 }

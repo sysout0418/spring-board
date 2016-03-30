@@ -35,9 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getMilestoneBymno" parameterType="int" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
     <![CDATA[
-    select mno, mtitle, mdescription, mduedate, mstatement, pno FROM Milestones
-	where mno=#{mno}
-	order by mno desc
+    SELECT M.mno, M.mtitle, M.mdescription, M.mduedate, M.mstatement, M.pno, U.uname, P.pname 
+	FROM Project P inner join Milestones M on M.pno = P.pno
+		             inner join User U on P.uno = U.uno
+	WHERE mno=#{mno}
+	ORDER BY mno DESC
 	]]>
     </select>
     
@@ -73,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]> 
     </update>
     
-    <select id="getJoinMilestones" parameterType="hashmap" resultType="hashmap">
+    <select id="getJoinMilestones" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
     <![CDATA[
     SELECT M.mno, M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
 	FROM Project P inner join Milestones M on M.pno = P.pno
@@ -111,11 +113,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
     </select>
     
-    <select id="countCompleteIssueByMno" parameterType="int" resultType="int">
+    <select id="countClosedIssueByMno" parameterType="int" resultType="int">
     <![CDATA[
     SELECT COUNT(ino)
 	FROM Issues
 	WHERE mno=#{mno} and istatement=001
+	]]>
+    </select>
+    
+    <select id="countOpenIssuesByMno" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(ino)
+	FROM Issues
+	WHERE mno=#{mno} and istatement=000
+	]]>
+    </select>
+    
+    <select id="getIssuesBymno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT ititle, istatement, mno, pno, uno 
+    FROM Issues
+	WHERE mno = #{mno}
 	]]>
     </select>
 </mapper>
