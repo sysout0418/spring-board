@@ -11,9 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.label.Service.labelService;
 import com.nbreds.projectPlanning.label.VO.Label;
+import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Controller
 public class labelController {
@@ -46,6 +48,31 @@ public class labelController {
 		label.setPno(pno);
 		
 		service.saveLabel(label);
+		
+		return "redirect:/"+uno+"/"+pno+"/labels";
+	}
+	
+	@RequestMapping("/label/edit/{uno}/{pno}/{lno}")
+	public String editLabel(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("lno") int lno, @ModelAttribute("label") Label label, Model model) {
+		label = service.getLabelByLno(lno);
+		
+		model.addAttribute("uno", uno);
+		model.addAttribute("pno", pno);
+		model.addAttribute("label", label);
+		
+		return "/label/editLabel";
+	}
+	
+	@RequestMapping(value="/label/edit", method = RequestMethod.POST)
+	public String editing(int uno, int pno, @ModelAttribute("label") Label label, BindingResult result){
+		service.editLabelBylno(label);
+		
+		return "redirect:/"+uno+"/"+pno+"/labels";
+	}
+	
+	@RequestMapping("/label/remove/{uno}/{pno}/{lno}")
+	public String remove(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("lno") int lno) {
+		service.removeLabel(lno);
 		
 		return "redirect:/"+uno+"/"+pno+"/labels";
 	}

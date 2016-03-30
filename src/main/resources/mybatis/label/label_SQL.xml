@@ -49,4 +49,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY lno DESC
 	]]>
 	</select>
+	
+	<delete id="removeLabel" parameterType="int">
+    <![CDATA[
+    delete from Label where lno = #{lno};
+    ]]>  
+    </delete>
+    
+    <select id="getLabelByLno" parameterType="int" resultType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+    SELECT lno, ltitle, ldescription, lbgcolor
+    FROM Label
+    WHERE lno = #{lno}
+	]]>
+	</select>
+	
+	<update id="editLabelBylno" parameterType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+	   UPDATE Label SET
+	  ltitle = #{ltitle}
+	  ,ldescription = #{ldescription}
+	  ,lbgcolor = #{lbgcolor}
+	WHERE lno = #{lno}
+	]]> 
+    </update>
 </mapper>

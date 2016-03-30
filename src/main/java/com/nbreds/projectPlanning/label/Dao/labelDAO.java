@@ -28,4 +28,16 @@ public class labelDAO {
 	public List<Label> getLabelsByPno(int pno) {
 		return sqlSession.selectList("label.getLabelsByPno", pno);
 	}
+
+	public void removeLabel(int lno) {
+		sqlSession.delete("label.removeLabel", lno);
+	}
+
+	public Label getLabelByLno(int lno) {
+		return sqlSession.selectOne("label.getLabelByLno", lno);
+	}
+
+	public void editLabelBylno(Label label) {
+		sqlSession.update("label.editLabelBylno", label);
+	}
 }
