@@ -70,6 +70,12 @@ public class milestonesController {
 			param.put("pno", pno);
 			list = service.getMilestonesByPno(param);
 		}
+		for (Milestones milestone : list) {
+			int countIssues = service.countIssuesByMno(milestone.getMno());
+			double completeIssuePercent = service.countCompleteIssueByMno(milestone.getMno());
+			milestone.setCountIssues(countIssues);
+			milestone.setCompleteIssuePercent(Math.round((completeIssuePercent / countIssues) *100));
+		}
 		
 		model.addAttribute("stat", stat);
 		model.addAttribute("list", list);

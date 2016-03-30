@@ -98,8 +98,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">모집마감일자</td>
-							<td><input type="date" name="pduedate"
-								value="${project.pduedate}"></td>
+							<td><form:input path="pduedate" id="datepicker"/></td>
 						</tr>
 						<tr>
 							<td colspan="2">프로젝트 요청</td>
@@ -122,6 +121,14 @@
 			</div>
 
 			<script type="text/javascript">
+			$(function() {
+				  $( "#datepicker" ).datepicker({
+					 altField: "#datepicker",
+					 onSelect: function(date){
+						 $('#date').val(date);
+					 }
+				  });
+				});
 			$(function () {
 				var pmember = $("#pmember").val().substring(0, $("#pmember").val().length - 1).split(",");
 				var userNames = "";

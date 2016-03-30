@@ -54,4 +54,12 @@ public class milestonesDAO {
 	public String getUnameByUno(String uno) {
 		return sqlSession.selectOne("milestones.getUnameByUno", uno);
 	}
+
+	public int countIssuesByMno(int mno) {
+		return sqlSession.selectOne("milestones.countIssuesByMno", mno);
+	}
+
+	public int countCompleteIssueByMno(int mno) {
+		return sqlSession.selectOne("milestones.countCompleteIssueByMno", mno);
+	}
 }

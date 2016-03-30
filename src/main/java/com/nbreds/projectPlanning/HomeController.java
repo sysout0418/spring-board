@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -53,9 +54,9 @@ public class HomeController {
 			return "index";
 	}
 	
-	@RequestMapping("/login")
-	public String  login(HttpSession session, HttpServletResponse response) {
-		session.setAttribute("user_no", 39);
+	@RequestMapping("/login/{uno}")
+	public String  login(@PathVariable("uno") int uno, HttpSession session, HttpServletResponse response) {
+		session.setAttribute("user_no", uno);
 		
         return "Project/myProjects/myProjects";
 	}
