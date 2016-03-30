@@ -28,4 +28,16 @@ public class labelService {
 	public List<Label> getLabelsByPno(int pno) {
 		return labeldao.getLabelsByPno(pno);
 	}
+
+	public void removeLabel(int lno) {
+		labeldao.removeLabel(lno);
+	}
+
+	public Label getLabelByLno(int lno) {
+		return labeldao.getLabelByLno(lno);
+	}
+
+	public void editLabelBylno(Label label) {
+		labeldao.editLabelBylno(label);
+	}
 }

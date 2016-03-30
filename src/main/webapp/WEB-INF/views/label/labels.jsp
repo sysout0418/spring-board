@@ -39,7 +39,7 @@
 	<td><span class="Label" style="background-color: ${label.lbgcolor}">${label.ltitle}</span></td>
 	<td style="text-align: right">0 open issues  
 	<a href="/label/edit/${uno}/${pno}/${label.lno}" class="btn btn-default" >Edit</a>
-	<a href="/label/edit/${uno}/${pno}/${label.lno}" class="btn btn-danger" >Remove</a>
+	<a href="/label/remove/${uno}/${pno}/${label.lno}" class="btn btn-danger" >Remove</a>
 	</td>
 </tr>
 </c:forEach>
