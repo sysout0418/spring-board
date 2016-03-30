@@ -60,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
+	<!-- 2016.03.29 uno != null인 경우 특정 pno 이슈 중 특정 uno가 올린 모든 Issue 가져오기도 됨 -->
 	<select id="getIssuesByPno" parameterType="map" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
     SELECT 
@@ -71,6 +72,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	<if test="istatement != null">
 	and istatement=#{istatement}
+	</if>
+	<![CDATA[
+	]]>
+	<if test="uno != null">
+	and i.uno=#{searchUno}
 	</if>
 	<![CDATA[
     ORDER BY ino ASC

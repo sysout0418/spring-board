@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.Project.registProject.Service.registService;
 import com.nbreds.projectPlanning.issues.Service.issuesService;
 import com.nbreds.projectPlanning.issues.VO.Issues;
 import com.nbreds.projectPlanning.label.Service.labelService;
@@ -29,6 +30,9 @@ import com.nbreds.projectPlanning.milestones.VO.Milestones;
 public class issuesController {
 	private static final Logger logger = LoggerFactory.getLogger(issuesController.class);
 
+	@Autowired
+	registService registService;
+	
 	@Autowired
 	issuesService issuesService;
 
@@ -49,6 +53,7 @@ public class issuesController {
 			@PathVariable("statement") String stat, Model model) {
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
+		List<User> userList = registService.getAllUserNameAndNo();
 		Map<String, Object> param = new HashMap<String, Object>();
 		if (stat.equals("open")) {
 			param.put("pno", pno);
@@ -76,6 +81,7 @@ public class issuesController {
 		}
 		model.addAttribute("stat", stat);
 		model.addAttribute("issuesList", issuesList);
+		model.addAttribute("userList", userList);
 
 		return "/Project/myProjects/Issues/issues";
 	}
@@ -148,22 +154,49 @@ public class issuesController {
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 
-	// issue 삭제
-	@RequestMapping("/issues/remove/{uno}/{pno}/{ino}")
-	public String remove(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
-		issuesService.removeIssues(ino);
-
-		return "redirect:/" + uno + "/" + pno + "/issues/open";
-	}
-
 	@RequestMapping("/issues/close/{uno}/{pno}/{ino}")
 	public String closeIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
-		Map<String, String> param = new HashMap<String, String>();
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("ino", String.valueOf(ino));
 		param.put("istatement", "001");
 		issuesService.closeIssue(param);
 		return "redirect:/" + uno + "/" + pno + "/issues/closed";
 	}
+	
+	@RequestMapping("/{uno}/{pno}/issues/{statement}/{searchUno}")
+	public String searchIssueByUno(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("statement") String stat, 
+			@PathVariable("searchUno") int searchUno, Model model) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		List<Issues> issuesList = new ArrayList<Issues>();
+		if (stat.equals("open")) {
+			param.put("pno", pno);
+			param.put("searchUno", searchUno);
+			param.put("istatement", "000");
+			issuesList = issuesService.getIssuesByPno(param);
+		} if (stat.equals("closed")) {
+			param.put("pno", pno);
+			param.put("searchUno", searchUno);
+			param.put("istatement", "001");
+			issuesList = issuesService.getIssuesByPno(param);
+		} else {
+			param.put("pno", pno);
+			param.put("searchUno", searchUno);
+			issuesList = issuesService.getIssuesByPno(param);
+		}
+		
+		model.addAttribute("issuesList", issuesList);
+		
+		return "/Project/myProjects/Issues/issues";
+	}
+	
+	// issue 삭제
+//	@RequestMapping("/issues/remove/{uno}/{pno}/{ino}")
+//	public String remove(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
+//		issuesService.removeIssues(ino);
+//
+//		return "redirect:/" + uno + "/" + pno + "/issues/open";
+//	}
+
 	// @RequestMapping("/issues")
 	// public String home(Model model) {
 	// List<Issues> issueList = issuesService.getAllIssues();

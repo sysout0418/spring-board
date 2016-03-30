@@ -2,7 +2,6 @@ package com.nbreds.projectPlanning.label.VO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.nbreds.projectPlanning.issues.VO.Issues;
 
@@ -12,7 +11,6 @@ public class Label {
 	private String ldescription;
 	private String lbgcolor;
 	private int pno;
-	
 	private List<Issues> inos = new ArrayList<Issues>(); // 다대다 관계이므로 ino가 n개일 때 담아 놓는 List
 	
 	public int getLno() {
