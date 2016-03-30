@@ -131,9 +131,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getIssuesBymno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
-    SELECT ititle, istatement, mno, pno, uno 
+    SELECT ino, ititle, istatement, mno, pno, uno 
     FROM Issues
 	WHERE mno = #{mno}
 	]]>
     </select>
+    
+    <update id="editIssueByIno" parameterType="hashmap">
+    <![CDATA[
+	UPDATE Issues SET
+	  istatement = #{istatement}
+	]]>
+	<if test="uno != null">
+	  ,uno = #{uno}
+	</if>
+	<![CDATA[
+	WHERE ino = #{ino}
+	]]>
+    </update>
 </mapper>

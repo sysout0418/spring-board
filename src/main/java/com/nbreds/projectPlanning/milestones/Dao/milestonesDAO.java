@@ -71,4 +71,8 @@ public class milestonesDAO {
 	public int countOpenIssuesByMno(int mno) {
 		return sqlSession.selectOne("milestones.countOpenIssuesByMno", mno);
 	}
+
+	public void editIssueByIno(HashMap<String, Object> param) {
+		sqlSession.update("milestones.editIssueByIno", param);
+	}
 }
