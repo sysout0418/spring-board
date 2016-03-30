@@ -115,7 +115,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">모집마감일자</td>
-							<td><input type="date" name="pduedate"></td>
+							<td><form:input path="pduedate" id="datepicker"/></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">프로젝트 요청</td>
@@ -135,6 +135,11 @@
 				</form:form>
 			</div>
 			<script type="text/javascript">
+			$(function() {
+			  $( "#datepicker" ).datepicker({
+				 altFormat : "mm/dd/yy"
+			  });
+			});
 			$('#textarea')
 		       .textext({
 		           plugins : 'autocomplete filter tags ajax',

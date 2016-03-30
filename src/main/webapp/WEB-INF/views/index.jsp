@@ -25,7 +25,9 @@
 		현재 유저번호 : ${user_no}
 		<br>
 		<c:if test="${user_no == null}">
-		<a href="login">로그인</a>
+		<a href="login/39">39로그인</a>
+		<a href="login/40">40로그인</a>
+		<a href="login/41">41로그인</a>
 		</c:if>
 		<c:if test="${user_no != null}">
 		<a href="logout">로그아웃</a>

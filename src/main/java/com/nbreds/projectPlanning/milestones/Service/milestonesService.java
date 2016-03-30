@@ -54,4 +54,12 @@ public class milestonesService {
 	public String getUnameByUno(String uno) {
 		return milestonesdao.getUnameByUno(uno);
 	}
+
+	public int countIssuesByMno(int mno) {
+		return milestonesdao.countIssuesByMno(mno);
+	}
+
+	public int countCompleteIssueByMno(int mno) {
+		return milestonesdao.countCompleteIssueByMno(mno);
+	}
 }

@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getMilestonesByPno" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
     <![CDATA[
-    select mno, mtitle, mdescription, mduedate, mstatement, pno FROM Milestones
+    select mno, mtitle, mduedate, mstatement FROM Milestones
 	where pno=#{pno}
 	]]>
 	<if test="mstatement != null">
@@ -100,6 +100,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <![CDATA[
     select uname FROM User
 	where uno=#{uno}
+	]]>
+    </select>
+    
+    <select id="countIssuesByMno" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(ino)
+	FROM Issues
+	WHERE mno=#{mno}
+	]]>
+    </select>
+    
+    <select id="countCompleteIssueByMno" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(ino)
+	FROM Issues
+	WHERE mno=#{mno} and istatement=001
 	]]>
     </select>
 </mapper>

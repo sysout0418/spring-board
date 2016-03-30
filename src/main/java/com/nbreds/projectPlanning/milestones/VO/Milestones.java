@@ -8,6 +8,9 @@ public class Milestones {
 	private String mstatement;
 	private int pno;
 	
+	private int countIssues;
+	private long completeIssuePercent;
+	
 	public int getMno() {
 		return mno;
 	}
@@ -43,5 +46,18 @@ public class Milestones {
 	}
 	public void setPno(int pno) {
 		this.pno = pno;
+	}
+	
+	public int getCountIssues() {
+		return countIssues;
+	}
+	public void setCountIssues(int countIssues) {
+		this.countIssues = countIssues;
+	}
+	public long getCompleteIssuePercent() {
+		return completeIssuePercent;
+	}
+	public void setCompleteIssuePercent(long completeIssuePercent) {
+		this.completeIssuePercent = completeIssuePercent;
 	}
 }
