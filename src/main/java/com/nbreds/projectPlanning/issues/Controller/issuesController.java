@@ -26,7 +26,7 @@ import com.nbreds.projectPlanning.issues.Service.issuesService;
 import com.nbreds.projectPlanning.issues.VO.Issues;
 import com.nbreds.projectPlanning.label.Service.LabelServiceImpl;
 import com.nbreds.projectPlanning.label.VO.Label;
-import com.nbreds.projectPlanning.milestones.Service.milestonesService;
+import com.nbreds.projectPlanning.milestones.Service.MilestonesServiceImpl;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Controller

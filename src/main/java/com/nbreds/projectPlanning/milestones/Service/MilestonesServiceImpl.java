@@ -3,18 +3,22 @@ package com.nbreds.projectPlanning.milestones.Service;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.issues.VO.Issues;
-import com.nbreds.projectPlanning.milestones.Dao.milestonesDAO;
+import com.nbreds.projectPlanning.milestones.Dao.MilestonesDao;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
-@Service
-public class milestonesService {
-	@Autowired
-	milestonesDAO milestonesdao;
+@Service("MilestonesService")
+public class MilestonesServiceImpl implements MilestonesService{
+	private static final Logger logger = LoggerFactory.getLogger(MilestonesServiceImpl.class);
+	
+	@Resource(name="MilestonesDao")
+	MilestonesDao milestonesdao;
 
 	public void saveMilestone(Milestones milestone) {
 		milestonesdao.saveMilestone(milestone);
