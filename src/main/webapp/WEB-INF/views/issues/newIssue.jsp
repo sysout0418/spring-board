@@ -36,7 +36,7 @@
 					<input type="hidden" value="" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="" id="mno" name="mno">
-					<input type="hidden" value="" name="weight" id="weight">
+					<input type="hidden" value="" name="iweight" id="iweight">
 					<input type="hidden" value="" name="lno" id="lno">
 					<fieldset>
 						<legend class="page-header">
@@ -200,7 +200,7 @@
 				var weight = $(this).text();
 				//var weight = $(this).attr("alt");
 				//console.log(userNo);
-				$("#weight").val(weight);
+				$("#iweight").val(weight);
 				$("#selectedWeight").text(weight);
 			});
 			
