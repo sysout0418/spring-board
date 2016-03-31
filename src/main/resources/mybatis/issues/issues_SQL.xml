@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<insert id="saveIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
+	<insert id="saveIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
 	  INSERT INTO Issues (
 	  ititle
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!-- 2016.03.28 모든 issues list 가져오기 -->
-	<select id="getAllIssues" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+	<select id="getAllIssues" resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT 
     	i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname
@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 2016.03.28 ino로 issue 하나 가져오기 (detailIssue.jsp 에서 사용) -->
 	<select id="getIssuesByIno" parameterType="int"
-		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle
 	FROM Issues i
@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
 	<select id="getIssuesByPno" parameterType="map"
-		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
 	FROM Issues i
@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 2016.03.30 다중 검색 기능 -->
 	<select id="searchIssues" parameterType="map"
-		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
     FROM Issues i
@@ -131,14 +131,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 2016.03.30 모든 milestone 정보 가져오기 -->
-	<select id="getAllMilestone" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+	<select id="getAllMilestone" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
     SELECT mno, mtitle, mdescription, mduedate, mstatement, pno
     FROM Milestones
 	]]>
 	</select>
 
-	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
+	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     UPDATE Issues SET
 		ititle = #{ititle},
@@ -203,7 +203,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>
 	</insert>
 
-	<delete id="removeIssueLabelForUpdate" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
+	<delete id="removeIssueLabelForUpdate" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     DELETE FROM IssueLabel
 	WHERE ino = #{ino}
@@ -212,7 +212,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- uno(현재 로그인한 사용자를 기본 assign으로 세팅) 로 이슈 가져오기 -->
 	<select id="getIssuesByUno" parameterType="Map"
-		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
 	FROM Issues i
@@ -238,7 +238,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 들어온 param 조건에 따라 이슈 검색 -->
 	<select id="searchIssuesByParam" parameterType="Map"
-		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
     FROM Issues i

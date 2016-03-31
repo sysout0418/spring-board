@@ -1,10 +1,5 @@
 package com.nbreds.projectPlanning.issueLabel.VO;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.nbreds.projectPlanning.issues.VO.Issues;
-
 public class IssueLabel {
 
 	private int ino; // issue no
@@ -22,5 +17,4 @@ public class IssueLabel {
 	public void setLno(int lno) {
 		this.lno = lno;
 	}
-	
 }

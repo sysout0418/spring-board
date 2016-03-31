@@ -7,20 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.issues.VO.Issues;
-import com.nbreds.projectPlanning.milestones.VO.Milestones;
+import com.nbreds.projectPlanning.issues.VO.Issue;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Service
 public interface MilestonesService {
 	static final Logger logger = LoggerFactory.getLogger(MilestonesService.class);
 	
-	public void saveMilestone(Milestones milestone);
+	public void saveMilestone(Milestone milestone);
 
-	public List<Milestones> getMilestonesByPno(HashMap<String, Object> param);
+	public List<Milestone> getMilestonesByPno(HashMap<String, Object> param);
 
-	public Milestones getMilestoneBymno(int mno);
+	public Milestone getMilestoneBymno(int mno);
 	
-	public void editMilestoneBymno(Milestones milestone);
+	public void editMilestoneBymno(Milestone milestone);
 	
 	public void removeMilestone(int mno);
 
@@ -28,7 +28,7 @@ public interface MilestonesService {
 
 	public void reopenMilestone(int mno);
 
-	public List<Milestones> getJoinMilestones(HashMap<String, Object> param);
+	public List<Milestone> getJoinMilestones(HashMap<String, Object> param);
 
 	public String getPnameByPno(int pno);
 
@@ -38,7 +38,7 @@ public interface MilestonesService {
 
 	public int countClosedIssueByMno(int mno);
 
-	public List<Issues> getIssuesBymno(int mno);
+	public List<Issue> getIssuesBymno(int mno);
 	
 	public int countOpenIssuesByMno(int mno);
 

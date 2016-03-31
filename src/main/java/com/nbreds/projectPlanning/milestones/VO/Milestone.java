@@ -1,6 +1,6 @@
 package com.nbreds.projectPlanning.milestones.VO;
 
-public class Milestones {
+public class Milestone {
 	private int mno;
 	private String mtitle;
 	private String mdescription;

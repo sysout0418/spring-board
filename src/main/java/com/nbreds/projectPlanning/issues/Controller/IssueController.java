@@ -20,21 +20,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistServiceImpl;
-import com.nbreds.projectPlanning.issueLabel.Service.IssueLabelService;
+import com.nbreds.projectPlanning.issueLabel.Service.IssueLabelServiceImpl;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
-import com.nbreds.projectPlanning.issues.Service.issuesService;
-import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.issues.Service.IssueService;
+import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.label.Service.LabelServiceImpl;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.Service.MilestonesServiceImpl;
-import com.nbreds.projectPlanning.milestones.VO.Milestones;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Controller
-public class issuesController {
-	private static final Logger logger = LoggerFactory.getLogger(issuesController.class);
+public class IssueController {
+	private static final Logger logger = LoggerFactory.getLogger(IssueController.class);
 
 	@Autowired
-	issuesService issuesService;
+	IssueService issuesService;
 
 	@RequestMapping("/issues")
 	public String home(Model model) {
@@ -48,10 +48,10 @@ public class issuesController {
 		logger.info("uno : " + uno);
 		logger.info("pno : " + pno);
 		logger.info("statement : " + stat);
-		List<Issues> issuesList = new ArrayList<Issues>();
+		List<Issue> issuesList = new ArrayList<Issue>();
 		List<Label> labelList = new ArrayList<Label>();
 		List<Label> allLabelList = issuesService.getAllLabel();
-		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
+		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		Map<String, Object> param = new HashMap<String, Object>();
 		if (stat.equals("open")) {
@@ -103,7 +103,7 @@ public class issuesController {
 	@RequestMapping("/{uno}/{pno}/issue/{ino}")
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
-		Issues issues = issuesService.getIssuesByIno(ino);
+		Issue issues = issuesService.getIssuesByIno(ino);
 		List<Label> labelList = issuesService.getLabelsByIno(issues.getIno());
 		issues.setLabels(labelList);
 		model.addAttribute("issues", issues);
@@ -116,7 +116,7 @@ public class issuesController {
 	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
 		List<Label> labels = issuesService.getAllLabel();
 		List<User> userList = issuesService.getAllUserNameAndNo();
-		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
+		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("labels", labels);
@@ -128,7 +128,7 @@ public class issuesController {
 
 	// issue 등록 요청
 	@RequestMapping("/issues/regist")
-	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issues issues, @ModelAttribute("Issues2") IssueLabel issueLabel, BindingResult result) {
+	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, @ModelAttribute("Issues2") IssueLabel issueLabel, BindingResult result) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 		logger.info("weight : " + issues.getIweight());
@@ -151,11 +151,11 @@ public class issuesController {
 	// issue 수정 페이지
 	@RequestMapping(value = "/issues/edit/{uno}/{pno}/{ino}", method = RequestMethod.GET)
 	public String editFormIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
-			@PathVariable("ino") int ino, @ModelAttribute("issues") Issues issues, Model model) {
+			@PathVariable("ino") int ino, @ModelAttribute("issues") Issue issues, Model model) {
 		issues = issuesService.getIssuesByIno(ino);
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> labelList = issuesService.getAllLabel();
-		List<Milestones> milestoneList = issuesService.getAllMilestone();
+		List<Milestone> milestoneList = issuesService.getAllMilestone();
 		logger.info("---------------update page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
@@ -174,7 +174,7 @@ public class issuesController {
 
 	// issue 수정
 	@RequestMapping(value = "/issues/edit", method = RequestMethod.POST)
-	public String editIssue(int uno, int pno, @ModelAttribute("Issues") Issues issues, BindingResult result) {
+	public String editIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, BindingResult result) {
 		logger.info("---------------updating page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
@@ -205,11 +205,11 @@ public class issuesController {
 		logger.info("lno : " + lno);
 		logger.info("weight : " + weight);
 		Map<String, Object> param = new HashMap<String, Object>();
-		List<Issues> issuesList = new ArrayList<Issues>();
+		List<Issue> issuesList = new ArrayList<Issue>();
 		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
-		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
+		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("istatement", "000");

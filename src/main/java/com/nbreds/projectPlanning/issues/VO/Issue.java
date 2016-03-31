@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.nbreds.projectPlanning.label.VO.Label;
 
-public class Issues {
+public class Issue {
 	private int ino;
 	private String ititle;
 	private String idescription;

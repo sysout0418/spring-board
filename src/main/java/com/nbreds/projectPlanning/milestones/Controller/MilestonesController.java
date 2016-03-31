@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.Service.MilestonesService;
-import com.nbreds.projectPlanning.milestones.VO.Milestones;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Controller
 public class MilestonesController {
@@ -31,7 +31,7 @@ public class MilestonesController {
 	@RequestMapping(value = "/milestones/{statement}", method = RequestMethod.GET)
 	public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no")); //세션의 uno
-		List<Milestones> list;
+		List<Milestone> list;
 		HashMap<String, Object> param = new HashMap<>();
 		if(stat.equals("open")){
 			param.put("uno", uno);
@@ -47,7 +47,7 @@ public class MilestonesController {
 			param.put("uno", uno);
 			list = milestonesService.getJoinMilestones(param);
 		}
-		for (Milestones milestone : list) {
+		for (Milestone milestone : list) {
 			int countIssues = milestonesService.countIssuesByMno(milestone.getMno());
 			double completeIssuePercent = milestonesService.countClosedIssueByMno(milestone.getMno());
 			milestone.setCountIssues(countIssues);
@@ -62,7 +62,7 @@ public class MilestonesController {
 	
 	@RequestMapping("/{uno}/{pno}/milestones/{statement}")
 	public String  milestones(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("statement") String stat, Model model) {
-		List<Milestones> list;
+		List<Milestone> list;
 		HashMap<String, Object> param = new HashMap<>();
 		if(stat.equals("open")){
 			param.put("pno", pno);
@@ -78,7 +78,7 @@ public class MilestonesController {
 			param.put("pno", pno);
 			list = milestonesService.getMilestonesByPno(param);
 		}
-		for (Milestones milestone : list) {
+		for (Milestone milestone : list) {
 			int countIssues = milestonesService.countIssuesByMno(milestone.getMno());
 			double completeIssuePercent = milestonesService.countClosedIssueByMno(milestone.getMno());
 			milestone.setCountIssues(countIssues);
@@ -94,16 +94,16 @@ public class MilestonesController {
 	@RequestMapping("/milestone/{mno}")
 	public String  detailMilestone(@PathVariable("mno") int mno, Model model, HttpSession session){
 		String uno = String.valueOf(session.getAttribute("user_no")); //세션의 uno
-		Milestones milestone = milestonesService.getMilestoneBymno(mno);
+		Milestone milestone = milestonesService.getMilestoneBymno(mno);
 		
 		int countIssues = milestonesService.countIssuesByMno(mno); //총 issue갯수
 		int countOpenIssues = milestonesService.countOpenIssuesByMno(mno);//open issue갯수
 		double countClosedIssues = milestonesService.countClosedIssueByMno(mno);//closed issue갯수
 		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) *100); //완료 percentage
 		
-		List<Issues> issues = milestonesService.getIssuesBymno(mno);
+		List<Issue> issues = milestonesService.getIssuesBymno(mno);
 		HashSet<String> uname = new HashSet<>();
-		for (Issues issue : issues) {
+		for (Issue issue : issues) {
 			String param = String.valueOf(issue.getUno());
 			uname.add(milestonesService.getUnameByUno(param));
 		}
@@ -123,16 +123,16 @@ public class MilestonesController {
 	
 	@RequestMapping("/{uno}/{pno}/milestone/{mno}")
 	public String detailMilestone(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("mno") int mno, Model model) {
-		Milestones milestone = milestonesService.getMilestoneBymno(mno);
+		Milestone milestone = milestonesService.getMilestoneBymno(mno);
 		
 		int countIssues = milestonesService.countIssuesByMno(mno); //총 issue갯수
 		int countOpenIssues = milestonesService.countOpenIssuesByMno(mno);//open issue갯수
 		double countClosedIssues = milestonesService.countClosedIssueByMno(mno);//closed issue갯수
 		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) *100); //완료 percentage
 		
-		List<Issues> issues = milestonesService.getIssuesBymno(mno);
+		List<Issue> issues = milestonesService.getIssuesBymno(mno);
 		HashSet<String> uname = new HashSet<>();
-		for (Issues issue : issues) {
+		for (Issue issue : issues) {
 			if(issue.getUno() != 0){
 				String param = String.valueOf(issue.getUno());
 				uname.add(milestonesService.getUnameByUno(param));
@@ -152,7 +152,7 @@ public class MilestonesController {
 	}
 	
 	@RequestMapping("/{uno}/{pno}/milestones/new")
-	public String  newMilestone(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model, Milestones milestones) {
+	public String  newMilestone(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model, Milestone milestones) {
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		
@@ -160,7 +160,7 @@ public class MilestonesController {
 	}
 	
 	@RequestMapping("/milestones/regist")
-	public String  regist(int uno, int pno, @ModelAttribute("milestones")	Milestones milestone, BindingResult result){
+	public String  regist(int uno, int pno, @ModelAttribute("milestones")	Milestone milestone, BindingResult result){
 		logger.info("title : "+milestone.getMtitle());
 		logger.info("description : "+milestone.getMdescription());
 		logger.info("duedate : " + milestone.getMduedate());
@@ -171,7 +171,7 @@ public class MilestonesController {
 	}
 	
 	@RequestMapping(value="/milestones/edit/{uno}/{pno}/{mno}", method = RequestMethod.GET)
-	public String edit(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("mno") int mno, @ModelAttribute("milestones") Milestones milestone, Model model){
+	public String edit(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("mno") int mno, @ModelAttribute("milestones") Milestone milestone, Model model){
 		milestone = milestonesService.getMilestoneBymno(mno);
 		logger.info("---------------edit page------------------");
 		logger.info("mno : " + milestone.getMno());
@@ -187,7 +187,7 @@ public class MilestonesController {
 	}
 	
 	@RequestMapping(value="/milestones/edit", method = RequestMethod.POST)
-	public String editing(int uno, int pno, @ModelAttribute("milestones") Milestones milestone, BindingResult result){
+	public String editing(int uno, int pno, @ModelAttribute("milestones") Milestone milestone, BindingResult result){
 		logger.info("---------------editing page------------------");
 		logger.info("mno : " + milestone.getMno());
 		logger.info("mtitle : " + milestone.getMtitle());

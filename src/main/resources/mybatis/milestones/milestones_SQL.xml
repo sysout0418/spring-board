@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="milestones">
-    <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
 	  insert into Milestones (
 	  mtitle
@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </insert>
     
-    <select id="getMilestonesByPno" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <select id="getMilestonesByPno" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
     select mno, mtitle, mduedate, mstatement FROM Milestones
 	where pno=#{pno}
@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
     </select>
     
-    <select id="getMilestoneBymno" parameterType="int" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <select id="getMilestoneBymno" parameterType="int" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
     SELECT M.mno, M.mtitle, M.mdescription, M.mduedate, M.mstatement, M.pno, U.uname, P.pname 
 	FROM Project P inner join Milestones M on M.pno = P.pno
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
     </select>
     
-    <update id="editMilestoneBymno" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <update id="editMilestoneBymno" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
 	   UPDATE Milestones SET
 	  mtitle = #{mtitle}
@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]> 
     </update>
     
-    <select id="getJoinMilestones" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestones">
+    <select id="getJoinMilestones" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
     SELECT M.mno, M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
 	FROM Project P inner join Milestones M on M.pno = P.pno
@@ -129,7 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
     </select>
     
-    <select id="getIssuesBymno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <select id="getIssuesBymno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT ino, ititle, istatement, mno, pno, uno 
     FROM Issues

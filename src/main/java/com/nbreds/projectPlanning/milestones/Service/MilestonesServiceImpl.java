@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.Dao.MilestonesDao;
-import com.nbreds.projectPlanning.milestones.VO.Milestones;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Service("MilestonesService")
 public class MilestonesServiceImpl implements MilestonesService{
@@ -19,19 +19,19 @@ public class MilestonesServiceImpl implements MilestonesService{
 	@Autowired
 	MilestonesDao milestonesdao;
 
-	public void saveMilestone(Milestones milestone) {
+	public void saveMilestone(Milestone milestone) {
 		milestonesdao.saveMilestone(milestone);
 	}
 
-	public List<Milestones> getMilestonesByPno(HashMap<String, Object> param) {
+	public List<Milestone> getMilestonesByPno(HashMap<String, Object> param) {
 		return milestonesdao.getMilestonesByPno(param);
 	}
 
-	public Milestones getMilestoneBymno(int mno) {
+	public Milestone getMilestoneBymno(int mno) {
 		return milestonesdao.getMilestoneBymno(mno);
 	}
 
-	public void editMilestoneBymno(Milestones milestone) {
+	public void editMilestoneBymno(Milestone milestone) {
 		milestonesdao.editMilestoneBymno(milestone);
 	}
 
@@ -47,7 +47,7 @@ public class MilestonesServiceImpl implements MilestonesService{
 		milestonesdao.reopenMilestone(mno);
 	}
 
-	public List<Milestones> getJoinMilestones(HashMap<String, Object> param) {
+	public List<Milestone> getJoinMilestones(HashMap<String, Object> param) {
 		return milestonesdao.getJoinMilestones(param);
 	}
 
@@ -67,7 +67,7 @@ public class MilestonesServiceImpl implements MilestonesService{
 		return milestonesdao.countClosedIssueByMno(mno);
 	}
 
-	public List<Issues> getIssuesBymno(int mno) {
+	public List<Issue> getIssuesBymno(int mno) {
 		return milestonesdao.getIssuesBymno(mno);
 	}
 

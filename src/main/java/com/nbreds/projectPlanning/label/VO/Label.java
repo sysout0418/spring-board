@@ -3,7 +3,7 @@ package com.nbreds.projectPlanning.label.VO;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.issues.VO.Issue;
 
 public class Label {
 	private int Lno;
@@ -11,7 +11,7 @@ public class Label {
 	private String ldescription;
 	private String lbgcolor;
 	private int pno;
-	private List<Issues> inos = new ArrayList<Issues>(); // 다대다 관계이므로 ino가 n개일 때 담아 놓는 List
+	private List<Issue> inos = new ArrayList<Issue>(); // 다대다 관계이므로 ino가 n개일 때 담아 놓는 List
 	
 	public int getLno() {
 		return Lno;
@@ -43,10 +43,10 @@ public class Label {
 	public void setPno(int pno) {
 		this.pno = pno;
 	}
-	public List<Issues> getInos() {
+	public List<Issue> getInos() {
 		return inos;
 	}
-	public void setInos(List<Issues> inos) {
+	public void setInos(List<Issue> inos) {
 		this.inos = inos;
 	}
 }
