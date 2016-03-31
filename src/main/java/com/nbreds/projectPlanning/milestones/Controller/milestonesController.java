@@ -137,8 +137,6 @@ public class milestonesController {
 				String param = String.valueOf(issue.getUno());
 				uname.add(service.getUnameByUno(param));
 			}
-			String param = String.valueOf(issue.getUno());
-			uname.add(service.getUnameByUno(param));
 		}
 		
 		model.addAttribute("countIssues", countIssues);
