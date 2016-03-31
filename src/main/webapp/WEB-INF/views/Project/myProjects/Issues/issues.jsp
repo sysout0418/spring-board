@@ -24,6 +24,7 @@
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<!-- Begin page content -->
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
+			<h4 class="page-header">Issues</h4>  	
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
@@ -36,9 +37,7 @@
 						<li role="presentation"
 							<c:if test="${stat=='all'}"> class="active"</c:if>>
 							<a href="/${uno}/${pno}/issues/all">All</a></li>
-						<li style="position: absolute; right: 200px;">
-							<a href="/${uno}/${pno}/issues/new" class="btn btn-success">+
-								New Issues</a></li>
+							<li style="width:1000px;"><div style="float: right;"><a href="/${uno}/${pno}/issues/new" class="btn btn-success">New Issues</a></div></li>
 					</ul>
 
 					<!-- Tab panes -->
@@ -105,30 +104,27 @@
 								<% } %>
 							</ul>
 						</div>
-						<a href="#" id="searchBtn" class="btn btn-info">Search</a>
+						<a href="#" id="searchBtn" class="btn btn-warning">Search</a>
 					</div>
 					<form name="frm" id="frm" method="post">
 						<input type="hidden" name="isCheckCbListAll" value="F">
 
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th><div class="checkboxAll">
-											<label> <input type="checkbox" name="cbListAll"
-												onclick="checkCbListAll()">
-											</label>
-										</div></th>
-									<th>Issue Title</th>
-									<th>Milestone Title</th>
-									<th>Label</th>
-									<th>Weight</th>
-								</tr>
-							</thead>
-							<tbody>
+						<table class="table">
+							<tr class="active">
+								<td><div class="checkboxAll">
+										<label> <input type="checkbox" name="cbListAll"
+											onclick="checkCbListAll()">
+										</label>
+									</div></td>
+								<td>Issue Title</td>
+								<td>Milestone Title</td>
+								<td>Label</td>
+								<td>Weight</td>
+							</tr>
 								<c:forEach var="issues" items="${issuesList}" varStatus="status">
 									<input type="hidden" name="issueState"
 										value="${issues.istatement }">
-									<tr class="warning">
+									<tr>
 										<td><div class="checkbox">
 												<label> <input type="checkbox" name="cbList"
 													value="${issues.ino }">
@@ -150,11 +146,10 @@
 										<td>${issues.iweight}</td>
 									</tr>
 								</c:forEach>
-							</tbody>
+								<tr><td colspan="5"></td></tr>
 						</table>
 					</form>
 				</div>
-				Issues${uname} ${pno}
 			</div>
 		</div>
 		<script type="text/javascript">

@@ -23,6 +23,7 @@
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<!-- Begin page content -->
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
+			<h4 class="page-header">Issues</h4>  
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
@@ -109,41 +110,38 @@
 								%>
 							</ul>
 						</div>
-						<a href="#" id="searchBtn" class="btn btn-info">Search</a>
+						<a href="#" id="searchBtn" class="btn btn-success">Search</a>
 					</div>
 
 					<form name="frm" id="frm" method="post">
-						<table class="table table-striped table-hover">
-							<thead>
+						<table class="table">
+							<tr class="active">
+								<td>Issue Title</td>
+								<td>Milestone Title</td>
+								<td>Label</td>
+								<td>Weight</td>
+							</tr>
+							<c:forEach var="issues" items="${issuesList}" varStatus="status">
+								<input type="hidden" name="issueState"
+									value="${issues.istatement }">
 								<tr>
-									<th>Issue Title</th>
-									<th>Milestone Title</th>
-									<th>Label</th>
-									<th>Weight</th>
+									<td><a
+										href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
+										${issues.idescription }</td>
+									<td><a
+										href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
+
+									<td><c:forEach var="labels" items="${issues.labels}">
+											<a href="#"><span class="label color-label has_tooltip"
+												style="background-color:
+											${labels.lbgcolor}; color: #FFFFFF"
+												title="" data-container="body" data-original-title="">${labels.ltitle}</span></a>
+										</c:forEach></td>
+
+									<td>${issues.iweight}</td>
 								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="issues" items="${issuesList}" varStatus="status">
-									<input type="hidden" name="issueState"
-										value="${issues.istatement }">
-									<tr class="warning">
-										<td><a
-											href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
-											${issues.idescription }</td>
-										<td><a
-											href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
-
-										<td><c:forEach var="labels" items="${issues.labels}">
-												<a href="#"><span class="label color-label has_tooltip"
-													style="background-color:
-												${labels.lbgcolor}; color: #FFFFFF"
-													title="" data-container="body" data-original-title="">${labels.ltitle}</span></a>
-											</c:forEach></td>
-
-										<td>${issues.iweight}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
+							</c:forEach>
+							<tr><td colspan="5"></td></tr>
 						</table>
 					</form>
 				</div>

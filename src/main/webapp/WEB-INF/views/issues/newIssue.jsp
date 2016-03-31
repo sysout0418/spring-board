@@ -40,7 +40,7 @@
 					<input type="hidden" value="" name="lno" id="lno">
 					<fieldset>
 						<legend class="page-header">
-							<h3>New Issue</h3>
+							<h4>New Issue</h4>
 						</legend>
 						<div class="form-group">
 							<label for="inputTitle" class="col-lg-2 control-label">Title</label>
