@@ -57,11 +57,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByIno" parameterType="int"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
-    SELECT ino, ititle, idescription, iweight, istatement, mno, pno, i.uno, uname
-    FROM Issues i
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle
+	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
-    WHERE ino = #{ino}
+	JOIN Milestones m
+	ON i.mno = m.mno
+	WHERE i.ino=#{ino};
 	]]>
 	</select>
 
@@ -69,17 +71,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByPno" parameterType="map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
-    SELECT 
-    	ino, ititle, idescription, iweight, istatement, mno, pno, i.uno, uname
-    FROM Issues i
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
-	where pno=#{pno}
+	JOIN Milestones m
+	ON i.mno = m.mno
+	JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			JOIN IssueLabel il
+            ON l.lno = il.lno ) l2
+	ON i.ino = l2.ino
+	where i.pno=#{pno}
 	]]>
 		<if test="istatement != null">
 			and istatement=#{istatement}
 		</if>
 	<![CDATA[
+	GROUP BY i.ino
     ORDER BY ino ASC
 	]]>
 	</select>
@@ -174,4 +183,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE ino = #{ino}
 	]]>
 	</update>
+	
+	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+    SELECT lno, ltitle, ldescription, lbgcolor, pno
+    FROM Label
+	]]>
+	</select>
+	
+	<select id="getLabelsByIno" parameterType="int" resultType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+    SELECT l.lno, ltitle, ldescription, lbgcolor, pno
+    FROM Label l
+    JOIN IssueLabel il
+    ON l.lno = il.lno
+    WHERE ino = #{ino}
+	]]>
+	</select>
+	
+	<select id="getAllUserNameAndNo" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail, uposition
+    from User
+    ]]>  
+    </select>
+    
+    <insert id="saveIssueLabel" parameterType="com.nbreds.projectPlanning.issueLabel.VO.IssueLabel">
+    <![CDATA[
+	  INSERT INTO IssueLabel (
+	  ino
+	  ,lno
+	) VALUES (
+	  #{ino}
+	  ,#{lno}
+	)
+    ]]>  
+    </insert>
+    
 </mapper>

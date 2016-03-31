@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<% int i = 0; %>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
 <div class="container-fluid">
@@ -27,7 +28,7 @@
 				<form:form class="form-horizontal" method="post"
 					action="/issues/edit" commandName="Issues">
 					<input type="hidden" value="${ino}" name="ino" id="ino">
-					<input type="hidden" value="${uno}" name="uno" id="uno">
+					<input type="hidden" value="${issues.uno}" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="${issues.iweight}" name="iweight" id="iweight">
 					<fieldset>
@@ -50,21 +51,21 @@
 								<span class="help-block">help 설명</span>
 							</div>
 						</div>
-						<%-- <div class="form-group">
+						<div class="form-group">
 							<label for="inputAssignee" class="col-lg-2 control-label">Assignee</label>
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-width"
-									style="text-align: left; margin-left: 15px;">select
-									assignee</a> <a href="#" class="btn btn-default dropdown-toggle"
+									style="text-align: left; margin-left: 15px;"><span id="selectedAssign">select
+									assignee</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<c:forEach var="users" items="${users}">
-										<li><a href="#">${users.uname}</a></li>
+									<c:forEach var="users" items="${userList}">
+										<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
 									</c:forEach>
 								</ul>
 							</div>
-						</div> --%>
+						</div>
 						<div class="form-group">
 							<label for="inputMilestone" class="col-lg-2 control-label">Milestone</label>
 							<div class="btn-group">
@@ -74,7 +75,9 @@
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="#">마일스톤 연동</a></li>
+									<c:forEach var="milestone" items="${milestoneList}">
+										<li class="milestonNo"><a href="#" alt="${milestone.mno}">${milestone.mtitle}</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -87,16 +90,9 @@
 									class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
 									class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
-									<li><a href="#" id="weight0">No Weight</a></li>
-									<li><a href="#" id="weight1">1</a></li>
-									<li><a href="#" id="weight2">2</a></li>
-									<li><a href="#" id="weight3">3</a></li>
-									<li><a href="#" id="weight4">4</a></li>
-									<li><a href="#" id="weight5">5</a></li>
-									<li><a href="#" id="weight6">6</a></li>
-									<li><a href="#" id="weight7">7</a></li>
-									<li><a href="#" id="weight8">8</a></li>
-									<li><a href="#" id="weight9">9</a></li>
+									<% for (i = 1; i < 10; i++) {%>
+										<li class="weight"><a href="#" id="weight<%= i %>"><%= i %></a></li>
+									<% } %>
 								</ul>
 							</div>
 						</div>
@@ -110,7 +106,7 @@
 									style="height: 10px; margin-top: 10px;"></span></a>
 								<ul class="dropdown-menu">
 									<c:forEach var="labels" items="${labelList}">
-										<li><a href="#">${labels.ltitle}</a></li>
+										<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
 									</c:forEach>
 								</ul>
 							</div>

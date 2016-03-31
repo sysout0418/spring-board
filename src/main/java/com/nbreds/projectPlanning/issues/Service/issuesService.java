@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Dao.issuesDAO;
 import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Service
@@ -59,4 +61,24 @@ public class issuesService {
 	public int getLastIno() {
 		return issuesdao.getLastIno();
 	}
+	
+	//
+	public List<Label> getAllLabel() {
+		return issuesdao.getAllLabel();
+	}
+	
+	public List<User> getAllUserNameAndNo() {
+		return issuesdao.getAllUserNameAndNo();
+	}
+	
+	public List<Label> getLabelsByIno(int ino) {
+		return issuesdao.getLabelsByIno(ino);
+	}
+	
+	public void saveIssueLabel(IssueLabel issueLabel) {
+		issuesdao.saveIssueLabel(issueLabel);
+	}
+	
+	
+	
 }

@@ -16,7 +16,7 @@ public class Issues {
 	private int uno;
 	
 	/** 03.27 table JOIN을 위한 필드 추가 **/
-	private String utame;
+	private String uname;
 	private String mtitle;
 	private int lno;
 	private String ltitle;
@@ -76,11 +76,11 @@ public class Issues {
 	}
 	
 	/********************* 03.27 추가 **********************/
-	public String getUtame() {
-		return utame;
+	public String getUname() {
+		return uname;
 	}
-	public void setUtame(String utame) {
-		this.utame = utame;
+	public void setUtame(String uname) {
+		this.uname = uname;
 	}
 	public String getMtitle() {
 		return mtitle;

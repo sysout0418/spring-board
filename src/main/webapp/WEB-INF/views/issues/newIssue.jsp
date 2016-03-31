@@ -33,7 +33,7 @@
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
 				<form:form class="form-horizontal" method="post"
 					action="/issues/regist" commandName="Issues">
-					<input type="hidden" value="" name="userNo" id="userNo">
+					<input type="hidden" value="" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="" id="mno" name="mno">
 					<input type="hidden" value="" name="weight" id="weight">
@@ -184,7 +184,7 @@
 				var userName = $(this).text();
 				var userNo = $(this).attr("alt");
 				console.log(userNo);
-				$("#userNo").val(userNo);
+				$("#uno").val(userNo);
 				$("#selectedAssign").text(userName);
 			});
 			

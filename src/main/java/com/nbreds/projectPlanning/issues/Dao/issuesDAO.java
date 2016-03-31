@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Repository
@@ -58,5 +60,22 @@ public class issuesDAO {
 	
 	public int getLastIno() {
 		return sqlSession.selectOne("issues.getLastIno");
+	}
+	
+	//
+	public List<Label> getAllLabel() {
+		return sqlSession.selectList("issues.getAllLabel");
+	}
+	
+	public List<User> getAllUserNameAndNo() {
+		return sqlSession.selectList("issues.getAllUserNameAndNo");
+	}
+	
+	public List<Label> getLabelsByIno(int ino) {
+		return sqlSession.selectList("issues.getLabelsByIno", ino);
+	}
+	
+	public void saveIssueLabel(IssueLabel issueLabel) {
+		sqlSession.insert("issues.saveIssueLabel", issueLabel);
 	}
 }

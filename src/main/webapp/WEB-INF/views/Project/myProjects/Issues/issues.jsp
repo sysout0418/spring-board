@@ -137,8 +137,7 @@
 											href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
 											${issues.idescription }</td>
 										<td><a
-											href="/${issues.uno}/${issues.pno}/issue/${issues.mno}">마일스톤
-												title</a></td>
+											href="/${issues.uno}/${issues.pno}/issue/${issues.mno}">${issues.mtitle}</a></td>
 
 										<td><c:forEach var="labels" items="${issues.labels}">
 												<a href="#"><span class="label color-label has_tooltip"

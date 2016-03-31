@@ -34,19 +34,7 @@ public class issuesController {
 	private static final Logger logger = LoggerFactory.getLogger(issuesController.class);
 
 	@Autowired
-	registService registService;
-	
-	@Autowired
 	issuesService issuesService;
-
-	@Autowired
-	labelService labelService;
-	
-	@Autowired
-	IssueLabelService issueLabelService;
-
-	@Autowired
-	milestonesService milestoneService;
 
 	@RequestMapping("/issues")
 	public String home(Model model) {
@@ -62,31 +50,34 @@ public class issuesController {
 		logger.info("statement : " + stat);
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
-		List<Label> allLabelList = labelService.getAllLabel();
+		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
-		List<User> userList = registService.getAllUserNameAndNo();
+		List<User> userList = issuesService.getAllUserNameAndNo();
 		Map<String, Object> param = new HashMap<String, Object>();
 		if (stat.equals("open")) {
 			param.put("pno", pno);
+			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByPno(param);
 			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		} else if (stat.equals("closed")) {
 			param.put("pno", pno);
+			param.put("uno", uno);
 			param.put("istatement", "001");
 			issuesList = issuesService.getIssuesByPno(param);
 			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		} else {
 			param.put("pno", pno);
+			param.put("uno", uno);
 			issuesList = issuesService.getIssuesByPno(param);
 			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		}
@@ -113,11 +104,9 @@ public class issuesController {
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
 		Issues issues = issuesService.getIssuesByIno(ino);
-		List<Label> labelList = labelService.getLabelsByIno(issues.getIno());
-		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
+		List<Label> labelList = issuesService.getLabelsByIno(issues.getIno());
 		issues.setLabels(labelList);
 		model.addAttribute("issues", issues);
-		model.addAttribute("allMilestoneList", allMilestoneList);
 
 		return "issues/detailIssue";
 	}
@@ -125,8 +114,8 @@ public class issuesController {
 	// issues 등록 폼으로
 	@RequestMapping("/{uno}/{pno}/issues/new")
 	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
-		List<Label> labels = labelService.getAllLabel();
-		List<User> userList = registService.getAllUserNameAndNo();
+		List<Label> labels = issuesService.getAllLabel();
+		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
@@ -152,7 +141,7 @@ public class issuesController {
 		if (lnos != null && lnos.length > 0) {
 			for (int i = 0; i < lnos.length; i++) {
 				issueLabel.setLno(Integer.parseInt(lnos[i]));
-				issueLabelService.saveIssueLabel(issueLabel);
+				issuesService.saveIssueLabel(issueLabel);
 			}
 		}
 		
@@ -164,7 +153,9 @@ public class issuesController {
 	public String editFormIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
 			@PathVariable("ino") int ino, @ModelAttribute("issues") Issues issues, Model model) {
 		issues = issuesService.getIssuesByIno(ino);
-		List<Label> labelList = labelService.getAllLabel();
+		List<User> userList = issuesService.getAllUserNameAndNo();
+		List<Label> labelList = issuesService.getAllLabel();
+		List<Milestones> milestoneList = issuesService.getAllMilestone();
 		logger.info("---------------update page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
@@ -174,7 +165,9 @@ public class issuesController {
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("issues", issues);
+		model.addAttribute("userList", userList);
 		model.addAttribute("labelList", labelList);
+		model.addAttribute("milestoneList", milestoneList);
 
 		return "/issues/editIssue";
 	}
@@ -214,8 +207,8 @@ public class issuesController {
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issues> issuesList = new ArrayList<Issues>();
 		List<Label> labelList = new ArrayList<Label>();
-		List<User> userList = registService.getAllUserNameAndNo();
-		List<Label> allLabelList = labelService.getAllLabel();
+		List<User> userList = issuesService.getAllUserNameAndNo();
+		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestones> allMilestoneList = issuesService.getAllMilestone();
 		if (stat.equals("open")) {
 			param.put("pno", pno);
@@ -226,7 +219,7 @@ public class issuesController {
 			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
 			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		} if (stat.equals("closed")) {
@@ -239,7 +232,7 @@ public class issuesController {
 			issuesList = issuesService.searchIssues(param);
 			System.out.println(issuesList.size());
 			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		} else {
@@ -250,7 +243,7 @@ public class issuesController {
 			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
 			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = labelService.getLabelsByIno(issuesList.get(i).getIno());
+				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
 			}
 		}

@@ -48,11 +48,20 @@
 							<p>${issues.idescription}</p>
 						</div>
 
+						<div class="panel panel-danger">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">Assignee</h3>
+						  </div>
+						  <div class="panel-body">
+						    ${issues.uname}
+						  </div>
+						</div>
+						
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h3 class="panel-title">Milestone</h3>
 							</div>
-							<div class="panel-body">연관 마일스톤</div>
+							<div class="panel-body">${issues.mtitle}</div>
 						</div>
 
 						<div class="panel panel-success">
