@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.User;
-import com.nbreds.projectPlanning.Project.registProject.Service.registService;
+import com.nbreds.projectPlanning.Project.registProject.Service.RegistServiceImpl;
 import com.nbreds.projectPlanning.issueLabel.Service.IssueLabelService;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.issuesService;

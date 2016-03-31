@@ -12,19 +12,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nbreds.projectPlanning.Project.SearchProject.Service.searchService;
+import com.nbreds.projectPlanning.Project.SearchProject.Service.SearchServiceImpl;
 import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 
 @Controller
-public class searchController {
-	private static final Logger logger = LoggerFactory.getLogger(searchController.class);
+public class SearchController {
+	private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	
 	@Autowired
-	searchService searchService;
+	SearchServiceImpl searchService;
 	
 	@RequestMapping("/search")
 	public String  home(@ModelAttribute("project") Project project, BindingResult result, @RequestParam(defaultValue="1") int pageNo, Model model) {

@@ -18,20 +18,20 @@ import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.Project.VO.User;
-import com.nbreds.projectPlanning.Project.registProject.Service.registService;
+import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 
 @Controller
-public class registController {
-	private static final Logger logger = LoggerFactory.getLogger(registController.class);
+public class RegistController {
+	private static final Logger logger = LoggerFactory.getLogger(RegistController.class);
 	
 	@Autowired
-	registService service;
+	RegistService registService;
 	
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
 	public String Regist(Project project, HttpSession session, Model model) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
 		
-		User user = service.getUserForNo(uno);
+		User user = registService.getUserForNo(uno);
 		model.addAttribute("user",user);
 		
         return "Project/registProject/registProject";
@@ -42,41 +42,41 @@ public class registController {
 							Project project, BindingResult result, @ModelAttribute("project2") ProjectMemberStat projectMS, HttpSession session) {
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
 		project.setPprogress("011000");
-		service.savePrjAndPrjMS(project, projectMS);
+		registService.savePrjAndPrjMS(project, projectMS);
 		return "redirect:/list";
 	}
 	
 	@ModelAttribute("development")
 	public List<CodeTable> getDevelopment(){
-		List<CodeTable> devList = service.getCodeTable("004");
+		List<CodeTable> devList = registService.getCodeTable("004");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("design")
 	public List<CodeTable> getDesign(){
-		List<CodeTable> devList = service.getCodeTable("005");
+		List<CodeTable> devList = registService.getCodeTable("005");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("planning")
 	public List<CodeTable> getPlanning(){
-		List<CodeTable> devList = service.getCodeTable("006");
+		List<CodeTable> devList = registService.getCodeTable("006");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("experience")
 	public List<CodeTable> getExperience(){
-		List<CodeTable> devList = service.getCodeTable("007");
+		List<CodeTable> devList = registService.getCodeTable("007");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("level")
 	public List<CodeTable> getLevel(){
-		List<CodeTable> devList = service.getCodeTable("008");
+		List<CodeTable> devList = registService.getCodeTable("008");
 		
 		return devList;
 	}

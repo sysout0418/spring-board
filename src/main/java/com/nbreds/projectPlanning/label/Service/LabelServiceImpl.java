@@ -2,10 +2,9 @@ package com.nbreds.projectPlanning.label.Service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.label.Dao.LabelDao;
@@ -15,7 +14,7 @@ import com.nbreds.projectPlanning.label.VO.Label;
 public class LabelServiceImpl implements LabelService{
 	private static final Logger logger = LoggerFactory.getLogger(LabelServiceImpl.class);
 	
-	@Resource(name="LabelDao")
+	@Autowired
 	LabelDao labelDao;
 	
 	@Override

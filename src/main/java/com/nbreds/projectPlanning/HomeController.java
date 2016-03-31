@@ -16,33 +16,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.User;
-import com.nbreds.projectPlanning.Project.myProjects.Service.myProjectsService;
-import com.nbreds.projectPlanning.Project.registProject.Service.registService;
+import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
+import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	public static List<User> USER_INFO;
+
+	@Autowired
+	RegistService registService;
 	
 	@Autowired
-	registService service;
-	
-	@Autowired
-	myProjectsService myProjectsService;
+	MyProjectService myProjectService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String  home(Model model, HttpSession session) {
 		logger.info("Index.jsp");
 		// 유저 정보 저장
-		USER_INFO = service.getAllUserNameAndNo();
+		USER_INFO = registService.getAllUserNameAndNo();
 		
 		if(session.getAttribute("user_no") != null){
 			String uno = String.valueOf(session.getAttribute("user_no"));
-			List<Project> list = myProjectsService.getProjectByUno(uno);
+			List<Project> list = myProjectService.getProjectByUno(uno);
 			for (Project project : list) {
 				
-				String uname = myProjectsService.getUserForNo(project.getUno()).getUname();
+				String uname = myProjectService.getUserForNo(project.getUno()).getUname();
 				project.setUname(uname);
 			}
 			

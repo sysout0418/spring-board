@@ -3,18 +3,23 @@ package com.nbreds.projectPlanning.Project.SearchProject.Service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.Project.SearchProject.Dao.SearchDAO;
+import com.nbreds.projectPlanning.Project.SearchProject.Dao.SearchDao;
 import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.User;
 
-@Service
-public class searchService {
+@Service("SearchService")
+public class SearchServiceImpl implements SearchService{
+	
+	public static final Logger logger = LoggerFactory.getLogger(SearchServiceImpl.class);
+	
 	@Autowired
-	SearchDAO searchDao;
+	SearchDao searchDao;
 	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
 		return searchDao.getCodeTable(CODE_TYPE);

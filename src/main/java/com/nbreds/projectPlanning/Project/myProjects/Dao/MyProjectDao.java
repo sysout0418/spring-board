@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +13,10 @@ import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.User;
 
-@Repository
-public class myProjectsDAO {
+@Repository("MyProjectDao")
+public class MyProjectDao {
+	private static final Logger logger = LoggerFactory.getLogger(MyProjectDao.class);	
+
 	@Autowired
 	private SqlSession sqlSession;
 

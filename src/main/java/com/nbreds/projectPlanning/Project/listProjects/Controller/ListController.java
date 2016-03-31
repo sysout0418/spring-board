@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.User;
-import com.nbreds.projectPlanning.Project.listProjects.Service.projectLoadService;
+import com.nbreds.projectPlanning.Project.listProjects.Service.ListServiceImpl;
 
 @Controller
-public class listController {
-	private static final Logger logger = LoggerFactory.getLogger(listController.class);
+public class ListController {
+	private static final Logger logger = LoggerFactory.getLogger(ListController.class);
 	
 	@Autowired
-	projectLoadService projectService;
+	ListServiceImpl listService;
 	
 	//상주 프로젝트 리스트
 	@RequestMapping("/list")
@@ -34,7 +34,7 @@ public class listController {
 		int rowsPerPage = 10; 
 		int pagesPerGroup = 10; 
 
-		int totalProjectNo = projectService.getTotalProjectNo(); 
+		int totalProjectNo = listService.getTotalProjectNo(); 
 		int totalPageNo = totalProjectNo/rowsPerPage;
 		
 		if(totalProjectNo % rowsPerPage != 0){totalPageNo++;}
@@ -53,7 +53,7 @@ public class listController {
 		param.put("pageNo", value);
 		param.put("rowsPerPage", rowsPerPage);
 		
-		List<Project> list = projectService.getPageList(param);
+		List<Project> list = listService.getPageList(param);
 		for(int i = 0; i<list.size(); i++){
 			String pdata = list.get(i).getPdata();		
 			
@@ -68,7 +68,7 @@ public class listController {
 			list.get(i).setPlevel(lev);
 			
 			//담당자 코드->한글			
-			String uname = projectService.getUserForNo(list.get(i).getUno()).getUname();
+			String uname = listService.getUserForNo(list.get(i).getUno()).getUname();
 			list.get(i).setUname(uname);
 			
 		}
@@ -87,7 +87,7 @@ public class listController {
 	//상세 프로젝트
 	@RequestMapping(value = "/DetailProject/{pno}", method = RequestMethod.GET)
 	public String  DetailView(@PathVariable("pno") int pno, Model model) {
-		Project project = projectService.getProjectByPno(pno);
+		Project project = listService.getProjectByPno(pno);
 		String pdata = project.getPdata();
 		
 		//한글화
@@ -102,7 +102,7 @@ public class listController {
 		project.setPprogress(getCodeName(pprogress));
 		
 		//담당자 코드->한글
-		String uname = projectService.getUserForNo(project.getUno()).getUname();
+		String uname = listService.getUserForNo(project.getUno()).getUname();
 		project.setUname(uname);
 		
 		//프로젝트 인원
@@ -119,7 +119,7 @@ public class listController {
 	//프로젝트 삭제
 	@RequestMapping(value = "/DeleteProject", method = RequestMethod.GET)
 	public String  DeleteProject(int pno) {
-		projectService.removeProject(pno);
+		listService.removeProject(pno);
 		
 		return "redirect:/list";
 	}
@@ -127,7 +127,7 @@ public class listController {
 	//프로젝트 수정페이지
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public String  UpdateView(int pno, Model model, @ModelAttribute("project") Project project) {
-		project = projectService.getProjectByPno(pno);
+		project = listService.getProjectByPno(pno);
 		
 		List<String> skills = (List<String>)getCodeForCodeType(project.getPdata(), "skills");
 		String level = (String) getCodeForCodeType(project.getPdata(), "level");
@@ -158,7 +158,7 @@ public class listController {
 		model.addAttribute("project", project);
 		
 		int uno = project.getUno();
-		User user = projectService.getUserForNo(uno);
+		User user = listService.getUserForNo(uno);
 		model.addAttribute("user",user);
 		
 		return "Project/listProjects/updateView";
@@ -168,7 +168,7 @@ public class listController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String  UpdateProject(@ModelAttribute("project") Project project, BindingResult result) {
 		logger.info("pdata : "+project.getPdata());
-		projectService.updateProject(project);
+		listService.updateProject(project);
 		
 		return "redirect:/DetailProject/"+project.getPno();
 	}
@@ -178,7 +178,7 @@ public class listController {
 		param.put("CODE_TYPE", code.substring(0, 3));
 		param.put("CODE", code.substring(3, 6));
 		
-		return projectService.getCodeName(param).getCODE_NAME();
+		return listService.getCodeName(param).getCODE_NAME();
 	}
 	
 	private Object getCodeForCodeType(String pdata, String type) {
@@ -206,35 +206,35 @@ public class listController {
 		
 	@ModelAttribute("development")
 	public List<CodeTable> getDevelopment(){
-		List<CodeTable> devList = projectService.getCodeTable("004");
+		List<CodeTable> devList = listService.getCodeTable("004");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("design")
 	public List<CodeTable> getDesign(){
-		List<CodeTable> devList = projectService.getCodeTable("005");
+		List<CodeTable> devList = listService.getCodeTable("005");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("planning")
 	public List<CodeTable> getPlanning(){
-		List<CodeTable> devList = projectService.getCodeTable("006");
+		List<CodeTable> devList = listService.getCodeTable("006");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("experience")
 	public List<CodeTable> getExperience(){
-		List<CodeTable> devList = projectService.getCodeTable("007");
+		List<CodeTable> devList = listService.getCodeTable("007");
 		
 		return devList;
 	}
 	
 	@ModelAttribute("level")
 	public List<CodeTable> getLevel(){
-		List<CodeTable> devList = projectService.getCodeTable("008");
+		List<CodeTable> devList = listService.getCodeTable("008");
 		
 		return devList;
 	}

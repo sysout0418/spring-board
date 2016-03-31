@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.Project.myProjects.Service.myProjectsService;
+import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
 
 @Controller
-public class myProjectsController {
-	private static final Logger logger = LoggerFactory.getLogger(myProjectsController.class);
-	
+public class MyProjectController {
+	private static final Logger logger = LoggerFactory.getLogger(MyProjectController.class);
+
 	@Autowired
-	myProjectsService myProjectsService;
+	MyProjectService myProjectService;
 	
 	@RequestMapping("/{uno}/{pno}")
 	public String  home(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
-		Project project = myProjectsService.getProjectByPno(pno);
+		Project project = myProjectService.getProjectByPno(pno);
 		String pdata = project.getPdata();
 		
 		//한글화
@@ -39,7 +39,7 @@ public class myProjectsController {
 		project.setPprogress(getCodeName(pprogress));
 		
 		//담당자 코드->한글
-		String uname = myProjectsService.getUserForNo(project.getUno()).getUname();
+		String uname = myProjectService.getUserForNo(project.getUno()).getUname();
 		project.setUname(uname);
 		
 		//프로젝트 인원
@@ -58,7 +58,7 @@ public class myProjectsController {
 		param.put("CODE_TYPE", code.substring(0, 3));
 		param.put("CODE", code.substring(3, 6));
 		
-		return myProjectsService.getCodeName(param).getCODE_NAME();
+		return myProjectService.getCodeName(param).getCODE_NAME();
 	}
 	
 	private Object getCodeForCodeType(String pdata, String type) {

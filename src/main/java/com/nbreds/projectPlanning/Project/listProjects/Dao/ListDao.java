@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +13,10 @@ import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.User;
 
-@Repository
-public class ProjectLoadDAO {
+@Repository("ListDao")
+public class ListDao {
+	private static final Logger logger = LoggerFactory.getLogger(ListDao.class);	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -22,6 +26,7 @@ public class ProjectLoadDAO {
 		
 		return count;
 	}
+	
 	public List<Project> getPageList(HashMap<String, Integer> param) {
 		return sqlSession.selectList("project.getProjectList", param);
 	}

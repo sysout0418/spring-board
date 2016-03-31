@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +14,13 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.Project.VO.User;
 
-@Repository
-public class RegistDAO {
+@Repository("RegistDao")
+public class RegistDao {
+	private static final Logger logger = LoggerFactory.getLogger(RegistDao.class);	
+
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	public void saveManager(HashMap<String, String> manager) {
 		sqlSession.insert("project.saveManager", manager);
 	}
