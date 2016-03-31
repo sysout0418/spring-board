@@ -133,6 +133,10 @@ public class milestonesController {
 		List<Issues> issues = service.getIssuesBymno(mno);
 		HashSet<String> uname = new HashSet<>();
 		for (Issues issue : issues) {
+			if(issue.getUno() != 0){
+				String param = String.valueOf(issue.getUno());
+				uname.add(service.getUnameByUno(param));
+			}
 			String param = String.valueOf(issue.getUno());
 			uname.add(service.getUnameByUno(param));
 		}
