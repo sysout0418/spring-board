@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <% 
-	int i = 0; 
+	int i = 0;
 %>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />

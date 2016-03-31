@@ -13,8 +13,8 @@ import com.nbreds.projectPlanning.issues.VO.Issues;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
-@Repository("IssuesDAO")
-public class IssuesDAO {
+@Repository
+public class issuesDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -77,19 +77,5 @@ public class IssuesDAO {
 	
 	public void saveIssueLabel(IssueLabel issueLabel) {
 		sqlSession.insert("issues.saveIssueLabel", issueLabel);
-	}
-	
-	public void removeIssueLabelForUpdate(Issues issues) {
-		sqlSession.delete("issues.removeIssueLabelForUpdate", issues);
-	}
-	
-	// uno로 이슈 가져오기
-	public List<Issues> getIssuesByUno(Map<String, Object> param) {
-		return sqlSession.selectList("issues.getIssuesByUno", param);
-	}
-	
-	// param 조건에 따라 이슈 가져오기
-	public List<Issues> searchIssuesByParam(Map<String, Object> param) {
-		return sqlSession.selectList("issues.searchIssuesByParam", param);
 	}
 }
