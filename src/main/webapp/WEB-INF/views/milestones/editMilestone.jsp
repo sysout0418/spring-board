@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
 <div class="container-fluid">
-<div class="row">
+<div class="row"><div id="col">
 <div class="col-sm-2 col-md-2 sidebar">
    	<ul class="nav nav-sidebar" style="height: 30px; text-align: center;">
     	<li><a href="/">Go to DashBoard</a></li>
@@ -13,16 +13,12 @@
 	</ul>
 	<ul class="nav nav-sidebar">
 		<li class="active"><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
-<<<<<<< HEAD
 	    <li><a href="/${uno}/${pno}/issues/open">Issues</a></li>
-=======
-	    <li><a href="/${uno}/${pno}/issues">Issues</a></li>
->>>>>>> branch 'master' of http://gitlab.nbreds.com:30000/sangil/Web.git
 	</ul>
  	<ul class="nav nav-sidebar">
     	<li><a href="">Settings</a></li>
     </ul>
-</div>
+</div></div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<!-- Begin page content -->
 	<div style="width:1200; margin:0 auto; background-color: #fff">

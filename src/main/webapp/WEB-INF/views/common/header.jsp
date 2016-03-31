@@ -60,6 +60,20 @@ body {
 label{
 	font-weight: normal;
 }
+
+#col a{
+	color:#c5d0de;
+}
+#col a:hover{
+  background-color: #24272d;
+}
+
+a{
+	color:#333C47;
+}
+a:hover{
+	color:#333C47;
+}
 </style>
 </head>
 <body>
