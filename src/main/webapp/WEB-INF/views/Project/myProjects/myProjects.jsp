@@ -38,7 +38,7 @@
 		</c:forEach>
 	  	<tr><td></td></tr>
   	</table>
-  	<a href="logout">로그아웃</a>
+  	<a href="/logout">로그아웃</a>
 	</div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

@@ -30,7 +30,7 @@
 		<a href="login/41">41로그인</a>
 		</c:if>
 		<c:if test="${user_no != null}">
-		<a href="logout">로그아웃</a>
+		<a href="/logout">로그아웃</a>
 		</c:if>
 	</div>
 </div>
