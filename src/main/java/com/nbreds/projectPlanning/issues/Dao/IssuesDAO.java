@@ -1,0 +1,95 @@
+package com.nbreds.projectPlanning.issues.Dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
+import com.nbreds.projectPlanning.issues.VO.Issues;
+import com.nbreds.projectPlanning.label.VO.Label;
+import com.nbreds.projectPlanning.milestones.VO.Milestones;
+
+@Repository("IssuesDAO")
+public class IssuesDAO {
+	@Autowired
+	private SqlSession sqlSession;
+
+	public void saveIssues(Issues issues) {
+		sqlSession.insert("issues.saveIssues", issues);
+	}
+	
+	public List<Issues> getAllIssues() {
+		return sqlSession.selectList("issues.getAllIssues");
+	}
+
+	public Issues getIssuesByIno(int ino) {
+		return sqlSession.selectOne("issues.getIssuesByIno", ino);
+	}
+
+	public List<Issues> getIssuesByPno(Map<String, Object> param) {
+		return sqlSession.selectList("issues.getIssuesByPno", param);
+	}
+	
+	public List<Issues> searchIssues(Map<String, Object> param) {
+		return sqlSession.selectList("issues.searchIssues", param);
+	}
+	
+	public List<Milestones> getAllMilestone() {
+		return sqlSession.selectList("issues.getAllMilestone");
+	}
+	
+	public void updateIssueByIno(Issues issues) {
+		sqlSession.update("issues.updateIssues", issues);
+	}
+	
+	public void removeIssues(int ino) {
+		sqlSession.delete("issues.removeIssues", ino);
+	}
+
+	public User getUserForNo(int uno) {
+		return sqlSession.selectOne("project.getUserForNo", uno);
+	}
+	
+	public void closeIssue(Map<String, Object> param) {
+		sqlSession.update("issues.closeIssue", param);
+	}
+	
+	public int getLastIno() {
+		return sqlSession.selectOne("issues.getLastIno");
+	}
+	
+	//
+	public List<Label> getAllLabel() {
+		return sqlSession.selectList("issues.getAllLabel");
+	}
+	
+	public List<User> getAllUserNameAndNo() {
+		return sqlSession.selectList("issues.getAllUserNameAndNo");
+	}
+	
+	public List<Label> getLabelsByIno(int ino) {
+		return sqlSession.selectList("issues.getLabelsByIno", ino);
+	}
+	
+	public void saveIssueLabel(IssueLabel issueLabel) {
+		sqlSession.insert("issues.saveIssueLabel", issueLabel);
+	}
+	
+	public void removeIssueLabelForUpdate(Issues issues) {
+		sqlSession.delete("issues.removeIssueLabelForUpdate", issues);
+	}
+	
+	// uno로 이슈 가져오기
+	public List<Issues> getIssuesByUno(Map<String, Object> param) {
+		return sqlSession.selectList("issues.getIssuesByUno", param);
+	}
+	
+	// param 조건에 따라 이슈 가져오기
+	public List<Issues> searchIssuesByParam(Map<String, Object> param) {
+		return sqlSession.selectList("issues.searchIssuesByParam", param);
+	}
+}
