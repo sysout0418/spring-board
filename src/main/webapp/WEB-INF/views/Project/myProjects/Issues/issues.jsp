@@ -15,6 +15,7 @@
 				<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
 				<li class="active"><a href="/${uno}/${pno}/issues/open">Issues<span
 						class="sr-only">(current)</span></a></li>
+				<li><a href="/${uno}/${pno}/labels">Labels</a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
 				<li><a href="">Settings</a></li>
@@ -137,7 +138,7 @@
 											href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
 											${issues.idescription }</td>
 										<td><a
-											href="/${issues.uno}/${issues.pno}/issue/${issues.mno}">${issues.mtitle}</a></td>
+											href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
 
 										<td><c:forEach var="labels" items="${issues.labels}">
 												<a href="#"><span class="label color-label has_tooltip"
@@ -193,7 +194,6 @@
 			
 			//문자열 공백제거 함수
 			String.prototype.stripspace = function() {
-				alert("호출.........");
 				return this.replace(/ /g, "");
 			}
 
@@ -249,12 +249,12 @@
 				}
 
 				if (items == "") {
-					alert("삭제할 회원을 선택해 주세요.");
+					alert("삭제 선택");
 					return false;
 				}
 
-				if (confirm("선택하신 회원을 삭제하시겠습니까?")) {
-					f.action = "member_delete.do";
+				if (confirm("삭제?")) {
+					f.action = "URL";
 					f.submit();
 				}
 			}

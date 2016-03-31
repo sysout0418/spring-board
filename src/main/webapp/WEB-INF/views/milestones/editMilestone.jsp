@@ -13,7 +13,11 @@
 	</ul>
 	<ul class="nav nav-sidebar">
 		<li class="active"><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
+<<<<<<< HEAD
+	    <li><a href="/${uno}/${pno}/issues/open">Issues</a></li>
+=======
 	    <li><a href="/${uno}/${pno}/issues">Issues</a></li>
+>>>>>>> branch 'master' of http://gitlab.nbreds.com:30000/sangil/Web.git
 	</ul>
  	<ul class="nav nav-sidebar">
     	<li><a href="">Settings</a></li>

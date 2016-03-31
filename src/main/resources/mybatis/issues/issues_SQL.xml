@@ -61,9 +61,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
-	JOIN Milestones m
+	LEFT JOIN Milestones m
 	ON i.mno = m.mno
-	WHERE i.ino=#{ino};
+	WHERE i.ino=#{ino}
 	]]>
 	</select>
 
@@ -75,9 +75,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
-	JOIN Milestones m
+	LEFT JOIN Milestones m
 	ON i.mno = m.mno
-	JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
 			FROM Label l
 			JOIN IssueLabel il
             ON l.lno = il.lno ) l2
@@ -97,36 +97,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchIssues" parameterType="map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno
-    ]]>
-		<if test="userNo != null">
-			, uname
-		</if>
-		<if test="mno != null">
-			, mtitle
-		</if>
-		<if test="lno != null">
-			, lno, ltitle, ldescription, lbgcolor, i.pno
-		</if>
-    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
     FROM Issues i
-    ]]>
-		<if test="userNo != null">
-			JOIN User u
+			LEFT JOIN User u
 			ON i.uno = u.uno
-		</if>
-		<if test="mno != null">
-			JOIN Milestones m
+			LEFT JOIN Milestones m
 			ON i.mno = m.mno
-		</if>
-		<if test="lno != null">
-			JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
 			FROM Label l
-			JOIN IssueLabel il
+			LEFT JOIN IssueLabel il
 			ON l.lno = il.lno ) l2
 			ON i.ino = l2.ino
-		</if>
-    <![CDATA[
     where i.pno=#{pno}
     ]]>
 		<if test="userNo != null">
@@ -157,14 +138,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-
 	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
     <![CDATA[
     UPDATE Issues SET
-	    ititle = #{ititle},
+		ititle = #{ititle},
 		idescription = #{idescription},
 		iweight = #{iweight},
-		mno = #{mno}
+		mno = #{mno},
+		uno = #{uno}
 	WHERE ino = #{ino}
 	]]>
 	</update>
@@ -172,7 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="removeIssues" parameterType="int">
     <![CDATA[
     DELETE FROM Issues 
-	WHERE ino = #{ino};
+	WHERE ino = #{ino}
     ]]>
 	</delete>
 
@@ -183,15 +164,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE ino = #{ino}
 	]]>
 	</update>
-	
+
 	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
     <![CDATA[
     SELECT lno, ltitle, ldescription, lbgcolor, pno
     FROM Label
 	]]>
 	</select>
-	
-	<select id="getLabelsByIno" parameterType="int" resultType="com.nbreds.projectPlanning.label.VO.Label">
+
+	<select id="getLabelsByIno" parameterType="int"
+		resultType="com.nbreds.projectPlanning.label.VO.Label">
     <![CDATA[
     SELECT l.lno, ltitle, ldescription, lbgcolor, pno
     FROM Label l
@@ -200,15 +182,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE ino = #{ino}
 	]]>
 	</select>
-	
-	<select id="getAllUserNameAndNo" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.User">
+
+	<select id="getAllUserNameAndNo" parameterType="String"
+		resultType="com.nbreds.projectPlanning.Project.VO.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User
-    ]]>  
-    </select>
-    
-    <insert id="saveIssueLabel" parameterType="com.nbreds.projectPlanning.issueLabel.VO.IssueLabel">
+    ]]>
+	</select>
+
+	<insert id="saveIssueLabel" parameterType="com.nbreds.projectPlanning.issueLabel.VO.IssueLabel">
     <![CDATA[
 	  INSERT INTO IssueLabel (
 	  ino
@@ -217,7 +200,75 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  #{ino}
 	  ,#{lno}
 	)
-    ]]>  
-    </insert>
-    
+    ]]>
+	</insert>
+
+	<delete id="removeIssueLabelForUpdate" parameterType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    DELETE FROM IssueLabel
+	WHERE ino = #{ino}
+    ]]>
+	</delete>
+
+	<!-- uno(현재 로그인한 사용자를 기본 assign으로 세팅) 로 이슈 가져오기 -->
+	<select id="getIssuesByUno" parameterType="Map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+	FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	LEFT JOIN Milestones m
+	ON i.mno = m.mno
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			JOIN IssueLabel il
+            ON l.lno = il.lno ) l2
+	ON i.ino = l2.ino
+	where i.uno=#{uno}
+	]]>
+		<if test="istatement != null">
+			and istatement=#{istatement}
+		</if>
+	<![CDATA[
+	GROUP BY i.ino
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<!-- 들어온 param 조건에 따라 이슈 검색 -->
+	<select id="searchIssuesByParam" parameterType="Map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issues">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    FROM Issues i
+			LEFT JOIN User u
+			ON i.uno = u.uno
+			LEFT JOIN Milestones m
+			ON i.mno = m.mno
+			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			LEFT JOIN IssueLabel il
+			ON l.lno = il.lno ) l2
+			ON i.ino = l2.ino
+    where i.uno = #{uno}
+    ]]>
+		<if test="istatement != null">
+			and istatement=#{istatement}
+		</if>
+		<if test="mno != null">
+			and i.mno=#{mno}
+		</if>
+		<if test="weight != null">
+			and iweight=#{weight}
+		</if>
+		<if test="lno != null">
+			and lno=#{lno}
+		</if>
+    <![CDATA[
+    GROUP BY i.ino
+    ORDER BY ino ASC
+	]]>
+	</select>
+
 </mapper>

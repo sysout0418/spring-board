@@ -13,7 +13,7 @@
 	</ul>
 	<ul class="nav nav-sidebar">
 		<li><a href="/milestones/open">Milestones</a></li>
-	    <li><a href="/issues">Issues</a></li>
+	    <li><a href="/issues/open">Issues</a></li>
 	</ul>
 	<ul class="nav nav-sidebar">
 	    <li><a href="">Profile Settings</a></li>
