@@ -251,10 +251,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			LEFT JOIN IssueLabel il
 			ON l.lno = il.lno ) l2
 			ON i.ino = l2.ino
-    where i.uno = #{uno}
+    WHERE
     ]]>
 		<if test="istatement != null">
-			and istatement=#{istatement}
+			istatement=#{istatement}
+		</if>
+		<if test="uno != null">
+			and i.uno = #{uno}
 		</if>
 		<if test="mno != null">
 			and i.mno=#{mno}

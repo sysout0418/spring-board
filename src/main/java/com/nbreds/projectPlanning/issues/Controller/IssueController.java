@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,15 +91,6 @@ public class IssueController {
 
 		return "/Project/myProjects/Issues/issues";
 	}
-	
-//	@RequestMapping(value = "/{uno}/{pno}/issues/{statement}", method = RequestMethod.GET)
-//	public String searchIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
-//			@PathVariable("statement") String stat, @RequestParam("userNo") int userNo,
-//			@RequestParam("mno") int mno, @RequestParam("lno") int lno, 
-//			@RequestParam("weight") int weight, Model model) {
-//		System.out.println(userNo);
-//		return "";
-//	}
 
 	// ino로 특정 issue 정보 불러오기
 	@RequestMapping("/{uno}/{pno}/issue/{ino}")
@@ -258,121 +251,112 @@ public class IssueController {
 		return "/Project/myProjects/Issues/issues";
 	}
 	
-	// issue 삭제
-//	@RequestMapping("/issues/remove/{uno}/{pno}/{ino}")
-//	public String remove(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
-//		issuesService.removeIssues(ino);
-//
-//		return "redirect:/" + uno + "/" + pno + "/issues/open";
-//	}
+	// dash board 외부 issue
+		@RequestMapping(value = "/issues/{statement}", method = RequestMethod.GET)
+		public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
+			String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
+			List<Issue> issueList = new ArrayList<Issue>();
+			List<Label> labelList = new ArrayList<Label>();
+			List<User> userList = issuesService.getAllUserNameAndNo();
+			List<Label> allLabelList = issuesService.getAllLabel();
+			List<Milestone> allMilestoneList = issuesService.getAllMilestone();
+			HashMap<String, Object> param = new HashMap<>();
+			if (stat.equals("open")) {
+				param.put("uno", uno);
+				param.put("istatement", "000");
+				issueList = issuesService.getIssuesByUno(param);
+				for (int i = 0; i < issueList.size(); i++) {
+					labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
+					issueList.get(i).setLabels(labelList);
+				}
+			} else if (stat.equals("closed")) {
+				param.put("uno", uno);
+				param.put("istatement", "001");
+				issueList = issuesService.getIssuesByUno(param);
+				for (int i = 0; i < issueList.size(); i++) {
+					labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
+					issueList.get(i).setLabels(labelList);
+				}
+			} else {
+				param.put("uno", uno);
+				issueList = issuesService.getIssuesByUno(param);
+				for (int i = 0; i < issueList.size(); i++) {
+					labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
+					issueList.get(i).setLabels(labelList);
+				}
+			}
 
-	// @RequestMapping("/issues")
-	// public String home(Model model) {
-	// List<Issues> issueList = issuesService.getAllIssues();
-	// List<Label> labelList = new ArrayList<Label>();
-	// Set<Label> labelList = new HashSet<Label>();
-	// for (int i = 0; i < issueList.size(); i++) {
-	// labelList.addAll(labelService.getLabelsByIno(issueList.get(i).getIno()));
-	// issueList.get(i).setLabels(labelList);
-	// }
-	// model.addAttribute("issuesList", issueList);
-	// user 리스트
-	// List<User> users = HomeController.USER_INFO;
+			model.addAttribute("stat", stat);
+			model.addAttribute("issuesList", issueList);
+			model.addAttribute("userList", userList);
+			model.addAttribute("allLabelList", allLabelList);
+			model.addAttribute("allMilestoneList", allMilestoneList);
 
-	// milestone 리스트
-
-	// label 리스트
-	// List<Label> labels = labelService.getAllLabel();
-	//
-	// model.addAttribute("users", users);
-	// model.addAttribute("labels", labels);
-	// return "issues/issues";
-	// }
-
-	// @RequestMapping(value = "/issues", method = RequestMethod.GET)
-	// public String home1(Model model) {
-	// List<Issues> issueList = issuesService.getAllIssues();
-	// List<Label> labelList = new ArrayList<Label>();
-	// Set<Label> labelList = new HashSet<Label>();
-	// for (int i = 0; i < issueList.size(); i++) {
-	// labelList.addAll(labelService.getLabelsByIno(issueList.get(i).getIno()));
-	// issueList.get(i).setLabels(labelList);
-	// }
-	// model.addAttribute("issuesList", issueList);
-	// user 리스트
-	// List<User> users = HomeController.USER_INFO;
-
-	// milestone 리스트
-
-	// label 리스트
-	// List<Label> labels = labelService.getAllLabel();
-	//
-	// model.addAttribute("users", users);
-	// model.addAttribute("labels", labels);
-	// return "issues/issues";
-	// }
-
-	// @RequestMapping("/{uno}/{pno}/issues")
-	// public String issues(@PathVariable("uno") int uno, @PathVariable("pno")
-	// int pno, Model model) {
-	// model.addAttribute("uno", uno);
-	// model.addAttribute("pno", pno);
-	//
-	// return "/Project/myProjects/Issues/issues";
-	// }
-
-	// @RequestMapping("/issues/new")
-	// public String newMilestone(Model model) {
-	// List<User> users = HomeController.USER_INFO;
-	// model.addAttribute("users", users);
-	// int uno =
-	// Integer.parseInt(session.getAttribute("user_no").toString());
-	// User user = issuesService.getUserForNo(uno);
-	// model.addAttribute("user",user);
-	// model.addAttribute("uno", uno);
-	// model.addAttribute("pno", pno);
-
-	// return "/issues/newIssue";
-	// }
-
-	// @RequestMapping("/issues/regist")
-	// public String regist(@ModelAttribute("issues") Issues issues,
-	// BindingResult result) {
-	// logger.info("title : " + issues.getItitle());
-	// logger.info("description : " + issues.getIdescription());
-	// logger.info("weight : " + issues.getIweight());
-	// logger.info("statement : " + issues.getIstatement());
-	// logger.info("mno : " + issues.getMno());
-	// logger.info("uno : " + issues.getUno());
-	// logger.info("pno : " + issues.getPno());
-	// // service.saveMilestone(milestone);
-	//
-	// return "/Project/myProjects/Issues/issues";
-	// }
-
-	// @RequestMapping("/registIssue")
-	// public String registIssue(@ModelAttribute("issues") Issues issues,
-	// BindingResult result) {
-	// logger.info("title : " + issues.getItitle());
-	// logger.info("description : " + issues.getIdescription());
-	// logger.info("weight : " + issues.getIweight());
-	// logger.info("statement : " + issues.getIstatement());
-	// logger.info("mno : " + issues.getMno());
-	// logger.info("uno : " + issues.getUno());
-	// logger.info("pno : " + issues.getPno());
-	//
-	// issuesService.saveIssues(issues);
-	//
-	// return "redirect:/issues";
-	// }
-
-	// @RequestMapping(value = "/DetailIssue", method = RequestMethod.GET)
-	// public String detailView(int ino, Model model) {
-	// System.out.println(ino);
-	// // Issues issues = issuesService.getIssuesByIno(ino);
-	// // model.addAttribute("issue", issues);
-	//
-	// return "/issues/detailIssue";
-	// }
+			return "issues/issues";
+		}
+		
+		@RequestMapping("/issues/{statement}/search")
+		public String searchIssueByUno(@PathVariable("statement") String stat, 
+				@RequestParam(value="uno", required=false) Integer uno,
+				@RequestParam(value="mno", required=false) Integer mno,
+				@RequestParam(value="lno", required=false) Integer lno,
+				@RequestParam(value="weight", required=false) Integer weight, Model model) {
+			logger.info("uno : " + uno);
+			logger.info("mno : " + mno);
+			logger.info("lno : " + lno);
+			logger.info("weight : " + weight);
+			Map<String, Object> param = new HashMap<String, Object>();
+			List<Issue> issuesList = new ArrayList<Issue>();
+			List<Label> labelList = new ArrayList<Label>();
+			List<User> userList = issuesService.getAllUserNameAndNo();
+			List<Label> allLabelList = issuesService.getAllLabel();
+			List<Milestone> allMilestoneList = issuesService.getAllMilestone();
+			if (stat.equals("open")) {
+				//param.put("pno", pno);
+				param.put("istatement", "000");
+				param.put("uno", uno);
+				param.put("mno", mno);
+				param.put("lno", lno);
+				param.put("weight", weight);
+				issuesList = issuesService.searchIssuesByParam(param);
+				for (int i = 0; i < issuesList.size(); i++) {
+					labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+					issuesList.get(i).setLabels(labelList);
+				}
+			} if (stat.equals("closed")) {
+				//param.put("pno", pno);
+				param.put("istatement", "001");
+				param.put("uno", uno);
+				param.put("mno", mno);
+				param.put("lno", lno);
+				param.put("weight", weight);
+				issuesList = issuesService.searchIssuesByParam(param);
+				System.out.println(issuesList.size());
+				for (int i = 0; i < issuesList.size(); i++) {
+					labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+					issuesList.get(i).setLabels(labelList);
+				}
+			} else {
+				//param.put("pno", pno);
+				param.put("uno", uno);
+				param.put("mno", mno);
+				param.put("lno", lno);
+				param.put("weight", weight);
+				issuesList = issuesService.searchIssuesByParam(param);
+				for (int i = 0; i < issuesList.size(); i++) {
+					labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+					issuesList.get(i).setLabels(labelList);
+				}
+			}
+			
+			model.addAttribute("stat", stat);
+			model.addAttribute("uno", uno);
+			model.addAttribute("issuesList", issuesList);
+			model.addAttribute("userList", userList);
+			model.addAttribute("allLabelList", allLabelList);
+			model.addAttribute("allMilestoneList", allMilestoneList);
+			
+			return "/issues/issues";
+		}
 
 }
