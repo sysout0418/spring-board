@@ -9,7 +9,7 @@
     	<li><a href="/">Go to DashBoard</a></li>
   	</ul>
     <ul class="nav nav-sidebar">
-		<li class="active"><a href="/${uno}/${pno}">Project<span class="sr-only">(current)</span></a></li>
+		<li class="active"><a href="/${uno}/${pno}">Project</a></li>
 	</ul>
 	<ul class="nav nav-sidebar">
 		<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
@@ -23,7 +23,7 @@
 	<!-- Begin page content -->
 	<div style="width:1200; margin:0 auto; background-color: #fff">
 	    <h4>New Milestones</h4>  	
-		<form:form method="post" action="/milestones/regist" commandName="milestones">
+		<form:form method="post" action="/milestones/regist" commandName="milestone">
 		<table class="table">
 			<tr>
 				<td>Title</td>

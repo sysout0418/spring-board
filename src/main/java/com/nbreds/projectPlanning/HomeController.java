@@ -58,7 +58,7 @@ public class HomeController {
 	public String  login(@PathVariable("uno") int uno, HttpSession session, HttpServletResponse response) {
 		session.setAttribute("user_no", uno);
 		
-        return "Project/myProjects/myProjects";
+        return "redirect:/";
 	}
 	
 	@RequestMapping("/logout")

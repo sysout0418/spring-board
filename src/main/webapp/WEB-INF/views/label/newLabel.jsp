@@ -9,7 +9,7 @@
     	<li><a href="/">Go to DashBoard</a></li>
   	</ul>
     <ul class="nav nav-sidebar">
-		<li><a href="/${uno}/${pno}">Project</li>
+		<li><a href="/${uno}/${pno}">Project</a></li>
 	</ul>
 	<ul class="nav nav-sidebar">
 		<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>

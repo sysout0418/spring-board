@@ -21,17 +21,14 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<!-- Begin page content -->
 	<div style="width:1200; margin:0 auto; background-color: #fff">
-		<h3 class="page-header">프로젝트</h3>  	
-		현재 유저번호 : ${user_no}
-		<br>
-		<c:if test="${user_no == null}">
-		<a href="login/39">39로그인</a>
-		<a href="login/40">40로그인</a>
-		<a href="login/41">41로그인</a>
-		</c:if>
-		<c:if test="${user_no != null}">
-		<a href="/logout">로그아웃</a>
-		</c:if>
-	</div>
+	<c:if test="${user_no == null}">
+	<a href="login/39">39로그인</a>
+	<a href="login/40">40로그인</a>
+	<a href="login/41">41로그인</a>
+	</c:if>
+	<c:if test="${user_no != null}">
+	<a href="/logout">로그아웃</a>
+	</c:if>
+</div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
