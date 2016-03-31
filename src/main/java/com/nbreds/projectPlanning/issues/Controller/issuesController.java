@@ -24,7 +24,7 @@ import com.nbreds.projectPlanning.issueLabel.Service.IssueLabelService;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.issuesService;
 import com.nbreds.projectPlanning.issues.VO.Issues;
-import com.nbreds.projectPlanning.label.Service.labelService;
+import com.nbreds.projectPlanning.label.Service.LabelServiceImpl;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.Service.milestonesService;
 import com.nbreds.projectPlanning.milestones.VO.Milestones;

@@ -2,9 +2,10 @@ package com.nbreds.projectPlanning.label.Controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,20 +14,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nbreds.projectPlanning.label.Service.labelService;
+import com.nbreds.projectPlanning.label.Service.LabelService;
 import com.nbreds.projectPlanning.label.VO.Label;
-import com.nbreds.projectPlanning.milestones.VO.Milestones;
 
 @Controller
-public class labelController {
-	private static final Logger logger = LoggerFactory.getLogger(labelController.class);
+public class LabelController {
+	private static final Logger logger = LoggerFactory.getLogger(LabelController.class);
 	
-	@Autowired
-	labelService service;
+	@Resource(name="LabelService")
+	LabelService labelService;
 	
 	@RequestMapping("/{uno}/{pno}/labels")
 	public String  labels(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
-		List<Label> list = service.getLabelsByPno(pno);
+		List<Label> list = labelService.getLabelsByPno(pno);
 		
 		model.addAttribute("list", list);
 		return "/label/labels";
@@ -47,14 +47,14 @@ public class labelController {
 		logger.info("bgcolor : " + label.getLbgcolor());
 		label.setPno(pno);
 		
-		service.saveLabel(label);
+		labelService.saveLabel(label);
 		
 		return "redirect:/"+uno+"/"+pno+"/labels";
 	}
 	
 	@RequestMapping("/label/edit/{uno}/{pno}/{lno}")
 	public String editLabel(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("lno") int lno, @ModelAttribute("label") Label label, Model model) {
-		label = service.getLabelByLno(lno);
+		label = labelService.getLabelByLno(lno);
 		
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
@@ -65,14 +65,14 @@ public class labelController {
 	
 	@RequestMapping(value="/label/edit", method = RequestMethod.POST)
 	public String editing(int uno, int pno, @ModelAttribute("label") Label label, BindingResult result){
-		service.editLabelBylno(label);
+		labelService.editLabelBylno(label);
 		
 		return "redirect:/"+uno+"/"+pno+"/labels";
 	}
 	
 	@RequestMapping("/label/remove/{uno}/{pno}/{lno}")
 	public String remove(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("lno") int lno) {
-		service.removeLabel(lno);
+		labelService.removeLabel(lno);
 		
 		return "redirect:/"+uno+"/"+pno+"/labels";
 	}
