@@ -274,4 +274,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
+	<insert id="saveComment" parameterType="Map">
+    <![CDATA[
+	  INSERT INTO Comments (
+	  content
+	  ,uno
+	  ,ino
+	) VALUES (
+	  #{content}
+	  ,#{uno}
+	  ,#{ino}
+	)
+    ]]>
+	</insert>
+
+	<select id="getCommentByIno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Comment">
+	<![CDATA[	
+		SELECT cno, content, regdate, c.uno, ino, uname
+		FROM Comments c
+		JOIN User u
+		ON c.uno = u.uno
+		WHERE ino = #{ino}
+	]]>
+	</select>
+	
+	<update id="updateComment" parameterType="Map">
+    <![CDATA[
+    UPDATE Comments SET
+	    content = #{content},
+	    regdate = now()
+	WHERE cno = #{cno}
+	]]>
+	</update>
+	
+	<delete id="removeCommentByCno" parameterType="int">
+    <![CDATA[
+    DELETE FROM Comments
+	WHERE cno = #{cno}
+    ]]>
+	</delete>
+	
 </mapper>

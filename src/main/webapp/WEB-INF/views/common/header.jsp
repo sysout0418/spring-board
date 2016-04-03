@@ -26,7 +26,7 @@
 <!-- Bootstrap core JavaScript
  ================================================== -->
  <!-- Placed at the end of the document so the pages load faster -->
- <script type="text/javascript" src="<c:url value="/resources/javascript/jquery-1.12.1.min.js" />"></script>
+ <script type="text/javascript" src="<c:url value="http://code.jquery.com/jquery-latest.min.js" />"></script>
  <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap.min.js" />"></script>
  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
  <script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>

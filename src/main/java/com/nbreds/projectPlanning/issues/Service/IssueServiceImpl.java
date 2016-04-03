@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Dao.IssueDao;
+import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
@@ -102,15 +103,33 @@ public class IssueServiceImpl implements IssueService {
 		issueDao.removeIssueLabelForUpdate(issues);
 	}
 	
-	// uno로 이슈 가져오기
 	@Override
 	public List<Issue> getIssuesByUno(Map<String, Object> param) {
 		return issueDao.getIssuesByUno(param);
 	}
 	
-	// 들어온 param에 따라 이슈 검색하기
 	@Override
 	public List<Issue> searchIssuesByParam(Map<String, Object> param) {
 		return issueDao.searchIssuesByParam(param);
+	}
+
+	@Override
+	public List<Comment> getCommentByIno(int ino) {
+		return issueDao.getCommentByIno(ino);
+	}
+
+	@Override
+	public void saveComment(Map<String, Object> param) {
+		issueDao.saveComment(param);
+	}
+
+	@Override
+	public void updateComment(Map<String, Object> param) {
+		issueDao.updateComment(param);
+	}
+
+	@Override
+	public void removeCommentByCno(int cno) {
+		issueDao.removeCommentByCno(cno);
 	}	
 }
