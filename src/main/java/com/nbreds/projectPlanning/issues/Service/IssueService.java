@@ -3,6 +3,8 @@ package com.nbreds.projectPlanning.issues.Service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public interface IssueService {
 	static final Logger logger = LoggerFactory.getLogger(IssueServiceImpl.class);
 
 	/** 이슈 정보 등록 */
-	public void saveIssues(Issue issues);
+	public void saveIssues(Issue issues, HttpServletRequest request);
 	
 	/** 모든 이슈 리스트 가져오기 */
 	public List<Issue> getAllIssues();

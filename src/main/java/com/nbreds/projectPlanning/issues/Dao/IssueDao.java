@@ -3,6 +3,8 @@ package com.nbreds.projectPlanning.issues.Dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,10 @@ public class IssueDao {
 
 	public void saveIssues(Issue issues) {
 		sqlSession.insert("issues.saveIssues", issues);
+	}
+	
+	public void saveIssueFile(Map<String, Object> param) {
+		sqlSession.insert("issues.saveIssueFile", param);
 	}
 	
 	public List<Issue> getAllIssues() {

@@ -15,17 +15,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  INSERT INTO Issues (
 	  ititle
 	  ,idescription
-	  ,iweight
-	  ,mno
+	  ]]>
+		<if test="iweight != 0">
+		  ,iweight
+		</if>
+		<if test="mno != 0">
+		  ,mno
+		</if>
+    <![CDATA[
 	  ,pno
 	  ,uno
 	) VALUES (
 	  #{ititle}
 	  ,#{idescription}
-	  ,#{iweight}
-	  ,#{mno}
+	  ]]>
+		<if test="iweight != 0">
+		  ,#{iweight}
+		</if>
+		<if test="mno != 0">
+		  ,#{mno}
+		</if>
+    <![CDATA[
 	  ,#{pno}
 	  ,#{uno}
+	)
+    ]]>
+	</insert>
+	
+	<insert id="saveIssueFile" parameterType="Map">
+    <![CDATA[
+	  INSERT INTO IssueFiles (
+	  ino
+	  ,uno
+	  ,originalName
+	  ,storeName
+	  ,fileSize
+	) VALUES (
+	  #{ino}
+	  ,#{uno}
+	  ,#{originalName}
+	  ,#{storeName}
+	  ,#{fileSize}
 	)
     ]]>
 	</insert>

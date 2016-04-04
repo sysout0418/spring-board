@@ -32,8 +32,8 @@
 			<!-- Begin page content -->
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
 				<form:form class="form-horizontal" method="post"
-					action="/issues/regist" commandName="Issues">
-					<input type="hidden" value="" name="uno" id="uno">
+					action="/issues/regist" commandName="Issues" enctype="multipart/form-data">
+					<input type="hidden" value="${uno}" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="" id="mno" name="mno">
 					<input type="hidden" value="" name="iweight" id="iweight">
@@ -56,6 +56,8 @@
 								<textarea class="form-control" rows="8" id="idescription"
 									name="idescription"></textarea>
 								<span class="help-block">help 설명</span>
+								<input type="button" id="addfile" value='파일추가'/>
+								<section id="filecontent"></section>
 							</div>
 						</div>
 						<div class="form-group">
@@ -211,6 +213,25 @@
 				$("#lno").val(labelNo);
 				$("#selectedLabel").text(lTitle);
 			}); */
+			
+			// file upload를 위한 function
+			var count =0;
+			$(function(){
+				$('#addfile').click(function(event){
+					$("#fileNum").val(Number($("#fileNum").val())+1);
+					console.log($("#fileNum").val());
+					$("<div id='item_"+count+"'/>")
+					.append($('<input type="file" id="fileup" name="fileup'+count+'"/>'))
+		            .append($("<input type='button' value='삭제' onclick='removeForm("+count+")'/>"))
+					.appendTo('#filecontent');
+					count++;
+				});
+			});
+			function removeForm(count){
+				$("#fileNum").val(Number($("#fileNum").val())-1);
+				console.log($("#fileNum").val());
+				$('#item_'+count).remove();
+			}
 		</script>
 		<jsp:include
 			page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

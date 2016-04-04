@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
@@ -124,22 +127,40 @@ public class IssueController {
 	// issue 등록 요청
 	@RequestMapping("/issues/regist")
 	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues,
-			@ModelAttribute("Issues2") IssueLabel issueLabel, BindingResult result) {
+			BindingResult result, HttpServletRequest request) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 		logger.info("weight : " + issues.getIweight());
 		logger.info("pno : " + issues.getPno());
 		logger.info("lno : " + issues.getLno());
 		String[] lnos = String.valueOf(issues.getLno()).split(",");
-		issuesService.saveIssues(issues);
+		logger.info("lno[0] : " + lnos[0]);
+		issuesService.saveIssues(issues, request);
 		int lastInsertIno = issuesService.getLastIno();
+		logger.info("ino : " + String.valueOf(lastInsertIno));
+		IssueLabel issueLabel = new IssueLabel();
 		issueLabel.setIno(lastInsertIno);
-		if (lnos != null && lnos.length > 0) {
+		if (lnos != null && lnos.length > 0 && !lnos[0].equals("0")) {
 			for (int i = 0; i < lnos.length; i++) {
 				issueLabel.setLno(Integer.parseInt(lnos[i]));
 				issuesService.saveIssueLabel(issueLabel);
 			}
 		}
+		
+		// 파일이 서버에 제대로 전송 되는지 확인
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+	    Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+	    MultipartFile multipartFile = null;
+	    while(iterator.hasNext()){
+	        multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+	        if(multipartFile.isEmpty() == false){
+	        	logger.info("------------- file start -------------");
+	        	logger.info("name : "+multipartFile.getName());
+	        	logger.info("filename : "+multipartFile.getOriginalFilename());
+	        	logger.info("size : "+multipartFile.getSize());
+	        	logger.info("-------------- file end --------------\n");
+	        }
+	    }
 
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
