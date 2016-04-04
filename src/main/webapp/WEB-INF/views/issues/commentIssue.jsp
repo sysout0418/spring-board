@@ -7,7 +7,7 @@
 			<td colspan=2>
 				<input type="hidden" name="cno" id="cno" value="${comment.cno}">
 				<strong>${comment.uname}</strong><br>
-				${comment.regDate}&nbsp;&nbsp;&nbsp;&nbsp;
+				${comment.regDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<c:if test="${user_no == comment.uno}">
 					<a style="cursor: pointer;" name="pEdit">수정</a> | 
 					<a style="cursor: pointer;" name="pDel">삭제</a>
