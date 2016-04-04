@@ -52,7 +52,6 @@ ${issues.idescription}
 <tr>
 	<td>
 				<div class="list-group">
-							
 						</div>
 		<ul class="nav nav-tabs">
 							<li class="active"><a href="#home" data-toggle="tab"
