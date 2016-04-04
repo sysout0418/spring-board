@@ -58,19 +58,6 @@
 								</c:forEach>
 							</ul>
 						</div>
-						<!-- <div class="btn-group">
-							<a href="#" class="btn btn-default">Assignee</a> <a href="#"
-								class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-								aria-expanded="false"><span class="caret"
-								style="height: 10px; margin-top: 10px;"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li class="divider"></li>
-								<li><a href="#">4</a></li>
-							</ul>
-						</div> -->
 						<div class="btn-group">
 							<a href="#" class="btn btn-default"><span id="selectedMilestone">Milestone</span></a> <a href="#"
 								class="btn btn-default dropdown-toggle" data-toggle="dropdown"
