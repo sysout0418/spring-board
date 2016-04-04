@@ -49,6 +49,11 @@
 							</div>
 							<h2>${issues.ititle}</h2>
 							<p>${issues.idescription}</p>
+							<c:forEach var="file" items="${fileList}">
+		                        <input type="hidden" id="fno" value="${file.fno }">
+		                        <a href="/issue/downloadFile/${file.fno}">${file.originalName }</a> 
+		                        (${file.fileSize}kb)
+                    		</c:forEach>
 						</div>
 
 						<div class="panel panel-danger">

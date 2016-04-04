@@ -16,6 +16,7 @@ import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Dao.IssueDao;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
+import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 import com.nbreds.projectPlanning.util.FileUtils;
@@ -48,6 +49,18 @@ public class IssueServiceImpl implements IssueService {
 		}
 	}
 
+	// ino로 파일 리스트 가져오기
+	@Override
+	public List<IssueFiles> getFileListByIno(int ino) {
+		return issueDao.getFileListByIno(ino);
+	}
+	
+	// fno로 파일 정보 가져오기
+	@Override
+	public IssueFiles getFileInfoByFno(int fno) {
+		return issueDao.getFileInfoByFno(fno);
+	}
+	
 	@Override
 	public List<Issue> getAllIssues() {
 		return issueDao.getAllIssues();
@@ -152,4 +165,5 @@ public class IssueServiceImpl implements IssueService {
 	public void removeCommentByCno(int cno) {
 		issueDao.removeCommentByCno(cno);
 	}
+
 }

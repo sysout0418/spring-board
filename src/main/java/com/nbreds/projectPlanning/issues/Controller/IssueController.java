@@ -1,7 +1,10 @@
 package com.nbreds.projectPlanning.issues.Controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,8 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +35,7 @@ import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
+import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -99,14 +105,38 @@ public class IssueController {
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
 		Issue issues = issuesService.getIssuesByIno(ino);
-		List<Label> labelList = issuesService.getLabelsByIno(issues.getIno());
+		List<Label> labelList = issuesService.getLabelsByIno(ino);
 		issues.setLabels(labelList);
-		//List<Comment> commentList = issuesService.getCommentByIno(issues.getIno());
+
+		// ino로 파일 리스트 불러오기
+		List<IssueFiles> fileList = issuesService.getFileListByIno(ino);
 
 		model.addAttribute("issues", issues);
-		//model.addAttribute("commentList", commentList);
+		model.addAttribute("fileList", fileList);
 
 		return "issues/detailIssue";
+	}
+
+	// fno로 파일 정보 불러와서 다운로드 하기
+	@RequestMapping("/issue/downloadFile/{fno}")
+	public void downloadFile(@PathVariable("fno") int fno, HttpServletResponse response) {
+		IssueFiles fileInfo = issuesService.getFileInfoByFno(fno);
+
+		try {
+			byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\IssueFiles\\" + fileInfo.getStoreName()));
+
+			response.setContentType("application/octet-stream");
+			response.setContentLength(fileByte.length);
+			response.setHeader("Content-Disposition",
+					"attachment; fileName=\"" + URLEncoder.encode(fileInfo.getOriginalName(), "UTF-8") + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			response.getOutputStream().write(fileByte);
+
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// issues 등록 폼으로
@@ -126,8 +156,8 @@ public class IssueController {
 
 	// issue 등록 요청
 	@RequestMapping("/issues/regist")
-	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues,
-			BindingResult result, HttpServletRequest request) {
+	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, BindingResult result,
+			HttpServletRequest request) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 		logger.info("weight : " + issues.getIweight());
@@ -146,21 +176,21 @@ public class IssueController {
 				issuesService.saveIssueLabel(issueLabel);
 			}
 		}
-		
+
 		// 파일이 서버에 제대로 전송 되는지 확인
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
-	    Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-	    MultipartFile multipartFile = null;
-	    while(iterator.hasNext()){
-	        multipartFile = multipartHttpServletRequest.getFile(iterator.next());
-	        if(multipartFile.isEmpty() == false){
-	        	logger.info("------------- file start -------------");
-	        	logger.info("name : "+multipartFile.getName());
-	        	logger.info("filename : "+multipartFile.getOriginalFilename());
-	        	logger.info("size : "+multipartFile.getSize());
-	        	logger.info("-------------- file end --------------\n");
-	        }
-	    }
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				logger.info("------------- file start -------------");
+				logger.info("name : " + multipartFile.getName());
+				logger.info("filename : " + multipartFile.getOriginalFilename());
+				logger.info("size : " + multipartFile.getSize());
+				logger.info("-------------- file end --------------\n");
+			}
+		}
 
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
@@ -384,7 +414,7 @@ public class IssueController {
 
 		return "/issues/issues";
 	}
-	
+
 	// 코멘트 리스트 ajax 통신
 	@RequestMapping("/getCommentList/{ino}")
 	public String getCommentList(@PathVariable("ino") int ino, Model model) {
@@ -392,7 +422,7 @@ public class IssueController {
 		model.addAttribute("commentList", commentList);
 		return "/issues/commentIssue";
 	}
-	
+
 	// 코멘트 등록
 	@RequestMapping(value = "/comment/regist", method = RequestMethod.POST)
 	public void saveComment(HttpServletRequest request, Writer writer) throws IOException {
@@ -405,9 +435,9 @@ public class IssueController {
 		param.put("content", content);
 		issuesService.saveComment(param);
 		writer.write("end");
-		//return "redirect:/" + uno + "/" + pno + "/issue/" + ino;
+		// return "redirect:/" + uno + "/" + pno + "/issue/" + ino;
 	}
-	
+
 	// 코멘트 삭제
 	@RequestMapping(value = "/remove/comment", method = RequestMethod.POST)
 	public void removeComment(HttpServletRequest request, Writer writer) throws IOException {
@@ -415,7 +445,7 @@ public class IssueController {
 		issuesService.removeCommentByCno(Integer.parseInt(cno));
 		writer.write("end");
 	}
-	
+
 	// 코멘트 수정
 	@RequestMapping(value = "/update/comment", method = RequestMethod.POST)
 	public void updateComment(HttpServletRequest request, Writer writer) throws IOException {

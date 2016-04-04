@@ -15,6 +15,7 @@ import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
+import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -29,8 +30,19 @@ public class IssueDao {
 		sqlSession.insert("issues.saveIssues", issues);
 	}
 	
+	// 파일 정보 DB에 INSERT
 	public void saveIssueFile(Map<String, Object> param) {
 		sqlSession.insert("issues.saveIssueFile", param);
+	}
+	
+	// ino로 파일 정보 DB에서 SELECT
+	public List<IssueFiles> getFileListByIno(int ino) {
+		return sqlSession.selectList("issues.getFileListByIno", ino);
+	}
+	
+	// fno로 파일 정보 DB에서 SELECT
+	public IssueFiles getFileInfoByFno(int fno) {
+		return sqlSession.selectOne("issues.getFileInfoByFno", fno);
 	}
 	
 	public List<Issue> getAllIssues() {
