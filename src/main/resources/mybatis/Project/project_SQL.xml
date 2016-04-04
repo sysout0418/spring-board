@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="project">
+	<select id="getLastno" resultType="int">
+	<![CDATA[	
+		select LAST_INSERT_ID()
+	]]>  
+	</select>
+	
+    <insert id="saveProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+		 insert into Project (
+		  pname
+		  ,pdetail
+		  ,pdata
+		  ,pduedate
+		  ,pmember
+		  ,uno
+		) VALUES (
+		  #{pname}
+		  ,#{pdetail}
+		  ,#{pdata}
+		  ,#{pduedate}
+		  ,#{pmember}
+		  ,#{uno}
+		)
+    ]]>  
+    </insert>
+    
+    <insert id="saveProjectMS" parameterType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
+    <![CDATA[
+		 insert into ProjectMemberStat (
+		  uno
+		  ,pno
+		  ,stat
+		) VALUES (
+		  #{uno}
+		  ,#{pno}
+		  ,#{stat}
+		)
+    ]]>  
+    </insert>
+    
+    <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.CodeTable">
+    <![CDATA[
+     select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE}
+    ]]>  
+    </select>
+    
+    <select id="getUsersForName" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail, uposition
+    from User
+    where uname like '%' #{uname} '%'
+    ]]>  
+    </select>
+    
+    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail, uposition
+    from User
+    where uno=#{uno}
+    ]]>  
+    </select>
+    
+    <!-- 03-22 추가.. 모든 유저의 이름과 유저번호 가져옴 -->
+    <select id="getAllUserNameAndNo" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail, uposition
+    from User
+    ]]>  
+    </select>
+    
+    <select id="getPageList" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+		SELECT pno, pname, pdetail, pdata, pduedate, pmember, uno
+		FROM Project
+	]]>
+		<where>
+			<foreach collection="pdata" item="data" index="index" separator="or">
+	<![CDATA[
+				pdata like '%' #{data} '%'
+	]]>
+			</foreach>
+		</where>
+	
+	<![CDATA[
+		ORDER BY pno DESC
+		LIMIT #{pageNo}, #{rowsPerPage};
+	]]>
+    </select>
+    
+    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.CodeTable">
+    <![CDATA[
+      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE} and CODE=#{CODE}
+    ]]>  
+    </select>
+    
+    <select id="getTotalProjectNo" resultType="int">
+    <![CDATA[
+   		select count(*) from Project;
+    ]]>  
+    </select>
+
+    <select id="getProjectList" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+	   	SELECT pno, pname, pdetail, pdata, pduedate, pmember, uno
+		FROM Project
+		ORDER BY pno DESC
+		LIMIT #{pageNo}, #{rowsPerPage};
+    ]]>  
+    </select>
+    
+     <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+     select pno, pname, pdetail, pdata, pduedate, pmember, uno from Project where pno=#{pno};
+    ]]>  
+    </select>
+    
+    <delete id="removeProject" parameterType="int">
+    <![CDATA[
+    delete from Project where pno = #{pno};
+    ]]>  
+    </delete>
+    
+    <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    UPDATE Project SET
+	    pname = #{pname},
+		pdetail = #{pdetail},
+		pdata=#{pdata},
+		pduedate=#{pduedate},
+		pmember = #{pmember}
+	WHERE pno = #{pno}
+	]]> 
+    </update>
+    
+    <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    select pno, pname, pdetail, uno
+    from Project 
+    where uno=#{uno} OR pmember like '%' #{uno} '%'
+    ]]>  
+    </select>
+    
+</mapper>
