@@ -18,6 +18,7 @@
 			<ul class="nav nav-sidebar">
 				<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
 				<li class="active"><a href="/${uno}/${pno}/issues/open">Issues</a></li>
+				<li><a href="/${uno}/${pno}/labels">Labels</a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
 				<li><a href="">Settings</a></li>

@@ -16,6 +16,7 @@
 				<ul class="nav nav-sidebar">
 					<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
 					<li class="active"><a href="/${uno}/${pno}/issues/open">Issues</a></li>
+					<li><a href="/${uno}/${pno}/labels">Labels</a></li>
 				</ul>
 				<ul class="nav nav-sidebar">
 					<li><a href="">Settings</a></li>
@@ -52,7 +53,7 @@
 							<c:forEach var="file" items="${fileList}">
 		                        <input type="hidden" id="fno" value="${file.fno }">
 		                        <a href="/issue/downloadFile/${file.fno}">${file.originalName }</a> 
-		                        (${file.fileSize}kb)
+		                        (${file.fileSize}kb) <br>
                     		</c:forEach>
 						</div>
 

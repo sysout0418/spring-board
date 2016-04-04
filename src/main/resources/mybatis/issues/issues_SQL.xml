@@ -6,7 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="issues">
 	<select id="getLastIno" resultType="int">
 	<![CDATA[	
-		select LAST_INSERT_ID()
+		SELECT MAX(ino) AS ino
+		FROM Issues
 	]]>
 	</select>
 
