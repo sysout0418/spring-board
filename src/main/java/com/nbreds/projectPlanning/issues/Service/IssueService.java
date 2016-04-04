@@ -56,6 +56,9 @@ public interface IssueService {
 	
 	/** issue close 기능 */
 	void closeIssue(Map<String, Object> param);
+	
+	/** isse reopen 기능 */
+	void reopenIssue(Map<String, Object> param);
 
 	/** 가장 최근에 insert 된 번호를 가져오는 기능 */
 	int getLastIno();

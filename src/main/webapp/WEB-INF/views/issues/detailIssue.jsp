@@ -29,20 +29,29 @@
 				<form class="form-horizontal">
 					<fieldset>
 						<legend>
-							<a href="/issues/close/${uno}/${pno}/${ino}"
-								class="btn btn-warning"
-								style="position: absolute; right: 260px;">Close Issue</a> <a
-								href="/issues/edit/${uno}/${pno}/${ino}" class="btn btn-info"
+							<c:choose>
+								<c:when test="${issues.istatement == '000'}">
+									<a href="/issues/close/${uno}/${pno}/${ino}"
+										class="btn btn-warning"
+										style="position: absolute; right: 260px;">Close Issue</a> 
+								</c:when>
+								<c:when test="${issues.istatement == '001'}">
+									<a href="/issues/reopen/${uno}/${pno}/${ino}"
+										class="btn btn-warning"
+										style="position: absolute; right: 260px;">Reopen Issue</a> 
+								</c:when>
+							</c:choose>
+								<a href="/issues/edit/${uno}/${pno}/${ino}" class="btn btn-info"
 								style="position: absolute; right: 200px;">Edit</a>
 							<h3>Issue Detail</h3>
 						</legend>
 						<div class="jumbotron">
 							<div>
 								<c:choose>
-									<c:when test="${issues.istatement == '000' }">
+									<c:when test="${issues.istatement == '000'}">
 										<span class="label label-success">Open</span> Issue
 								</c:when>
-									<c:when test="${issues.istatement == '001' }">
+									<c:when test="${issues.istatement == '001'}">
 										<span class="label label-success">Closed</span> Issue
 								</c:when>
 								</c:choose>

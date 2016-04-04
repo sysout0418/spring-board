@@ -81,6 +81,10 @@ public class IssueDao {
 		sqlSession.update("issues.closeIssue", param);
 	}
 	
+	public void reopenIssue(Map<String, Object> param) {
+		sqlSession.update("issues.reopenIssue", param);
+	}
+	
 	public int getLastIno() {
 		return sqlSession.selectOne("issues.getLastIno");
 	}

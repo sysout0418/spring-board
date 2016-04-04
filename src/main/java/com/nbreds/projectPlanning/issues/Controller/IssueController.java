@@ -206,6 +206,8 @@ public class IssueController {
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> labelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getAllMilestone();
+		// ino로 파일 리스트 불러오기
+		List<IssueFiles> fileList = issuesService.getFileListByIno(ino);
 		logger.info("---------------update page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
@@ -218,6 +220,7 @@ public class IssueController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("labelList", labelList);
 		model.addAttribute("milestoneList", milestoneList);
+		model.addAttribute("fileList", fileList);
 
 		return "/issues/editIssue";
 	}
@@ -235,13 +238,24 @@ public class IssueController {
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 
+	// issue close
 	@RequestMapping("/issues/close/{uno}/{pno}/{ino}")
 	public String closeIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("ino", String.valueOf(ino));
+		param.put("ino", ino);
 		param.put("istatement", "001");
 		issuesService.closeIssue(param);
 		return "redirect:/" + uno + "/" + pno + "/issues/closed";
+	}
+	
+	// issue reopen
+	@RequestMapping("/issues/reopen/{uno}/{pno}/{ino}")
+	public String reopenIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("ino", ino);
+		param.put("istatement", "000");
+		issuesService.reopenIssue(param);
+		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 
 	@RequestMapping("/{uno}/{pno}/issues/{statement}/search")

@@ -105,6 +105,11 @@ public class IssueServiceImpl implements IssueService {
 	public void closeIssue(Map<String, Object> param) {
 		issueDao.closeIssue(param);
 	}
+	
+	@Override
+	public void reopenIssue(Map<String, Object> param) {
+		issueDao.reopenIssue(param);
+	}
 
 	@Override
 	public int getLastIno() {

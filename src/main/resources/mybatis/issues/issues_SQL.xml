@@ -236,6 +236,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE ino = #{ino}
 	]]>
 	</update>
+	
+	<update id="reopenIssue" parameterType="Map">
+    <![CDATA[
+    UPDATE Issues SET
+	    istatement = #{istatement}
+	WHERE ino = #{ino}
+	]]>
+	</update>
 
 	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
     <![CDATA[
