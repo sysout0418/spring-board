@@ -132,10 +132,13 @@ public class IssueController {
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.getOutputStream().write(fileByte);
 
-			response.getOutputStream().flush();
-			response.getOutputStream().close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
+			} catch(Exception e) {}
 		}
 	}
 
