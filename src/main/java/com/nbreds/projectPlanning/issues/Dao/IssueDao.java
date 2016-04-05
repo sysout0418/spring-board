@@ -132,4 +132,12 @@ public class IssueDao {
 	public void removeCommentByCno(int cno) {
 		sqlSession.delete("issues.removeCommentByCno", cno);
 	}
+	
+	public void deleteFileList(int ino) {
+		sqlSession.update("issues.deleteFileList", ino);
+	}
+	
+	public void updateFile(Map<String, Object> param) {
+		sqlSession.update("issues.updateFile", param);
+	}
 }

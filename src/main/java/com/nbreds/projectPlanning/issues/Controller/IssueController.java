@@ -227,13 +227,14 @@ public class IssueController {
 
 	// issue 수정
 	@RequestMapping(value = "/issues/edit", method = RequestMethod.POST)
-	public String editIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, BindingResult result) {
+	public String editIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, 
+			HttpServletRequest request, BindingResult result) {
 		logger.info("---------------updating page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
 		logger.info("weight : " + issues.getIweight());
 
-		issuesService.updateIssueByIno(issues);
+		issuesService.updateIssueByIno(issues, request);
 
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}

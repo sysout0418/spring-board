@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.issues.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class IssueServiceImpl implements IssueService {
 			issues.setIno(lastIno);
 			list = fileUtils.parseInsertFileInfo(issues, request);
 			for (int i = 0; i < list.size(); i++) {
-				issueDao.saveIssueFile(list.get(i));
+				saveIssueFile(list.get(i));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,13 +55,13 @@ public class IssueServiceImpl implements IssueService {
 	public List<IssueFiles> getFileListByIno(int ino) {
 		return issueDao.getFileListByIno(ino);
 	}
-	
+
 	// fno로 파일 정보 가져오기
 	@Override
 	public IssueFiles getFileInfoByFno(int fno) {
 		return issueDao.getFileInfoByFno(fno);
 	}
-	
+
 	@Override
 	public List<Issue> getAllIssues() {
 		return issueDao.getAllIssues();
@@ -87,8 +88,29 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public void updateIssueByIno(Issue issues) {
+	public void updateIssueByIno(Issue issues, HttpServletRequest request) {
+		// 이슈 정보 업뎃
 		issueDao.updateIssueByIno(issues);
+
+		// IssueFiles 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
+		issueDao.deleteFileList(issues.getIno());
+		
+		List<Map<String, Object>> list;
+		try {
+			// 파일정보 업뎃
+			list = fileUtils.parseUpdateFileInfo(issues, request);
+			Map<String, Object> param = null;
+			for (int i = 0; i < list.size(); i++) {
+				param = list.get(i);
+				if (param.get("IS_NEW").equals("Y")) {
+					issueDao.saveIssueFile(param);
+				} else {
+					issueDao.updateFile(param);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -105,7 +127,7 @@ public class IssueServiceImpl implements IssueService {
 	public void closeIssue(Map<String, Object> param) {
 		issueDao.closeIssue(param);
 	}
-	
+
 	@Override
 	public void reopenIssue(Map<String, Object> param) {
 		issueDao.reopenIssue(param);
@@ -169,6 +191,21 @@ public class IssueServiceImpl implements IssueService {
 	@Override
 	public void removeCommentByCno(int cno) {
 		issueDao.removeCommentByCno(cno);
+	}
+
+	@Override
+	public void deleteFileList(int ino) {
+		issueDao.deleteFileList(ino);
+	}
+
+	@Override
+	public void updateFile(Map<String, Object> param) {
+		issueDao.updateFile(param);
+	}
+
+	@Override
+	public void saveIssueFile(Map<String, Object> param) {
+		issueDao.saveIssueFile(param);
 	}
 
 }

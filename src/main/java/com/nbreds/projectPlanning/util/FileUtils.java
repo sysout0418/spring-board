@@ -67,4 +67,60 @@ public class FileUtils {
 		}
 		return list;
 	}
+
+	public List<Map<String, Object>> parseUpdateFileInfo(Issue issues, HttpServletRequest request) throws Exception {
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+
+		MultipartFile multipartFile = null;
+		String originalFileName = null;
+		String originalFileExtension = null;
+		String storedFileName = null;
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> listMap = null;
+
+		int ino = issues.getIno();
+		int uno = issues.getUno();
+		String[] fno = request.getParameterValues("fno");
+		String requestName = null;
+		String idx = null;
+
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+
+				multipartFile.transferTo(new File(filePath + storedFileName));
+
+				listMap = new HashMap<String, Object>();
+				listMap.put("IS_NEW", "Y");
+				listMap.put("ino", ino);
+				listMap.put("uno", uno);
+				listMap.put("originalName", originalFileName);
+				listMap.put("storeName", storedFileName);
+				listMap.put("fileSize", multipartFile.getSize());
+				list.add(listMap);
+			} else {
+				requestName = multipartFile.getName();
+				idx = requestName.substring(requestName.indexOf("_") + 1);
+				if (fno != null && fno.length > 0) {
+					for (int i = 0; i < fno.length; i++) {
+						System.out.println("fno> " + fno[i]);
+						System.out.println("idx> " + idx);
+						if (fno[i].equals(idx)) {
+							System.out.println("여기 몇번 들어옴?");
+							listMap = new HashMap<String, Object>();
+							listMap.put("IS_NEW", "N");
+							listMap.put("fno", fno[i]);
+							list.add(listMap);
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
 }

@@ -394,4 +394,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>
 	</delete>
 	
+	<!-- 2016.04.05 Issue 글 하나 수정 할 때 파일 삭제 또는 변경시 isDel 컬림 값을 Y로 바꾼다(마치 삭제 된 것처럼) -->
+	<update id="deleteFileList" parameterType="int">
+    <![CDATA[
+    UPDATE IssueFiles SET isDel = 'Y'
+    WHERE ino = #{ino}  
+    ]]>
+	</update>
+    
+    <!-- 2016.04.05 Issue 글 수정 버튼 눌렀을 때 최종적으로 반영된 파일 정보를 받아 isDel 컬럼 값이 Y인걸 다시 N으로 바꿈  -->
+    <update id="updateFile" parameterType="Map">
+    <![CDATA[
+    UPDATE IssueFiles SET isDel = 'N'
+    WHERE fno = #{fno}   
+    ]]>
+	</update>
 </mapper>

@@ -46,7 +46,7 @@ public interface IssueService {
 	List<Milestone> getAllMilestone();
 	
 	/** ino로 이슈 업데이트 */
-	void updateIssueByIno(Issue issues);
+	void updateIssueByIno(Issue issues, HttpServletRequest request);
 	
 	/** 이슈 삭제 기능 (지금은 안씀) */
 	void removeIssues(int ino);
@@ -95,4 +95,10 @@ public interface IssueService {
 	
 	/** 코멘드 삭제 기능 */
 	void removeCommentByCno(int cno);
+	
+	void saveIssueFile(Map<String, Object> param);
+	
+	void deleteFileList(int ino);
+	
+	void updateFile(Map<String, Object> param);
 }
