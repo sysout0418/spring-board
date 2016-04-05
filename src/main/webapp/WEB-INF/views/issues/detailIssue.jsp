@@ -41,11 +41,16 @@
 	<a href="/issues/edit/${uno}/${pno}/${ino}" class="btn btn-default">Edit</a>
 	</div>
 </td>
+<style type="text/css">
+.text1 {
+   color : #54565b;
+}
+</style>
 <td rowspan="4" class="active">
-	Assignee<br/> ${issues.uname} <br/><hr>
-	Milestone<br/>${issues.mtitle} <br/><hr>
-	Weight<br/>${issues.iweight} <br/>
-	Label<br/>
+	<span class="text1">Assignee</span><br/> ${issues.uname} <br/><hr>
+	<span class="text1">Milestone</span><br/>${issues.mtitle} <br/><hr>
+	<span class="text1">Weight</span><br/>${issues.iweight} <br/>
+	<span class="text1">Label</span><br/>
 	<c:forEach var="labels" items="${issues.labels}">
 		<span class="label color-label has_tooltip"
 			style="
