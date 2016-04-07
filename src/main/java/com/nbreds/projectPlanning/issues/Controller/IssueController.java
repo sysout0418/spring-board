@@ -227,16 +227,28 @@ public class IssueController {
 
 	// issue 수정
 	@RequestMapping(value = "/issues/edit", method = RequestMethod.POST)
-	public String editIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, 
+	public String editIssue(@ModelAttribute("Issues") Issue issues, 
 			HttpServletRequest request, BindingResult result) {
 		logger.info("---------------updating page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
 		logger.info("weight : " + issues.getIweight());
-
-		issuesService.updateIssueByIno(issues, request);
-
-		return "redirect:/" + uno + "/" + pno + "/issues/open";
+		logger.info("lnos : " + issues.getLno());
+		String[] lnos = String.valueOf(issues.getLno()).split(",");
+		if (lnos != null && lnos.length > 0 && !lnos[0].equals("0")) {
+			issuesService.removeIssueLabelForUpdate(issues);
+			IssueLabel issueLabel = new IssueLabel();
+			for (int i = 0; i < lnos.length; i++) {
+				issueLabel.setLno(Integer.parseInt(lnos[i]));
+				issueLabel.setIno(issues.getIno());
+				issuesService.saveIssueLabel(issueLabel);
+			}
+			issuesService.updateIssueByIno(issues, request);
+		} else {
+			issuesService.removeIssueLabelForUpdate(issues);
+			issuesService.updateIssueByIno(issues, request);
+		}
+		return "redirect:/" + issues.getUno() + "/" + issues.getPno() + "/issue/" + issues.getIno();
 	}
 
 	// issue close

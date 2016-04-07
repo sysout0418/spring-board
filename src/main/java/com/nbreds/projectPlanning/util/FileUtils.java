@@ -108,10 +108,7 @@ public class FileUtils {
 				idx = requestName.substring(requestName.indexOf("_") + 1);
 				if (fno != null && fno.length > 0) {
 					for (int i = 0; i < fno.length; i++) {
-						System.out.println("fno> " + fno[i]);
-						System.out.println("idx> " + idx);
 						if (fno[i].equals(idx)) {
-							System.out.println("여기 몇번 들어옴?");
 							listMap = new HashMap<String, Object>();
 							listMap.put("IS_NEW", "N");
 							listMap.put("fno", fno[i]);

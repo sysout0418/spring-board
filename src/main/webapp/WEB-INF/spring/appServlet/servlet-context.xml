@@ -2,6 +2,7 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -26,4 +27,83 @@
 	<beans:bean id="jacksonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 	</beans:bean>
+	
+	<!-- Interceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/issues/regist"/>
+			<beans:bean id="interCeptor" class="com.nbreds.projectPlanning.interceptor.InterCeptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- <mvc:interceptors>
+		<mvc:interceptor> 
+			Issue Controller
+	   		<mvc:mapping path="/issues"/>
+	   		<mvc:mapping path="/{uno}/{pno}/issues/{statement}"/>
+	   		<mvc:mapping path="/{uno}/{pno}/issue/{ino}"/>
+	   		<mvc:mapping path="/issue/downloadFile/{fno}"/>
+	   		<mvc:mapping path="/{uno}/{pno}/issues/new"/>
+	   		<mvc:mapping path="/issues/regist"/>
+	   		<mvc:mapping path="/issues/edit/{uno}/{pno}/{ino}"/>
+	   		<mvc:mapping path="/issues/edit"/>
+	   		<mvc:mapping path="/issues/close/{uno}/{pno}/{ino}"/>
+	   		<mvc:mapping path="/issues/reopen/{uno}/{pno}/{ino}"/>
+	   		<mvc:mapping path="/{uno}/{pno}/issues/{statement}/search"/>
+	   		<mvc:mapping path="/issues/{statement}"/>
+	   		<mvc:mapping path="/issues/{statement}/search"/>
+	   		<mvc:mapping path="/getCommentList/{ino}"/>
+	   		<mvc:mapping path="/comment/regist"/>
+	   		<mvc:mapping path="/remove/comment"/>
+	   		<mvc:mapping path="/update/comment"/>
+	   		
+	   		LabelController
+	   		<mvc:mapping path="/{uno}/{pno}/labels"/>
+	   		<mvc:mapping path="/{uno}/{pno}/label/new"/>
+	   		<mvc:mapping path="/label/regist"/>
+	   		<mvc:mapping path="/label/edit/{uno}/{pno}/{lno}"/>
+	   		<mvc:mapping path="/label/edit"/>
+	   		<mvc:mapping path="/label/remove/{uno}/{pno}/{lno}"/>
+	   		
+	   		MilestonesController
+	   		<mvc:mapping path="/milestones/{statement}"/>
+	   		<mvc:mapping path="/{uno}/{pno}/milestones/{statement}"/>
+	   		<mvc:mapping path="/milestone/{mno}"/>
+	   		<mvc:mapping path="/{uno}/{pno}/milestone/{mno}"/>
+	   		<mvc:mapping path="/{uno}/{pno}/milestones/new"/>
+	   		<mvc:mapping path="/milestones/regist"/>
+	   		<mvc:mapping path="/milestones/edit/{uno}/{pno}/{mno}"/>
+	   		<mvc:mapping path="/milestones/edit"/>
+	   		<mvc:mapping path="/milestones/remove/{uno}/{pno}/{mno}"/>
+	   		<mvc:mapping path="/milestones/closeMilestone/{uno}/{pno}/{mno}"/>
+	   		<mvc:mapping path="/milestones/reopenMilestone/{uno}/{pno}/{mno}"/>
+	   		<mvc:mapping path="/milestones/ajax"/>
+	   		<mvc:mapping path="/nameList"/>
+	   		
+	   		ListController
+	   		<mvc:mapping path="/DeleteProject"/>
+	   		<mvc:mapping path="update"/>
+	   		<mvc:mapping path="/update"/>
+	   		
+	   		MyProjectController
+	   		<mvc:mapping path="/{uno}/{pno}"/>
+	   		
+	   		RegistController
+	   		<mvc:mapping path="/regist"/>
+	   		
+	   		UserController
+	   		<mvc:mapping path="/login"/>
+	   		<mvc:mapping path="/logout"/>
+	    	<beans:bean id="interCeptor" class="com.nbreds.projectPlanning.interceptor.InterCeptor"/>
+	    </mvc:interceptor>
+	    추가로 여러개의 인터셉터 설정 가능 
+	    <mvc:interceptor> 
+	   		<mvc:mapping path="/admin/board_write"/>
+	   		여러개 컨트롤러도 추가 가능
+	    	<mvc:mapping path="/admin_write"/>
+        	<mvc:mapping path="/admin_update"/> 
+        	<mvc:mapping path="/admin_delete"/>
+	    	<bean class="com.nbreds.projectPlanning.interceptor.AdminInterCeptor"/>
+	    </mvc:interceptor>
+	   
+	</mvc:interceptors> -->
 </beans:beans>

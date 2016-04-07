@@ -33,7 +33,7 @@
 			<!-- Begin page content -->
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
 				<form:form class="form-horizontal" method="post"
-					action="/issues/regist" commandName="Issues" enctype="multipart/form-data">
+					action="/issues/regist?${_csrf.parameterName}=${_csrf.token}" commandName="Issues" enctype="multipart/form-data">
 					<input type="hidden" value="${uno}" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="" id="mno" name="mno">
@@ -165,24 +165,6 @@
 				$('#lno').val(lno.substring(0, lno.length - 1));
 			});
 
-			/* function handler() {
-				console.log("handler 호출됨");
-				var text = $(this).text();
-				var lno = $(this).attr("alt");
-				$('#inputLarge').textext()[0].tags().addTags([ text ]);
-				$('.text-tags > .text-tag').last().append(
-						"<input type=hidden id=lno1 value="+lno+">");
-			} */
-
-			/* function handler2() {
-				console.log("handler2 호출됨");
-				var lno = "";
-				$('.text-tags > .text-tag > #lno1').each(function() {
-					lno += $(this).val() + ",";
-				});
-				$('#lno').val(lno.substring(0, lno.length - 1));
-			} */
-
 			$('.dropdown-menu > .userNo1 > a').bind('click', function() {
 				var userName = $(this).text();
 				var userNo = $(this).attr("alt");
@@ -206,14 +188,6 @@
 				$("#iweight").val(weight);
 				$("#selectedWeight").text(weight);
 			});
-			
-			/* $('.dropdown-menu > .labelNo > a').bind('click', function() {
-				var lTitle = $(this).text();
-				var labelNo = $(this).attr("alt");
-				console.log(labelNo);
-				$("#lno").val(labelNo);
-				$("#selectedLabel").text(lTitle);
-			}); */
 			
 			// file upload를 위한 function
 			var count =0;

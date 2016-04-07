@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!-- 03-22 추가.. 모든 유저의 이름과 유저번호 가져옴 -->
-    <select id="getAllUserNameAndNo" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.Project.VO.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User
@@ -143,6 +143,79 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     select pno, pname, pdetail, uno
     from Project 
     where uno=#{uno} OR pmember like '%' #{uno} '%'
+    ]]>  
+    </select>
+    
+    <!-- 2016.04.05 INSERT USER -->
+    <insert id="saveUser" parameterType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+		 INSERT INTO User (
+		  uname
+		  ,uphoneno
+		  ,udepartment
+		  ,uemail
+		  ,uposition
+		  ,upassword
+		) VALUES (
+		  #{uname}
+		  ,#{uphoneno}
+		  ,#{udepartment}
+		  ,#{uemail}
+		  ,#{uposition}
+		  ,#{upassword}
+		)
+    ]]>  
+    </insert>
+    
+    <!-- 2016.04.05 Login by ID/PW -->
+    <select id="loginUserByIdPw" parameterType="com.nbreds.projectPlanning.Project.VO.User" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    SELECT 
+    uno
+    ,uname
+    ,uphoneno
+    ,udepartment
+    ,uemail
+    ,uposition
+    ,upassword
+    FROM User
+    WHERE uemail = #{uemail} and upassword = #{upassword}
+    ]]>  
+    </select>
+
+    <!-- 2016.04.05 Check User Exist by ID -->
+    <select id="checkUserById" parameterType="com.nbreds.projectPlanning.Project.VO.User" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    SELECT 
+    uno
+    ,uname
+    ,uphoneno
+    ,udepartment
+    ,uemail
+    ,uposition
+    ,upassword
+    FROM User
+    WHERE uemail = #{uemail}
+    ]]>  
+    </select>
+    
+    <!-- 2016.04.06 get user password by ID -->
+    <select id="getUserAuthority" resultType="map">
+    <![CDATA[
+    SELECT
+    u.uno as uno
+    ,uname
+    ,uphoneno
+    ,udepartment
+    ,uemail as username
+    ,uposition
+    ,upassword as password
+    ,authority
+    ,enabled
+    FROM User u
+    JOIN Authority a
+    on u.uno = a.uno
+    WHERE uemail = #{uemail}
     ]]>  
     </select>
     

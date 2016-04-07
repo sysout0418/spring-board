@@ -54,17 +54,18 @@ public class HomeController {
 			return "index";
 	}
 	
-	@RequestMapping("/login/{uno}")
-	public String  login(@PathVariable("uno") int uno, HttpSession session, HttpServletResponse response) {
-		session.setAttribute("user_no", uno);
-		
-        return "redirect:/";
-	}
+//	@RequestMapping("/login/{uno}")
+//	public String  login(@PathVariable("uno") int uno, HttpSession session, HttpServletResponse response) {
+//		session.setAttribute("user_no", uno);
+//		
+//        return "redirect:/";
+//	}
 	
-	@RequestMapping("/logout")
-	public String  logout(HttpSession session) {
-		session.removeAttribute("user_no");
-		
-        return "index";
-	}
+//	@RequestMapping("/logout")
+//	public String  logout(HttpSession session) {
+//		session.removeAttribute("user_no");
+//		
+//        return "index";
+//	}
+	
 }

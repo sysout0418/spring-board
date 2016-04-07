@@ -216,7 +216,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ititle = #{ititle},
 		idescription = #{idescription},
 		iweight = #{iweight},
-		mno = #{mno},
+		]]>
+		<if test="mno != 0">
+			mno = #{mno},
+		</if>
+		<![CDATA[
 		uno = #{uno}
 	WHERE ino = #{ino}
 	]]>

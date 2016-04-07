@@ -1,7 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
+<%
+	Cookie[] cookies = request.getCookies();
+	String uemail = null;
+	if (cookies != null) {
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("rememberId")) {
+				uemail = cookie.getValue();
+			}
+		}
+	}
+	String checked = uemail == null? "" : "checked='checked'";
+	uemail = uemail == null? "" : uemail;
+%>
 <div class="container-fluid">
 	<div class="row">
 		<div id="col">
@@ -34,21 +48,24 @@
 				</c:if>
 			</div>
 		</div> --%>
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<div style="width: 1200; margin: 0 auto; background-color: #fff">
-				<c:choose>
-					<%-- <c:when test="${user_no != null }">
-						<a href="/logout">로그아웃</a>
-					</c:when> --%>
-					<c:when test="${pageContext.request.userPrincipal.name != null}">
-						${pageContext.request.userPrincipal.name}님 반갑습니다.
-						<a href="/logout">로그아웃</a>
-					</c:when>
-					<c:otherwise>
-						<a href="/loginForm">로그인</a>
-					</c:otherwise>
-				</c:choose>
-			</div>
+		<div class="container" style="width: 300px;">
+			<c:url value="/login" var="login" />
+			<form:form action="${login}" method="post">
+				<h2 class="form-signin-heading">Please sign in</h2>
+				<label for="inputEmail" class="sr-only">Email address</label> <input
+					type="text" id="uemail" name="uemail" class="form-control"
+					placeholder="Email address" required="" autofocus="" value="<%= uemail %>"> <label
+					for="inputPassword" class="sr-only">Password</label> <input
+					type="password" id="upassword" name="upassword" class="form-control"
+					placeholder="Password" required="">
+				<div class="checkbox">
+					<label><input type="checkbox" id="rememberId" name="rememberId" value="t" <%= checked %>>
+						Remember me
+					</label>
+				</div>
+				<input type="submit" id="submit" name="submit" class="btn btn-primary" value="Login">
+				<a href="/join" class="btn btn-success">Join Us</a>
+			</form:form>
 		</div>
 		
 		<script type="text/javascript">

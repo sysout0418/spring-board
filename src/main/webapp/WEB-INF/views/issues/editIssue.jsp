@@ -32,13 +32,13 @@
 			<!-- Begin page content -->
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
 				<form:form class="form-horizontal" method="post"
-					action="/issues/edit" commandName="Issues" enctype="multipart/form-data">
+					action="/issues/edit?${_csrf.parameterName}=${_csrf.token}" commandName="Issues" enctype="multipart/form-data">
 					<input type="hidden" value="${ino}" name="ino" id="ino">
 					<input type="hidden" value="${issues.uno}" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="${issues.iweight}" name="iweight"
 						id="iweight">
-					<input type="hidden" value="" name="lno" id="lno">
+					<input type="hidden" value="0" name="lno" id="lno">
 					<input type="hidden" value="${issues.mno}" name="mno" id="mno">
 					<fieldset>
 						<legend class="page-header">
@@ -204,9 +204,13 @@
 		$('#submit').click(function() {
 			var lno = "";
 			$('.text-tags > .text-tag > #lno1').each(function() {
-				lno += $(this).val() + ",";
+				if ($(this).val() != '') {
+					lno += $(this).val() + ",";
+				}
 			});
-			$('#lno').val(lno.substring(0, lno.length - 1));
+			if (lno != "") {
+				$('#lno').val(lno.substring(0, lno.length - 1));
+			}
 		});
 
 		$('.dropdown-menu > .userNo1 > a').bind('click', function() {
