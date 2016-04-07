@@ -36,18 +36,18 @@
 		</div> --%>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
-				<c:choose>
-					<%-- <c:when test="${user_no != null }">
+				<%-- <c:choose>
+					<c:when test="${user_no != null }">
 						<a href="/logout">로그아웃</a>
-					</c:when> --%>
+					</c:when>
 					<c:when test="${pageContext.request.userPrincipal.name != null}">
 						${pageContext.request.userPrincipal.name}님 반갑습니다.
 						<a href="/logout">로그아웃</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/loginForm">로그인</a>
 					</c:otherwise>
-				</c:choose>
+				</c:choose> --%>
+						<a href="/loginForm">로그인</a>
 			</div>
 		</div>
 		
