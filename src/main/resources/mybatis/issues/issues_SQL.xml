@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="issues">
+	<select id="getLastIno" resultType="int">
+	<![CDATA[	
+		SELECT MAX(ino) AS ino
+		FROM Issues
+	]]>
+	</select>
+
+	<insert id="saveIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+	  INSERT INTO Issues (
+	  ititle
+	  ,idescription
+	  ]]>
+		<if test="iweight != 0">
+		  ,iweight
+		</if>
+		<if test="mno != 0">
+		  ,mno
+		</if>
+    <![CDATA[
+	  ,pno
+	  ,uno
+	) VALUES (
+	  #{ititle}
+	  ,#{idescription}
+	  ]]>
+		<if test="iweight != 0">
+		  ,#{iweight}
+		</if>
+		<if test="mno != 0">
+		  ,#{mno}
+		</if>
+    <![CDATA[
+	  ,#{pno}
+	  ,#{uno}
+	)
+    ]]>
+	</insert>
+	
+	<!-- 2016.04.04 이슈 등록시 첨부파일 있으면 IssueFiles table에 INSERT -->
+	<insert id="saveIssueFile" parameterType="Map">
+    <![CDATA[
+	  INSERT INTO IssueFiles (
+	  ino
+	  ,uno
+	  ,originalName
+	  ,storeName
+	  ,fileSize
+	) VALUES (
+	  #{ino}
+	  ,#{uno}
+	  ,#{originalName}
+	  ,#{storeName}
+	  ,#{fileSize}
+	)
+    ]]>
+	</insert>
+	
+	<!-- 2016.04.04 이슈 상세보기시 첨부파일 있으면 첨부파일 리스트 SELECT -->
+	<select id="getFileListByIno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.IssueFiles">
+    <![CDATA[
+        SELECT
+            fno
+            ,ino
+            ,uno
+            ,originalName
+            ,storeName
+            ,ROUND(fileSize/1024,1) AS fileSize
+            ,regDate
+            ,isDel
+        FROM
+            IssueFiles
+        WHERE
+            ino = #{ino}
+            AND isDel = 'N'
+    ]]>
+	</select>
+	
+	<!-- 2016.04.04 첨부파일 다운로드 누르면 fno로 해당 첨부파일 정보 가져오기 -->
+	<select id="getFileInfoByFno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.IssueFiles">
+    <![CDATA[
+        SELECT
+            fno
+            ,ino
+            ,uno
+            ,originalName
+            ,storeName
+            ,ROUND(fileSize/1024,1) AS fileSize
+            ,regDate
+            ,isDel
+        FROM
+            IssueFiles
+        WHERE
+            fno = #{fno}
+            AND isDel = 'N'
+    ]]>
+	</select>
+
+	<!-- 2016.03.28 모든 issues list 가져오기 -->
+	<select id="getAllIssues" resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT 
+    	i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname
+    ]]>
+		<if test="mno != null">
+			, mtitle
+		</if>
+    <![CDATA[
+    FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+    ]]>
+		<if test="mno != null">
+			JOIN Milestones m
+			ON i.mno = m.mno and i.pno = m.pno
+		</if>
+	<![CDATA[
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<!-- 2016.03.28 ino로 issue 하나 가져오기 (detailIssue.jsp 에서 사용) -->
+	<select id="getIssuesByIno" parameterType="int"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle
+	FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	LEFT JOIN Milestones m
+	ON i.mno = m.mno
+	WHERE i.ino=#{ino}
+	]]>
+	</select>
+
+	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
+	<select id="getIssuesByPno" parameterType="map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+	FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	LEFT JOIN Milestones m
+	ON i.mno = m.mno
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			JOIN IssueLabel il
+            ON l.lno = il.lno ) l2
+	ON i.ino = l2.ino
+	where i.pno=#{pno}
+	]]>
+		<if test="istatement != null">
+			and istatement=#{istatement}
+		</if>
+	<![CDATA[
+	GROUP BY i.ino
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<!-- 2016.03.30 다중 검색 기능 -->
+	<select id="searchIssues" parameterType="map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    FROM Issues i
+			LEFT JOIN User u
+			ON i.uno = u.uno
+			LEFT JOIN Milestones m
+			ON i.mno = m.mno
+			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			LEFT JOIN IssueLabel il
+			ON l.lno = il.lno ) l2
+			ON i.ino = l2.ino
+    where i.pno=#{pno}
+    ]]>
+		<if test="userNo != null">
+			and i.uno = #{userNo}
+		</if>
+		<if test="istatement != null">
+			and istatement=#{istatement}
+		</if>
+		<if test="mno != null">
+			and i.mno=#{mno}
+		</if>
+		<if test="weight != null">
+			and iweight=#{weight}
+		</if>
+		<if test="lno != null">
+			and lno=#{lno}
+		</if>
+    <![CDATA[
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<!-- 2016.03.30 모든 milestone 정보 가져오기 -->
+	<select id="getAllMilestone" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
+    <![CDATA[
+    SELECT mno, mtitle, mdescription, mduedate, mstatement, pno
+    FROM Milestones
+	]]>
+	</select>
+
+	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    UPDATE Issues SET
+		ititle = #{ititle},
+		idescription = #{idescription},
+		iweight = #{iweight},
+		]]>
+		<if test="mno != 0">
+			mno = #{mno},
+		</if>
+		<![CDATA[
+		uno = #{uno}
+	WHERE ino = #{ino}
+	]]>
+	</update>
+
+	<delete id="removeIssues" parameterType="int">
+    <![CDATA[
+    DELETE FROM Issues 
+	WHERE ino = #{ino}
+    ]]>
+	</delete>
+
+	<update id="closeIssue" parameterType="Map">
+    <![CDATA[
+    UPDATE Issues SET
+	    istatement = #{istatement}
+	WHERE ino = #{ino}
+	]]>
+	</update>
+	
+	<update id="reopenIssue" parameterType="Map">
+    <![CDATA[
+    UPDATE Issues SET
+	    istatement = #{istatement}
+	WHERE ino = #{ino}
+	]]>
+	</update>
+
+	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+    SELECT lno, ltitle, ldescription, lbgcolor, pno
+    FROM Label
+	]]>
+	</select>
+
+	<select id="getLabelsByIno" parameterType="int"
+		resultType="com.nbreds.projectPlanning.label.VO.Label">
+    <![CDATA[
+    SELECT l.lno, ltitle, ldescription, lbgcolor, pno
+    FROM Label l
+    JOIN IssueLabel il
+    ON l.lno = il.lno
+    WHERE ino = #{ino}
+	]]>
+	</select>
+
+	<select id="getAllUserNameAndNo" parameterType="String"
+		resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail, uposition
+    from User
+    ]]>
+	</select>
+
+	<insert id="saveIssueLabel" parameterType="com.nbreds.projectPlanning.issueLabel.VO.IssueLabel">
+    <![CDATA[
+	  INSERT INTO IssueLabel (
+	  ino
+	  ,lno
+	) VALUES (
+	  #{ino}
+	  ,#{lno}
+	)
+    ]]>
+	</insert>
+
+	<delete id="removeIssueLabelForUpdate" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    DELETE FROM IssueLabel
+	WHERE ino = #{ino}
+    ]]>
+	</delete>
+
+	<!-- uno(현재 로그인한 사용자를 기본 assign으로 세팅) 로 이슈 가져오기 -->
+	<select id="getIssuesByUno" parameterType="Map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+	FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	LEFT JOIN Milestones m
+	ON i.mno = m.mno
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			JOIN IssueLabel il
+            ON l.lno = il.lno ) l2
+	ON i.ino = l2.ino
+	where i.uno=#{uno}
+	]]>
+		<if test="istatement != null">
+			and istatement=#{istatement}
+		</if>
+	<![CDATA[
+	GROUP BY i.ino
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<!-- 들어온 param 조건에 따라 이슈 검색 -->
+	<select id="searchIssuesByParam" parameterType="Map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    FROM Issues i
+			LEFT JOIN User u
+			ON i.uno = u.uno
+			LEFT JOIN Milestones m
+			ON i.mno = m.mno
+			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			FROM Label l
+			LEFT JOIN IssueLabel il
+			ON l.lno = il.lno ) l2
+			ON i.ino = l2.ino
+    WHERE
+    ]]>
+		<if test="istatement != null">
+			istatement=#{istatement}
+		</if>
+		<if test="uno != null">
+			and i.uno = #{uno}
+		</if>
+		<if test="mno != null">
+			and i.mno=#{mno}
+		</if>
+		<if test="weight != null">
+			and iweight=#{weight}
+		</if>
+		<if test="lno != null">
+			and lno=#{lno}
+		</if>
+    <![CDATA[
+    GROUP BY i.ino
+    ORDER BY ino ASC
+	]]>
+	</select>
+
+	<insert id="saveComment" parameterType="Map">
+    <![CDATA[
+	  INSERT INTO Comments (
+	  content
+	  ,uno
+	  ,ino
+	) VALUES (
+	  #{content}
+	  ,#{uno}
+	  ,#{ino}
+	)
+    ]]>
+	</insert>
+
+	<select id="getCommentByIno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Comment">
+	<![CDATA[	
+		SELECT cno, content, regdate, c.uno, ino, uname
+		FROM Comments c
+		JOIN User u
+		ON c.uno = u.uno
+		WHERE ino = #{ino}
+	]]>
+	</select>
+	
+	<update id="updateComment" parameterType="Map">
+    <![CDATA[
+    UPDATE Comments SET
+	    content = #{content},
+	    regdate = now()
+	WHERE cno = #{cno}
+	]]>
+	</update>
+	
+	<delete id="removeCommentByCno" parameterType="int">
+    <![CDATA[
+    DELETE FROM Comments
+	WHERE cno = #{cno}
+    ]]>
+	</delete>
+	
+	<!-- 2016.04.05 Issue 글 하나 수정 할 때 파일 삭제 또는 변경시 isDel 컬림 값을 Y로 바꾼다(마치 삭제 된 것처럼) -->
+	<update id="deleteFileList" parameterType="int">
+    <![CDATA[
+    UPDATE IssueFiles SET isDel = 'Y'
+    WHERE ino = #{ino}  
+    ]]>
+	</update>
+    
+    <!-- 2016.04.05 Issue 글 수정 버튼 눌렀을 때 최종적으로 반영된 파일 정보를 받아 isDel 컬럼 값이 Y인걸 다시 N으로 바꿈  -->
+    <update id="updateFile" parameterType="Map">
+    <![CDATA[
+    UPDATE IssueFiles SET isDel = 'N'
+    WHERE fno = #{fno}   
+    ]]>
+	</update>
+</mapper>
