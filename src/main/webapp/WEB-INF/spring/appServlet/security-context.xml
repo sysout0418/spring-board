@@ -2,59 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<security:http auto-config="true" use-expressions="true" create-session="never">
-		<security:intercept-url pattern="/" access="permitAll" />
-
-		<!-- Issue Controller -->
-		<security:intercept-url pattern="/issues" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/issues/{statement}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/issue/{ino}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issue/downloadFile/{fno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/issues/new" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/regist" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/edit/{uno}/{pno}/{ino}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/edit" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/close/{uno}/{pno}/{ino}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/reopen/{uno}/{pno}/{ino}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/issues/{statement}/search" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/{statement}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/issues/{statement}/search" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/getCommentList/{ino}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/comment/regist" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/remove/comment" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/update/comment" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		
-		<!-- MilestonesController -->
-		<security:intercept-url pattern="/milestones/{statement}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/milestones/{statement}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestone/{mno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/milestone/{mno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/{uno}/{pno}/milestones/new" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/regist" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/edit/{uno}/{pno}/{mno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/edit" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/remove/{uno}/{pno}/{mno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/closeMilestone/{uno}/{pno}/{mno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/reopenMilestone/{uno}/{pno}/{mno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/milestones/ajax" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/nameList" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		
-	   	<!-- ListContoller -->
-		<security:intercept-url pattern="/list" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/DetailProject/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/DeleteProject" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="update" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/update" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-		<security:intercept-url pattern="/search" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-	   		
-	   	<!-- MyProjectController -->
-		<security:intercept-url pattern="/{uno}/{pno}" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-	   		
-	   	<!-- RegistController -->
-		<security:intercept-url pattern="/regist" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<security:intercept-url pattern="/resources/**" access="permitAll" />
+		<security:intercept-url pattern="/loginForm" access="permitAll" />
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		
 		<security:form-login login-page="/loginForm"
 			login-processing-url="/login"

@@ -66,24 +66,13 @@ public class UserController {
 	}
 	
 	@RequestMapping("/loginForm")
-	public String loginForm(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
+	public String loginForm(){
 		return "loginForm";
 	}
 	
-	@RequestMapping("/loginError")
-	public void loginError(@RequestParam Map<String, Object> paramMap, ModelMap model) throws Exception {
-		// empty
-	}
-	
 	@RequestMapping("/logout")
-	public String logout(@RequestParam Map<String, Object> paramMap, HttpSession session, ModelMap model) throws Exception {
+	public String logout(HttpSession session){
 		session.removeAttribute("user_no");
 		return "redirect:/";
 	}
-	
-//	@RequestMapping("/login")
-//	public void login(HttpServletRequest request, HttpServletResponse response) {
-//		// empty
-//	}
-	
 }

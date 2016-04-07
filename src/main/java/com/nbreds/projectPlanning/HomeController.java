@@ -36,36 +36,17 @@ public class HomeController {
 		logger.info("Index.jsp");
 		// 유저 정보 저장
 		USER_INFO = registService.getAllUserNameAndNo();
-		
-		if(session.getAttribute("user_no") != null){
-			String uno = String.valueOf(session.getAttribute("user_no"));
-			List<Project> list = myProjectService.getProjectByUno(uno);
-			for (Project project : list) {
-				
-				String uname = myProjectService.getUserForNo(project.getUno()).getUname();
-				project.setUname(uname);
-			}
+
+		String uno = String.valueOf(session.getAttribute("user_no"));
+		List<Project> list = myProjectService.getProjectByUno(uno);
+		for (Project project : list) {
 			
-			model.addAttribute("list", list);
-			
-			return "Project/myProjects/myProjects";
+			String uname = myProjectService.getUserForNo(project.getUno()).getUname();
+			project.setUname(uname);
 		}
-		else
-			return "index";
+		
+		model.addAttribute("list", list);
+		
+		return "Project/myProjects/myProjects";
 	}
-	
-//	@RequestMapping("/login/{uno}")
-//	public String  login(@PathVariable("uno") int uno, HttpSession session, HttpServletResponse response) {
-//		session.setAttribute("user_no", uno);
-//		
-//        return "redirect:/";
-//	}
-	
-//	@RequestMapping("/logout")
-//	public String  logout(HttpSession session) {
-//		session.removeAttribute("user_no");
-//		
-//        return "index";
-//	}
-	
 }
