@@ -33,7 +33,7 @@
 		class="com.nbreds.projectPlanning.Project.user.Service.UserLoginFailureHandler"></bean>
 	<bean id="userService" class="com.nbreds.projectPlanning.Project.user.Service.UserServiceImpl">
 		<constructor-arg index="0" ref="sqlSession" />
-	</bean>									
+	</bean>
 
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="userService">
@@ -47,4 +47,5 @@
 	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
 		<constructor-arg index="0" value="256" />
 	</bean>
+	
 </beans>

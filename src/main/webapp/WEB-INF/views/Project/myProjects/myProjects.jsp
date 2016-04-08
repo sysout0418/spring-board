@@ -23,32 +23,23 @@
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<!-- Begin page content -->
-	<div style="width:1200; margin:0 auto; background-color: #fff">	
-	<table class="table" style="font-size: 0.9em">
-		<tr><td><h4>Projects</h4></td><td style="text-align: right"><a href="/regist" class="btn btn-success" >New Project</a></td></tr>
-		<c:forEach var="project" items="${list}">
-		<tr><td style="color:##334"><a href="/${project.uno}/${project.pno}" style="color: #223"><b>${project.uname} / ${project.pname}</b></a><br>
-		<c:choose>
-			<c:when test="${fn:length(project.pdetail) > 20}">
-				<c:out value="${fn:substring(project.pdetail,0,20)}"/>....
-			</c:when>
-			<c:otherwise>
-				<c:out value="${project.pdetail}"/>
-			</c:otherwise>
-		</c:choose>
-		</td><td></td></tr>
-		</c:forEach>
-	  	<tr><td></td></tr>
-  	</table>
-  	<c:choose>
-		<c:when test="${pageContext.request.userPrincipal.name != null}">
-			${pageContext.request.userPrincipal.name}님 반갑습니다.
-			<a href="/logout">로그아웃</a>
-		</c:when>
-		<c:otherwise>
-			<a href="/loginForm">로그인</a>
-		</c:otherwise>
-	</c:choose>
+	<div style="width:1200; margin:0 auto; background-color: #fff">
+		<table class="table" style="font-size: 0.9em">
+			<tr><td><h4>Projects</h4></td><td style="text-align: right"><a href="/regist" class="btn btn-success" >New Project</a></td></tr>
+				<c:forEach var="project" items="${list}">
+				<tr><td style="color:##334"><a href="/${project.uno}/${project.pno}" style="color: #223"><b>${project.uname} / ${project.pname}</b></a><br>
+				<c:choose>
+					<c:when test="${fn:length(project.pdetail) > 20}">
+						<c:out value="${fn:substring(project.pdetail,0,20)}"/>....
+					</c:when>
+					<c:otherwise>
+						<c:out value="${project.pdetail}"/>
+					</c:otherwise>
+				</c:choose>
+				</td><td></td></tr>
+				</c:forEach>
+			<tr><td></td></tr>
+		</table>
 	</div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

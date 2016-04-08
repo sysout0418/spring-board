@@ -17,7 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
-public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
+public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserLoginSuccessHandler.class);
 	

@@ -1,7 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
+<%
+	Cookie[] cookies = request.getCookies();
+	String uemail = null;
+	if (cookies != null) {
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals("rememberId")) {
+				uemail = cookie.getValue();
+			}
+		}
+	}
+	String checked = uemail == null? "" : "checked='checked'";
+	uemail = uemail == null? "" : uemail;
+%>
 <div class="container-fluid">
 	<div class="row">
 		<div id="col">
@@ -21,33 +35,11 @@
 				</ul>
 			</div>
 		</div>
-		<%-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<!-- Begin page content -->
-			<div style="width: 1200; margin: 0 auto; background-color: #fff">
-				<c:if test="${user_no == null}">
-					<a href="login/39">39로그인</a>
-					<a href="login/40">40로그인</a>
-					<a href="login/41">41로그인</a>
-				</c:if>
-				<c:if test="${user_no != null}">
-					<a href="/logout">로그아웃</a>
-				</c:if>
-			</div>
-		</div> --%>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
-				<%-- <c:choose>
-					<c:when test="${user_no != null }">
-						<a href="/logout">로그아웃</a>
-					</c:when>
-					<c:when test="${pageContext.request.userPrincipal.name != null}">
-						${pageContext.request.userPrincipal.name}님 반갑습니다.
-						<a href="/logout">로그아웃</a>
-					</c:when>
-					<c:otherwise>
-					</c:otherwise>
-				</c:choose> --%>
-						<a href="/loginForm">로그인</a>
+				<a href="/loginForm">로그인</a>
+				<br><br>
+				<a href="/logout">로그아웃</a>
 			</div>
 		</div>
 		

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,6 +49,15 @@ public class UserController {
 		return "joinError";
 	}
 
+//	@RequestMapping("/user/denied")
+//	public String denied(Model model, Authentication auth, HttpServletRequest req){
+//		AccessDeniedException ade = (AccessDeniedException) req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+//		logger.info("ex : {}",ade);
+//		model.addAttribute("auth", auth);
+//		model.addAttribute("errMsg", ade);
+//		return "/loginError";
+//	}
+	
 	@RequestMapping("/checkId")
 	public void checkId(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		String uemail = request.getParameter("uemail");
@@ -62,13 +74,15 @@ public class UserController {
 	}
 
 	@RequestMapping("/loginForm")
-	public String loginForm() {
+	public String loginForm(HttpSession session) {
 		return "loginForm";
 	}
 
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("user_no");
-		return "redirect:/loginForm";
-	}
+//	@RequestMapping("/logout")
+//	public String logout(HttpSession session) {
+//		logger.info("user_no: ", session.getAttribute("user_no"));
+//		session.removeAttribute("user_no");
+//		return "redirect:/";
+//	}
+	
 }
