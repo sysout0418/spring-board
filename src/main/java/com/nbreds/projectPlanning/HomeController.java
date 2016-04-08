@@ -47,6 +47,6 @@ public class HomeController {
 			}
 			model.addAttribute("list", list);
 		}
-		return "Project/myProjects/myProjects";
+		return "index";
 	}
 }
