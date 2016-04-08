@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Controller;
+package com.nbreds.projectPlanning.login.Controller;
 
 import java.io.IOException;
 
@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.Project.VO.User;
-import com.nbreds.projectPlanning.Project.user.Service.UserService;
+import com.nbreds.projectPlanning.login.Service.LoginService;
 
 @Controller
-public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+public class LoginController {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	UserService userService;
+	LoginService userService;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String goJoinForm() {
-		return "/login/join";
+		return "login/join";
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -42,7 +42,7 @@ public class UserController {
 			userService.saveUser(user);
 			return "redirect:/";
 		}
-		return "joinError";
+		return "login/joinError";
 	}
 
 	@RequestMapping("/checkId")
@@ -62,6 +62,6 @@ public class UserController {
 
 	@RequestMapping("/loginForm")
 	public String loginForm() {
-		return "/login/loginForm";
+		return "login/loginForm";
 	}
 }

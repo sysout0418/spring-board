@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import java.io.IOException;
 
@@ -13,8 +13,8 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
-	private static final Logger logger = LoggerFactory.getLogger(UserLogoutSuccessHandler.class);
+public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
+	private static final Logger logger = LoggerFactory.getLogger(LogoutSuccessHandler.class);
 
 	public void onLogoutSuccess(HttpServletRequest req, HttpServletResponse res, Authentication auth) throws IOException{
 		logger.info("logoutsuccess");

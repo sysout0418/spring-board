@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import java.util.Map;
 
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.nbreds.projectPlanning.Project.VO.User;
 
 @Service
-public interface UserService extends UserDetailsService {
-	static final Logger logger = LoggerFactory.getLogger(UserService.class);
+public interface LoginService extends UserDetailsService {
+	static final Logger logger = LoggerFactory.getLogger(LoginService.class);
 	
 	void saveUser(User user);
 	

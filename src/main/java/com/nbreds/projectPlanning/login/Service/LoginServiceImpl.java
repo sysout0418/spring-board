@@ -1,7 +1,6 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,22 +15,22 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.User;
-import com.nbreds.projectPlanning.Project.user.Dao.UserDao;
+import com.nbreds.projectPlanning.login.Dao.LoginDao;
 
 
 @Service("UserService")
-public class UserServiceImpl implements UserService {
-	public static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+public class LoginServiceImpl implements LoginService {
+	public static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 	
 	@Autowired
-	UserDao userDao;
+	LoginDao userDao;
 	
 	Map<String, Object> userInfo;
 	
-	public UserServiceImpl() {}
+	public LoginServiceImpl() {}
 	
-	public UserServiceImpl(SqlSessionTemplate sqlSession) {
-		userDao = new UserDao(sqlSession);
+	public LoginServiceImpl(SqlSessionTemplate sqlSession) {
+		userDao = new LoginDao(sqlSession);
 	}
 	
 	@Override

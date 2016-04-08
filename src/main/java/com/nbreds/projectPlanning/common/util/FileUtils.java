@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.util;
+package com.nbreds.projectPlanning.common.util;
 
 import java.io.File;
 import java.util.ArrayList;

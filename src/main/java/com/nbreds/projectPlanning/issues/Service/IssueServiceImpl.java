@@ -1,6 +1,5 @@
 package com.nbreds.projectPlanning.issues.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.util.FileUtils;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Dao.IssueDao;
 import com.nbreds.projectPlanning.issues.VO.Comment;
@@ -20,7 +20,6 @@ import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
-import com.nbreds.projectPlanning.util.FileUtils;
 
 @Service("IssueService")
 public class IssueServiceImpl implements IssueService {
