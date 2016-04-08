@@ -65,10 +65,4 @@ public class UserController {
 	public String loginForm() {
 		return "loginForm";
 	}
-
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("user_no");
-		return "redirect:/loginForm";
-	}
 }

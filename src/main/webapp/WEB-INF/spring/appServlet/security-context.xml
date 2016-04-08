@@ -5,11 +5,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<security:http auto-config="true" use-expressions="true" create-session="never">
+	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/resources/**" access="permitAll" />
 		<security:intercept-url pattern="/loginForm" access="permitAll" />
 		<security:intercept-url pattern="/checkId" access="permitAll" />
 		<security:intercept-url pattern="/join" access="permitAll" />
+		<security:intercept-url pattern="/logout" access="permitAll" />
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		
 		<security:form-login login-page="/loginForm"
@@ -18,15 +19,18 @@
 			authentication-failure-handler-ref="userLoginFailureHandler"
 			username-parameter="uemail" 
 			password-parameter="upassword" />
+		<security:logout logout-url="/logout" delete-cookies="true" invalidate-session="true" success-handler-ref="userLogoutSuccessHandler"/>
 		<security:session-management>
 			<security:concurrency-control max-sessions="1" expired-url="/" error-if-maximum-exceeded="true"/>
 		</security:session-management>
-		<security:logout delete-cookies="true" logout-success-url="/loginForm" logout-url="/logout" invalidate-session="true"/>
 		<security:access-denied-handler ref="userDeniedHandler"/>
+		<security:csrf disabled="true"/>
 	</security:http>
 	
 	<bean id="userDeniedHandler"
 		class="com.nbreds.projectPlanning.Project.user.Service.UserDeniedHandler"></bean>
+	<bean id="userLogoutSuccessHandler"
+		class="com.nbreds.projectPlanning.Project.user.Service.UserLogoutSuccessHandler"></bean>
 	<bean id="userLoginSuccessHandler"
 		class="com.nbreds.projectPlanning.Project.user.Service.UserLoginSuccessHandler">
 		<constructor-arg index="0" ref="userService" />

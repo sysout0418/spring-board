@@ -46,16 +46,15 @@
     	<h2 class="form-signin-heading">Please sign in</h2>
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="text" id="uemail" name="uemail" class="form-control" 
-				  placeholder="Email address" required="" autofocus="" value="<%= uemail %>">
+				  placeholder="Email address" required autofocus value="<%= uemail %>">
 		<label for="inputPassword" class="sr-only">Password</label>
-		<input	type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" required="">
+		<input	type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" required>
 		<div class="checkbox">
 			<label><input type="checkbox" id="rememberId" name="rememberId" value="t" <%= checked %>>Remember me</label>
 		</div>
 		<input type="submit" id="submit" name="submit" class="btn btn-primary" value="Sign in">
 		<a href="/join" class="btn btn-success">Join Us</a>
       </form:form>
-
     </div> <!-- /container -->
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
