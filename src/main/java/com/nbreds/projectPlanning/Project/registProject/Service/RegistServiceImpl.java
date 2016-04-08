@@ -32,10 +32,12 @@ public class RegistServiceImpl implements RegistService{
 			// 임시 stat 저장
 			projectMS.setStat("000");
 			String uno = project.getPmember();
-			String[] unos = uno.split(",");
-			for (int i = 0; i < unos.length; i++) {
-				projectMS.setUno(Integer.parseInt(unos[i]));
-				registDao.saveProjectMS(projectMS);
+			if (!uno.equals("")) {
+				String[] unos = uno.split(",");
+				for (int i = 0; i < unos.length; i++) {
+					projectMS.setUno(Integer.parseInt(unos[i]));
+					registDao.saveProjectMS(projectMS);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
