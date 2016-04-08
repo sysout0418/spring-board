@@ -35,16 +35,14 @@
 </head>
 <script type="text/javascript">
 function checkId() {
-	console.log("Asdsd");
 	if ($("#uemail").val() == '') {
 		$("#checkResult").html("<p style='color: red; font-weight: bold;'>E-MAIL 형식을 확인해주세요.</p>");
 		$("#uemail").focus();
 		return;
 	} else {
-		console.log("asdds");
 		$.ajax({
 			type: "POST",
-			url: "/checkId?${_csrf.parameterName}=${_csrf.token}",
+			url: "/checkId",
 			data: {
 				"uemail": $('#uemail').val()
 			},
@@ -69,7 +67,7 @@ function checkId() {
 </script>
 <body>
 <div class="container">
-<form:form cssClass="form-signin" method="post" action="/join?${_csrf.parameterName}=${_csrf.token}" commandName="UserInfo">
+<form:form cssClass="form-signin" method="post" action="/join" commandName="UserInfo">
 	<h2 class="form-signin-heading">Sign up</h2>
 	<label for="inputEmail" class="sr-only">Email</label>
 	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()" required autofocus>

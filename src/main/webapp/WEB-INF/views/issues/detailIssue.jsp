@@ -111,7 +111,7 @@ function doCreateCmt() {
 	}
 	// 버튼 중복 클릭 방지
 	$('#cInsertBtn').attr('disabled', 'disabled');
-	$.post('/comment/regist?${_csrf.parameterName}=${_csrf.token}', {
+	$.post('/comment/regist', {
 		content : $('#content').val(),
 		uno : '${user_no}',
 		ino : '${issues.ino}'
@@ -132,7 +132,7 @@ $(document).on("click", "table#commentTable a", function() {
 	if ($(this).attr("name") == "pDel"){
                     if (confirm("정말 삭제하시겠습니까?") == true){    //확인
                     	var cno = $(this).prev().prev().prev().prev().val();
-                    	$.post('/remove/comment?${_csrf.parameterName}=${_csrf.token}', {
+                    	$.post('/remove/comment', {
     						"cno" : cno
     					}, function(data) {
     						$('.list-group').load("/getCommentList/${issues.ino}");
@@ -169,7 +169,7 @@ $(document).on("click", "table#commentTable a", function() {
 	$("#cUpdateBtn").on('click', function() {
 		var content2 = $(this).prev().val();
 		var cno = $(this).prev().prev().val();
-		$.post('/update/comment?${_csrf.parameterName}=${_csrf.token}', {
+		$.post('/update/comment', {
 			"cno" : cno,
 			"content2" :content2
 		}, function(data) {

@@ -26,7 +26,7 @@ public class UserController {
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String goJoinForm() {
-		return "join";
+		return "/login/join";
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -62,6 +62,6 @@ public class UserController {
 
 	@RequestMapping("/loginForm")
 	public String loginForm() {
-		return "loginForm";
+		return "/login/loginForm";
 	}
 }
