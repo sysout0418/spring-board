@@ -37,9 +37,6 @@
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
-				<a href="/loginForm">로그인</a>
-				<br><br>
-				<a href="/logout">로그아웃</a>
 			</div>
 		</div>
 		

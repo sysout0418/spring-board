@@ -41,5 +41,6 @@
 			<tr><td></td></tr>
 		</table>
 	</div>
+	<a href="/logout">로그아웃</a>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
