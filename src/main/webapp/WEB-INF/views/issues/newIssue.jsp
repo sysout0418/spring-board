@@ -33,7 +33,7 @@
 			<!-- Begin page content -->
 			<div style="width: 1200; margin: 0 auto; background-color: #fff">
 				<form:form class="form-horizontal" method="post"
-					action="/issues/regist?${_csrf.parameterName}=${_csrf.token}" commandName="Issues" enctype="multipart/form-data">
+					action="/issues/regist" commandName="Issues" enctype="multipart/form-data">
 					<input type="hidden" value="${uno}" name="uno" id="uno">
 					<input type="hidden" value="${pno}" name="pno" id="pno">
 					<input type="hidden" value="" id="mno" name="mno">
