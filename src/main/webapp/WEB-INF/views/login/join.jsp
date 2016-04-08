@@ -37,7 +37,7 @@
 function checkId() {
 	console.log("Asdsd");
 	if ($("#uemail").val() == '') {
-		$("#checkResult").html("<p style='color: red; font-weight: bold;'>E-MAIL 형식을 확인해주세요.</p>");
+		$("#checkResult").html("<p style='color: red;'>E-MAIL 형식을 확인해주세요.</p>");
 		$("#uemail").focus();
 		return;
 	} else {
@@ -50,17 +50,17 @@ function checkId() {
 			},
 			success: function(data) {
 				if ($.trim(data) == 'Y') {
-					$("#checkResult").html("<p style='color: red; font-weight: bold;'>이미 사용중인 E-MAIL 입니다.</p>");
+					$("#checkResult").html("<p style='color: red;'>이미 사용중인 E-MAIL 입니다.</p>");
 					$("#uemail").val("");
 					$("#uemail").focus();
 					return;
 				} else if ($.trim(data) == 'N2') {
-					$("#checkResult").html("<p style='color: red; font-weight: bold;'>E-MAIL 형식을 확인해주세요.</p>");
+					$("#checkResult").html("<p style='color: red;'>E-MAIL 형식을 확인해주세요.</p>");
 					$("#uemail").val("");
 					$("#uemail").focus();
 					return;
 				} else if ($.trim(data) == 'N') {
-					$("#checkResult").html("<p style='color: blue; font-weight: bold;'>사용 가능한 E-MAIL 입니다.</p>");
+					$("#checkResult").html("<p style='color: blue;'>사용 가능한 E-MAIL 입니다.</p>");
 				} 
 			}
 		});
