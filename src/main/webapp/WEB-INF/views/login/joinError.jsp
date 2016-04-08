@@ -7,7 +7,7 @@
 	</c:when>
 	<c:otherwise>
 		<script type="text/javascript">
-			alert("이미 가입된 아이디 입니다.");
+			alert("잘못된 요청입니다!");
 			history.back();
 		</script>
 	</c:otherwise>

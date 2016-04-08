@@ -26,13 +26,53 @@
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script type="text/javascript" src="<c:url value="http://code.jquery.com/jquery-latest.min.js" />"></script>
+	<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap.min.js" />"></script>
+	<script type="text/javascript" src="<c:url value="/resources/javascript/ie-emulation-modes-warning.js " />"></script>
 </head>
+<script type="text/javascript">
+function checkId() {
+	console.log("Asdsd");
+	if ($("#uemail").val() == '') {
+		$("#checkResult").html("<p style='color: red; font-weight: bold;'>E-MAIL 형식을 확인해주세요.</p>");
+		$("#uemail").focus();
+		return;
+	} else {
+		console.log("asdds");
+		$.ajax({
+			type: "POST",
+			url: "/checkId?${_csrf.parameterName}=${_csrf.token}",
+			data: {
+				"uemail": $('#uemail').val()
+			},
+			success: function(data) {
+				if ($.trim(data) == 'Y') {
+					$("#checkResult").html("<p style='color: red; font-weight: bold;'>이미 사용중인 E-MAIL 입니다.</p>");
+					$("#uemail").val("");
+					$("#uemail").focus();
+					return;
+				} else if ($.trim(data) == 'N2') {
+					$("#checkResult").html("<p style='color: red; font-weight: bold;'>E-MAIL 형식을 확인해주세요.</p>");
+					$("#uemail").val("");
+					$("#uemail").focus();
+					return;
+				} else if ($.trim(data) == 'N') {
+					$("#checkResult").html("<p style='color: blue; font-weight: bold;'>사용 가능한 E-MAIL 입니다.</p>");
+				} 
+			}
+		});
+	}
+}
+</script>
 <body>
 <div class="container">
 <form:form cssClass="form-signin" method="post" action="/join?${_csrf.parameterName}=${_csrf.token}" commandName="UserInfo">
 	<h2 class="form-signin-heading">Sign up</h2>
 	<label for="inputEmail" class="sr-only">Email</label>
-	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId();" required autofocus>
+	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()" required autofocus>
 	<span id="checkResult"></span>
 	<label for="input" class="sr-only">Name</label>
 	<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" required>
@@ -44,37 +84,5 @@
 </form:form>
 </div> <!-- /container -->
 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>
 </body>
 </html>
-<script type="text/javascript">
-function checkId() {
-	console.log("Asdsd");
-	if ($("#uemail").val() == '') {
-		alert("이메일 형식을 확인하세요.");
-	} else {
-		console.log("asdds");
-		$('#checkId').attr('disabled', 'disabled');
-		$.ajax({
-			type: "POST",
-			url: "/checkId?${_csrf.parameterName}=${_csrf.token}",
-			data: {
-				"uemail": $('#uemail').val()
-			},
-			success: function(data) {
-				if ($.trim(data) == 'Y') {
-					$("#checkResult").html("이미 사용중인 E-MAIL 입니다.");
-					$("#uemail").val("");
-				} else if ($.trim(data) == 'N') {
-					$("#checkResult").html("사용 가능한 E-MAIL 입니다.");
-				} else if ($.trim(data) == 'N2') {
-					$("#checkResult").html("E-MAIL 형식을 확인해주세요.");
-					$("#uemail").val("");
-				}
-				$('#checkId').attr("disabled", false);
-			}
-		});
-	}
-}
-</script>
