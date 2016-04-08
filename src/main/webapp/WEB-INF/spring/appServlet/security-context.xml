@@ -27,16 +27,16 @@
 	</security:http>
 	
 	<bean id="userDeniedHandler"
-		class="com.nbreds.projectPlanning.Project.user.Service.UserDeniedHandler"></bean>
+		class="com.nbreds.projectPlanning.login.Service.LoginDeniedHandler"></bean>
 	<bean id="userLogoutSuccessHandler"
-		class="com.nbreds.projectPlanning.Project.user.Service.UserLogoutSuccessHandler"></bean>
+		class="com.nbreds.projectPlanning.login.Service.LogoutSuccessHandler"></bean>
 	<bean id="userLoginSuccessHandler"
-		class="com.nbreds.projectPlanning.Project.user.Service.UserLoginSuccessHandler">
+		class="com.nbreds.projectPlanning.login.Service.LoginSuccessHandler">
 		<constructor-arg index="0" ref="userService" />
 	</bean>
 	<bean id="userLoginFailureHandler"
-		class="com.nbreds.projectPlanning.Project.user.Service.UserLoginFailureHandler"></bean>
-	<bean id="userService" class="com.nbreds.projectPlanning.Project.user.Service.UserServiceImpl">
+		class="com.nbreds.projectPlanning.login.Service.LoginFailureHandler"></bean>
+	<bean id="userService" class="com.nbreds.projectPlanning.login.Service.LoginServiceImpl">
 		<constructor-arg index="0" ref="sqlSession" />
 	</bean>									
 

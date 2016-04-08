@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import javax.annotation.Resource;
 

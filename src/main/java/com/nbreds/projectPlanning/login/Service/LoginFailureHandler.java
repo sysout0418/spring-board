@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import java.io.IOException;
 
@@ -12,9 +12,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 
-public class UserLoginFailureHandler implements AuthenticationFailureHandler{
+public class LoginFailureHandler implements AuthenticationFailureHandler{
 
-	private static final Logger logger = LoggerFactory.getLogger(UserLoginFailureHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginFailureHandler.class);
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest req,

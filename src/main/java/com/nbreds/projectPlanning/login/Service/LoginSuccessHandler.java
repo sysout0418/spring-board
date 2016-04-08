@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,19 +11,18 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
-public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
+public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserLoginSuccessHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginSuccessHandler.class);
 	
-	private UserService userService;
+	private LoginService userService;
 	
-	public UserLoginSuccessHandler(UserService userService) {
+	public LoginSuccessHandler(LoginService userService) {
 		this.userService = userService;
 	}
 	

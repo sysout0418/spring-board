@@ -1,33 +1,24 @@
-package com.nbreds.projectPlanning.Project.user.Dao;
+package com.nbreds.projectPlanning.login.Dao;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 
 @Repository("UserDao")
-public class UserDao {
-	private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+public class LoginDao {
+	private static final Logger logger = LoggerFactory.getLogger(LoginDao.class);
 
 	//@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public UserDao() {}
+	public LoginDao() {}
 	
-	public UserDao(SqlSessionTemplate sqlSession) {
+	public LoginDao(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 	

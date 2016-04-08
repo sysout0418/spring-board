@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.user.Service;
+package com.nbreds.projectPlanning.login.Service;
 
 import java.io.IOException;
 
@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-public class UserDeniedHandler implements AccessDeniedHandler {
+public class LoginDeniedHandler implements AccessDeniedHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserDeniedHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginDeniedHandler.class);
 
 	@Override
 	public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException ade)
