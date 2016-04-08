@@ -29,18 +29,18 @@
 </head>
 <body>
 <div class="container">
-<span id="checkResult"></span>
 <form:form cssClass="form-signin" method="post" action="/join?${_csrf.parameterName}=${_csrf.token}" commandName="UserInfo">
-<h2 class="form-signin-heading">Sign up</h2>
-<label for="inputEmail" class="sr-only">Email</label>
-<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId();" required autofocus>
-<label for="input" class="sr-only">Name</label>
-<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" required>
-<label for="input" class="sr-only">Phone</label>
-<input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" required>
-<label for="inputPassword" class="sr-only">Password</label>
-<input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" required>
-<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Sign up</button>
+	<h2 class="form-signin-heading">Sign up</h2>
+	<label for="inputEmail" class="sr-only">Email</label>
+	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId();" required autofocus>
+	<span id="checkResult"></span>
+	<label for="input" class="sr-only">Name</label>
+	<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" required>
+	<label for="input" class="sr-only">Phone</label>
+	<input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" required>
+	<label for="inputPassword" class="sr-only">Password</label>
+	<input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" required>
+	<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Sign up</button>
 </form:form>
 </div> <!-- /container -->
 
@@ -50,9 +50,11 @@
 </html>
 <script type="text/javascript">
 function checkId() {
+	console.log("Asdsd");
 	if ($("#uemail").val() == '') {
 		alert("이메일 형식을 확인하세요.");
 	} else {
+		console.log("asdds");
 		$('#checkId').attr('disabled', 'disabled');
 		$.ajax({
 			type: "POST",
@@ -62,12 +64,12 @@ function checkId() {
 			},
 			success: function(data) {
 				if ($.trim(data) == 'Y') {
-					$("#checkResult").html("<b style='font-size: 18px; color: red;'>이미 사용중인 E-MAIL 입니다.</b>");
+					$("#checkResult").html("이미 사용중인 E-MAIL 입니다.");
 					$("#uemail").val("");
 				} else if ($.trim(data) == 'N') {
-					$("#checkResult").html("<b style='font-size: 18px; color: blue;'>사용 가능한 E-MAIL 입니다.</b>");
+					$("#checkResult").html("사용 가능한 E-MAIL 입니다.");
 				} else if ($.trim(data) == 'N2') {
-					$("#checkResult").html("<b style='font-size: 18px; color: red;'>E-MAIL 형식을 확인해주세요.</b>");
+					$("#checkResult").html("E-MAIL 형식을 확인해주세요.");
 					$("#uemail").val("");
 				}
 				$('#checkId').attr("disabled", false);

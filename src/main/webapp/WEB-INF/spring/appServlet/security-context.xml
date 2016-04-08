@@ -10,7 +10,6 @@
 		<security:intercept-url pattern="/loginForm" access="permitAll" />
 		<security:intercept-url pattern="/checkId" access="permitAll" />
 		<security:intercept-url pattern="/join" access="permitAll" />
-		<security:intercept-url pattern="/logout" access="permitAll" />
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		
 		<security:form-login login-page="/loginForm"
@@ -19,7 +18,7 @@
 			authentication-failure-handler-ref="userLoginFailureHandler"
 			username-parameter="uemail" 
 			password-parameter="upassword" />
-		<security:logout logout-url="/logout" delete-cookies="true" invalidate-session="true" success-handler-ref="userLogoutSuccessHandler"/>
+		<security:logout logout-url="/logout" success-handler-ref="userLogoutSuccessHandler"/>
 		<security:session-management>
 			<security:concurrency-control max-sessions="1" expired-url="/" error-if-maximum-exceeded="true"/>
 		</security:session-management>
