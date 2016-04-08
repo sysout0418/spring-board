@@ -40,7 +40,15 @@
 		</c:forEach>
 	  	<tr><td></td></tr>
   	</table>
-  	<a href="/logout">logout</a>
+  	<c:choose>
+		<c:when test="${pageContext.request.userPrincipal.name != null}">
+			${pageContext.request.userPrincipal.name}님 반갑습니다.
+			<a href="/logout">로그아웃</a>
+		</c:when>
+		<c:otherwise>
+			<a href="/loginForm">로그인</a>
+		</c:otherwise>
+	</c:choose>
 	</div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

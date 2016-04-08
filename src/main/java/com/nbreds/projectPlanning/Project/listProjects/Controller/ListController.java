@@ -175,8 +175,10 @@ public class ListController {
 	
 	public String getCodeName(String code){
 		HashMap<String,String> param = new HashMap<String,String>();
-		param.put("CODE_TYPE", code.substring(0, 3));
-		param.put("CODE", code.substring(3, 6));
+		if (code != null) {
+			param.put("CODE_TYPE", code.substring(0, 3));
+			param.put("CODE", code.substring(3, 6));
+		}
 		
 		return listService.getCodeName(param).getCODE_NAME();
 	}
