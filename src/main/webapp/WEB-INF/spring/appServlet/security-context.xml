@@ -8,6 +8,8 @@
 	<security:http auto-config="true" use-expressions="true" create-session="never">
 		<security:intercept-url pattern="/resources/**" access="permitAll" />
 		<security:intercept-url pattern="/loginForm" access="permitAll" />
+		<security:intercept-url pattern="/checkId" access="permitAll" />
+		<security:intercept-url pattern="/join" access="permitAll" />
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		
 		<security:form-login login-page="/loginForm"
@@ -19,7 +21,7 @@
 		<security:session-management>
 			<security:concurrency-control max-sessions="1" expired-url="/" error-if-maximum-exceeded="true"/>
 		</security:session-management>
-		<security:logout delete-cookies="true" logout-success-url="/" logout-url="/logout" invalidate-session="true"/>
+		<security:logout delete-cookies="true" logout-success-url="/loginForm" logout-url="/logout" invalidate-session="true"/>
 		<security:access-denied-handler ref="userDeniedHandler"/>
 	</security:http>
 	

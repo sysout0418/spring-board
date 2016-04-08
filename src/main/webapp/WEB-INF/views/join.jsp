@@ -2,145 +2,77 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
-<div class="container-fluid">
-<div class="row"><div id="col">
-<div class="col-sm-2 col-md-2 sidebar">
-	<ul class="nav nav-sidebar">
-		<li class="active"><a href="/">MyProjects</a></li>
-	    <li><a href="/regist">Regist</a></li>
-	    <li><a href="/search">Search</a></li>
-	    <li><a href="/list">Projects</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-		<li><a href="/milestones/open">Milestones</a></li>
-	    <li><a href="/issues/open">Issues</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-	    <li><a href="">Profile Settings</a></li>
-	</ul>
-</div></div>
-<form:form class="form-horizontal" method="POST" action="/join" commandName="UserInfo">
-  <fieldset style="width: 800px; margin: 0 auto;">
-    <legend>Join Us</legend>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-      <div class="col-lg-10">
-        <input type="email" class="form-control" id="uemail" name="uemail" placeholder="Email">
-	    <a href="#" onclick="checkId()" id="checkId" class="btn btn-primary">Check</a>
-	    <span id="checkResult"></span>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-      <div class="col-lg-10">
-        <input type="password" class="form-control" id="upassword" name="upassword" placeholder="Password">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Name</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" id="uname" name="uname" placeholder="Name">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Phone</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number">
-      </div>
-    </div>
-    <!-- <div class="form-group">
-      <label class="col-lg-2 control-label">Radios</label>
-      <div class="col-lg-10">
-        <div class="radio">
-          <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-            Option one is this
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-            Option two can be something else
-          </label>
-        </div>
-      </div>
-    </div> -->
-    <div class="form-group">
-      <label for="select" class="col-lg-2 control-label">Department</label>
-      <div class="col-lg-10">
-        <select class="form-control" id="udepartment" name="udepartment">
-          <option>--- 선택 ---</option>
-          <option>1부서</option>
-          <option>2부서</option>
-          <option>3부서</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="select" class="col-lg-2 control-label">Position</label>
-      <div class="col-lg-10">
-        <select class="form-control" id="uposition" name="uposition">
-          <option>--- 선택 ---</option>
-          <option>대표이사</option>
-          <option>이사/본부장</option>
-          <option>부장/팀장</option>
-          <option>차장</option>
-          <option>과장</option>
-          <option>대리</option>
-          <option>사원</option>
-          <option>수석연구원</option>
-          <option>책임연구원</option>
-          <option>연구원</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
-      </div>
-    </div>
-  </fieldset>
-</form:form>
-<script type="text/javascript">
-	$("#submit").click(function() {
-		if ($("#udepartment").val() == '--- 선택 ---') {
-			alert("부서를 선택하세요.");
-			$("#udepartment").focus();
-			return;
-		} else if ($("#uposition").val() == '--- 선택 ---') {
-			alert("직책을 선택하세요.");
-			$("#uposition").focus();
-			return;
-		}
-	});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
 	
-	function checkId() {
-		if ($("#uemail").val() == '') {
-			alert("이메일 형식을 확인하세요.");
-		} else {
-			$('#checkId').attr('disabled', 'disabled');
-			$.ajax({
-				type: "POST",
-				url: "/checkId",
-				data: {
-					"uemail": $('#uemail').val()
-				},
-				success: function(data) {
-					if ($.trim(data) == 'Y') {
-						$("#checkResult").html("<b style='font-size: 18px; color: red;'>이미 사용중인 E-MAIL 입니다.</b>");
-						$("#uemail").val("");
-					} else if ($.trim(data) == 'N') {
-						$("#checkResult").html("<b style='font-size: 18px; color: blue;'>사용 가능한 E-MAIL 입니다.</b>");
-					} else if ($.trim(data) == 'N2') {
-						$("#checkResult").html("<b style='font-size: 18px; color: red;'>E-MAIL 형식을 확인해주세요.</b>");
-						$("#uemail").val("");
-					}
-					$('#checkId').attr("disabled", false);
+	<!-- Bootstrap core CSS -->
+	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
+	
+	<!-- Custom styles for this template -->
+	<link href="<c:url value="/resources/css/signin.css" />" rel="stylesheet"  type="text/css" />
+	
+	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<script type="text/javascript" src="<c:url value="/resources/javascript/ie-emulation-modes-warning.js " />"></script>
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<div class="container">
+<span id="checkResult"></span>
+<form:form cssClass="form-signin" method="post" action="/join?${_csrf.parameterName}=${_csrf.token}" commandName="UserInfo">
+<h2 class="form-signin-heading">Sign up</h2>
+<label for="inputEmail" class="sr-only">Email</label>
+<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId();" required autofocus>
+<label for="input" class="sr-only">Name</label>
+<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" required>
+<label for="input" class="sr-only">Phone</label>
+<input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" required>
+<label for="inputPassword" class="sr-only">Password</label>
+<input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" required>
+<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Sign up</button>
+</form:form>
+</div> <!-- /container -->
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>
+</body>
+</html>
+<script type="text/javascript">
+function checkId() {
+	if ($("#uemail").val() == '') {
+		alert("이메일 형식을 확인하세요.");
+	} else {
+		$('#checkId').attr('disabled', 'disabled');
+		$.ajax({
+			type: "POST",
+			url: "/checkId?${_csrf.parameterName}=${_csrf.token}",
+			data: {
+				"uemail": $('#uemail').val()
+			},
+			success: function(data) {
+				if ($.trim(data) == 'Y') {
+					$("#checkResult").html("<b style='font-size: 18px; color: red;'>이미 사용중인 E-MAIL 입니다.</b>");
+					$("#uemail").val("");
+				} else if ($.trim(data) == 'N') {
+					$("#checkResult").html("<b style='font-size: 18px; color: blue;'>사용 가능한 E-MAIL 입니다.</b>");
+				} else if ($.trim(data) == 'N2') {
+					$("#checkResult").html("<b style='font-size: 18px; color: red;'>E-MAIL 형식을 확인해주세요.</b>");
+					$("#uemail").val("");
 				}
-			});
-		}
+				$('#checkId').attr("disabled", false);
+			}
+		});
 	}
+}
 </script>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
