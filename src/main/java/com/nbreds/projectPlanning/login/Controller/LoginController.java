@@ -22,7 +22,7 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
-	LoginService userService;
+	LoginService loginService;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String goJoinForm() {
@@ -37,9 +37,9 @@ public class LoginController {
 		logger.info("uemail: ", user.getUemail());
 		logger.info("uposition: ", user.getUposition());
 		logger.info("upassword: ", user.getUpassword());
-		User userInfo = userService.checkUserById(user.getUemail());
+		User userInfo = loginService.checkUserById(user.getUemail());
 		if (userInfo == null) {
-			userService.saveUser(user);
+			loginService.saveUser(user);
 			return "redirect:/";
 		}
 		return "login/joinError";
@@ -49,7 +49,7 @@ public class LoginController {
 	public void checkId(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		String uemail = request.getParameter("uemail");
 		if (uemail.indexOf("@") != -1) {
-			User userInfo = userService.checkUserById(uemail);
+			User userInfo = loginService.checkUserById(uemail);
 			if (userInfo != null) {
 				response.getWriter().write("Y");
 			} else {

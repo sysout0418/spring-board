@@ -13,34 +13,39 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.login.Dao.LoginDao;
 
 
-@Service("UserService")
+@Service("LoginService")
 public class LoginServiceImpl implements LoginService {
 	public static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 	
 	@Autowired
-	LoginDao userDao;
+	LoginDao loginDao;
 	
 	Map<String, Object> userInfo;
 	
 	public LoginServiceImpl() {}
 	
 	public LoginServiceImpl(SqlSessionTemplate sqlSession) {
-		userDao = new LoginDao(sqlSession);
+		loginDao = new LoginDao(sqlSession);
 	}
 	
 	@Override
+	@Transactional
 	public void saveUser(User user) {
-		userDao.saveUser(user);
+		loginDao.saveUser(user);
+		int uno = loginDao.getLastno();
+		logger.info("uno : " + uno);
+		loginDao.saveAuthority(uno);
 	}
 
 	@Override
 	public User loginUserByIdPw(User user) {
-		User userInfo = userDao.loginUserByIdPw(user);
+		User userInfo = loginDao.loginUserByIdPw(user);
 		if (userInfo != null) {
 			return userInfo;
 		}
@@ -49,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public User checkUserById(String uemail) {
-		User userInfo = userDao.checkUserById(uemail);
+		User userInfo = loginDao.checkUserById(uemail);
 		if (userInfo != null) {
 			return userInfo;
 		}
@@ -59,19 +64,12 @@ public class LoginServiceImpl implements LoginService {
 	/** 사용자 권한 설정 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		userInfo = userDao.loadUserByUsername(username);
+		userInfo = loginDao.loadUserByUsername(username);
 		if (userInfo == null)
 			throw new UsernameNotFoundException(username);
 		logger.info(userInfo.toString());
 		List<GrantedAuthority> gas = new ArrayList<GrantedAuthority>();
 		gas.add(new SimpleGrantedAuthority(userInfo.get("authority").toString()));
-//		Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
-//		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-//		UserDetails sUser = 
-//				new org.springframework.security.core.userdetails.User(
-//						username, 
-//						user.get("password").toString(), 
-//						roles);
 		UserDetails sUser = 
 				new org.springframework.security.core.userdetails.User(
 						username,
@@ -91,6 +89,4 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return null;
 	}
-	
-	
 }

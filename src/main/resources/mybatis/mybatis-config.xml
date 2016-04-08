@@ -10,5 +10,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper resource="/mybatis/issues/issues_SQL.xml" />
         <mapper resource="/mybatis/label/label_SQL.xml" />
         <mapper resource="/mybatis/issueLabel/issueLabel_SQL.xml" />
+        <mapper resource="/mybatis/login/login_SQL.xml" />
     </mappers>
 </configuration>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 
-@Repository("UserDao")
+@Repository("LoginDao")
 public class LoginDao {
 	private static final Logger logger = LoggerFactory.getLogger(LoginDao.class);
 
@@ -23,22 +23,26 @@ public class LoginDao {
 	}
 	
 	public void saveUser(User user) {
-		sqlSession.insert("project.saveUser", user);
+		sqlSession.insert("login.saveUser", user);
 	}
 
 	public User loginUserByIdPw(User user) {
-		return sqlSession.selectOne("project.loginUserByIdPw", user);
+		return sqlSession.selectOne("login.loginUserByIdPw", user);
 	}
 
-//	public User checkUserById(User user) {
-//		return sqlSession.selectOne("project.checkUserById", user);
-//	}
-
 	public User checkUserById(String uemail) {
-		return sqlSession.selectOne("project.checkUserById", uemail);
+		return sqlSession.selectOne("login.checkUserById", uemail);
 	}
 
 	public Map<String, Object> loadUserByUsername(String uemail) {
-		return sqlSession.selectOne("project.getUserAuthority", uemail);
+		return sqlSession.selectOne("login.getUserAuthority", uemail);
+	}
+	
+	public int getLastno(){
+		return sqlSession.selectOne("login.getLastno");
+	}
+	
+	public void saveAuthority(int uno){
+		sqlSession.insert("login.saveAuthority", uno);
 	}
 }
