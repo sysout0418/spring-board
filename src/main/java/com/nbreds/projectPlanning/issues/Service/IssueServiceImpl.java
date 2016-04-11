@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.common.VO.Files;
+import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.common.util.FileUtils;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Dao.IssueDao;

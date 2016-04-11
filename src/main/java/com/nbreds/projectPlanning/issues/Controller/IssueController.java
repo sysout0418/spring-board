@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.common.VO.Files;
+import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;

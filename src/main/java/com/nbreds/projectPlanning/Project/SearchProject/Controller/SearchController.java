@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.Project.SearchProject.Service.SearchServiceImpl;
-import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 
 @Controller
 public class SearchController {

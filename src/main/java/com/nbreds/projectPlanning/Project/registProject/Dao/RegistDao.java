@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
-import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Repository("RegistDao")
 public class RegistDao {

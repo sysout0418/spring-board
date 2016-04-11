@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>  
 	</select>
 
-    <insert id="saveUser" parameterType="com.nbreds.projectPlanning.Project.VO.User">
+    <insert id="saveUser" parameterType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
 		 INSERT INTO User (
 		  uname
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </insert>
     
-    <select id="loginUserByIdPw" parameterType="com.nbreds.projectPlanning.Project.VO.User" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <select id="loginUserByIdPw" parameterType="com.nbreds.projectPlanning.common.VO.User" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
     SELECT 
     uno
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
 
-    <select id="checkUserById" parameterType="com.nbreds.projectPlanning.Project.VO.User" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <select id="checkUserById" parameterType="com.nbreds.projectPlanning.common.VO.User" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
     SELECT 
     uno

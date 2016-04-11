@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.SearchProject.Dao.SearchDao;
-import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Service("SearchService")
 public class SearchServiceImpl implements SearchService{

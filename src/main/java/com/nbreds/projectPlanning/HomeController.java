@@ -3,7 +3,6 @@ package com.nbreds.projectPlanning;
 import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -11,14 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class HomeController {

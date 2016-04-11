@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Service
 public interface LoginService extends UserDetailsService {

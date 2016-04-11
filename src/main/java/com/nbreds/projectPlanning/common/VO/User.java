@@ -1,9 +1,6 @@
-package com.nbreds.projectPlanning.Project.VO;
+package com.nbreds.projectPlanning.common.VO;
 
 public class User {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private int uno;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.login.Service.LoginService;
 import com.nbreds.projectPlanning.login.Service.ShaEncoder;
 
