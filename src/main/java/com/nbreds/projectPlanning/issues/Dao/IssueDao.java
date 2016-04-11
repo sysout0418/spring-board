@@ -3,8 +3,6 @@ package com.nbreds.projectPlanning.issues.Dao;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
-import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -36,12 +34,12 @@ public class IssueDao {
 	}
 	
 	// ino로 파일 정보 DB에서 SELECT
-	public List<IssueFiles> getFileListByIno(int ino) {
+	public List<Files> getFileListByIno(int ino) {
 		return sqlSession.selectList("issues.getFileListByIno", ino);
 	}
 	
 	// fno로 파일 정보 DB에서 SELECT
-	public IssueFiles getFileInfoByFno(int fno) {
+	public Files getFileInfoByFno(int fno) {
 		return sqlSession.selectOne("issues.getFileInfoByFno", fno);
 	}
 	

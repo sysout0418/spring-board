@@ -42,6 +42,11 @@ Milestone #${mno} expires at ${milestone.mduedate}
 <tr><td>
 <h4>${milestone.mtitle}</h4>  	
 ${milestone.mdescription}
+<c:forEach var="file" items="${fileList}">
+	<input type="hidden" id="fno" value="${file.fno }">
+	<a href="/issue/downloadFile/${file.fno}" style="color:#4d94c4">${file.originalName }</a> 
+	(${file.fileSize}kb)
+</c:forEach>
 </td></tr>
 <tr><td>
 <h4>Progress</h4>  	

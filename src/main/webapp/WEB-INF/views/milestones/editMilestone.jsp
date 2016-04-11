@@ -24,7 +24,7 @@
 	<!-- Begin page content -->
 	<div style="width:1200; margin:0 auto; background-color: #fff">
 	    <h4>Edit Milestone</h4>  	
-		<form:form method="post" action="/milestones/edit" commandName="milestones">
+		<form:form method="post" action="/milestones/edit" commandName="milestones" enctype="multipart/form-data">
 		<table class="table">
 			<tr>
 				<td>Title</td>
@@ -34,7 +34,18 @@
 			</tr>
 			<tr>
 				<td style="border-color: #fff">Description</td>
-				<td style="border-color: #fff"><form:textarea path="mdescription" rows="8" cssClass="form-control"/></td>
+				<td style="border-color: #fff"><form:textarea path="mdescription" rows="8" cssClass="form-control"/>
+					<c:forEach var="file" items="${fileList}" varStatus="var">
+						<p>
+							<input type="hidden" id="fno" name="fno" value="${file.fno}">
+							<a href="#this" id="name_${file.fno}" name="name_${file.fno}">${file.originalName}</a>
+							<input type="file" id="file_${file.fno}"
+								name="file_${file.fno}"> (${file.fileSize}kb) <a
+								href="#this" class="btn" id="delete_${file.fno}"
+								name="delete_${file.fno}">삭제</a>
+						</p>
+					</c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="4" style="background-color : #faf9f9"><input class="btn btn-success" type="submit" value="Save changes"></td>

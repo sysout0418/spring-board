@@ -2,11 +2,15 @@ package com.nbreds.projectPlanning.milestones.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -14,7 +18,7 @@ import com.nbreds.projectPlanning.milestones.VO.Milestone;
 public interface MilestonesService {
 	static final Logger logger = LoggerFactory.getLogger(MilestonesService.class);
 	
-	public void saveMilestone(Milestone milestone);
+	public void saveMilestone(Milestone milestone, HttpServletRequest request);
 
 	public List<Milestone> getMilestonesByPno(HashMap<String, Object> param);
 
@@ -43,4 +47,10 @@ public interface MilestonesService {
 	public int countOpenIssuesByMno(int mno);
 
 	public void editIssueByIno(HashMap<String, Object> param);
+
+	int getLastMno();
+
+	void saveMilestoneFile(Map<String, Object> param);
+
+	public List<Files> getFileListByMno(int mno);
 }

@@ -24,7 +24,7 @@
 	<!-- Begin page content -->
 	<div style="width:1200; margin:0 auto; background-color: #fff">
 	    <h4>New Milestones</h4>  	
-		<form:form method="post" action="/milestones/regist" commandName="milestone">
+		<form:form method="post" action="/milestones/regist" commandName="milestone" enctype="multipart/form-data">
 		<table class="table">
 			<tr>
 				<td>Title</td>
@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td style="border-color: #fff">Description</td>
-				<td style="border-color: #fff"><form:textarea path="mdescription" rows="8" cssClass="form-control"/></td>
+				<td style="border-color: #fff"><form:textarea path="mdescription" rows="8" cssClass="form-control"/><input type="file" name="file"/></td>
 			</tr>
 			<tr>
 				<td colspan="4"><input class="btn btn-success" type="submit" value="Create milestone"></td>

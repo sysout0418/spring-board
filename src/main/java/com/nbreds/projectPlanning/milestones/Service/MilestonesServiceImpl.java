@@ -2,12 +2,17 @@ package com.nbreds.projectPlanning.milestones.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nbreds.projectPlanning.common.VO.Files;
+import com.nbreds.projectPlanning.common.util.FileUtils;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.Dao.MilestonesDao;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
@@ -18,11 +23,38 @@ public class MilestonesServiceImpl implements MilestonesService{
 	
 	@Autowired
 	MilestonesDao milestonesdao;
+	
+	@Autowired
+	FileUtils fileUtils;
 
-	public void saveMilestone(Milestone milestone) {
+	@Override
+	public void saveMilestone(Milestone milestone, HttpServletRequest request) {
 		milestonesdao.saveMilestone(milestone);
+		
+		// 파일정보 DB에 INSERT
+		List<Map<String, Object>> list;
+		int lastMno = getLastMno();
+		try {
+			milestone.setMno(lastMno);
+			list = fileUtils.parseInsertFileInfo(milestone, request);
+			for (int i = 0; i < list.size(); i++) {
+				saveMilestoneFile(list.get(i));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	@Override
+	public int getLastMno() {
+		return milestonesdao.getLastMno();
+	}
+	
+	@Override
+	public void saveMilestoneFile(Map<String, Object> param) {
+		milestonesdao.saveMilestoneFile(param);
+	}
+	
 	public List<Milestone> getMilestonesByPno(HashMap<String, Object> param) {
 		return milestonesdao.getMilestonesByPno(param);
 	}
@@ -77,5 +109,10 @@ public class MilestonesServiceImpl implements MilestonesService{
 
 	public void editIssueByIno(HashMap<String, Object> param) {
 		milestonesdao.editIssueByIno(param);
+	}
+
+	@Override
+	public List<Files> getFileListByMno(int mno) {
+		return milestonesdao.getFileListByMno(mno);
 	}
 }

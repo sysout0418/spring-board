@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
-import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -25,10 +25,10 @@ public interface IssueService {
 	void saveIssues(Issue issues, HttpServletRequest request);
 	
 	/** ino로 파일 정보 SELECT */
-	List<IssueFiles> getFileListByIno(int ino);
+	List<Files> getFileListByIno(int ino);
 	
 	/** fno로 파일 정보 SELECT(download 할 때) */
-	IssueFiles getFileInfoByFno(int fno);
+	Files getFileInfoByFno(int fno);
 	
 	/** 모든 이슈 리스트 가져오기 */
 	List<Issue> getAllIssues();
