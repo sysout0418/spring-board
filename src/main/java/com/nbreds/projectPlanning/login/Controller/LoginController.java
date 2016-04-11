@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.login.Service.LoginService;
+import com.nbreds.projectPlanning.login.Service.ShaEncoder;
 
 @Controller
 public class LoginController {
@@ -23,6 +24,9 @@ public class LoginController {
 
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	ShaEncoder encoder;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String goJoinForm() {
@@ -31,14 +35,12 @@ public class LoginController {
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(@ModelAttribute("UserInfo") User user) {
-		logger.info("uname: ", user.getUname());
-		logger.info("uphoneno: ", user.getUphoneno());
-		logger.info("udepartment: ", user.getUdepartment());
-		logger.info("uemail: ", user.getUemail());
-		logger.info("uposition: ", user.getUposition());
-		logger.info("upassword: ", user.getUpassword());
 		User userInfo = loginService.checkUserById(user.getUemail());
 		if (userInfo == null) {
+			//sha256인코딩
+			String pw = encoder.encoding(user.getUpassword());
+			user.setUpassword(pw);
+			
 			loginService.saveUser(user);
 			return "redirect:/";
 		}

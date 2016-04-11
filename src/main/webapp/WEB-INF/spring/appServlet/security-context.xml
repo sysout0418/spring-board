@@ -42,9 +42,7 @@
 
 	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="loginService">
-			<!-- <security:password-encoder ref="passwordEncoder">
-				<security:salt-source user-property="username"/>
-			</security:password-encoder> -->
+			<security:password-encoder ref="passwordEncoder"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 	

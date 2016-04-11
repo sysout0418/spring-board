@@ -30,7 +30,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest req,
 			HttpServletResponse res, Authentication auth) throws IOException,
 			ServletException {
-//		UserServiceImpl u = (UserServiceImpl) auth.getPrincipal();
+		
 		Map<String, Object> userInfo = userService.getUserInfo();
 		if (userInfo != null) {
 			String uno = userInfo.get("uno").toString();
@@ -58,10 +58,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		for(GrantedAuthority a : auth.getAuthorities()){
 			logger.info(a.getAuthority());
 		}
-//		logger.info(String.valueOf(u.isAccountNonExpired()));
-//		logger.info(String.valueOf(u.isAccountNonLocked()));
-//		logger.info(String.valueOf(u.isCredentialsNonExpired()));
-//		logger.info(String.valueOf(u.isEnabled()));
 		
 		res.sendRedirect("/");
 	}
