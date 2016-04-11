@@ -97,6 +97,7 @@ a:hover{
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/logout">Sign Out</a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
       </ul>
     </div>
   </div>

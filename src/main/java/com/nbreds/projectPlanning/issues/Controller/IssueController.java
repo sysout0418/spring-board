@@ -122,7 +122,7 @@ public class IssueController {
 		Files fileInfo = issuesService.getFileInfoByFno(fno);
 
 		try {
-			byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\IssueFiles\\" + fileInfo.getStoreName()));
+			byte fileByte[] = FileUtils.readFileToByteArray(new File("/home/projectPlan/WebProject/upload/" + fileInfo.getStoreName()));
 
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);

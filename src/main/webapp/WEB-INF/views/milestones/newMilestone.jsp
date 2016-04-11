@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td style="border-color: #fff">Description</td>
-				<td style="border-color: #fff"><form:textarea path="mdescription" rows="8" cssClass="form-control"/><input type="file" name="file"/></td>
+				<td style="border-color: #fff"><form:textarea path="mdescription" rows="8" cssClass="form-control"/><input type="file" name="file" multiple="multiple"/></td>
 			</tr>
 			<tr>
 				<td colspan="4"><input class="btn btn-success" type="submit" value="Create milestone"></td>

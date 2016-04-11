@@ -26,7 +26,7 @@ public class FileUtils {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 
-	private static final String filePath = "C:\\IssueFiles\\";
+	private static final String filePath = "/home/projectPlan/WebProject/upload/";
 
 	public List<Map<String, Object>> parseInsertFileInfo(Issue issues, HttpServletRequest request) throws Exception {
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
