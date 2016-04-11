@@ -29,12 +29,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.nbreds.projectPlanning.common.util.User;
+import com.nbreds.projectPlanning.common.VO.Files;
+import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
-import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -108,7 +108,7 @@ public class IssueController {
 		issues.setLabels(labelList);
 
 		// ino로 파일 리스트 불러오기
-		List<IssueFiles> fileList = issuesService.getFileListByIno(ino);
+		List<Files> fileList = issuesService.getFileListByIno(ino);
 
 		model.addAttribute("issues", issues);
 		model.addAttribute("fileList", fileList);
@@ -119,7 +119,7 @@ public class IssueController {
 	// fno로 파일 정보 불러와서 다운로드 하기
 	@RequestMapping("/issue/downloadFile/{fno}")
 	public void downloadFile(@PathVariable("fno") int fno, HttpServletResponse response) {
-		IssueFiles fileInfo = issuesService.getFileInfoByFno(fno);
+		Files fileInfo = issuesService.getFileInfoByFno(fno);
 
 		try {
 			byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\IssueFiles\\" + fileInfo.getStoreName()));
@@ -206,7 +206,7 @@ public class IssueController {
 		List<Label> labelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getAllMilestone();
 		// ino로 파일 리스트 불러오기
-		List<IssueFiles> fileList = issuesService.getFileListByIno(ino);
+		List<Files> fileList = issuesService.getFileListByIno(ino);
 		logger.info("---------------update page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());

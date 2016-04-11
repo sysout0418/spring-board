@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.SearchProject.Dao.SearchDao;
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.common.util.CodeTable;
-import com.nbreds.projectPlanning.common.util.User;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Service("SearchService")
 public class SearchServiceImpl implements SearchService{

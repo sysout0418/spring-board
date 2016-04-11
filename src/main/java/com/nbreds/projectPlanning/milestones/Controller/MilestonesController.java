@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.Service.MilestonesService;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
@@ -138,7 +140,9 @@ public class MilestonesController {
 				uname.add(milestonesService.getUnameByUno(param));
 			}
 		}
-		
+		// mno로 파일 리스트 불러오기
+		List<Files> fileList = milestonesService.getFileListByMno(mno);
+				
 		model.addAttribute("countIssues", countIssues);
 		model.addAttribute("countOpenIssues", countOpenIssues);
 		model.addAttribute("countClosedIssues", countClosedIssues);
@@ -147,6 +151,7 @@ public class MilestonesController {
 		model.addAttribute("unameSize", uname.size());
 		model.addAttribute("uname", uname);
 		model.addAttribute("milestone", milestone);
+		model.addAttribute("fileList", fileList);
 		
         return "milestones/detailMilestone";
 	}
@@ -160,12 +165,12 @@ public class MilestonesController {
 	}
 	
 	@RequestMapping("/milestones/regist")
-	public String  regist(int uno, int pno, @ModelAttribute("milestones")	Milestone milestone, BindingResult result){
+	public String  regist(int uno, int pno, @ModelAttribute("milestones")	Milestone milestone, BindingResult result, HttpServletRequest request){
 		logger.info("title : "+milestone.getMtitle());
 		logger.info("description : "+milestone.getMdescription());
 		logger.info("duedate : " + milestone.getMduedate());
 		logger.info("pno : " + milestone.getPno());
-		milestonesService.saveMilestone(milestone);
+		milestonesService.saveMilestone(milestone, request);
 		
 		return "redirect:/"+uno+"/"+pno+"/milestones/open";
 	}
@@ -173,6 +178,9 @@ public class MilestonesController {
 	@RequestMapping(value="/milestones/edit/{uno}/{pno}/{mno}", method = RequestMethod.GET)
 	public String edit(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("mno") int mno, @ModelAttribute("milestones") Milestone milestone, Model model){
 		milestone = milestonesService.getMilestoneBymno(mno);
+		// mno로 파일 리스트 불러오기
+		List<Files> fileList = milestonesService.getFileListByMno(mno);
+				
 		logger.info("---------------edit page------------------");
 		logger.info("mno : " + milestone.getMno());
 		logger.info("mtitle : " +milestone.getMtitle());
@@ -182,6 +190,7 @@ public class MilestonesController {
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("milestones", milestone);
+		model.addAttribute("fileList", fileList);
 		
 		return "/milestones/editMilestone";
 	}

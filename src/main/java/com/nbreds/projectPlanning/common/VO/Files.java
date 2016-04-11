@@ -1,8 +1,9 @@
-package com.nbreds.projectPlanning.issues.VO;
+package com.nbreds.projectPlanning.common.VO;
 
-public class IssueFiles {
+public class Files {
 	private int fno;
 	private int ino;
+	private int mno;
 	private int uno;
 	private String originalName;
 	private String storeName;
@@ -21,6 +22,12 @@ public class IssueFiles {
 	}
 	public void setIno(int ino) {
 		this.ino = ino;
+	}
+	public int getMno() {
+		return mno;
+	}
+	public void setMno(int mno) {
+		this.mno = mno;
 	}
 	public int getUno() {
 		return uno;

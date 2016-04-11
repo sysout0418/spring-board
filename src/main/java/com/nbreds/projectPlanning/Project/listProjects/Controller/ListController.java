@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.listProjects.Service.ListServiceImpl;
-import com.nbreds.projectPlanning.common.util.CodeTable;
-import com.nbreds.projectPlanning.common.util.User;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class ListController {

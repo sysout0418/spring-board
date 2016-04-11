@@ -1,6 +1,7 @@
 package com.nbreds.projectPlanning.common.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nbreds.projectPlanning.issues.VO.Issue;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Component("fileUtils")
 public class FileUtils {
@@ -116,6 +118,46 @@ public class FileUtils {
 						}
 					}
 				}
+			}
+		}
+		return list;
+	}
+
+	public List<Map<String, Object>> parseInsertFileInfo(Milestone milestone, HttpServletRequest request) throws IllegalStateException, IOException {
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+
+		MultipartFile multipartFile = null;
+		String originalFileName = null;
+		String originalFileExtension = null;
+		String storedFileName = null;
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> listMap = null;
+
+		File file = new File(filePath);
+		if (file.exists() == false) {
+			file.mkdirs();
+		}
+
+		int mno = milestone.getMno();
+
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+
+				file = new File(filePath + storedFileName);
+				multipartFile.transferTo(file);
+
+				listMap = new HashMap<String, Object>();
+				listMap.put("mno", mno);
+				listMap.put("originalName", originalFileName);
+				listMap.put("storeName", storedFileName);
+				listMap.put("fileSize", multipartFile.getSize());
+				list.add(listMap);
 			}
 		}
 		return list;

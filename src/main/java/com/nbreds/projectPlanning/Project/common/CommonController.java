@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
-import com.nbreds.projectPlanning.common.util.User;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class CommonController {

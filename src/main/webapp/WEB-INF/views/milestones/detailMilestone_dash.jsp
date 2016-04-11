@@ -48,7 +48,7 @@ Milestone ${milestone.mtitle}
 <h4>Progress</h4>  	
 ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${countClosedIssues}" maxIntegerDigits="1"/> closed ${completeIssuePercent}% complete
 <div style="float: right;">
-<button type="button" class="btn btn-default">Browse Issue</button>
+<a href="/${uno}/${milestone.pno}/issues/open" class="btn btn-default">Browse Issue</a>
 </div>
 </td></tr>
 <tr><td colspan="4">

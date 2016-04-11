@@ -4,6 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="milestones">
+	<select id="getLastMno" resultType="int">
+	<![CDATA[	
+		select LAST_INSERT_ID()
+	]]>
+	</select>
+	
     <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
 	  insert into Milestones (
@@ -149,4 +155,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE ino = #{ino}
 	]]>
     </update>
+    
+    <insert id="saveMilestoneFile" parameterType="Map">
+    <![CDATA[
+	  INSERT INTO Files (
+	  mno
+	  ,originalName
+	  ,storeName
+	  ,fileSize
+	) VALUES (
+	  #{mno}
+	  ,#{originalName}
+	  ,#{storeName}
+	  ,#{fileSize}
+	)
+    ]]>
+	</insert>
+	
+	<select id="getFileListByMno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.Files">
+    <![CDATA[
+        SELECT
+            fno
+            ,mno
+            ,originalName
+            ,storeName
+            ,ROUND(fileSize/1024,1) AS fileSize
+            ,regDate
+            ,isDel
+        FROM
+            Files
+        WHERE
+            mno = #{mno}
+            AND isDel = 'N'
+    ]]>
+	</select>
 </mapper>

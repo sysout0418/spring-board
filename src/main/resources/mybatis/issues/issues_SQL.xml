@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 2016.04.04 이슈 상세보기시 첨부파일 있으면 첨부파일 리스트 SELECT -->
-	<select id="getFileListByIno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.IssueFiles">
+	<select id="getFileListByIno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.Files">
     <![CDATA[
         SELECT
             fno
@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 2016.04.04 첨부파일 다운로드 누르면 fno로 해당 첨부파일 정보 가져오기 -->
-	<select id="getFileInfoByFno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.IssueFiles">
+	<select id="getFileInfoByFno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.Files">
     <![CDATA[
         SELECT
             fno
@@ -268,7 +268,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getAllUserNameAndNo" parameterType="String"
-		resultType="com.nbreds.projectPlanning.common.util.User">
+		resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User

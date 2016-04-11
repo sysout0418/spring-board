@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
-import com.nbreds.projectPlanning.common.util.User;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class HomeController {

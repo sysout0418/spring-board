@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.nbreds.projectPlanning.common.VO.Files;
+import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.common.util.FileUtils;
-import com.nbreds.projectPlanning.common.util.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Dao.IssueDao;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
-import com.nbreds.projectPlanning.issues.VO.IssueFiles;
 import com.nbreds.projectPlanning.label.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -56,13 +56,13 @@ public class IssueServiceImpl implements IssueService {
 
 	// ino로 파일 리스트 가져오기
 	@Override
-	public List<IssueFiles> getFileListByIno(int ino) {
+	public List<Files> getFileListByIno(int ino) {
 		return issueDao.getFileListByIno(ino);
 	}
 
 	// fno로 파일 정보 가져오기
 	@Override
-	public IssueFiles getFileInfoByFno(int fno) {
+	public Files getFileInfoByFno(int fno) {
 		return issueDao.getFileInfoByFno(fno);
 	}
 

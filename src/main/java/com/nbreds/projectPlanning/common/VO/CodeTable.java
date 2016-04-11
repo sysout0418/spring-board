@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.common.util;
+package com.nbreds.projectPlanning.common.VO;
 
 public class CodeTable {
 	private String CODE_TYPE;

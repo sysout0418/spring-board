@@ -2,6 +2,7 @@ package com.nbreds.projectPlanning.milestones.Dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
@@ -77,5 +79,17 @@ public class MilestonesDao {
 
 	public void editIssueByIno(HashMap<String, Object> param) {
 		sqlSession.update("milestones.editIssueByIno", param);
+	}
+
+	public int getLastMno() {
+		return sqlSession.selectOne("milestones.getLastMno");
+	}
+
+	public void saveMilestoneFile(Map<String, Object> param) {
+		sqlSession.insert("milestones.saveMilestoneFile", param);
+	}
+
+	public List<Files> getFileListByMno(int mno) {
+		return sqlSession.selectList("milestones.getFileListByMno", mno);
 	}
 }
