@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.listProjects.Service.ListServiceImpl;
+import com.nbreds.projectPlanning.common.util.CodeTable;
+import com.nbreds.projectPlanning.common.util.User;
 
 @Controller
 public class ListController {

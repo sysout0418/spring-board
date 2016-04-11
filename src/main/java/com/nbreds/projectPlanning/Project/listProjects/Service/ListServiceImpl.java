@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.listProjects.Dao.ListDao;
+import com.nbreds.projectPlanning.common.util.CodeTable;
+import com.nbreds.projectPlanning.common.util.User;
 
 @Service("ListService")
 public class ListServiceImpl implements ListService {

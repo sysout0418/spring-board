@@ -268,7 +268,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getAllUserNameAndNo" parameterType="String"
-		resultType="com.nbreds.projectPlanning.Project.VO.User">
+		resultType="com.nbreds.projectPlanning.common.util.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User

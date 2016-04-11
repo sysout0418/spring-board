@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.util.User;
+
 
 @Repository("LoginDao")
 public class LoginDao {

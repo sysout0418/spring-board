@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
+import com.nbreds.projectPlanning.common.util.User;
 
 @Controller
 public class CommonController {

@@ -44,13 +44,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </insert>
     
-    <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.CodeTable">
+    <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.common.util.CodeTable">
     <![CDATA[
      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE}
     ]]>  
     </select>
     
-    <select id="getUsersForName" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <select id="getUsersForName" parameterType="String" resultType="com.nbreds.projectPlanning.common.util.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.util.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User
@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!-- 03-22 추가.. 모든 유저의 이름과 유저번호 가져옴 -->
-    <select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.Project.VO.User">
+    <select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.common.util.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
     from User
@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
     </select>
     
-    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.CodeTable">
+    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.common.util.CodeTable">
     <![CDATA[
       select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE} and CODE=#{CODE}
     ]]>  
@@ -144,5 +144,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     from Project 
     where uno=#{uno} OR pmember like '%' #{uno} '%'
     ]]>  
+    </select>
+    
+    <!-- 페이징 처리를 위한 allProjectList -->
+    <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT pno, pname, pdetail, pdata, pduedate, pmember, uno
+    FROM Project
+    ]]>
+    <if test="pdata != null">
+		<where>
+			<foreach collection="pdata" item="data" index="index" separator="or">
+		<![CDATA[
+				pdata like '%' #{data} '%'
+		]]>
+			</foreach>
+		</where>
+	</if>
+	<![CDATA[
+	ORDER BY pno DESC
+	LIMIT #{start}, #{interval}
+    ]]>
+    </select>
+    
+    <!-- 페이징 처리를 위한 totalCount -->
+    <select id="totalCount" parameterType="Map" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM Project
+    ]]>
+    <if test="pdata != null">
+		<where>
+			<foreach collection="pdata" item="data" index="index" separator="or">
+		<![CDATA[
+				pdata like '%' #{data} '%'
+		]]>
+			</foreach>
+		</where>
+	</if>
     </select>
 </mapper>

@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.Project.VO;
+package com.nbreds.projectPlanning.common.util;
 
 public class User {
 	/**

@@ -2,7 +2,6 @@ package com.nbreds.projectPlanning.issues.Controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.nbreds.projectPlanning.Project.VO.User;
+import com.nbreds.projectPlanning.common.util.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;

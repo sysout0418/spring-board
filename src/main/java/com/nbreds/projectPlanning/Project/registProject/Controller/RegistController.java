@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nbreds.projectPlanning.Project.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
-import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
+import com.nbreds.projectPlanning.common.util.CodeTable;
+import com.nbreds.projectPlanning.common.util.User;
 
 @Controller
 public class RegistController {

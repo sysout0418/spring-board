@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
+<jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
 <div class="container-fluid">
 <div class="row">
 <div id="col">
@@ -23,12 +24,13 @@
 </div>
 </div>
 
+<form:form commandName="project" name="search" id="search" method="POST">
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<!-- Begin page content -->
 	<div style="width:1200; height:1200; margin:0 auto; background-color: #fff">
 	<div id="search" style="float: left">
 		<h4>Search</h4>
-		<form:form commandName="project" name="search" id="search" action="search" method="POST">
+		<input type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
 		<table class="table">
 		<tr>
 			<td style="width:230px; text-align: center; vertical-align: middle;" class="active">개발분야</td>
@@ -54,8 +56,10 @@
 		</tr>
 		<tr><td colspan="4"></td></tr>
 		</table>
-		<div align="center"><input type="submit" class="btn btn-success" value="Search"></div>
-		</form:form>
+		<div align="center">
+			<!-- <input type="submit" class="btn btn-success" value="Search"> -->
+			<a href="javascript:pagelist(1)" class="btn btn-success">Search</a>
+		</div>
 	</div>
 	<div id="searchResult">
 		<table class="table">
@@ -90,7 +94,8 @@
 	
 	<!-- 페이징 -->
 	<div align="center">
-		<ul class="pagination">
+		${pageBean.pagelink}
+		<%-- <ul class="pagination">
 	  		<li><a href="search?pageNo=1">처음</a></li>
 	  		<c:if test="${groupNo >1 }">
 	    	<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -102,9 +107,17 @@
 	    	<li><a href="search?pageNo=${endPageNo+1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 	    	</c:if>
 	    	<li><a href="?pageNo=${totalPageNo}">맨끝</a></li>
-	  	</ul>
+	  	</ul> --%>
 	</div>
 </div>
 </div>
 </div>
+</form:form>
+<script type="text/javascript">
+function pagelist(page) {
+	$("#pageNo").val(page);
+	$("#search").get(0).action = "/search";
+	$("#search").get(0).submit();
+}
+</script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
