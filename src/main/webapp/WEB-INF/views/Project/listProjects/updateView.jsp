@@ -63,7 +63,7 @@
 						<tr>
 							<td colspan="2" style="width: 500px">프로젝트 명</td>
 							<td style="width: 300px" colspan="2"><form:input
-									path="pname" class="form-control" /></td>
+									path="pname" class="form-control" required="required"/></td>
 						</tr>
 						<tr>
 							<td rowspan="3" style="width: 100px">기본분야</td>
@@ -91,16 +91,16 @@
 						<tr>
 							<td colspan="2">상세내용</td>
 							<td colspan="2"><form:textarea path="pdetail"
-									cssClass="form-control" cssStyle="height:400px" /></td>
+									cssClass="form-control" cssStyle="height:400px" required="required"/></td>
 						</tr>
 						<tr>
 							<td colspan="2">등급</td>
 							<td><form:select path="plevel" items="${level}"
-									itemValue="CODE" itemLabel="CODE_NAME" /></td>
+									itemValue="CODE" itemLabel="CODE_NAME" required="required"/></td>
 						</tr>
 						<tr>
 							<td colspan="2">모집마감일자</td>
-							<td><form:input path="pduedate" id="datepicker"/></td>
+							<td><form:input path="pduedate" id="datepicker" required="required"/></td>
 						</tr>
 						<tr>
 							<td colspan="2">프로젝트 요청</td>
@@ -169,28 +169,29 @@
 		           }
 		       });
 		   
-		   $(function () {
-			  $('#submit').click(handler);
+			$(function () {
+				$('#submit').click(handler);
+				$("form").validate();
+				});
+		   
+			$(function () {
+				$(".text-remove").click(handler);
 			});
 		   
-		   $(function () {
-			   $(".text-remove").click(handler);
-		   });
-		   
-		   function handler() {
-			   var uno = "";
-			   $(".text-button > .text-label").each(function() {
+			function handler() {
+				var uno = "";
+				$(".text-button > .text-label").each(function() {
 					var userName = $(this).text();
 					if (userName != null && userName != "") {
 						<% for (int i = 0; i < userInfoList.size(); i++) { %>
-								if (userName == "<%= userInfoList.get(i).getUname() %>") {								
-									uno += "<%= userInfoList.get(i).getUno() + "," %>";
-								}
+							if (userName == "<%= userInfoList.get(i).getUname() %>") {								
+								uno += "<%= userInfoList.get(i).getUno() + "," %>";
+							}
 						<% } %>
 					}
 				});
-			   $("#pmember").val(uno);
-		   }	
+				$("#pmember").val(uno);
+			}	
 			</script>
 			<jsp:include
 				page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

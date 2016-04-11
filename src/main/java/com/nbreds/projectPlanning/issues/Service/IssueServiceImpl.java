@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.Project.VO.User;
 import com.nbreds.projectPlanning.common.VO.Files;
@@ -32,13 +34,15 @@ public class IssueServiceImpl implements IssueService {
 	private FileUtils fileUtils;
 
 	@Override
+	@Transactional
 	public void saveIssues(Issue issues, HttpServletRequest request) {
-		issueDao.saveIssues(issues);
-
-		// 파일정보 DB에 INSERT
-		List<Map<String, Object>> list;
-		int lastIno = getLastIno();
 		try {
+			// issue 정보 DB Issues 테이블에 ISNERT
+			issueDao.saveIssues(issues);
+			
+			// 파일정보 DB Files 테이블에 INSERT
+			List<Map<String, Object>> list;
+			int lastIno = getLastIno();
 			issues.setIno(lastIno);
 			list = fileUtils.parseInsertFileInfo(issues, request);
 			for (int i = 0; i < list.size(); i++) {
@@ -46,6 +50,7 @@ public class IssueServiceImpl implements IssueService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 	}
 
@@ -87,16 +92,17 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
+	@Transactional
 	public void updateIssueByIno(Issue issues, HttpServletRequest request) {
-		// 이슈 정보 업뎃
-		issueDao.updateIssueByIno(issues);
-
-		// IssueFiles 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
-		issueDao.deleteFileList(issues.getIno());
-		
-		List<Map<String, Object>> list;
 		try {
+			// 이슈 정보 업뎃
+			issueDao.updateIssueByIno(issues);
+			
+			// IssueFiles 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
+			issueDao.deleteFileList(issues.getIno());
+			
 			// 파일정보 업뎃
+			List<Map<String, Object>> list;
 			list = fileUtils.parseUpdateFileInfo(issues, request);
 			Map<String, Object> param = null;
 			for (int i = 0; i < list.size(); i++) {
@@ -109,6 +115,7 @@ public class IssueServiceImpl implements IssueService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 	}
 

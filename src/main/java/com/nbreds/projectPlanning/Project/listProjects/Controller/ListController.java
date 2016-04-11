@@ -62,7 +62,9 @@ public class ListController {
 			String level = (String) getCodeForCodeType(pdata, "level");
 			String pprogress = (String) getCodeForCodeType(pdata, "progress");
 			
-			list.get(i).setPskill(getCodeName(skills.get(0)));
+			if (skills.size() > 0) {
+				list.get(i).setPskill(getCodeName(skills.get(0)));
+			}
 			List<String> lev = new ArrayList<>();
 			lev.add(getCodeName(level));
 			list.get(i).setPlevel(lev);
@@ -95,7 +97,9 @@ public class ListController {
 		String level = (String) getCodeForCodeType(pdata, "level");
 		String pprogress = (String) getCodeForCodeType(pdata, "progress");
 
-		project.setPskill(getCodeName(skills.get(0)));
+		if (skills.size() > 0) {
+			project.setPskill(getCodeName(skills.get(0)));
+		}
 		List<String> lev = new ArrayList<>();
 		lev.add(getCodeName(level));
 		project.setPlevel(lev);
@@ -155,18 +159,20 @@ public class ListController {
 		project.setPduedate(project.getPduedate());
 		project.setPprogress(pprogress);
 		
-		model.addAttribute("project", project);
 		
 		int uno = project.getUno();
 		User user = listService.getUserForNo(uno);
-		model.addAttribute("user",user);
+		if (model != null) {
+			model.addAttribute("project", project);
+			model.addAttribute("user",user);
+		}
 		
 		return "Project/listProjects/updateView";
 	}
 	
 	//프로젝트 수정
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String  UpdateProject(@ModelAttribute("project") Project project, BindingResult result) {
+	public String  updateProject(@ModelAttribute("project") Project project, BindingResult result) {
 		logger.info("pdata : "+project.getPdata());
 		listService.updateProject(project);
 		

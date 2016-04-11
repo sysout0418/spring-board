@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>
 	</insert>
 	
-	<!-- 2016.04.04 이슈 등록시 첨부파일 있으면 IssueFiles table에 INSERT -->
+	<!-- 2016.04.04 이슈 등록시 첨부파일 있으면 Files table에 INSERT -->
 	<insert id="saveIssueFile" parameterType="Map">
     <![CDATA[
 	  INSERT INTO Files (
