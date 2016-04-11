@@ -28,7 +28,7 @@
 		<table class="table">
 			<tr>
 				<td>Title</td>
-				<td><form:input path="ltitle" cssClass="form-control"/></td>
+				<td><form:input path="ltitle" cssClass="form-control" required="required"/></td>
 			</tr>
 			<tr>
 				<td>Description</td>

@@ -47,7 +47,7 @@
 							<label for="inputTitle" class="col-lg-2 control-label">Title</label>
 							<div class="col-lg-10">
 								<input type="text" class="form-control" id="ititle"
-									name="ititle" placeholder="Issue Title">
+									name="ititle" placeholder="Issue Title" required="required">
 							</div>
 						</div>
 
@@ -55,7 +55,7 @@
 							<label for="inputDesc" class="col-lg-2 control-label">Description</label>
 							<div class="col-lg-10">
 								<textarea class="form-control" rows="8" id="idescription"
-									name="idescription"></textarea>
+									name="idescription" required="required"></textarea>
 								<span class="help-block">help 설명</span>
 								<input type="button" id="addfile" value='파일추가'/>
 								<section id="filecontent"></section>
@@ -65,7 +65,7 @@
 							<label for="inputAssignee" class="col-lg-2 control-label">Assignee</label>
 							<div class="btn-group">
 								<a href="#" class="btn btn-default btn-width"
-									style="text-align: left; margin-left: 15px;"><span id="selectedAssign">select
+									style="text-align: left; margin-left: 15px;"><span id="selectedAssign">Select
 									assignee</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown"><span class="caret"
 									style="height: 10px; margin-top: 10px;"></span></a>

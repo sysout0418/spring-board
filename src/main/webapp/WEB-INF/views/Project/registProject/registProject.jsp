@@ -76,13 +76,13 @@
 				<p>
 					<strong>프로젝트 키워드</strong>
 				</p>
-				<form:form method="POST" action="regist" commandName="project">
+				<form:form method="POST" action="regist" id="regist" commandName="project">
 					<input type="hidden" id="pmember" name="pmember" value="">
 					<table class="table">
 						<tr>
 							<td colspan="2" style="width: 500px; vertical-align: middle; text-align: center;" class="active">프로젝트 명</td>
 							<td style="width: 300px" colspan="2"><form:input
-									path="pname" class="form-control" /></td>
+									path="pname" class="form-control" name="projectName" required="required"/></td>
 						</tr>
 						<tr>
 							<td rowspan="3" style="width: 100px; vertical-align: middle; text-align: center;" class="active">기본분야</td>
@@ -108,16 +108,16 @@
 						<tr>
 							<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">상세내용</td>
 							<td colspan="2"><form:textarea path="pdetail"
-									cssClass="form-control" cssStyle="height:400px" /></td>
+									cssClass="form-control" cssStyle="height:400px" name="projectContent" required="required"/></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">등급</td>
 							<td><form:select path="plevel" items="${level}"
-									itemValue="CODE" itemLabel="CODE_NAME" /></td>
+									itemValue="CODE" itemLabel="CODE_NAME" name="plevel" required="required"/></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">모집마감일자</td>
-							<td><form:input path="pduedate" id="datepicker"/></td>
+							<td><form:input path="pduedate" id="datepicker" name="datepicker" required="required"/></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">프로젝트 요청</td>
@@ -129,11 +129,6 @@
 						</tr>
 					</table>
 					<input class="btn btn-success" type="submit" id="submit" value="Create Project">
-					<!-- 테스트용 버튼 지워도 됨 -->
-					<!-- <div align="center">
-						<input class="btn btn-primary btn-lg" type="button" id="test"
-							value="테스트">
-					</div> -->
 				</form:form>
 			</div>
 			<script type="text/javascript">
@@ -152,28 +147,29 @@
 		           }
 		       });
 		   
-		   $(function () {
-			  $('#submit').click(handler);
+			$(function () {
+				$('#submit').click(handler);
+				$("form").validate();
 			});
 		   
-		   $(function () {
-			   $(".text-remove").click(handler); 
-		   });
+			$(function () {
+				$(".text-remove").click(handler); 
+			});
 		   
-		   function handler() {
-			   var uno = "";
-			   $(".text-button > .text-label").each(function() {
+			function handler() {
+				var uno = "";
+				$(".text-button > .text-label").each(function() {
 					var userName = $(this).text();
 					if (userName != null && userName != "") {
 						<% for (int i = 0; i < userInfoList.size(); i++) { %>
-								if (userName == "<%= userInfoList.get(i).getUname() %>") {								
-									uno += "<%= userInfoList.get(i).getUno() + "," %>";
-								}
+							if (userName == "<%= userInfoList.get(i).getUname() %>") {								
+								uno += "<%= userInfoList.get(i).getUno() + "," %>";
+							}
 						<% } %>
 					}
+					$("#pmember").val(uno);
 				});
-			   $("#pmember").val(uno);
-		   }
+			}
 			</script>
 			<jsp:include
 				page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

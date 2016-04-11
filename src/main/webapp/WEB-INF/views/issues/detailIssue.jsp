@@ -103,9 +103,9 @@ $(document).ready(function() {
 
 // 한줄댓글 입력 메소드
 function doCreateCmt() {
-	// 한줄댓글 내용이 필수이므로 검사
+	// 댓글 내용이 필수이므로 검사
 	if ($('#content').val() == "") {
-		alert("댓글이 없슴다.");
+		alert("댓글이 없습니다.. 댓글을 입력하세요!");
 		$('#content').focus();
 		return;
 	}

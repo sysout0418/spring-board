@@ -35,7 +35,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
-<!-- autocomplete -->
+<!-- autocomplete CSS -->
 <link href="<c:url value="/resources/css/textext.core.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/resources/css/textext.plugin.tags.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/resources/css/textext.plugin.autocomplete.css" />" rel="stylesheet" type="text/css">
@@ -44,12 +44,17 @@
 <link href="<c:url value="/resources/css/textext.plugin.arrow.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/resources/css/textext.plugin.clear.css" />" rel="stylesheet" type="text/css">
 
+<!-- autocomplete JavaScript -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/textext.core.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/textext.plugin.tags.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/textext.plugin.autocomplete.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/textext.plugin.filter.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/textext.plugin.ajax.js" />"></script>
 
+<!-- validate JavaScript -->
+<script type="text/javascript" src="/resources/javascript/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/resources/javascript/additional-methods.min.js"></script>
+<script type="text/javascript" src="/resources/javascript/messages_ko.min.js"></script>
 <style type="text/css">
 body {
     background-color: #fff;

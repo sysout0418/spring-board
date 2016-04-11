@@ -49,7 +49,7 @@
 							<div class="col-lg-10">
 								<input type="text" class="form-control" id="ititle"
 									name="ititle" placeholder="Issue Title"
-									value="${issues.ititle}">
+									value="${issues.ititle}" required="required">
 							</div>
 						</div>
 
@@ -57,7 +57,7 @@
 							<label for="inputDesc" class="col-lg-2 control-label">Description</label>
 							<div class="col-lg-10">
 								<textarea class="form-control" rows="8" id="idescription"
-									name="idescription">${issues.idescription}</textarea>
+									name="idescription" required="required">${issues.idescription}</textarea>
 								<span class="help-block">help 설명</span>
 								<section id="filecontent">
 									<c:forEach var="file" items="${fileList}" varStatus="var">
