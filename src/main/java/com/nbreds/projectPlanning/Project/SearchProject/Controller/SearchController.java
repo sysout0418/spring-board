@@ -31,13 +31,17 @@ public class SearchController {
 	SearchServiceImpl searchService;
 	
 	@RequestMapping("/search")
-	public String  home(HttpServletRequest request, @ModelAttribute("project") Project project, Model model) throws Exception {
+	public String  home(HttpServletRequest request, Model model) throws Exception {
 //		String word = request.getParameter("word");
 //		String key = request.getParameter("key");
 		String page = request.getParameter("pageNo");
-		String[] datas = project.getPdata().split(",");
-		logger.info("datas : " + datas);
-		logger.info("pageNo : " + page);
+		String datas = request.getParameter("pdata");
+		String[] pdatas = null;
+		if (datas != null) {
+			pdatas = datas.split(",");
+			logger.info("datas : " + pdatas[0]);
+			logger.info("pageNo : " + page);
+		}
 		int pageNo;
 		try {
 			pageNo = Integer.parseInt(page);
@@ -45,7 +49,8 @@ public class SearchController {
 			// page 정보가 전송되지 않은 경우 이므로 첫 페이지로 처리하기 위해
 			pageNo = 1;
 		}
-		PageBean pageBean = new PageBean(datas, null, pageNo);
+		logger.info("pageNo2 : " + pageNo);
+		PageBean pageBean = new PageBean(pdatas, null, pageNo);
 //		int rowsPerPage = 1; 
 //		int pagesPerGroup = 10; 
 //
@@ -74,10 +79,13 @@ public class SearchController {
 //		List<Project> list = searchService.getPageList(param);
 
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("pdata", datas);
+		param.put("pdata", pdatas);
 		param.put("start", pageBean.getStart());
 		param.put("interval", pageBean.getInterval());
 		int totalCnt = searchService.totalCount(param);
+		logger.info("totalCnt : " + totalCnt);
+		logger.info("start : " + pageBean.getStart());
+		logger.info("Interval : " + pageBean.getInterval());
 		PageUtility bar = new PageUtility(pageBean.getInterval(), totalCnt, pageBean.getPageNo());
 		pageBean.setPagelink(bar.getPageBar());
 		List<Project> list = searchService.allProjectList(param);

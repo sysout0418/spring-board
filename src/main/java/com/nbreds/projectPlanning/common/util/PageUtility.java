@@ -73,11 +73,11 @@ public class PageUtility {
 												// 첫페이지로 갈수 있으므로 첫페이지로 링크
 //			sb.append(" <a href='javascript:pagelist(" + 1 + ")'><img src=\"" + imagepath
 //					+ "btn_paging_first.gif\" border='0'  hspace='3' align='absmiddle'></a>&nbsp;&nbsp;");
-			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>");
+			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>&nbsp;&nbsp;");
 		else // 총 페이지가 pagePercoun보다 작거나 현재 표시 페이지가 pagePercoun 내에 있으므로 첫페이지로 갈
 				// 필요 없으므로 이미지만 표시
 //			sb.append("<img src=\"" + imagepath + "btn_paging_first.gif\" border='0'  align=absmiddle>&nbsp;&nbsp;");
-			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>");
+			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>&nbsp;&nbsp;");
 			
 
 //		// 이전 pagePercount 페이지
@@ -89,17 +89,17 @@ public class PageUtility {
 //			sb.append("<img src=\"" + imagepath + "btn_paging_prev.gif\" border='0'   align=absmiddle>&nbsp;&nbsp;");
 //
 //		// pagePercount 만큼 link
-//		for (int i = firstpagecount; i < lastpagecount; i++) {
-//			if (i <= totalpagecount) {
-//				if (i == currentpagecount)
-//					sb.append("<b>" + i + "</b>");
-//				else
-//					sb.append("<a href='javascript:pagelist(" + i + ")'>" + i + "</a>");
+		for (int i = firstpagecount; i < lastpagecount; i++) {
+			if (i <= totalpagecount) {
+				if (i == currentpagecount)
+					sb.append("<li class='active'><a href='javascript:pagelist(" + i + ")'>" + i + "</a></li>");
+				else
+					sb.append("<li><a href='javascript:pagelist(" + i + ")'>" + i + "</a></li>");
 //				if (i != lastpagecount - 1)
 //					sb.append(" . ");
-//			}
-//		}
-//
+			}
+		}
+
 //		// 다음 pagePercount 페이지 link
 //		if (nexttenpage < ((totalpagecount - 1) / pagePercount + 1) * pagePercount)
 //			sb.append("&nbsp;&nbsp;<a href='javascript:pagelist(" + (nexttenpage) + ")'><img src=\"" + imagepath
