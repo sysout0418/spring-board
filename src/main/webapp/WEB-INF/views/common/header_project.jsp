@@ -80,6 +80,11 @@ a:hover{
 	color:#333C47;
 }
 </style>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 </head>
 <body>
 <%@ page contentType="text/html; charset=UTF-8"%>
@@ -96,9 +101,30 @@ a:hover{
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout">Sign Out</a></li>
-        <li><a href="/logout"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+      	<li><a href="/logout"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><span class="badge">4</span></a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
       </ul>
     </div>
   </div>
 </nav>
+<div class="container-fluid">
+<div class="row">
+<div id="col">
+<div class="col-sm-2 col-md-2 sidebar">
+   	<ul class="nav nav-sidebar" style="height: 30px; text-align: center;">
+    	<li><a href="/">Go to DashBoard</a></li>
+  	</ul>
+    <ul class="nav nav-sidebar">
+		<li><a href="/${uno}/${pno}"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding-right: 10px"></span>Project</a></li>
+	</ul>
+	<ul class="nav nav-sidebar">
+		<li><a href="/${uno}/${pno}/milestones/open"><span class="glyphicon glyphicon-time" aria-hidden="true" style="padding-right: 10px"></span>Milestones</a></li>
+	    <li><a href="/${uno}/${pno}/issues/open"><span class="glyphicon glyphicon-alert" aria-hidden="true" style="padding-right: 10px"></span>Issues</a></li>
+	   	<li><a href="/${uno}/${pno}/labels"><span class="glyphicon glyphicon-tag" aria-hidden="true" style="padding-right: 10px"></span>Labels</a></li>
+	</ul>
+ 	<ul class="nav nav-sidebar">
+    	<li><a href=""><span class="glyphicon glyphicon-cog" aria-hidden="true" style="padding-right: 10px"></span>Settings</a></li>
+    </ul>
+</div>
+</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

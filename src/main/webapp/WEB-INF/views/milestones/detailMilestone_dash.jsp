@@ -1,26 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp"/>
-<div class="container-fluid">
-<div class="row">
-<div id="col">
-<div class="col-sm-2 col-md-2 sidebar">
-	<ul class="nav nav-sidebar">
-		<li><a href="/">MyProjects</a></li>
-	    <li><a href="/regist">Regist</a></li>
-	    <li><a href="/search">Search</a></li>
-	    <li><a href="/list">Projects</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-		<li class="active"><a href="/milestones/open">Milestones</a></li>
-	    <li><a href="/issues/open">Issues</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-	    <li><a href="">Profile Settings</a></li>
-	</ul>
-</div>
-</div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp"/>
 <!-- Begin page content -->
 <div style="width:1200; margin:0 auto; background-color: #fff">
 <table class="table">
@@ -111,5 +91,4 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 }
 </style>
 </div>
- </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

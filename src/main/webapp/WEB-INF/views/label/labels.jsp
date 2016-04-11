@@ -1,26 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header.jsp" />
-<div class="container-fluid">
-<div class="row"><div id="col">
-<div class="col-sm-2 col-md-2 sidebar">
-	<ul class="nav nav-sidebar" style="height: 30px; text-align: center;">
-		<li><a href="/">Go to DashBoard</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-		<li><a href="/${uno}/${pno}">Project</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-		<li><a href="/${uno}/${pno}/milestones/open">Milestones</a></li>
-		<li><a href="/${uno}/${pno}/issues/open">Issues</a></li>
-		<li class="active"><a href="/${uno}/${pno}/labels">Labels</a></li>
-	</ul>
-	<ul class="nav nav-sidebar">
-		<li><a href="">Settings</a></li>
-	</ul>
-</div></div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_project.jsp" />
 <!-- Begin page content -->
 <style type="text/css">
 .Label{
@@ -44,7 +25,5 @@
 </tr>
 </c:forEach>
 </table>
-</div>
-</div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
