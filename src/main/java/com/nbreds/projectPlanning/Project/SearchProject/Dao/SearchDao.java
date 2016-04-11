@@ -2,6 +2,7 @@ package com.nbreds.projectPlanning.Project.SearchProject.Dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -37,5 +38,15 @@ public class SearchDao {
 	}
 	public User getUserForNo(int uno) {
 		return sqlSession.selectOne("project.getUserForNo", uno);
+	}
+	
+	// 페이징 처리를 위한 allProjectList
+	public List<Project> allProjectList(Map<String, Object> param) {
+		return sqlSession.selectList("project.allProjectList", param);
+	}
+	
+	// 페이징 처리를 위한 totalCount
+	public int totalCount(Map<String, Object> param) {
+		return sqlSession.selectOne("project.totalCount", param);
 	}
 }

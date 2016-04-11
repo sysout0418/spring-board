@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>  
 	</select>
 
-    <insert id="saveUser" parameterType="com.nbreds.projectPlanning.common.VO.User">
+	<insert id="saveUser" parameterType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
 		 INSERT INTO User (
 		  uname

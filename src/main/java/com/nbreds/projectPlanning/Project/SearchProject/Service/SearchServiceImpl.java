@@ -2,6 +2,7 @@ package com.nbreds.projectPlanning.Project.SearchProject.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,5 +39,15 @@ public class SearchServiceImpl implements SearchService{
 	}
 	public User getUserForNo(int uno) {
 		return searchDao.getUserForNo(uno);
+	}
+	
+	@Override
+	public List<Project> allProjectList(Map<String, Object> param) {
+		return searchDao.allProjectList(param);
+	}
+	
+	@Override
+	public int totalCount(Map<String, Object> param) {
+		return searchDao.totalCount(param);
 	}
 }

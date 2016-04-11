@@ -145,4 +145,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     where uno=#{uno} OR pmember like '%' #{uno} '%'
     ]]>  
     </select>
+    
+    <!-- 페이징 처리를 위한 allProjectList -->
+    <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT pno, pname, pdetail, pdata, pduedate, pmember, uno
+    FROM Project
+    ]]>
+    <if test="pdata != null">
+		<where>
+			<foreach collection="pdata" item="data" index="index" separator="or">
+		<![CDATA[
+				pdata like '%' #{data} '%'
+		]]>
+			</foreach>
+		</where>
+	</if>
+	<![CDATA[
+	ORDER BY pno DESC
+	LIMIT #{start}, #{interval}
+    ]]>
+    </select>
+    
+    <!-- 페이징 처리를 위한 totalCount -->
+    <select id="totalCount" parameterType="Map" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM Project
+    ]]>
+    <if test="pdata != null">
+		<where>
+			<foreach collection="pdata" item="data" index="index" separator="or">
+		<![CDATA[
+				pdata like '%' #{data} '%'
+		]]>
+			</foreach>
+		</where>
+	</if>
+    </select>
 </mapper>
