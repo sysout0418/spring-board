@@ -58,4 +58,9 @@ public class ListServiceImpl implements ListService {
 	public List<User> getUsersForName(String uname) {
 		return listDao.getUsersForName(uname);
 	}
+
+	@Override
+	public List<Project> getRequestProjects(String uno) {
+		return listDao.getRequestProjects(uno);
+	}
 }

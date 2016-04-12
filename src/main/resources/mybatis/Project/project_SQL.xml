@@ -191,4 +191,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
     ]]>  
     </select>
+    
+    <select id="getRequestProjects" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    select P.pno, pname, pdetail, pdata, pduedate, pmember, P.uno
+	FROM Project P, ProjectMemberStat S
+	WHERE P.pno = S.pno AND S.stat='000' AND S.uno=#{uno}
+    ]]>  
+    </select>
 </mapper>

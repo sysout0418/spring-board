@@ -5,7 +5,7 @@
 <!-- Begin page content -->
 <div style="width:1200; margin:0 auto; background-color: #fff">
 <h4>MyProjects</h4>
-<table class="table table-striped" style="font-size: 0.9em">
+<table class="table table-striped" style="font-size: 1.0em">
 	<tr>
 		<td><input type="email" class="form-control" id="exampleInputEmail2" placeholder="Filter by name" style="width:1050px;" onkeydown="filter();"></td>
 		<td><a href="/regist" class="btn btn-success" style="width:120px"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;New Project</a></td>

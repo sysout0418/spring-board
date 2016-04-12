@@ -9,9 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.Project.listProjects.Service.ListService;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -21,6 +24,9 @@ public class CommonController {
 	
 	@Autowired
 	RegistService registService;
+	
+	@Autowired
+	ListService listService;
 	
 	//ajax통신
 	@RequestMapping("/nameList")
@@ -34,9 +40,11 @@ public class CommonController {
 	}
 	
 	@RequestMapping("/requestProject")
-	public String requestProject(HttpSession session) {
-		String uno = (String)session.getAttribute("user_no");
+	public String requestProject(HttpSession session, Model model) {
+		String uno = String.valueOf(session.getAttribute("user_no"));
+		List<Project> list = listService.getRequestProjects(uno);
 		
+		model.addAttribute("list", list);
 		
 		return "/Project/requestProjects/requestProjects";
 	}

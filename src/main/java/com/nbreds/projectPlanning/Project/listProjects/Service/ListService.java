@@ -32,4 +32,6 @@ public interface ListService {
 	public List<CodeTable> getCodeTable(String CODE_TYPE);
 	
 	public List<User> getUsersForName(String uname);
+
+	public List<Project> getRequestProjects(String uno);
 }
