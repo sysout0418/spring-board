@@ -53,8 +53,4 @@ public class ListDao {
 	public List<User> getUsersForName(String uname) {
 		return sqlSession.selectList("project.getUsersForName", uname);
 	}
-
-	public List<Project> getRequestProjects(String uno) {
-		return sqlSession.selectList("project.getRequestProjects", uno);
-	}
 }

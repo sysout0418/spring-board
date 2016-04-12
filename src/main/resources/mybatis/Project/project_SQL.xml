@@ -140,10 +140,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-    SELECT P.pno, P.pname, P.pdetail, P.uno
+    SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
 	FROM ProjectMemberStat S
-	INNER JOIN Project P
-	ON S.pno = P.pno
+	INNER JOIN Project P ON S.pno = P.pno
+	LEFT JOIN User U ON P.uno = U.uno
 	WHERE S.stat=000 AND P.uno=#{uno} OR S.uno=#{uno}
     ]]>  
     </select>
@@ -194,9 +194,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getRequestProjects" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-    select P.pno, pname, pdetail, pdata, pduedate, pmember, P.uno
-	FROM Project P, ProjectMemberStat S
-	WHERE P.pno = S.pno AND S.stat='000' AND S.uno=#{uno}
+  	SELECT P.pno, pname, pdata, pduedate, U.uname
+	FROM Project P, ProjectMemberStat S, User U
+	WHERE P.pno = S.pno AND P.uno = U.uno AND S.stat='000' AND S.uno=57
+  	ORDER BY P.pno ASC
     ]]>  
     </select>
+    
+    <update id="updateStat" parameterType="hashmap">
+    <![CDATA[
+	UPDATE ProjectMemberStat SET
+	stat = #{stat}
+	WHERE uno = #{uno}
+	AND pno = #{pno}
+	]]> 
+    </update>
 </mapper>

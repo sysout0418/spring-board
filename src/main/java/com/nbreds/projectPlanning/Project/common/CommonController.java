@@ -25,9 +25,6 @@ public class CommonController {
 	@Autowired
 	RegistService registService;
 	
-	@Autowired
-	ListService listService;
-	
 	//ajax통신
 	@RequestMapping("/nameList")
 	public @ResponseBody List<String> GetNameList() {
@@ -37,15 +34,5 @@ public class CommonController {
 			userNames.add(userList.get(i).getUname());
 		}
 		return userNames;
-	}
-	
-	@RequestMapping("/requestProject")
-	public String requestProject(HttpSession session, Model model) {
-		String uno = String.valueOf(session.getAttribute("user_no"));
-		List<Project> list = listService.getRequestProjects(uno);
-		
-		model.addAttribute("list", list);
-		
-		return "/Project/requestProjects/requestProjects";
 	}
 }

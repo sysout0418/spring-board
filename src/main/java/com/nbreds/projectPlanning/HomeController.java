@@ -37,11 +37,6 @@ public class HomeController {
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		if (uno != null) {
 			List<Project> list = myProjectService.getProjectByUno(uno);
-			for (Project project : list) {
-				
-				String uname = myProjectService.getUserForNo(project.getUno()).getUname();
-				project.setUname(uname);
-			}
 
 			model.addAttribute("list", list);
 		}
