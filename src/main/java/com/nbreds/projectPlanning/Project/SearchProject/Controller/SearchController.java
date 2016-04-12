@@ -32,14 +32,16 @@ public class SearchController {
 	
 	@RequestMapping("/search")
 	public String  home(HttpServletRequest request, Model model) throws Exception {
-//		String word = request.getParameter("word");
-//		String key = request.getParameter("key");
 		String page = request.getParameter("pageNo");
 		String datas = request.getParameter("pdata");
+		System.out.println("datas>>" + datas);
 		String[] pdatas = null;
-		if (datas != null) {
+		if (datas != null && !datas.equals("")) {
+			System.out.println("여기 들어옴?");
 			pdatas = datas.split(",");
-			logger.info("datas : " + pdatas[0]);
+			for (int i = 0; i < pdatas.length; i++) {
+				logger.info("pdatas : " + pdatas[i]);
+			}
 			logger.info("pageNo : " + page);
 		}
 		int pageNo;
@@ -51,32 +53,6 @@ public class SearchController {
 		}
 		logger.info("pageNo2 : " + pageNo);
 		PageBean pageBean = new PageBean(pdatas, null, pageNo);
-//		int rowsPerPage = 1; 
-//		int pagesPerGroup = 10; 
-//
-//		int totalProjectNo = searchService.getTotalProjectNo(); 
-//		int totalPageNo = totalProjectNo/rowsPerPage;
-//		
-//		if(totalProjectNo % rowsPerPage != 0){totalPageNo++;}
-//		int totalGroupNo = totalPageNo / pagesPerGroup;
-//		if(totalPageNo % pagesPerGroup != 0){totalGroupNo++;}
-//		
-//		int groupNo = (pageNo-1)/pagesPerGroup +1;
-//		int startPageNo = (groupNo-1)*pagesPerGroup+1;
-//		int endPageNo = startPageNo + pagesPerGroup -1;
-//		
-//		if(groupNo == totalGroupNo) {endPageNo = totalPageNo;}
-//		
-//		HashMap<String, Object> param = new HashMap<String, Object>();
-//		int value =0;
-//		if(pageNo != 1) value = (pageNo-1)*rowsPerPage;
-//		String[] datas = project.getPdata().split(",");
-
-//		param.put("pageNo", value);
-//		param.put("rowsPerPage", rowsPerPage);
-//		param.put("pdata", datas);
-		
-//		List<Project> list = searchService.getPageList(param);
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("pdata", pdatas);
@@ -94,7 +70,7 @@ public class SearchController {
 			String pdata = list.get(i).getPdata();
 			
 			//한글화
-			List<String> skills = (List<String>)getCodeForCodeType(pdata, "skills");
+			List<String> skills = (List<String>) getCodeForCodeType(pdata, "skills");
 			String level = (String) getCodeForCodeType(pdata, "level");
 			String pprogress = (String) getCodeForCodeType(pdata, "progress");
 			
@@ -111,13 +87,7 @@ public class SearchController {
 			list.get(i).setUname(uname);
 		}
 		
-//		model.addAttribute("pagesPerGroup", pagesPerGroup);
-//		model.addAttribute("totalPageNo", totalPageNo);
-//		model.addAttribute("totalGroupNo", totalGroupNo);
-//		model.addAttribute("groupNo", groupNo);
-//		model.addAttribute("startPageNo", startPageNo);
-//		model.addAttribute("endPageNo", endPageNo);
-//		model.addAttribute("pageNo", pageNo);
+		request.setAttribute("pdatas", pdatas);
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("list", list);
 		

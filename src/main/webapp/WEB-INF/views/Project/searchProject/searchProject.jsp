@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp"/>
 <jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
+<% String[] pdatas = (String[]) request.getAttribute("pdatas"); %>
 <!-- Begin page content -->
 <form name="search" id="search" method="POST">
 	<div style="width:1200; height:1200; margin:0 auto; background-color: #fff">
@@ -14,15 +15,15 @@
 		<table class="table">
 		<tr>
 			<td style="width:230px; text-align: center; vertical-align: middle;" class="active">개발분야</td>
-			<td colspan="3"><%-- <form:checkboxes path="pdevelopment" items="${development}" itemValue="CODE" itemLabel="CODE_NAME" cssStyle="margin-left : 2px"/> --%>
+			<td colspan="3">
 				<c:forEach var="dev" items="${development}">
-			           <input type="checkbox" value="${dev.CODE_TYPE}${dev.CODE}" name="checked" style="margin-left : 2px">${dev.CODE_NAME}
+					<input type="checkbox" value="${dev.CODE_TYPE}${dev.CODE}" name="checked" style="margin-left : 2px">${dev.CODE_NAME}
 				</c:forEach>
 			</td>
 		</tr>
 		<tr>
 			<td style="width:230px; text-align: center; vertical-align: middle;"  class="active">디자인/퍼블리싱 분야</td>
-			<td colspan="3"><%-- <form:checkboxes path="pdesign" items="${design}" itemValue="CODE" itemLabel="CODE_NAME" cssStyle="margin : 2px"/> --%>
+			<td colspan="3">
 				<c:forEach var="des" items="${design}">
 			           <input type="checkbox" value="${des.CODE_TYPE}${des.CODE}" name="checked" style="margin-left : 2px">${des.CODE_NAME}
 				</c:forEach>
@@ -30,7 +31,7 @@
 		</tr>
 		<tr>
 			<td style="width:230px; text-align: center; vertical-align: middle;"  class="active">기획/컨설턴트 분야</td>
-			<td colspan="3"><%-- <form:checkboxes path="pplanning" items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" cssStyle="margin : 2px"/> --%>
+			<td colspan="3">
 				<c:forEach var="plan" items="${planning}">
 			           <input type="checkbox" value="${plan.CODE_TYPE}${plan.CODE}" name="checked" style="margin-left : 2px">${plan.CODE_NAME}
 				</c:forEach>
@@ -38,7 +39,7 @@
 		</tr>
 		<tr>
 			<td style="width:230px; text-align: center; vertical-align: middle;"  class="active">전문분야/특별경험</td>
-			<td colspan="3"><%-- <form:checkboxes path="pexperience" items="${experience}" itemValue="CODE" itemLabel="CODE_NAME" cssStyle="margin : 2px"/> --%>
+			<td colspan="3">
 				<c:forEach var="exp" items="${experience}">
 			           <input type="checkbox" value="${exp.CODE_TYPE}${exp.CODE}" name="checked" style="margin-left : 2px">${exp.CODE_NAME}
 				</c:forEach>
@@ -46,7 +47,7 @@
 		</tr>
 		<tr>
 			<td style="width:230px; text-align: center; vertical-align: middle;"  class="active">등급</td>
-			<td style="width:300px"><%-- <form:checkboxes path="plevel" items="${level}" itemValue="CODE" itemLabel="CODE_NAME" cssStyle="margin : 2px"/> --%>
+			<td style="width:300px">
 				<c:forEach var="lev" items="${level}">
 			           <input type="checkbox" value="${lev.CODE_TYPE}${lev.CODE}" name="checked" style="margin-left : 2px">${lev.CODE_NAME}
 				</c:forEach>
@@ -57,9 +58,7 @@
 		<tr><td colspan="4"></td></tr>
 		</table>
 		<div align="center">
-			<!-- <input type="submit" class="btn btn-success" value="Search"> -->
 			<a href="javascript:pagelist(1)" class="btn btn-success">Search</a>
-			<a href="#" onclick="selectDelRow()" class="btn btn-success">Test</a>
 		</div>
 	</div>
 	<div id="searchResult">
@@ -96,19 +95,6 @@
 	<!-- 페이징 -->
 	<div align="center">
 		${pageBean.pagelink}
-		<%-- <ul class="pagination">
-	  		<li><a href="search?pageNo=1">처음</a></li>
-	  		<c:if test="${groupNo >1 }">
-	    	<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-	   		</c:if>
-		    <c:forEach var="i" begin="${startPageNo}" end = "${endPageNo}">
-		    <li <c:if test="${pageNo ==i}">class="active"</c:if>><a href="search?pageNo=${i}">${i}</a></li>
-		    </c:forEach>
-	    	<c:if test="${groupNo < totalGroupNo }">
-	    	<li><a href="search?pageNo=${endPageNo+1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-	    	</c:if>
-	    	<li><a href="?pageNo=${totalPageNo}">맨끝</a></li>
-	  	</ul> --%>
 	</div>
 </div>
 </div>
@@ -152,10 +138,22 @@ function selectDelRow() {
 		cnt++;
 		checkRow = '';	//checkRow초기화.
 	}
-	
 	$('#pdata').val(rowid);
-	//alert(rowid);	//value1, value2, value3 의 형태로 출력된다.
-	
 }
+
+$(function() {
+	var chk = document.getElementsByName("checked"); // 체크박스 객체
+	for (var i = 0; i < chk.length; i++) {
+		console.log(chk[i].value);
+		<% if (pdatas != null) {
+				for (int j = 0; j < pdatas.length; j++) { %>
+					if ('<%= pdatas[j] %>' == chk[i].value) {
+						chk[i].checked = true;
+					}
+		<% 		}
+			} %>
+	}
+});
+
 </script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
