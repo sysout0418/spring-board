@@ -140,9 +140,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-    select pno, pname, pdetail, uno
-    from Project 
-    where uno=#{uno} OR pmember like '%' #{uno} '%'
+    SELECT P.pno, P.pname, P.pdetail, P.uno
+	FROM ProjectMemberStat S
+	INNER JOIN Project P
+	ON S.pno = P.pno
+	WHERE S.stat=000 AND P.uno=#{uno} OR S.uno=#{uno}
     ]]>  
     </select>
     
@@ -182,5 +184,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</where>
 	</if>
+    </select>
+    
+    <select id="getCountRequestProjects" parameterType="String" resultType="int">
+    <![CDATA[
+	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
+    ]]>  
     </select>
 </mapper>

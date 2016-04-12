@@ -1,6 +1,5 @@
 package com.nbreds.projectPlanning;
 
-import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +30,7 @@ public class HomeController {
 	MyProjectService myProjectService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String  home(Model model, HttpSession session, Principal principal) {
+	public String  home(Model model, HttpSession session) {
 		logger.info("Index.jsp");
 		// 유저 정보 저장
 		USER_INFO = registService.getAllUserNameAndNo();
@@ -43,6 +42,7 @@ public class HomeController {
 				String uname = myProjectService.getUserForNo(project.getUno()).getUname();
 				project.setUname(uname);
 			}
+
 			model.addAttribute("list", list);
 		}
 		return "index";

@@ -32,4 +32,7 @@ public class MyProjectDao {
 	public CodeTable getCodeName(HashMap<String, String> param) {
 		return sqlSession.selectOne("project.getCodeName", param);
 	}
+	public int getCountRequestProjects(String uno) {
+		return sqlSession.selectOne("project.getCountRequestProjects", uno);
+	}
 }

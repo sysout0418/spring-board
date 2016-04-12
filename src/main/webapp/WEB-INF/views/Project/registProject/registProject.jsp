@@ -30,7 +30,7 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
 <!-- Begin page content -->
 <div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4 class="page-header">New Project</h4>
+	<h4>New Project</h4>
 	<p>
 		<strong>담당자 정보</strong>
 	</p>

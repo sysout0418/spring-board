@@ -3,6 +3,8 @@ package com.nbreds.projectPlanning.Project.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +31,13 @@ public class CommonController {
 			userNames.add(userList.get(i).getUname());
 		}
 		return userNames;
+	}
+	
+	@RequestMapping("/requestProject")
+	public String requestProject(HttpSession session) {
+		String uno = (String)session.getAttribute("user_no");
+		
+		
+		return "/Project/requestProjects/requestProjects";
 	}
 }

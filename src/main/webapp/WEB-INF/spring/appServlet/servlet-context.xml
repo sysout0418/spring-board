@@ -27,4 +27,12 @@
 	<beans:bean id="jacksonMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 	</beans:bean>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/login"/>
+			<beans:bean class="com.nbreds.projectPlanning.common.interceptor.GeneralInterceptor"></beans:bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans:beans>

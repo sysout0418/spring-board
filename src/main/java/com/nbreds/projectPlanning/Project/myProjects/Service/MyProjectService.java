@@ -22,4 +22,6 @@ public interface MyProjectService {
 	public Project getProjectByPno(int pno);
 	
 	public CodeTable getCodeName(HashMap<String, String> param);
+
+	int getCountRequestProjects(String uno);
 }
