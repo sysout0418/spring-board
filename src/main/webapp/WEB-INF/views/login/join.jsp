@@ -35,8 +35,15 @@
 </head>
 <script type="text/javascript">
 function checkId() {
+	// email 정규표현식
+	var checkEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 	if ($("#uemail").val() == '') {
 		$("#checkResult").html("<p style='color: red;'>E-MAIL 형식을 확인해주세요.</p>");
+		$("#uemail").focus();
+		return;
+	} else if(!checkEmail.test($('#uemail').val())) {
+		$("#checkResult").html("<p style='color: red;'>E-MAIL 형식을 확인해주세요.</p>");
+		$("#uemail").val("");
 		$("#uemail").focus();
 		return;
 	} else {
@@ -70,14 +77,14 @@ function checkId() {
 <form:form cssClass="form-signin" method="post" action="/join" commandName="UserInfo">
 	<h2 class="form-signin-heading">Sign up</h2>
 	<label for="inputEmail" class="sr-only">Email</label>
-	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()"  maxlength="20" required autofocus>
+	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()" maxlength="20" required autofocus>
 	<span id="checkResult"></span>
 	<label for="input" class="sr-only">Name</label>
-	<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" required>
+	<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" maxlength="20" required>
 	<label for="input" class="sr-only">Phone</label>
-	<input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" required>
+	<input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" maxlength="20" required>
 	<label for="inputPassword" class="sr-only">Password</label>
-	<input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" required>
+	<input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" maxlength="20" required>
 	<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Sign up</button>
 </form:form>
 </div> <!-- /container -->
