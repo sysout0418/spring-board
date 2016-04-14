@@ -9,7 +9,7 @@
 	<table class="table">
 		<tr>
 			<td>Title</td>
-			<td><form:input path="mtitle" cssClass="form-control"/></td>
+			<td><form:input path="mtitle" cssClass="form-control" maxlength="50"/></td>
 			<td rowspan="2">Due Date</td>
 			<td rowspan="2"><form:hidden path="mduedate" id="date"/><div id="datepicker"></div></td>
 		</tr>
@@ -37,12 +37,13 @@
 </div>
 <script>
 $(function() {
-  $( "#datepicker" ).datepicker({
-	 altField: "#datepicker",
-	 onSelect: function(date){
-		 $('#date').val(date);
-	 }
-  });
+	$( "#datepicker" ).datepicker({
+		altField: "#datepicker",
+		minDate: 0,
+		onSelect: function(date){
+			$('#date').val(date);
+		}
+	});
 });
 
 $(function(){

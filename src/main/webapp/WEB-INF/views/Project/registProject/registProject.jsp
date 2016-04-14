@@ -61,7 +61,7 @@
 			<tr>
 				<td colspan="2" style="width: 500px; vertical-align: middle; text-align: center;" class="active">프로젝트 명</td>
 				<td style="width: 300px" colspan="2"><form:input
-						path="pname" class="form-control" name="projectName" required="required"/></td>
+						path="pname" class="form-control" name="projectName" required="required" maxlength="20"/></td>
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 100px; vertical-align: middle; text-align: center;" class="active">기본분야</td>
@@ -112,9 +112,10 @@
 </div>
 <script type="text/javascript">
 $(function() {
-  $( "#datepicker" ).datepicker({
-	 altFormat : "mm/dd/yy"
-  });
+	$( "#datepicker" ).datepicker({
+		altFormat : "mm/dd/yy",
+		minDate: 0
+	});
 });
 $('#textarea')
       .textext({
