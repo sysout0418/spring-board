@@ -9,10 +9,6 @@
 
 <title>DashBoard</title>
 
-<!-- jquery-ui -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-
 <!-- Bootstrap core CSS -->
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
 <!-- Custom styles for this template -->
@@ -34,6 +30,10 @@
  <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap.min.js" />"></script>
  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
  <script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>
+ 
+<!-- jquery-ui -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <!-- autocomplete CSS -->
 <link href="<c:url value="/resources/css/textext.core.css" />" rel="stylesheet" type="text/css">
