@@ -10,12 +10,12 @@
 <title>DashBoard</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
+<link href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
 <!-- Custom styles for this template -->
-<link href="<c:url value="/resources/css/dashboard.css" />" rel="stylesheet"  type="text/css" />
+<link href="<c:url value="/resources/css/bootstrap/dashboard.css" />" rel="stylesheet"  type="text/css" />
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-<script type="text/javascript" src="<c:url value="/resources/javascript/ie-emulation-modes-warning.js " />"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/ie-emulation-modes-warning.js " />"></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -26,13 +26,13 @@
  ================================================== -->
  <!-- Placed at the end of the document so the pages load faster -->
  <script type="text/javascript" src="<c:url value="http://code.jquery.com/jquery-latest.min.js" />"></script>
- <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap.min.js" />"></script>
+ <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
- <script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>
+ <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/ie10-viewport-bug-workaround.js" />"></script>
 
 <!-- jquery-ui -->
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.min.css" />">
-<script type="text/javascript" src="<c:url value="/resources/javascript/jquery-ui.min.js " />"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui/jquery-ui.min.css" />">
+<script type="text/javascript" src="<c:url value="/resources/javascript/jquery-ui/jquery-ui.min.js " />"></script>
 
 <!-- autocomplete CSS -->
 <link href="<c:url value="/resources/css/textext.core.css" />" rel="stylesheet" type="text/css">
