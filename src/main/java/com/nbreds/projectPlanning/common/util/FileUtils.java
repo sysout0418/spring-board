@@ -61,11 +61,15 @@ public class FileUtils {
 		int uno = issues.getUno();
 
 		while (iterator.hasNext()) {
+			System.out.println("여기 몇번 들어오니");
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
 			if (multipartFile.isEmpty() == false) {
 				originalFileName = multipartFile.getOriginalFilename();
+				System.out.println("originalFileName>" + originalFileName);
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				System.out.println("originalFileExtension>" + originalFileExtension);
 				storedFileName = getRandomString() + originalFileExtension;
+				System.out.println("storedFileName>" + storedFileName);
 
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);
@@ -79,6 +83,7 @@ public class FileUtils {
 				list.add(listMap);
 			}
 		}
+		System.out.println("list size>" + list.size());
 		return list;
 	}
 

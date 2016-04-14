@@ -69,7 +69,7 @@ public class ListController {
 			lev.add(getCodeName(level));
 			list.get(i).setPlevel(lev);
 			
-			//담당자 코드->한글			
+			//담당자 코드->한글
 			String uname = listService.getUserForNo(list.get(i).getUno()).getUname();
 			list.get(i).setUname(uname);
 			
