@@ -9,8 +9,8 @@
 		<tr>
 			<td><a href="/${project.uno}/${project.pno}" style="color: #223"><b>${project.uname} / ${project.pname}</b></a><br></td>
 			<td style="text-align: right;">
-				<a href="/requestAccept/${project.pno}" class="btn btn-primary">Accept</a>
-				<a href="/requestDecline/${project.pno}" class="btn btn-default">Decline</a>
+				<a href="/updateStat/${project.pno}/001" class="btn btn-primary">Accept</a>
+				<a href="/updateStat/${project.pno}/002" class="btn btn-default">Decline</a>
 			</td>
 		</tr>
 		</c:forEach>

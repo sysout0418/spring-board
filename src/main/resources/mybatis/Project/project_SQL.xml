@@ -144,7 +144,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM ProjectMemberStat S
 	INNER JOIN Project P ON S.pno = P.pno
 	LEFT JOIN User U ON P.uno = U.uno
-	WHERE S.stat=000 AND P.uno=#{uno} OR S.uno=#{uno}
+	WHERE S.stat=001 AND P.uno=#{uno} OR S.uno=#{uno}
     ]]>  
     </select>
     
@@ -209,4 +209,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	AND pno = #{pno}
 	]]> 
     </update>
+    
+    <select id="searchProject" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
+	FROM ProjectMemberStat S
+	INNER JOIN Project P ON S.pno = P.pno
+	LEFT JOIN User U ON P.uno = U.uno
+	WHERE S.stat=000 AND P.uno=#{uno} OR S.uno=#{uno}
+    ]]>  
+    <if test="item != null">
+    AND P.pname like #{item} '%'
+    </if>
+    </select>
 </mapper>

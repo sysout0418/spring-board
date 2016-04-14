@@ -35,12 +35,10 @@ public class LoginServiceImpl implements LoginService {
 	}
 	
 	@Override
-	@Transactional
 	public void saveUser(User user) {
 		loginDao.saveUser(user);
-		int uno = loginDao.getLastno();
-		logger.info("uno : " + uno);
-		loginDao.saveAuthority(uno);
+		logger.info("후uno : " + user.getUno());
+		loginDao.saveAuthority(user.getUno());
 	}
 
 	@Override

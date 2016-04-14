@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
@@ -35,11 +37,21 @@ public class HomeController {
 		// 유저 정보 저장
 		USER_INFO = registService.getAllUserNameAndNo();
 		String uno = String.valueOf(session.getAttribute("user_no"));
-		if (uno != null) {
-			List<Project> list = myProjectService.getProjectByUno(uno);
-
-			model.addAttribute("list", list);
-		}
+		List<Project> list = myProjectService.getProjectByUno(uno);
+		model.addAttribute("list", list);
+		
 		return "index";
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	//@RequestMapping("TEST")
+	public @ResponseBody List<Project> searchProject(String item, Model model, HttpSession session) {
+		String uno = String.valueOf(session.getAttribute("user_no"));
+		HashMap<String, Object> param = new HashMap<>();
+		param.put("uno", uno);
+		param.put("item", item);
+		List<Project> list = myProjectService.searchProject(param);
+		
+		return list;
 	}
 }
