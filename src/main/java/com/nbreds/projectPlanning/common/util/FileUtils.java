@@ -11,15 +11,27 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.nbreds.projectPlanning.issues.Service.IssueServiceImpl;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Component("fileUtils")
 public class FileUtils {
+	private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
+
+	private HttpServletRequest request;
+
+	public FileUtils() {}
+	
+	public FileUtils(HttpServletRequest request) {
+		this.request = request;
+	}
 
 	// 파일이름을 랜덤으로 생성할 때 사용된다.
 	public static String getRandomString() {
@@ -28,10 +40,10 @@ public class FileUtils {
 
 	private static final String filePath = "/home/projectPlan/WebProject/upload/";
 
-	public List<Map<String, Object>> parseInsertFileInfo(Issue issues, HttpServletRequest request) throws Exception {
+	public List<Map<String, Object>> parseInsertFileInfo(Issue issues) throws Exception {
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-
+		
 		MultipartFile multipartFile = null;
 		String originalFileName = null;
 		String originalFileExtension = null;
@@ -123,7 +135,8 @@ public class FileUtils {
 		return list;
 	}
 
-	public List<Map<String, Object>> parseInsertFileInfo(Milestone milestone, HttpServletRequest request) throws IllegalStateException, IOException {
+	public List<Map<String, Object>> parseInsertFileInfo(Milestone milestone, HttpServletRequest request)
+			throws IllegalStateException, IOException {
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
 

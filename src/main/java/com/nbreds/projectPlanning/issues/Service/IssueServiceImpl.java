@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.issues.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
@@ -39,12 +42,12 @@ public class IssueServiceImpl implements IssueService {
 		try {
 			// issue 정보 DB Issues 테이블에 ISNERT
 			issueDao.saveIssues(issues);
-			
+
 			// 파일정보 DB Files 테이블에 INSERT
 			List<Map<String, Object>> list;
 			int lastIno = getLastIno();
 			issues.setIno(lastIno);
-			list = fileUtils.parseInsertFileInfo(issues, request);
+			list = fileUtils.parseInsertFileInfo(issues);
 			for (int i = 0; i < list.size(); i++) {
 				saveIssueFile(list.get(i));
 			}
@@ -54,6 +57,26 @@ public class IssueServiceImpl implements IssueService {
 		}
 	}
 
+	@Override
+	public void sendFileInfoToServer(HttpServletRequest request) {
+		// 파일이 서버에 제대로 전송 되는지 확인
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				logger.info("------------- file start -------------");
+				logger.info("name : " + multipartFile.getName());
+				logger.info("filename : " + multipartFile.getOriginalFilename());
+				logger.info("size : " + multipartFile.getSize());
+				logger.info("-------------- file end --------------\n");
+			}
+		}
+		
+		fileUtils = new FileUtils(request);
+	}
+	
 	// ino로 파일 리스트 가져오기
 	@Override
 	public List<Files> getFileListByIno(int ino) {
@@ -91,16 +114,17 @@ public class IssueServiceImpl implements IssueService {
 		return issueDao.getAllMilestone();
 	}
 
+
 	@Override
 	@Transactional
 	public void updateIssueByIno(Issue issues, HttpServletRequest request) {
 		try {
 			// 이슈 정보 업뎃
 			issueDao.updateIssueByIno(issues);
-			
+
 			// IssueFiles 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
 			issueDao.deleteFileList(issues.getIno());
-			
+
 			// 파일정보 업뎃
 			List<Map<String, Object>> list;
 			list = fileUtils.parseUpdateFileInfo(issues, request);

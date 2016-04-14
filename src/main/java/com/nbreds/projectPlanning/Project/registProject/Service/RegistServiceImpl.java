@@ -27,6 +27,7 @@ public class RegistServiceImpl implements RegistService{
 		try {
 			registDao.saveProject(project);
 			int maxPno = getLastno();
+			System.out.println("플젝 넘버>>" + maxPno);
 			projectMS.setPno(maxPno);
 			
 			// 임시 stat 저장

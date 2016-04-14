@@ -11,7 +11,7 @@ public class PageUtility {
 	int beforepagecount = 0; 	// 이전 페이지
 	int currentpagecount = 0; 	// 현재 페이지
 
-	int pagePercount = 10; 		// 목록에서 보여줄 페이지 개수 1 2 3 4 5
+	int pagePercount = 20; 		// 목록에서 보여줄 페이지 개수 1 2 3 4 5
 	int beforetenpage = 0; 		// 이전 pagePercount 페이지
 	int nexttenpage = 0; 		// 다음 pagePercount 페이지
 

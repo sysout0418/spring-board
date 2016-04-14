@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -168,6 +169,7 @@ public class IssueController {
 		String[] lnos = String.valueOf(issues.getLno()).split(",");
 		logger.info("lno[0] : " + lnos[0]);
 		issuesService.saveIssues(issues, request);
+//		issuesService.saveIssues(issues);
 		int lastInsertIno = issuesService.getLastIno();
 		logger.info("ino : " + String.valueOf(lastInsertIno));
 		IssueLabel issueLabel = new IssueLabel();
@@ -180,23 +182,45 @@ public class IssueController {
 		}
 
 		// 파일이 서버에 제대로 전송 되는지 확인
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-		MultipartFile multipartFile = null;
-		while (iterator.hasNext()) {
-			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
-			if (multipartFile.isEmpty() == false) {
-				logger.info("------------- file start -------------");
-				logger.info("name : " + multipartFile.getName());
-				logger.info("filename : " + multipartFile.getOriginalFilename());
-				logger.info("size : " + multipartFile.getSize());
-				logger.info("-------------- file end --------------\n");
-			}
-		}
+//		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+//		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+//		MultipartFile multipartFile = null;
+//		while (iterator.hasNext()) {
+//			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+//			if (multipartFile.isEmpty() == false) {
+//				logger.info("------------- file start -------------");
+//				logger.info("name : " + multipartFile.getName());
+//				logger.info("filename : " + multipartFile.getOriginalFilename());
+//				logger.info("size : " + multipartFile.getSize());
+//				logger.info("-------------- file end --------------\n");
+//			}
+//		}
 
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
-
+	
+	// 파일 서버에 업로드
+	@RequestMapping("/uploadFiles")
+	public @ResponseBody String uploadFiles(HttpServletRequest request) {
+		// 파일이 서버에 제대로 전송 되는지 확인
+//		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+//		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+//		MultipartFile multipartFile = null;
+//		while (iterator.hasNext()) {
+//			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+//			if (multipartFile.isEmpty() == false) {
+//			logger.info("------------- file start -------------");
+//			logger.info("name : " + multipartFile.getName());
+//			logger.info("filename : " + multipartFile.getOriginalFilename());
+//			logger.info("size : " + multipartFile.getSize());
+//			logger.info("-------------- file end --------------\n");
+//			}
+//		}
+		
+		issuesService.sendFileInfoToServer(request);
+		return "{\"success\":true}";
+	}
+	
 	// issue 수정 페이지
 	@RequestMapping(value = "/issues/edit/{uno}/{pno}/{ino}", method = RequestMethod.GET)
 	public String editFormIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,

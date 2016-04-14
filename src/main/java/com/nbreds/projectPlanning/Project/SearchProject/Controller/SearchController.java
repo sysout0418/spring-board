@@ -34,10 +34,8 @@ public class SearchController {
 	public String  home(HttpServletRequest request, Model model) throws Exception {
 		String page = request.getParameter("pageNo");
 		String datas = request.getParameter("pdata");
-		System.out.println("datas>>" + datas);
 		String[] pdatas = null;
 		if (datas != null && !datas.equals("")) {
-			System.out.println("여기 들어옴?");
 			pdatas = datas.split(",");
 			for (int i = 0; i < pdatas.length; i++) {
 				logger.info("pdatas : " + pdatas[i]);
