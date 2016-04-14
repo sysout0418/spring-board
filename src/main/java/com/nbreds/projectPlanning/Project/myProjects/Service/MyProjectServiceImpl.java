@@ -32,11 +32,7 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public CodeTable getCodeName(HashMap<String, String> param) {
 		return myProjectsDao.getCodeName(param);
 	}
-	
-	@Override
-	public int getCountRequestProjects(String uno) {
-		return myProjectsDao.getCountRequestProjects(uno);
-	}
+
 	@Override
 	public List<Project> searchProject(HashMap<String, Object> param) {
 		return myProjectsDao.searchProject(param);

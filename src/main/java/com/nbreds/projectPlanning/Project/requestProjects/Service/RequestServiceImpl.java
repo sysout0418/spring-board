@@ -27,4 +27,9 @@ public class RequestServiceImpl implements RequestService {
 	public void updateStat(HashMap<String, Object> param) {
 		requestDao.updateStat(param);
 	}
+
+	@Override
+	public int getCountRequestProjects(String uno) {
+		return requestDao.getCountRequestProjects(uno);
+	}
 }

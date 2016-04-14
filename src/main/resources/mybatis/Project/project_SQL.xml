@@ -141,10 +141,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
     SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
-	FROM ProjectMemberStat S
-	INNER JOIN Project P ON S.pno = P.pno
-	LEFT JOIN User U ON P.uno = U.uno
-	WHERE S.stat=001 AND P.uno=#{uno} OR S.uno=#{uno}
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+ 	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
     ]]>  
     </select>
     
@@ -195,9 +195,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getRequestProjects" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
   	SELECT P.pno, pname, pdata, pduedate, U.uname
-	FROM Project P, ProjectMemberStat S, User U
-	WHERE P.pno = S.pno AND P.uno = U.uno AND S.stat='000' AND S.uno=57
-  	ORDER BY P.pno ASC
+	FROM Project P
+	JOIN ProjectMemberStat S ON P.pno = S.pno
+	JOIN User U ON P.uno = U.uno
+	WHERE S.stat='000' AND S.uno=#{uno}
+	ORDER BY P.pno ASC
     ]]>  
     </select>
     
@@ -213,13 +215,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="searchProject" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
     SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
-	FROM ProjectMemberStat S
-	INNER JOIN Project P ON S.pno = P.pno
-	LEFT JOIN User U ON P.uno = U.uno
-	WHERE S.stat=000 AND P.uno=#{uno} OR S.uno=#{uno}
-    ]]>  
-    <if test="item != null">
-    AND P.pname like #{item} '%'
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+ 	WHERE 
+ 	]]> 
+ 	<if test="item != null">
+    P.pname like #{item} '%' AND
     </if>
+    <![CDATA[
+    (S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno})
+    ]]>
     </select>
 </mapper>

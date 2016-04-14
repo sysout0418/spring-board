@@ -23,7 +23,5 @@ public interface MyProjectService {
 	
 	public CodeTable getCodeName(HashMap<String, String> param);
 
-	int getCountRequestProjects(String uno);
-
 	public List<Project> searchProject(HashMap<String, Object> param);
 }

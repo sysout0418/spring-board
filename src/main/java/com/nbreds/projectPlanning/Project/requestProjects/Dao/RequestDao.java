@@ -24,4 +24,7 @@ public class RequestDao {
 	public void updateStat(HashMap<String, Object> param) {
 		sqlSession.update("project.updateStat", param);
 	}
+	public int getCountRequestProjects(String uno) {
+		return sqlSession.selectOne("project.getCountRequestProjects", uno);
+	}
 }

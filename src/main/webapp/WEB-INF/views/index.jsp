@@ -41,7 +41,7 @@ function filter(){
         		for(i = 0; i < size; i++){
         			console.log("for문도나?");
         			content += "<tr>";
-        			content += "<td><a href='" + result[i].uno + "/" + result[i].pno +"' style='color:#223'><b>" + result[i].uname + "/" + result[i].pname+"</b></a><br>";
+        			content += "<td><a href='" + result[i].uno + "/" + result[i].pno +"' style='color:#223'><b>" + result[i].uname + " / " + result[i].pname+"</b></a><br>";
         			content += result[i].pdetail;
         			content += "</td><td></td></tr>";
        		}

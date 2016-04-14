@@ -45,6 +45,6 @@ public class RequestController {
 		
 		requestService.updateStat(param);
 		
-		return "/Project/requestProjects/requestProjects";
+		return "redirect:/requestProject";
 	}
 }

@@ -16,4 +16,6 @@ public interface RequestService {
 	public List<Project> getRequestProjects(String uno);
 
 	public void updateStat(HashMap<String, Object> param);
+
+	public int getCountRequestProjects(String uno);
 }

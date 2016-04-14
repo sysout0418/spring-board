@@ -44,7 +44,6 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	//@RequestMapping("TEST")
 	public @ResponseBody List<Project> searchProject(String item, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		HashMap<String, Object> param = new HashMap<>();
