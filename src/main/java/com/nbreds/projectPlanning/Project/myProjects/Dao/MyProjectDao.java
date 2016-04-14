@@ -35,4 +35,7 @@ public class MyProjectDao {
 	public int getCountRequestProjects(String uno) {
 		return sqlSession.selectOne("project.getCountRequestProjects", uno);
 	}
+	public List<Project> searchProject(HashMap<String, Object> param) {
+		return sqlSession.selectList("project.searchProject", param);
+	}
 }

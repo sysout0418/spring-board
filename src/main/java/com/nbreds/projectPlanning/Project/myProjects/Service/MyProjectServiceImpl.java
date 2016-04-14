@@ -37,4 +37,8 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public int getCountRequestProjects(String uno) {
 		return myProjectsDao.getCountRequestProjects(uno);
 	}
+	@Override
+	public List<Project> searchProject(HashMap<String, Object> param) {
+		return myProjectsDao.searchProject(param);
+	}
 }

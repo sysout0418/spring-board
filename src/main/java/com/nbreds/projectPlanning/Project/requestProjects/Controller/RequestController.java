@@ -34,28 +34,14 @@ public class RequestController {
 		return "/Project/requestProjects/requestProjects";
 	}
 	
-	@RequestMapping("/requestAccept/{pno}")
-	public String requestAccept(@PathVariable("pno") int pno, HttpSession session) {
+	@RequestMapping("/updateStat/{pno}/{stat}")
+	public String updateStat(@PathVariable("pno") int pno, @PathVariable("stat") String stat, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		
 		HashMap<String, Object> param = new HashMap<>();
 		param.put("uno", uno);
 		param.put("pno", pno);
-		param.put("stat", "001");
-		
-		requestService.updateStat(param);
-		
-		return "/Project/requestProjects/requestProjects";
-	}
-	
-	@RequestMapping("/requestDecline/{pno}")
-	public String requestDecline(@PathVariable("pno") int pno, HttpSession session) {
-		String uno = String.valueOf(session.getAttribute("user_no"));
-		
-		HashMap<String, Object> param = new HashMap<>();
-		param.put("uno", uno);
-		param.put("pno", pno);
-		param.put("stat", "002");
+		param.put("stat", stat);
 		
 		requestService.updateStat(param);
 		
