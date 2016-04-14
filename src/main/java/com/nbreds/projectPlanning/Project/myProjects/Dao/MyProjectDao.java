@@ -21,19 +21,19 @@ public class MyProjectDao {
 	private SqlSession sqlSession;
 
 	public List<Project> getProjectByUno(String uno) {
-		return sqlSession.selectList("project.getProjectByUno", uno);
+		return sqlSession.selectList("project.my.getProjectByUno", uno);
 	}
 	public User getUserForNo(int uno) {
-		return sqlSession.selectOne("project.getUserForNo", uno);
+		return sqlSession.selectOne("project.my.getUserForNo", uno);
 	}
 	public Project getProjectByPno(int pno) {
-		return sqlSession.selectOne("project.getProjectByPno", pno);
+		return sqlSession.selectOne("project.my.getProjectByPno", pno);
 	}
 	public CodeTable getCodeName(HashMap<String, String> param) {
-		return sqlSession.selectOne("project.getCodeName", param);
+		return sqlSession.selectOne("project.my.getCodeName", param);
 	}
 
 	public List<Project> searchProject(HashMap<String, Object> param) {
-		return sqlSession.selectList("project.searchProject", param);
+		return sqlSession.selectList("project.my.searchProject", param);
 	}
 }

@@ -19,12 +19,12 @@ public class RequestDao {
 	private SqlSession sqlSession;
 	
 	public List<Project> getRequestProjects(String uno) {
-		return sqlSession.selectList("project.getRequestProjects", uno);
+		return sqlSession.selectList("project.request.getRequestProjects", uno);
 	}
 	public void updateStat(HashMap<String, Object> param) {
-		sqlSession.update("project.updateStat", param);
+		sqlSession.update("project.request.updateStat", param);
 	}
 	public int getCountRequestProjects(String uno) {
-		return sqlSession.selectOne("project.getCountRequestProjects", uno);
+		return sqlSession.selectOne("project.request.getCountRequestProjects", uno);
 	}
 }

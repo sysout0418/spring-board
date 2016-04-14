@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,10 @@ public class MyProjectController {
 	MyProjectService myProjectService;
 	
 	@RequestMapping("/{uno}/{pno}")
-	public String  home(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
+	public String  home(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model, HttpSession session) {
 		Project project = myProjectService.getProjectByPno(pno);
 		String pdata = project.getPdata();
-		
+		int user_no = (int)session.getAttribute("user_no");
 		//한글화
 		List<String> skills = (List<String>)getCodeForCodeType(pdata, "skills");
 		String level = (String) getCodeForCodeType(pdata, "level");
@@ -49,6 +51,7 @@ public class MyProjectController {
 			project.setPmember(memberCount.length+"명");
 		}
 		model.addAttribute("project", project);
+		if(user_no == uno)	model.addAttribute("charged", true);
 		
 		return "/Project/myProjects/selectedProject";
 	}

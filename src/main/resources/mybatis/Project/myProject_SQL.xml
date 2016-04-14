@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="project.my">
+    <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+ 	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
+    ]]>  
+    </select>
+    
+    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail, uposition
+    from User
+    where uno=#{uno}
+    ]]>  
+    </select>
+    
+    <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+     select pno, pname, pdetail, pdata, pduedate, pmember, uno from Project where pno=#{pno};
+    ]]>  
+    </select>
+        
+    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
+    <![CDATA[
+      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE} and CODE=#{CODE}
+    ]]>  
+    </select>
+    
+    <select id="searchProject" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+ 	WHERE 
+ 	]]> 
+ 	<if test="item != null">
+    P.pname like #{item} '%' AND
+    </if>
+    <![CDATA[
+    (S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno})
+    ]]>
+    </select>
+</mapper>

@@ -22,35 +22,35 @@ public class ListDao {
 	
 	public int count(){
 		int count = 0;
-		count = sqlSession.selectOne("project.getTotalProjectNo");
+		count = sqlSession.selectOne("project.list.getTotalProjectNo");
 		
 		return count;
 	}
 	
 	public List<Project> getPageList(HashMap<String, Integer> param) {
-		return sqlSession.selectList("project.getProjectList", param);
+		return sqlSession.selectList("project.list.getProjectList", param);
 	}
 	public Project getProjectByPno(int pno) {
-		return sqlSession.selectOne("project.getProjectByPno", pno);
+		return sqlSession.selectOne("project.list.getProjectByPno", pno);
 	}
 	public void removeProject(int pno) {
-		sqlSession.delete("project.removeProject", pno);
+		sqlSession.delete("project.list.removeProject", pno);
 	}
 	public CodeTable getCodeName(HashMap<String, String> param) {
-		return sqlSession.selectOne("project.getCodeName", param);
+		return sqlSession.selectOne("project.list.getCodeName", param);
 	}
 	public void updateProject(Project project) {
-		sqlSession.update("project.updateProject", project);
+		sqlSession.update("project.list.updateProject", project);
 	}
 	
 	public User getUserForNo(int uno) {
-		return sqlSession.selectOne("project.getUserForNo", uno);
+		return sqlSession.selectOne("project.list.getUserForNo", uno);
 	}
 	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
-		return sqlSession.selectList("project.getCodeTable", CODE_TYPE);
+		return sqlSession.selectList("project.list.getCodeTable", CODE_TYPE);
 	}
 	public List<User> getUsersForName(String uname) {
-		return sqlSession.selectList("project.getUsersForName", uname);
+		return sqlSession.selectList("project.list.getUsersForName", uname);
 	}
 }

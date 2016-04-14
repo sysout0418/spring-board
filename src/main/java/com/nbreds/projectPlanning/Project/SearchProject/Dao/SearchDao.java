@@ -22,31 +22,31 @@ public class SearchDao {
 	private SqlSession sqlSession;
 	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
-		return sqlSession.selectList("project.getCodeTable", CODE_TYPE);
+		return sqlSession.selectList("project.search.getCodeTable", CODE_TYPE);
 	}
 	public List<Project> getPageList(HashMap<String, Object> param) {
-		return sqlSession.selectList("project.getPageList", param);
+		return sqlSession.selectList("project.search.getPageList", param);
 	}
 	public int count(){
 		int count = 0;
-		count = sqlSession.selectOne("project.getTotalProjectNo");
+		count = sqlSession.selectOne("project.search.getTotalProjectNo");
 		
 		return count;
 	}
 	public CodeTable getCodeName(HashMap<String, String> param) {
-		return sqlSession.selectOne("project.getCodeName", param);
+		return sqlSession.selectOne("project.search.getCodeName", param);
 	}
 	public User getUserForNo(int uno) {
-		return sqlSession.selectOne("project.getUserForNo", uno);
+		return sqlSession.selectOne("project.search.getUserForNo", uno);
 	}
 	
 	// 페이징 처리를 위한 allProjectList
 	public List<Project> allProjectList(Map<String, Object> param) {
-		return sqlSession.selectList("project.allProjectList", param);
+		return sqlSession.selectList("project.search.allProjectList", param);
 	}
 	
 	// 페이징 처리를 위한 totalCount
 	public int totalCount(Map<String, Object> param) {
-		return sqlSession.selectOne("project.totalCount", param);
+		return sqlSession.selectOne("project.search.totalCount", param);
 	}
 }

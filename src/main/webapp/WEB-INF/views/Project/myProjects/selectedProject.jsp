@@ -27,9 +27,11 @@
    	</tr>
   		<tr><td colspan="3"></td></tr>
 	</table>
+	<c:if test="${charged != null}">
 	<div align="center">
 		<a class="btn btn-default" href="/update?pno=${project.pno}" role="button">수정</a>
 		<a class="btn btn-default" href="/DeleteProject?pno=${project.pno}" role="button">삭제</a>
 	</div>
+	</c:if>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
