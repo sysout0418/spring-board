@@ -35,19 +35,18 @@ public class IssueServiceImpl implements IssueService {
 
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
+	
+	// 파일 정보를 담고 있는 list
+	List<Map<String, Object>> list;
 
 	@Override
 	@Transactional
-	public void saveIssues(Issue issues, HttpServletRequest request) {
+	public void saveIssues(Issue issues) {
 		try {
 			// issue 정보 DB Issues 테이블에 ISNERT
 			issueDao.saveIssues(issues);
-
+			
 			// 파일정보 DB Files 테이블에 INSERT
-			List<Map<String, Object>> list;
-			int lastIno = getLastIno();
-			issues.setIno(lastIno);
-			list = fileUtils.parseInsertFileInfo(issues);
 			for (int i = 0; i < list.size(); i++) {
 				saveIssueFile(list.get(i));
 			}
@@ -58,23 +57,14 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public void sendFileInfoToServer(HttpServletRequest request) {
-		// 파일이 서버에 제대로 전송 되는지 확인
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-		MultipartFile multipartFile = null;
-		while (iterator.hasNext()) {
-			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
-			if (multipartFile.isEmpty() == false) {
-				logger.info("------------- file start -------------");
-				logger.info("name : " + multipartFile.getName());
-				logger.info("filename : " + multipartFile.getOriginalFilename());
-				logger.info("size : " + multipartFile.getSize());
-				logger.info("-------------- file end --------------\n");
-			}
+	public void sendFileToServer(Map<String, Object> param) {
+		int lastIno = getLastIno() + 1;
+		param.put("ino", lastIno);
+		try {
+			list = fileUtils.parseInsertFileInfo(param);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		fileUtils = new FileUtils(request);
 	}
 	
 	// ino로 파일 리스트 가져오기

@@ -25,14 +25,8 @@ import com.nbreds.projectPlanning.milestones.VO.Milestone;
 public class FileUtils {
 	private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-	private HttpServletRequest request;
-
-	public FileUtils() {}
+	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	
-	public FileUtils(HttpServletRequest request) {
-		this.request = request;
-	}
-
 	// 파일이름을 랜덤으로 생성할 때 사용된다.
 	public static String getRandomString() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
@@ -40,8 +34,8 @@ public class FileUtils {
 
 	private static final String filePath = "/home/projectPlan/WebProject/upload/";
 
-	public List<Map<String, Object>> parseInsertFileInfo(Issue issues) throws Exception {
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+	public List<Map<String, Object>> parseInsertFileInfo(Map<String, Object> param) throws Exception {
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) param.get("request");
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
 		
 		MultipartFile multipartFile = null;
@@ -49,7 +43,6 @@ public class FileUtils {
 		String originalFileExtension = null;
 		String storedFileName = null;
 
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> listMap = null;
 
 		File file = new File(filePath);
@@ -57,19 +50,15 @@ public class FileUtils {
 			file.mkdirs();
 		}
 
-		int ino = issues.getIno();
-		int uno = issues.getUno();
+		int ino = (int) param.get("ino");
+		int uno = (int) param.get("uno");
 
 		while (iterator.hasNext()) {
-			System.out.println("여기 몇번 들어오니");
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
 			if (multipartFile.isEmpty() == false) {
 				originalFileName = multipartFile.getOriginalFilename();
-				System.out.println("originalFileName>" + originalFileName);
 				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-				System.out.println("originalFileExtension>" + originalFileExtension);
 				storedFileName = getRandomString() + originalFileExtension;
-				System.out.println("storedFileName>" + storedFileName);
 
 				file = new File(filePath + storedFileName);
 				multipartFile.transferTo(file);

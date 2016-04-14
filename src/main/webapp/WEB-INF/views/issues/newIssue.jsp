@@ -200,7 +200,7 @@
 			<br>
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<button type="reset" class="btn btn-default">Cancel</button>
+					<button type="button" class="btn btn-default" onclick="history.back()">Cancel</button>
 					<button type="submit" id="submit" class="btn btn-primary">Submit</button>
 				</div>
 			</div>
@@ -276,12 +276,8 @@ var count = 0;
 $('#fine-uploader-manual-trigger').fineUploader({
     template: 'qq-template-manual-trigger',
     request: {
-        endpoint: '/uploadFiles',
+        endpoint: '/uploadFiles/${uno}',
         // inputName: "fileup" + count
-    },
-    objectProperties: {
-        key: function (fileId) { 
-           return '12345/' + $("#fine-uploader-manual-trigger").fineUploader("getName", fileId); }
     },
     thumbnails: {
         placeholders: {
@@ -294,6 +290,7 @@ $('#fine-uploader-manual-trigger').fineUploader({
 
 /* $('#trigger-upload').click(function() {
 	$('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+	$('#trigger-upload').attr('alt', "1");
 }); */
 </script>
 <jsp:include
