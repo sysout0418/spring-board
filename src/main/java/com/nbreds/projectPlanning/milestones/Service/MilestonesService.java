@@ -47,9 +47,7 @@ public interface MilestonesService {
 	public int countOpenIssuesByMno(int mno);
 
 	public void editIssueByIno(HashMap<String, Object> param);
-
-	int getLastMno();
-
+	
 	void saveMilestoneFile(Map<String, Object> param);
 
 	public List<Files> getFileListByMno(int mno);

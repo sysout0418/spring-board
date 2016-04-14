@@ -33,9 +33,8 @@ public class MilestonesServiceImpl implements MilestonesService{
 		
 		// 파일정보 DB에 INSERT
 		List<Map<String, Object>> list;
-		int lastMno = getLastMno();
 		try {
-			milestone.setMno(lastMno);
+			milestone.setMno(milestone.getMno());
 			list = fileUtils.parseInsertFileInfo(milestone, request);
 			for (int i = 0; i < list.size(); i++) {
 				saveMilestoneFile(list.get(i));
@@ -43,11 +42,6 @@ public class MilestonesServiceImpl implements MilestonesService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public int getLastMno() {
-		return milestonesdao.getLastMno();
 	}
 	
 	@Override

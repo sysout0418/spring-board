@@ -4,13 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="milestones">
-	<select id="getLastMno" resultType="int">
-	<![CDATA[	
-		select LAST_INSERT_ID()
-	]]>
-	</select>
-	
-    <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestone">
+    <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestone" useGeneratedKeys="true" keyProperty="mno">
     <![CDATA[
 	  insert into Milestones (
 	  mtitle
