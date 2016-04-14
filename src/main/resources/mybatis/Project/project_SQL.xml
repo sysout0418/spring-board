@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="project">
 	<select id="getLastno" resultType="int">
 	<![CDATA[	
-		select LAST_INSERT_ID()
+		SELECT MAX(pno) FROM Project
 	]]>  
 	</select>
 	

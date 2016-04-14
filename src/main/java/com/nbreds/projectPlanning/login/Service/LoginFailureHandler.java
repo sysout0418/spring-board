@@ -32,7 +32,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler{
 		}
 		
 		req.setAttribute("errMsg", auth.getMessage());
-		req.getRequestDispatcher("/WEB-INF/views/joinError.jsp").forward(req, res);
+		req.getRequestDispatcher("/WEB-INF/views/login/joinError.jsp").forward(req, res);
 	}
 	
 }

@@ -101,4 +101,7 @@ public interface IssueService {
 	void deleteFileList(int ino);
 	
 	void updateFile(Map<String, Object> param);
+
+	void sendFileInfoToServer(HttpServletRequest request);
+
 }

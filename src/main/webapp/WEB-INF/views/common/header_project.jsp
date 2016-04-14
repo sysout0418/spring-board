@@ -55,6 +55,13 @@
 <script type="text/javascript" src="/resources/javascript/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/resources/javascript/additional-methods.min.js"></script>
 <script type="text/javascript" src="/resources/javascript/messages_ko.min.js"></script>
+
+<!-- Fine Uploader New/Modern CSS file -->
+<link href="<c:url value="/resources/css/fine-uploader-new.min.css" />" rel="stylesheet">
+
+<!-- Fine Uploader jQuery JS file -->
+<script src="<c:url value="/resources/javascript/jquery.fine-uploader.js" />"></script>
+
 <style type="text/css">
 body {
     background-color: #fff;

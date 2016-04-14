@@ -103,12 +103,12 @@
 <script type="text/javascript">
 function pagelist(page) {
 	$("#pageNo").val(page);
-	selectDelRow();
+	selectChkRow();
 	$("#search").get(0).action = "/search";
 	$("#search").get(0).submit();
 }
 
-function selectDelRow() {
+function selectChkRow() {
 	var chk = document.getElementsByName("checked"); // 체크박스객체를 담는다
 	var len = chk.length;	// 체크박스의 전체 개수
 	var checkRow = '';		// 체크된 체크박스의 value를 담기위한 변수
@@ -144,7 +144,6 @@ function selectDelRow() {
 $(function() {
 	var chk = document.getElementsByName("checked"); // 체크박스 객체
 	for (var i = 0; i < chk.length; i++) {
-		console.log(chk[i].value);
 		<% if (pdatas != null) {
 				for (int j = 0; j < pdatas.length; j++) { %>
 					if ('<%= pdatas[j] %>' == chk[i].value) {
