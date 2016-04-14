@@ -46,17 +46,11 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	//@RequestMapping("TEST")
 	public @ResponseBody List<Project> searchProject(String item, Model model, HttpSession session) {
-		System.out.println("item : " + item);
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		HashMap<String, Object> param = new HashMap<>();
 		param.put("uno", uno);
 		param.put("item", item);
 		List<Project> list = myProjectService.searchProject(param);
-		
-		System.out.println("===db에서 가져온 결과값===");
-		for (Project project : list) {
-			System.out.println("pname : " + project.getPname()+", pdetail : "+project.getPdetail() +", uno : " + project.getUname());
-		}
 		
 		return list;
 	}

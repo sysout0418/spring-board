@@ -38,10 +38,6 @@ public class LoginDao {
 		return sqlSession.selectOne("login.getUserAuthority", uemail);
 	}
 	
-	public int getLastno(){
-		return sqlSession.selectOne("login.getLastno");
-	}
-	
 	public void saveAuthority(int uno){
 		sqlSession.insert("login.saveAuthority", uno);
 	}
