@@ -25,7 +25,7 @@ import com.nbreds.projectPlanning.milestones.VO.Milestone;
 public class FileUtils {
 	private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	
 	// 파일이름을 랜덤으로 생성할 때 사용된다.
 	public static String getRandomString() {
@@ -37,12 +37,13 @@ public class FileUtils {
 	public List<Map<String, Object>> parseInsertFileInfo(Map<String, Object> param) throws Exception {
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) param.get("request");
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-		
+
 		MultipartFile multipartFile = null;
 		String originalFileName = null;
 		String originalFileExtension = null;
 		String storedFileName = null;
 
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> listMap = null;
 
 		File file = new File(filePath);
@@ -129,9 +130,9 @@ public class FileUtils {
 		return list;
 	}
 
-	public List<Map<String, Object>> parseInsertFileInfo(Milestone milestone, HttpServletRequest request)
+	public List<Map<String, Object>> parseInsertFileInfo2(Map<String, Object> param)
 			throws IllegalStateException, IOException {
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) param.get("request");;
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
 
 		MultipartFile multipartFile = null;
@@ -147,7 +148,8 @@ public class FileUtils {
 			file.mkdirs();
 		}
 
-		int mno = milestone.getMno();
+		int mno = (int) param.get("mno");
+		int uno = (int) param.get("uno");
 
 		while (iterator.hasNext()) {
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
@@ -160,6 +162,7 @@ public class FileUtils {
 				multipartFile.transferTo(file);
 
 				listMap = new HashMap<String, Object>();
+				listMap.put("uno", uno);
 				listMap.put("mno", mno);
 				listMap.put("originalName", originalFileName);
 				listMap.put("storeName", storedFileName);

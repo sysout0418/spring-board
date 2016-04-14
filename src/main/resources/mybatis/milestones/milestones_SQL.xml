@@ -4,6 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="milestones">
+    <select id="getLastMno" resultType="int">
+	<![CDATA[	
+		SELECT MAX(mno) AS mno
+		FROM Milestones
+	]]>
+	</select>
+    
     <insert id="saveMilestone" parameterType="com.nbreds.projectPlanning.milestones.VO.Milestone" useGeneratedKeys="true" keyProperty="mno">
     <![CDATA[
 	  insert into Milestones (
@@ -154,11 +161,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <![CDATA[
 	  INSERT INTO Files (
 	  mno
+	  ,uno
 	  ,originalName
 	  ,storeName
 	  ,fileSize
 	) VALUES (
 	  #{mno}
+	  ,#{uno}
 	  ,#{originalName}
 	  ,#{storeName}
 	  ,#{fileSize}

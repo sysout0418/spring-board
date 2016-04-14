@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.util.FileUtils;
@@ -26,24 +28,52 @@ public class MilestonesServiceImpl implements MilestonesService{
 	
 	@Autowired
 	FileUtils fileUtils;
+	
+	// 파일 정보를 담고 있는 list
+	List<Map<String, Object>> list;
 
 	@Override
-	public void saveMilestone(Milestone milestone, HttpServletRequest request) {
-		milestonesdao.saveMilestone(milestone);
-		
-		// 파일정보 DB에 INSERT
-		List<Map<String, Object>> list;
+	@Transactional
+	public void saveMilestone(Milestone milestone) {
 		try {
-			milestone.setMno(milestone.getMno());
-			list = fileUtils.parseInsertFileInfo(milestone, request);
+			milestonesdao.saveMilestone(milestone);
+			
+			// 파일정보 DB에 INSERT
 			for (int i = 0; i < list.size(); i++) {
 				saveMilestoneFile(list.get(i));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		
+//		List<Map<String, Object>> list;
+//		try {
+//			milestone.setMno(milestone.getMno());
+//			list = fileUtils.parseInsertFileInfo(milestone, request);
+//			for (int i = 0; i < list.size(); i++) {
+//				saveMilestoneFile(list.get(i));
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+	}
+	
+	@Override
+	public void sendFileToServer(Map<String, Object> param) {
+		int lastMno = getLastMno() + 1;
+		param.put("mno", lastMno);
+		try {
+			list = fileUtils.parseInsertFileInfo2(param);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
+	private int getLastMno() {
+		return milestonesdao.getLastMno();
+	}
+
 	@Override
 	public void saveMilestoneFile(Map<String, Object> param) {
 		milestonesdao.saveMilestoneFile(param);
@@ -109,4 +139,5 @@ public class MilestonesServiceImpl implements MilestonesService{
 	public List<Files> getFileListByMno(int mno) {
 		return milestonesdao.getFileListByMno(mno);
 	}
+
 }

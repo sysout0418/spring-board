@@ -61,6 +61,7 @@ public class IssueServiceImpl implements IssueService {
 		int lastIno = getLastIno() + 1;
 		param.put("ino", lastIno);
 		try {
+//			FileUtils fileUtils = new FileUtils();
 			list = fileUtils.parseInsertFileInfo(param);
 		} catch (Exception e) {
 			e.printStackTrace();

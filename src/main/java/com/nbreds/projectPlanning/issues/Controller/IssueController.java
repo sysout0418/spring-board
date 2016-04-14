@@ -6,9 +6,11 @@ import java.io.Writer;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -182,10 +184,9 @@ public class IssueController {
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 	
-	// 파일 DB에 업로드
-	@RequestMapping("/uploadFiles/{uno}")
+	// 파일 Server에 업로드
+	@RequestMapping("/uploadFiles/issue/{uno}")
 	public @ResponseBody String uploadFiles(@PathVariable("uno") int uno, HttpServletRequest request) {
-		// 파일이 서버에 제대로 전송 되는지 확인
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("request", request);
 		param.put("uno", uno);

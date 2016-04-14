@@ -18,7 +18,7 @@ import com.nbreds.projectPlanning.milestones.VO.Milestone;
 public interface MilestonesService {
 	static final Logger logger = LoggerFactory.getLogger(MilestonesService.class);
 	
-	public void saveMilestone(Milestone milestone, HttpServletRequest request);
+	public void saveMilestone(Milestone milestone);
 
 	public List<Milestone> getMilestonesByPno(HashMap<String, Object> param);
 
@@ -51,4 +51,6 @@ public interface MilestonesService {
 	void saveMilestoneFile(Map<String, Object> param);
 
 	public List<Files> getFileListByMno(int mno);
+	
+	void sendFileToServer(Map<String, Object> param);
 }

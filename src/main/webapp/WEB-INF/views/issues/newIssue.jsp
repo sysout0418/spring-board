@@ -68,25 +68,25 @@
 <style>
 .btn-width {
 	width: 200px;
+}
 #trigger-upload {
-            color: white;
-            background-color: #00ABC7;
-            font-size: 14px;
-            padding: 7px 20px;
-            background-image: none;
-        }
+	color: white;
+	background-color: #00ABC7;
+	font-size: 14px;
+	padding: 7px 20px;
+	background-image: none;
+}
 
-        #fine-uploader-manual-trigger .qq-upload-button {
-            margin-right: 15px;
-        }
+#fine-uploader-manual-trigger .qq-upload-button {
+	margin-right: 15px;
+}
 
-        #fine-uploader-manual-trigger .buttons {
-            width: 36%;
-        }
+#fine-uploader-manual-trigger .buttons {
+	width: 36%;
+}
 
-        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
-            width: 60%;
-        }
+#fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
+	width: 60%;
 }
 </style>
 <jsp:include
@@ -272,11 +272,10 @@ $(function(){
 } */
 
 /* Your code to create an instance of Fine Uploader and bind to the DOM/template */
-var count = 0;
 $('#fine-uploader-manual-trigger').fineUploader({
     template: 'qq-template-manual-trigger',
     request: {
-        endpoint: '/uploadFiles/${uno}',
+        endpoint: '/uploadFiles/issue/${uno}',
         // inputName: "fileup" + count
     },
     thumbnails: {
