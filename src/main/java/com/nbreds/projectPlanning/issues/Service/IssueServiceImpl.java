@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.issues.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +48,10 @@ public class IssueServiceImpl implements IssueService {
 			issueDao.saveIssues(issues);
 			
 			// 파일정보 DB Files 테이블에 INSERT
-			for (int i = 0; i < list.size(); i++) {
-				saveIssueFile(list.get(i));
+			if (list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					saveIssueFile(list.get(i));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,6 +65,7 @@ public class IssueServiceImpl implements IssueService {
 		param.put("ino", lastIno);
 		try {
 //			FileUtils fileUtils = new FileUtils();
+			list = new ArrayList<Map<String, Object>>();
 			list = fileUtils.parseInsertFileInfo(param);
 		} catch (Exception e) {
 			e.printStackTrace();

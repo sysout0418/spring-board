@@ -39,8 +39,10 @@ public class MilestonesServiceImpl implements MilestonesService{
 			milestonesdao.saveMilestone(milestone);
 			
 			// 파일정보 DB에 INSERT
-			for (int i = 0; i < list.size(); i++) {
-				saveMilestoneFile(list.get(i));
+			if (list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					saveMilestoneFile(list.get(i));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
