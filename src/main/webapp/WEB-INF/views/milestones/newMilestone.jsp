@@ -120,7 +120,7 @@ $(function() {
   });
 });
 
-$('#fine-uploader-manual-trigger').fineUploader({
+/* $('#fine-uploader-manual-trigger').fineUploader({
     template: 'qq-template-manual-trigger',
     request: {
         endpoint: '/uploadFiles/milestone/${uno}',
@@ -133,6 +133,26 @@ $('#fine-uploader-manual-trigger').fineUploader({
         }
     },
     autoUpload: true,
+}); */
+
+$('#fine-uploader-manual-trigger').fineUploader({
+    template: 'qq-template-manual-trigger',
+    request: {
+        endpoint: '/uploadFiles/milestone/${uno}'
+    },
+    thumbnails: {
+        placeholders: {
+            waitingPath: '/resources/img/waiting-generic.png',
+            notAvailablePath: '/resources/img/not_available-generic.png'
+        }
+    },
+    validation: {
+        allowedExtensions: ['jpeg', 'jpg', 'txt', 'xls', 'xlsx', 'hwp', 'exe', 'zip', 'doc'],
+        itemLimit: 1,
+        sizeLimit: 10000000
+        // 10mb = 10 * 1024 bytes
+    }
 });
+
 </script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

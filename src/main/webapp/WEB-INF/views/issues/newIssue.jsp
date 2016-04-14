@@ -272,10 +272,10 @@ $(function(){
 } */
 
 /* Your code to create an instance of Fine Uploader and bind to the DOM/template */
-$('#fine-uploader-manual-trigger').fineUploader({
+/* $('#fine-uploader-manual-trigger').fineUploader({
     template: 'qq-template-manual-trigger',
     request: {
-        endpoint: '/uploadFiles/issue/${uno}',
+        endpoint: '/uploadFiles/issue/${uno}'
         // inputName: "fileup" + count
     },
     thumbnails: {
@@ -284,7 +284,31 @@ $('#fine-uploader-manual-trigger').fineUploader({
             notAvailablePath: '/resources/img/not_available-generic.png'
         }
     },
+    validation: {
+        allowedExtensions: ['jpeg', 'jpg', 'txt'],
+        itemLimit: 1,
+        sizeLimit: 51200 // 50 kB = 50 * 1024 bytes
+    },
     autoUpload: true,
+}); */
+
+$('#fine-uploader-manual-trigger').fineUploader({
+    template: 'qq-template-manual-trigger',
+    request: {
+        endpoint: '/uploadFiles/issue/${uno}'
+    },
+    thumbnails: {
+        placeholders: {
+            waitingPath: '/resources/img/waiting-generic.png',
+            notAvailablePath: '/resources/img/not_available-generic.png'
+        }
+    },
+    validation: {
+        allowedExtensions: ['jpeg', 'jpg', 'txt', 'xls', 'xlsx', 'hwp', 'exe', 'zip', 'doc'],
+        itemLimit: 1,
+        sizeLimit: 10000000
+        // 10mb = 10 * 1024 bytes
+    }
 });
 
 /* $('#trigger-upload').click(function() {
