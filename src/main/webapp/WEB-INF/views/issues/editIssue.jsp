@@ -26,7 +26,7 @@
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="ititle"
 							name="ititle" placeholder="Issue Title"
-							value="${issues.ititle}" required="required">
+							value="${issues.ititle}" required="required" maxlength="50">
 					</div>
 				</div>
 

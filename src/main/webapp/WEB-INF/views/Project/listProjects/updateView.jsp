@@ -103,13 +103,14 @@
 
 <script type="text/javascript">
 $(function() {
-	  $( "#datepicker" ).datepicker({
-		 altField: "#datepicker",
-		 onSelect: function(date){
-			 $('#date').val(date);
-		 }
-	  });
+	$( "#datepicker" ).datepicker({
+		altField: "#datepicker",
+		minDate: 0,
+		onSelect: function(date){
+			$('#date').val(date);
+		}
 	});
+});
 $(function () {
 	var pmember = $("#pmember").val().substring(0, $("#pmember").val().length - 1).split(",");
 	var userNames = "";

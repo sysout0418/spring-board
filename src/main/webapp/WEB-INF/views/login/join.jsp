@@ -70,7 +70,7 @@ function checkId() {
 <form:form cssClass="form-signin" method="post" action="/join" commandName="UserInfo">
 	<h2 class="form-signin-heading">Sign up</h2>
 	<label for="inputEmail" class="sr-only">Email</label>
-	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()" required autofocus>
+	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()"  maxlength="20" required autofocus>
 	<span id="checkResult"></span>
 	<label for="input" class="sr-only">Name</label>
 	<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" required>

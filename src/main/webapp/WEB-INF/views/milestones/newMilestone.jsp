@@ -92,7 +92,7 @@
 	<table class="table">
 		<tr>
 			<td>Title</td>
-			<td><form:input path="mtitle" cssClass="form-control"/></td>
+			<td><form:input path="mtitle" cssClass="form-control" maxlength="50"/></td>
 			<td rowspan="2">Due Date</td>
 			<td rowspan="2"><div id="datepicker"><form:hidden path="mduedate" id="date"/></div></td>
 		</tr>
@@ -114,10 +114,11 @@
 </div>
  <script>
 $(function() {
-  $( "#datepicker" ).datepicker({
-	 altField: "#date",
-	 altFormat : "mm/dd/yy"
-  });
+	$( "#datepicker" ).datepicker({
+		altField: "#date",
+		altFormat : "mm/dd/yy",
+		minDate: 0
+	});
 });
 
 /* $('#fine-uploader-manual-trigger').fineUploader({
