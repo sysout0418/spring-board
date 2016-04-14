@@ -32,8 +32,8 @@
  <script type="text/javascript" src="<c:url value="/resources/javascript/ie10-viewport-bug-workaround.js" />"></script>
  
 <!-- jquery-ui -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.min.css" />">
+<script type="text/javascript" src="<c:url value="/resources/javascript/jquery-ui.min.js " />"></script>
 
 <!-- autocomplete CSS -->
 <link href="<c:url value="/resources/css/textext.core.css" />" rel="stylesheet" type="text/css">
