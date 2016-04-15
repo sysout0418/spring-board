@@ -53,7 +53,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="issues">
 		<ul id="unstarted1" class="connectedSortable">
-		  <li style="background-color: #f7f8fa">Unstarted Issues (open and unassigned)</li>
+		  <li class="ui-state-default ui-state-disabled">Unstarted Issues (open and unassigned)</li>
 		  <li>Drag and drop available</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '000' && issue.uno == ''}">
@@ -63,7 +63,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 		</ul>
 		 
 		<ul id="unstarted2" class="connectedSortable">
-		  <li style="background-color: #f7f8fa">Unstarted Issues (open and assigned)</li>
+		  <li class="ui-state-default ui-state-disabled">Unstarted Issues (open and assigned)</li>
 		  <li>Drag and drop available</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '000' && issue.uno != ''}">
@@ -73,7 +73,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
 		</ul>
 		
 		<ul id="completed" class="connectedSortable">
-		  <li style="background-color: #f7f8fa">Completed Issues (closed)</li>
+		  <li class="ui-state-default ui-state-disabled">Completed Issues (closed)</li>
 		  <li>Drag and drop available</li>
 		  <c:forEach  var="issue" items="${issues}">
 		  <c:if test="${issue.istatement == '001'}">
@@ -113,6 +113,7 @@ ${countIssues} issues: ${countOpenIssues} open and <fmt:formatNumber value="${co
   <script>
   $(function() {
     $( "#unstarted1, #unstarted2, #completed" ).sortable({
+      items: "li:not(.ui-state-disabled)",
       connectWith: ".connectedSortable",
       cursor: "move",
       placeholder: "ui-state-highlight",
