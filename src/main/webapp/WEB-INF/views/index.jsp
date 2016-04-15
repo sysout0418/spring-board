@@ -10,7 +10,7 @@
 	<a href="/regist" class="btn btn-success" style="width:120px"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;New Project</a>
 </form>
 <div id="result">
-	<table class="table" style="font-size: 1.0em">
+	<table class="table table-hover" style="font-size: 1.0em">
 		<c:forEach var="project" items="${list}">
 		<tr><td><a href="/${project.uno}/${project.pno}" style="color: #223"><b>${project.uname} / ${project.pname}</b></a><br>
 		<c:choose>
