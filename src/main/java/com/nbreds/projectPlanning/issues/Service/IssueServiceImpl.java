@@ -42,12 +42,16 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	@Transactional
-	public void saveIssues(Issue issues) {
+	public void saveIssues(Issue issues, HttpServletRequest request) {
 		try {
 			// issue 정보 DB Issues 테이블에 ISNERT
 			issueDao.saveIssues(issues);
 			
 			// 파일정보 DB Files 테이블에 INSERT
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			int lastIno = getLastIno();
+			issues.setIno(lastIno);
+			list = fileUtils.parseInsertFileInfo(issues, request);
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
 					saveIssueFile(list.get(i));
@@ -56,19 +60,6 @@ public class IssueServiceImpl implements IssueService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
-	}
-
-	@Override
-	public void sendFileToServer(Map<String, Object> param) {
-		int lastIno = getLastIno() + 1;
-		param.put("ino", lastIno);
-		try {
-//			FileUtils fileUtils = new FileUtils();
-			list = new ArrayList<Map<String, Object>>();
-			list = fileUtils.parseInsertFileInfo(param);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -117,19 +108,21 @@ public class IssueServiceImpl implements IssueService {
 			// 이슈 정보 업뎃
 			issueDao.updateIssueByIno(issues);
 
-			// IssueFiles 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
-			issueDao.deleteFileList(issues.getIno());
+			// Files 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
+			deleteFileList(issues.getIno());
 
 			// 파일정보 업뎃
 			List<Map<String, Object>> list;
 			list = fileUtils.parseUpdateFileInfo(issues, request);
 			Map<String, Object> param = null;
-			for (int i = 0; i < list.size(); i++) {
-				param = list.get(i);
-				if (param.get("IS_NEW").equals("Y")) {
-					issueDao.saveIssueFile(param);
-				} else {
-					issueDao.updateFile(param);
+			if (list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					param = list.get(i);
+					if (param.get("IS_NEW").equals("Y")) {
+						saveIssueFile(param);
+					} else {
+						updateFile(param);
+					}
 				}
 			}
 		} catch (Exception e) {

@@ -48,7 +48,7 @@
 								</p>
 							</c:forEach>
 						</section>
-						<input type="button" id="addfile" value='파일추가'/>
+						<!-- <input type="button" id="addfile" value='파일추가'/> -->
 					</div>
 				</div>
 
@@ -157,11 +157,11 @@
 	</div>
 <script type="text/javascript">
 $(document).ready(function(){
-          $("a[name^='delete']").on("click", function(e){ //삭제 버튼
-              e.preventDefault();
-          	$(this).parent().remove();
-          });
-      });
+	$("a[name^='delete']").on("click", function(e){ //삭제 버튼
+		e.preventDefault();
+		$(this).parent().remove();
+	});
+});
 
 $('#inputLarge').textext({
 	plugins : 'tags'
@@ -214,23 +214,28 @@ $('.dropdown-menu > .weight > a').bind('click', function() {
 });
 
 // file upload를 위한 function
-var count =0;
+/* var count = 0;
 $(function(){
-	$('#addfile').click(function(event){
-		$("#fileNum").val(Number($("#fileNum").val())+1);
-		console.log($("#fileNum").val());
-		$("<div id='item_"+count+"'/>")
-		.append($('<input type="file" id="fileup" name="fileup'+count+'"/>'))
-           .append($("<input type='button' value='삭제' onclick='removeForm("+count+")'/>"))
-		.appendTo('#filecontent');
-		count++;
-	});
-});
-function removeForm(count){
+	if (count < 5) {
+		$('#addfile').click(function(event){
+			$("#fileNum").val(Number($("#fileNum").val())+1);
+			console.log($("#fileNum").val());
+			$("<div id='item_"+count+"'/>")
+			.append($('<input type="file" id="fileup" name="fileup'+count+'"/>'))
+	           .append($("<input type='button' value='삭제' onclick='removeForm("+count+")'/>"))
+			.appendTo('#filecontent');
+			count++;
+		});
+	} else {
+		alert("파일 업로드는 최대 1개 입니다..");
+	}
+}); */
+
+/* function removeForm(count){
 	$("#fileNum").val(Number($("#fileNum").val())-1);
 	console.log($("#fileNum").val());
 	$('#item_'+count).remove();
-}
+} */
 </script>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

@@ -51,5 +51,12 @@ $(function(){
 	console.log(date);
 	$( "#datepicker" ).datepicker( "setDate", date);
 });
+
+$(document).ready(function(){
+	$("a[name^='delete']").on("click", function(e){ //삭제 버튼
+		e.preventDefault();
+		$(this).parent().remove();
+	});
+});
 </script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

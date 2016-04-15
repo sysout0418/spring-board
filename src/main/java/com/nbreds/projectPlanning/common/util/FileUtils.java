@@ -25,7 +25,7 @@ import com.nbreds.projectPlanning.milestones.VO.Milestone;
 public class FileUtils {
 	private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-//	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//	List<Map<String, Object>> list;
 	
 	// 파일이름을 랜덤으로 생성할 때 사용된다.
 	public static String getRandomString() {
@@ -34,8 +34,8 @@ public class FileUtils {
 
 	private static final String filePath = "/home/projectPlan/WebProject/upload/";
 
-	public List<Map<String, Object>> parseInsertFileInfo(Map<String, Object> param) throws Exception {
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) param.get("request");
+	public List<Map<String, Object>> parseInsertFileInfo(Issue issue, HttpServletRequest request) throws Exception {
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
 
 		MultipartFile multipartFile = null;
@@ -51,8 +51,8 @@ public class FileUtils {
 			file.mkdirs();
 		}
 
-		int ino = (int) param.get("ino");
-		int uno = (int) param.get("uno");
+		int ino = issue.getIno();
+		int uno = issue.getUno();
 
 		while (iterator.hasNext()) {
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
@@ -73,7 +73,6 @@ public class FileUtils {
 				list.add(listMap);
 			}
 		}
-		System.out.println("list size>" + list.size());
 		return list;
 	}
 
@@ -130,9 +129,9 @@ public class FileUtils {
 		return list;
 	}
 
-	public List<Map<String, Object>> parseInsertFileInfo2(Map<String, Object> param)
+	public List<Map<String, Object>> parseInsertFileInfo(Milestone milestone, HttpServletRequest request)
 			throws IllegalStateException, IOException {
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) param.get("request");;
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
 
 		MultipartFile multipartFile = null;
@@ -148,8 +147,9 @@ public class FileUtils {
 			file.mkdirs();
 		}
 
-		int mno = (int) param.get("mno");
-		int uno = (int) param.get("uno");
+		int mno = milestone.getMno();
+		int uno = (int) request.getSession().getAttribute("user_no");
+		System.out.println("uno >> " +uno);
 
 		while (iterator.hasNext()) {
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
@@ -172,4 +172,58 @@ public class FileUtils {
 		}
 		return list;
 	}
+	
+	public List<Map<String, Object>> parseUpdateFileInfo(Milestone milestone, HttpServletRequest request) throws Exception {
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+
+		MultipartFile multipartFile = null;
+		String originalFileName = null;
+		String originalFileExtension = null;
+		String storedFileName = null;
+
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> listMap = null;
+
+		int mno = milestone.getMno();
+		int uno = (int) request.getSession().getAttribute("user_no");
+		String[] fno = request.getParameterValues("fno");
+		String requestName = null;
+		String idx = null;
+
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				originalFileName = multipartFile.getOriginalFilename();
+				originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+				storedFileName = getRandomString() + originalFileExtension;
+
+				multipartFile.transferTo(new File(filePath + storedFileName));
+
+				listMap = new HashMap<String, Object>();
+				listMap.put("IS_NEW", "Y");
+				listMap.put("mno", mno);
+				listMap.put("uno", uno);
+				listMap.put("originalName", originalFileName);
+				listMap.put("storeName", storedFileName);
+				listMap.put("fileSize", multipartFile.getSize());
+				list.add(listMap);
+			} else {
+				requestName = multipartFile.getName();
+				idx = requestName.substring(requestName.indexOf("_") + 1);
+				if (fno != null && fno.length > 0) {
+					for (int i = 0; i < fno.length; i++) {
+						if (fno[i].equals(idx)) {
+							listMap = new HashMap<String, Object>();
+							listMap.put("IS_NEW", "N");
+							listMap.put("fno", fno[i]);
+							list.add(listMap);
+						}
+					}
+				}
+			}
+		}
+		return list;
+	}
+	
 }

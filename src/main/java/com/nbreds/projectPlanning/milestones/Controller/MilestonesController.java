@@ -1,13 +1,18 @@
 package com.nbreds.projectPlanning.milestones.Controller;
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +24,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.issues.VO.Issue;
@@ -131,12 +138,9 @@ public class MilestonesController {
 		Milestone milestone = milestonesService.getMilestoneBymno(mno);
 
 		int countIssues = milestonesService.countIssuesByMno(mno); // 총 issue갯수
-		int countOpenIssues = milestonesService.countOpenIssuesByMno(mno);// open
-																			// issue갯수
-		double countClosedIssues = milestonesService.countClosedIssueByMno(mno);// closed
-																				// issue갯수
-		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) * 100); // 완료
-																								// percentage
+		int countOpenIssues = milestonesService.countOpenIssuesByMno(mno);// open issue갯수
+		double countClosedIssues = milestonesService.countClosedIssueByMno(mno);// closed issue갯수
+		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) * 100); // 완료 percentage
 
 		List<Issue> issues = milestonesService.getIssuesBymno(mno);
 		HashSet<String> uname = new HashSet<>();
@@ -172,25 +176,29 @@ public class MilestonesController {
 	}
 
 	@RequestMapping("/milestones/regist")
-	public String regist(int uno, int pno, @ModelAttribute("milestones") Milestone milestone, BindingResult result) {
+	public String regist(int uno, int pno, @ModelAttribute("milestones") Milestone milestone, BindingResult result,
+			HttpServletRequest request) {
 		logger.info("title : " + milestone.getMtitle());
 		logger.info("description : " + milestone.getMdescription());
 		logger.info("duedate : " + milestone.getMduedate());
 		logger.info("pno : " + milestone.getPno());
-//		milestonesService.saveMilestone(milestone, request);
-		milestonesService.saveMilestone(milestone);
+		milestonesService.saveMilestone(milestone, request);
 
+		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				logger.info("------------- file start -------------");
+				logger.info("name : " + multipartFile.getName());
+				logger.info("filename : " + multipartFile.getOriginalFilename());
+				logger.info("size : " + multipartFile.getSize());
+				logger.info("-------------- file end --------------\n");
+			}
+		}
 		return "redirect:/" + uno + "/" + pno + "/milestones/open";
-	}
-
-	// 파일 Server에 업로드
-	@RequestMapping("/uploadFiles/milestone/{uno}")
-	public @ResponseBody String uploadFiles(@PathVariable("uno") int uno, HttpServletRequest request) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("request", request);
-		param.put("uno", uno);
-		milestonesService.sendFileToServer(param);
-		return "{\"success\":true}";
 	}
 
 	@RequestMapping(value = "/milestones/edit/{uno}/{pno}/{mno}", method = RequestMethod.GET)
@@ -215,13 +223,14 @@ public class MilestonesController {
 	}
 
 	@RequestMapping(value = "/milestones/edit", method = RequestMethod.POST)
-	public String editing(int uno, int pno, @ModelAttribute("milestones") Milestone milestone, BindingResult result) {
+	public String editing(int uno, int pno, @ModelAttribute("milestones") Milestone milestone, BindingResult result,
+			HttpServletRequest request) {
 		logger.info("---------------editing page------------------");
 		logger.info("mno : " + milestone.getMno());
 		logger.info("mtitle : " + milestone.getMtitle());
 		logger.info("mduedate : " + milestone.getMduedate());
 
-		milestonesService.editMilestoneBymno(milestone);
+		milestonesService.editMilestoneBymno(milestone, request);
 
 		return "redirect:/" + uno + "/" + pno + "/milestones/open";
 	}

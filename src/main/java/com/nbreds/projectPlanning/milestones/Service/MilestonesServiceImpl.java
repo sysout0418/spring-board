@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.milestones.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +35,15 @@ public class MilestonesServiceImpl implements MilestonesService{
 
 	@Override
 	@Transactional
-	public void saveMilestone(Milestone milestone) {
+	public void saveMilestone(Milestone milestone, HttpServletRequest request) {
 		try {
 			milestonesdao.saveMilestone(milestone);
 			
 			// 파일정보 DB에 INSERT
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			int lastMno = getLastMno();
+			milestone.setMno(lastMno);
+			list = fileUtils.parseInsertFileInfo(milestone, request);
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
 					saveMilestoneFile(list.get(i));
@@ -47,28 +52,6 @@ public class MilestonesServiceImpl implements MilestonesService{
 		} catch (Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
-		
-//		List<Map<String, Object>> list;
-//		try {
-//			milestone.setMno(milestone.getMno());
-//			list = fileUtils.parseInsertFileInfo(milestone, request);
-//			for (int i = 0; i < list.size(); i++) {
-//				saveMilestoneFile(list.get(i));
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-	}
-	
-	@Override
-	public void sendFileToServer(Map<String, Object> param) {
-		int lastMno = getLastMno() + 1;
-		param.put("mno", lastMno);
-		try {
-			list = fileUtils.parseInsertFileInfo2(param);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -89,8 +72,33 @@ public class MilestonesServiceImpl implements MilestonesService{
 		return milestonesdao.getMilestoneBymno(mno);
 	}
 
-	public void editMilestoneBymno(Milestone milestone) {
-		milestonesdao.editMilestoneBymno(milestone);
+	@Transactional
+	public void editMilestoneBymno(Milestone milestone, HttpServletRequest request) {
+		try {
+			// 마일스톤 정보 업뎃
+			milestonesdao.editMilestoneBymno(milestone);
+
+			// Files 테이블의 isDel 컬럼값을 조건 ino이용하여 Y로 변경
+			deleteFileList(milestone.getMno());
+
+			// 파일정보 업뎃
+			List<Map<String, Object>> list;
+			list = fileUtils.parseUpdateFileInfo(milestone, request);
+			Map<String, Object> param = null;
+			if (list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					param = list.get(i);
+					if (param.get("IS_NEW").equals("Y")) {
+						saveMilestoneFile(param);
+					} else {
+						updateFile(param);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
 	}
 
 	public void removeMilestone(int mno) {
@@ -140,6 +148,16 @@ public class MilestonesServiceImpl implements MilestonesService{
 	@Override
 	public List<Files> getFileListByMno(int mno) {
 		return milestonesdao.getFileListByMno(mno);
+	}
+
+	@Override
+	public void deleteFileList(int mno) {
+		milestonesdao.deleteFileList(mno);
+	}
+
+	@Override
+	public void updateFile(Map<String, Object> param) {
+		milestonesdao.updateFile(param);
 	}
 
 }

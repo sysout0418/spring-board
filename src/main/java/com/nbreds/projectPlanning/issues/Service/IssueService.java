@@ -22,7 +22,7 @@ public interface IssueService {
 	static final Logger logger = LoggerFactory.getLogger(IssueServiceImpl.class);
 
 	/** 이슈 정보 등록 */
-	void saveIssues(Issue issues);
+	void saveIssues(Issue issues, HttpServletRequest request);
 	
 	/** ino로 파일 정보 SELECT */
 	List<Files> getFileListByIno(int ino);
@@ -101,7 +101,5 @@ public interface IssueService {
 	void deleteFileList(int ino);
 	
 	void updateFile(Map<String, Object> param);
-
-	void sendFileToServer(Map<String, Object> param);
 
 }

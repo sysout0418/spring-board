@@ -161,7 +161,8 @@ public class IssueController {
 
 	// issue 등록 요청
 	@RequestMapping("/issues/regist")
-	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, BindingResult result) {
+	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, BindingResult result,
+			HttpServletRequest request) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 		logger.info("weight : " + issues.getIweight());
@@ -169,7 +170,7 @@ public class IssueController {
 		logger.info("lno : " + issues.getLno());
 		String[] lnos = String.valueOf(issues.getLno()).split(",");
 		logger.info("lno[0] : " + lnos[0]);
-		issuesService.saveIssues(issues);
+		issuesService.saveIssues(issues, request);
 		int lastInsertIno = issuesService.getLastIno();
 		logger.info("ino : " + String.valueOf(lastInsertIno));
 		IssueLabel issueLabel = new IssueLabel();
@@ -180,18 +181,23 @@ public class IssueController {
 				issuesService.saveIssueLabel(issueLabel);
 			}
 		}
+		
+		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+	    Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+	    MultipartFile multipartFile = null;
+	    while(iterator.hasNext()){
+	        multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+	        if(multipartFile.isEmpty() == false){
+	            logger.info("------------- file start -------------");
+	            logger.info("name : "+multipartFile.getName());
+	            logger.info("filename : "+multipartFile.getOriginalFilename());
+	            logger.info("size : "+multipartFile.getSize());
+	            logger.info("-------------- file end --------------\n");
+	        }
+	    }
 
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
-	}
-	
-	// 파일 Server에 업로드
-	@RequestMapping("/uploadFiles/issue/{uno}")
-	public @ResponseBody String uploadFiles(@PathVariable("uno") int uno, HttpServletRequest request) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("request", request);
-		param.put("uno", uno);
-		issuesService.sendFileToServer(param);
-		return "{\"success\":true}";
 	}
 	
 	// issue 수정 페이지

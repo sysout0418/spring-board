@@ -92,4 +92,15 @@ public class MilestonesDao {
 	public List<Files> getFileListByMno(int mno) {
 		return sqlSession.selectList("milestones.getFileListByMno", mno);
 	}
+	
+	// Files 테이블의 컬럼 isDel을 Y로 바꾸는 메소드
+	public void deleteFileList(int mno) {
+		sqlSession.update("milestones.deleteFileList", mno);
+	}
+	
+	// Files 테이블 update
+	public void updateFile(Map<String, Object> param) {
+		sqlSession.update("milestones.updateFile", param);
+	}
+	
 }

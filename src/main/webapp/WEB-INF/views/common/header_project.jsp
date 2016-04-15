@@ -57,10 +57,10 @@
 <script type="text/javascript" src="/resources/javascript/validation/messages_ko.min.js"></script>
 
 <!-- Fine Uploader New/Modern CSS file -->
-<link href="<c:url value="/resources/css/file_css/fine-uploader-new.min.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/file_css/fileinput.min.css" />" rel="stylesheet">
 
 <!-- Fine Uploader jQuery JS file -->
-<script src="<c:url value="/resources/javascript/file_js/jquery.fine-uploader.min.js" />"></script>
+<script src="<c:url value="/resources/javascript/file_js/fileinput.min.js" />"></script>
 
 <style type="text/css">
 body {
