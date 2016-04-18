@@ -31,9 +31,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="mno != 0">
 		  ,#{mno}
 		</if>
+		<choose>
+			<when test="uno == 0">
+				,0
+			</when>
+			<otherwise>
+				,#{uno}
+			</otherwise>
+		</choose>
     <![CDATA[
 	  ,#{pno}
-	  ,#{uno}
 	  ,#{iduedate}
 	)
     ]]>
@@ -227,8 +234,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="mno != 0">
 			mno = #{mno},
 		</if>
+		<choose>
+			<when test="uno == 0">
+				uno = 0
+			</when>
+			<otherwise>
+				uno = #{uno}
+			</otherwise>
+		</choose>
 		<![CDATA[
-		uno = #{uno}
 	WHERE ino = #{ino}
 	]]>
 	</update>

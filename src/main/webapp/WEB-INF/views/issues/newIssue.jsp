@@ -59,7 +59,6 @@
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
 					<ul class="dropdown-menu">
-						<li class="userNo1"><a href="#" alt="">Unassigned</a></li>
 						<c:forEach var="users" items="${userList}">
 							<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
 						</c:forEach>

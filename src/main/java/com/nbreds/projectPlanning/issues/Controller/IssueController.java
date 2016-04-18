@@ -228,6 +228,7 @@ public class IssueController {
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
 		logger.info("lnos : " + issues.getLno());
+		logger.info("uno : " + issues.getUno());
 //		String[] lnos = String.valueOf(issues.getLno()).split(",");
 		if (issues.getLno() != 0) {
 			issuesService.removeIssueLabelForUpdate(issues);

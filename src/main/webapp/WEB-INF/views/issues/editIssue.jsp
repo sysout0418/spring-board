@@ -16,6 +16,11 @@
 			<%-- <input type="hidden" value="${issues.iweight}" name="iweight" id="iweight"> --%>
 			<input type="hidden" value="${issues.lno}" name="lno" id="lno">
 			<input type="hidden" value="${issues.mno}" name="mno" id="mno">
+			<c:forEach var="user" items="${userList}">
+				<c:if test="${user.uno == issues.uno}">
+					<input type="hidden" value="${user.uname}" name="myname" id="myname" alt="${user.uno}">
+				</c:if>
+			</c:forEach>
 			<fieldset>
 				<legend class="page-header">
 					<h3>Edit Issue</h3>
@@ -74,7 +79,6 @@
 							style="height: 10px; margin-top: 10px;"></span></a>
 						<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
 						<ul class="dropdown-menu">
-							<li class="userNo1"><a href="#" alt="">Unassigned</a></li>
 							<c:forEach var="users" items="${userList}">
 								<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
 							</c:forEach>
