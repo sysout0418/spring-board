@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.myProjects.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,6 +30,8 @@ public class MyProjectController {
 	@RequestMapping("/{uno}/{pno}")
 	public String  home(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model, HttpSession session) {
 		Project project = myProjectService.getProjectByPno(pno);
+		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
+		
 		String pdata = project.getPdata();
 		int user_no = (int)session.getAttribute("user_no");
 		//한글화
@@ -42,6 +45,7 @@ public class MyProjectController {
 		String uname = myProjectService.getUserForNo(project.getUno()).getUname();
 		project.setUname(uname);
 		
+		model.addAttribute("request", request);
 		model.addAttribute("project", project);
 		if(user_no == uno)	model.addAttribute("charged", true);
 		

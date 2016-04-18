@@ -21,4 +21,6 @@ public interface MyProjectService {
 	public Project getProjectByPno(int pno);
 
 	public List<Project> searchProject(HashMap<String, Object> param);
+
+	public List<HashMap<String, Object>> getRequestMember(int pno);
 }

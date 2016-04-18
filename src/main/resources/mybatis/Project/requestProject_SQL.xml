@@ -4,13 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="project.request">
-	<select id="getRequestProjects" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<select id="getRequestProjects" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
   	SELECT P.pno, pname, pdata, pduedate, U.uname
 	FROM Project P
 	JOIN ProjectMemberStat S ON P.pno = S.pno
 	JOIN User U ON P.uno = U.uno
-	WHERE S.stat='000' AND S.uno=#{uno}
+	WHERE S.stat=#{stat} AND S.uno=#{uno}
 	ORDER BY P.pno ASC
     ]]>  
     </select>

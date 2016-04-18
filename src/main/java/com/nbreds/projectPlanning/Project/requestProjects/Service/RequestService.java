@@ -13,7 +13,7 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 public interface RequestService {
 	static final Logger logger = LoggerFactory.getLogger(RequestService.class);
 	
-	public List<Project> getRequestProjects(String uno);
+	public List<Project> getRequestProjects(HashMap<String, Object> param);
 
 	public void updateStat(HashMap<String, Object> param);
 

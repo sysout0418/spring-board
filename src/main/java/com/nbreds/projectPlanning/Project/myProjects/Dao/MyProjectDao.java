@@ -31,4 +31,7 @@ public class MyProjectDao {
 	public List<Project> searchProject(HashMap<String, Object> param) {
 		return sqlSession.selectList("project.my.searchProject", param);
 	}
+	public List<HashMap<String, Object>> getRequestMember(int pno) {
+		return sqlSession.selectList("project.my.getRequestMember", pno);
+	}
 }

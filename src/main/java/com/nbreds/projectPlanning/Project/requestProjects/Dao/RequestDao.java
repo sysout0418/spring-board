@@ -18,8 +18,8 @@ public class RequestDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Project> getRequestProjects(String uno) {
-		return sqlSession.selectList("project.request.getRequestProjects", uno);
+	public List<Project> getRequestProjects(HashMap<String, Object> param) {
+		return sqlSession.selectList("project.request.getRequestProjects", param);
 	}
 	public void updateStat(HashMap<String, Object> param) {
 		sqlSession.update("project.request.updateStat", param);
