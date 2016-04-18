@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.Project.common.Service.CommonService;
 import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
-import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
@@ -26,7 +26,7 @@ public class HomeController {
 	public static List<User> USER_INFO;
 
 	@Autowired
-	RegistService registService;
+	CommonService commonService;
 	
 	@Autowired
 	MyProjectService myProjectService;
@@ -35,7 +35,7 @@ public class HomeController {
 	public String  home(Model model, HttpSession session) {
 		logger.info("Index.jsp");
 		// 유저 정보 저장
-		USER_INFO = registService.getAllUserNameAndNo();
+		USER_INFO = commonService.getAllUserNameAndNo();
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		List<Project> list = myProjectService.getProjectByUno(uno);
 		model.addAttribute("list", list);

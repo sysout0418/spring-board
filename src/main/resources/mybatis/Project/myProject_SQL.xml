@@ -24,13 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-     select pno, pname, pdetail, pdata, pduedate, pmember, uno from Project where pno=#{pno};
-    ]]>  
-    </select>
-        
-    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
-    <![CDATA[
-      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE} and CODE=#{CODE}
+     select pno, pname, pdetail, pdata, pduedate, uno from Project where pno=#{pno};
     ]]>  
     </select>
     

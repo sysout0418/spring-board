@@ -22,16 +22,47 @@
 
 			<!-- Tab panes -->
 			<div class="tab-content well">
-				<input type="hidden" id="userNo" name="userNo" value="">
-				<input type="hidden" id="mno" name="mno" value="">
-				<input type="hidden" id="lno" name="lno" value="">
-				<input type="hidden" id="weight" name="weight" value="">
+				<c:choose>
+					<c:when test="${!empty selectedUserName}">
+						<input type="hidden" id="userNo" name="userNo" value="${searchUno}">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="userNo" name="userNo" value="">
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${!empty selectedMilestone}">
+						<input type="hidden" id="mno" name="mno" value="${mno}">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="mno" name="mno" value="">
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${!empty selectedLabelName}">
+						<input type="hidden" id="lno" name="lno" value="${lno}">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="lno" name="lno" value="">
+					</c:otherwise>
+				</c:choose>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedAssign">Assignee</span></a> <a href="#"
+					<a href="#" class="btn btn-default">
+						<c:choose>
+							<c:when test="${!empty selectedUserName}">
+								<span id="selectedAssign">${selectedUserName}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedAssign">Assignee</span>
+							</c:otherwise>
+						</c:choose>
+					</a> 
+					<a href="#"
 						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
+						<li class="userNo1"><a alt="" href="#">Any</a></li>
 						<c:forEach var="users" items="${userList}">
 							<li class="userNo1">
 							<a alt="${users.uno}" href="#">${users.uname}</a></li>
@@ -39,28 +70,50 @@
 					</ul>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedMilestone">Milestone</span></a> <a href="#"
+					<a href="#" class="btn btn-default">
+						<c:choose>
+							<c:when test="${!empty selectedMilestone}">
+								<span id="selectedMilestone">${selectedMilestone}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedMilestone">Milestone</span>
+							</c:otherwise>
+						</c:choose>
+					</a> 
+					<a href="#"
 						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
-						<c:forEach var="milestone" items="${allMilestoneList}">
+						<li class="milestoneNo"><a id="milestoneNo" alt="" href="#">Any</a></li>
+						<c:forEach var="milestone" items="${milestoneList}">
 						<li class="milestoneNo"><a id="milestoneNo" alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedLabel">Label</span></a> <a href="#"
+					<a href="#" class="btn btn-default">
+						<c:choose>
+							<c:when test="${!empty selectedLabelName}">
+								<span id="selectedLabel">${selectedLabelName}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedLabel">Weight</span>
+							</c:otherwise>
+						</c:choose>
+					</a> 
+					<a href="#"
 						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
+						<li class="labelNo"><a id="labelNo" alt="" href="#">Any</a></li>
 						<c:forEach var="label" items="${allLabelList}">
-							<li class="labelNo"><a id="labelNo" alt="${label.lno}" href="#" style="text-color: ${label.lbgcolor}">${label.ltitle}</a></li>
+							<li class="labelNo"><a id="labelNo" alt="${label.lno}" href="#" style="color: ${label.lbgcolor}">${label.ltitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
-				<div class="btn-group">
+				<%-- <div class="btn-group">
 					<a href="#" class="btn btn-default"><span id="selectedWeight">Weight</span></a> <a href="#"
 						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false"><span class="caret"
@@ -70,7 +123,7 @@
 							<li class="weight"><a href="#"><%= i %></a></li>
 						<% } %>
 					</ul>
-				</div>
+				</div> --%>
 				<a href="#" id="searchBtn" class="btn btn-warning">Search</a>
 			</div>
 			<form name="frm" id="frm" method="post">
@@ -85,8 +138,8 @@
 							</div></td>
 						<td>Issue Title</td>
 						<td>Milestone Title</td>
-						<td>Label</td>
 						<td>Weight</td>
+						<!-- <td>Weight</td> -->
 					</tr>
 						<c:forEach var="issues" items="${issuesList}" varStatus="status">
 							<input type="hidden" name="issueState"
@@ -100,17 +153,23 @@
 								<td><a
 									href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
 									${issues.idescription }</td>
-								<td><a
-									href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
+								<td>
+									<c:choose>
+										<c:when test="${!empty issues.mtitle}">
+											<a href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>
+										</c:when>
+										<c:otherwise>
+											No Milestone
+										</c:otherwise>
+									</c:choose>
+								</td>
 
-								<td><c:forEach var="labels" items="${issues.labels}">
-										<a href="#"><span class="label color-label has_tooltip"
-											style="background-color:
-										${labels.lbgcolor}; color: #FFFFFF"
-											title="" data-container="body" data-original-title="">${labels.ltitle}</span></a>
-									</c:forEach></td>
+								<td><span class="label color-label has_tooltip" style="background-color:
+									${issues.lbgcolor}; color: #FFFFFF"
+									title="" data-container="body" data-original-title="">${issues.ltitle}</span>
+								</td>
 
-								<td>${issues.iweight}</td>
+								<%-- <td>${issues.iweight}</td> --%>
 							</tr>
 						</c:forEach>
 						<tr><td colspan="5"></td></tr>
@@ -124,7 +183,8 @@
 		var userName = $(this).text();
 		var userNo = $(this).attr("alt");
 		console.log(userNo);
-		$("#userNo").val(userNo);
+		console.log(userName);
+		$("#userNo1").val(userNo);
 		$("#selectedAssign").text(userName);
 	});
 	$('.dropdown-menu > .milestoneNo > a').bind('click', function() {
@@ -141,17 +201,17 @@
 		$("#lno").val(labelNo);
 		$("#selectedLabel").text(lTitle);
 	});
-	$('.dropdown-menu > .weight > a').bind('click', function() {
+	/* $('.dropdown-menu > .weight > a').bind('click', function() {
 		var weight = $(this).text();
 		console.log(weight);
 		$("#weight").val(weight);
 		$("#selectedWeight").text(weight);
-	});
+	}); */
 
 	$('#searchBtn').click(function() {
 		$('#searchBtn').attr("href", "/${uno}/${pno}/issues/${stat}/search?userNo=" 
 				+ $("#userNo").val() + "&mno=" + $("#mno").val()
-				+ "&lno=" + $("#lno").val() + "&weight=" + $("#weight").val());
+				+ "&lno=" + $("#lno").val());
 	});
 	
 	//문자열 공백제거 함수

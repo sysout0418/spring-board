@@ -56,7 +56,6 @@
 		<strong>프로젝트 키워드</strong>
 	</p>
 	<form:form method="POST" action="regist" id="regist" commandName="project">
-		<input type="hidden" id="pmember" name="pmember" value="">
 		<table class="table">
 			<tr>
 				<td colspan="2" style="width: 500px; vertical-align: middle; text-align: center;" class="active">프로젝트 명</td>
@@ -80,19 +79,9 @@
 						items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">전문분야/특별경험</td>
-				<td colspan="2"><form:checkboxes path="pexperience"
-						items="${experience}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
-			</tr>
-			<tr>
 				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">상세내용</td>
 				<td colspan="2"><form:textarea path="pdetail"
 						cssClass="form-control" cssStyle="height:400px" name="projectContent" required="required"/></td>
-			</tr>
-			<tr>
-				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">등급</td>
-				<td><form:select path="plevel" items="${level}"
-						itemValue="CODE" itemLabel="CODE_NAME" name="plevel" required="required"/></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">모집마감일자</td>
@@ -100,7 +89,6 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">프로젝트 요청</td>
-				<!-- <td><form:input path="pmember" id="autocomplete" type="text" cssClass="form-control"/></td>  -->
 				<td><textarea id="textarea" class="example" rows="1"></textarea></td>
 			</tr>
 			<tr>
@@ -117,6 +105,7 @@ $(function() {
 		minDate: 0
 	});
 });
+<%--
 $('#textarea')
       .textext({
           plugins : 'autocomplete filter tags ajax',
@@ -150,6 +139,7 @@ function handler() {
 		$("#pmember").val(uno);
 	});
 }
+--%>
 </script>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

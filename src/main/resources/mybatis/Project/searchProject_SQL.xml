@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getPageList" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-		SELECT pno, pname, pdetail, pdata, pduedate, pmember, uno
+		SELECT pno, pname, pdetail, pdata, pduedate, uno
 		FROM Project
 	]]>
 		<where>
@@ -35,12 +35,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
-    <![CDATA[
-      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE} and CODE=#{CODE}
-    ]]>  
-    </select>
-    
     <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
     select uno, uname, uphoneno, udepartment, uemail, uposition
@@ -52,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 페이징 처리를 위한 allProjectList -->
     <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-    SELECT pno, pname, pdetail, pdata, pduedate, pmember, uno
+    SELECT pno, pname, pdetail, pdata, pduedate, uno
     FROM Project
     ]]>
     <if test="pdata != null">

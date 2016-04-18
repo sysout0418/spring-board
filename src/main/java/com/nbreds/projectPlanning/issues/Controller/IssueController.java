@@ -6,11 +6,9 @@ import java.io.Writer;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -38,7 +35,7 @@ import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
-import com.nbreds.projectPlanning.label.VO.Label;
+import com.nbreds.projectPlanning.issues.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Controller
@@ -284,7 +281,11 @@ public class IssueController {
 //		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getUserListByPno(pno);
 		List<Label> allLabelList = issuesService.getAllLabel();
-		List<Milestone> allMilestoneList = issuesService.getMilestoneByPno(pno);
+		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
+		logger.info("milestoneList : " + milestoneList.size());
+		String selectedUserName = "";
+		String selectedMilestone = "";
+		String selectedLabelName = "";
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("istatement", "000");
@@ -323,13 +324,48 @@ public class IssueController {
 //				issuesList.get(i).setLabels(labelList);
 //			}
 		}
+		
+		if (userList != null && userList.size() > 0) {
+			for (int i = 0; i < userList.size(); i++) {
+				if (userNo != null) {
+					if (userNo.equals(userList.get(i).getUno())) {
+						selectedUserName = userList.get(i).getUname();
+					}
+				}
+			}
+		}
+		
+		if (milestoneList != null && milestoneList.size() > 0) {
+			for (int i = 0; i < milestoneList.size(); i++) {
+				if (mno != null) {
+					if (mno.equals(milestoneList.get(i).getMno())) {
+						selectedMilestone = milestoneList.get(i).getMtitle();
+					}
+				}
+			}
+		}
+		
+		if (allLabelList != null && allLabelList.size() > 0) {
+			for (int i = 0; i < allLabelList.size(); i++) {
+				if (lno != null) {
+					if (lno.equals(allLabelList.get(i).getLno())) {
+						selectedLabelName = allLabelList.get(i).getLtitle();
+					}
+				}
+			}
+		}
 
 		model.addAttribute("stat", stat);
 		model.addAttribute("searchUno", userNo);
+		model.addAttribute("mno", mno);
+		model.addAttribute("lno", lno);
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
-		model.addAttribute("allMilestoneList", allMilestoneList);
+		model.addAttribute("milestoneList", milestoneList);
+		model.addAttribute("selectedUserName", selectedUserName);
+		model.addAttribute("selectedMilestone", selectedMilestone);
+		model.addAttribute("selectedLabelName", selectedLabelName);
 
 		return "/Project/myProjects/Issues/issues";
 	}
@@ -368,12 +404,12 @@ public class IssueController {
 //				issueList.get(i).setLabels(labelList);
 //			}
 		}
-
+		
 		model.addAttribute("stat", stat);
 		model.addAttribute("issuesList", issueList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
-		model.addAttribute("allMilestoneList", allMilestoneList);
+		model.addAttribute("milestoneList", allMilestoneList);
 
 		return "issues/issues";
 	}
@@ -382,25 +418,25 @@ public class IssueController {
 	public String searchIssueByUno(@PathVariable("statement") String stat,
 			@RequestParam(value = "uno", required = false) Integer uno,
 			@RequestParam(value = "mno", required = false) Integer mno,
-			@RequestParam(value = "lno", required = false) Integer lno,
-			@RequestParam(value = "weight", required = false) Integer weight, Model model) {
+			@RequestParam(value = "lno", required = false) Integer lno, Model model) {
 		logger.info("uno : " + uno);
 		logger.info("mno : " + mno);
 		logger.info("lno : " + lno);
-		logger.info("weight : " + weight);
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issue> issuesList = new ArrayList<Issue>();
 //		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
-		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
+		List<Milestone> milestoneList = issuesService.getAllMilestone();
+		String selectedUserName = "";
+		String selectedMilestone = "";
+		String selectedLabelName = "";
 		if (stat.equals("open")) {
 			// param.put("pno", pno);
 			param.put("istatement", "000");
 			param.put("uno", uno);
 			param.put("mno", mno);
 			param.put("lno", lno);
-			param.put("weight", weight);
 			issuesList = issuesService.searchIssuesByParam(param);
 //			for (int i = 0; i < issuesList.size(); i++) {
 //				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
@@ -413,7 +449,6 @@ public class IssueController {
 			param.put("uno", uno);
 			param.put("mno", mno);
 			param.put("lno", lno);
-			param.put("weight", weight);
 			issuesList = issuesService.searchIssuesByParam(param);
 			System.out.println(issuesList.size());
 //			for (int i = 0; i < issuesList.size(); i++) {
@@ -425,20 +460,54 @@ public class IssueController {
 			param.put("uno", uno);
 			param.put("mno", mno);
 			param.put("lno", lno);
-			param.put("weight", weight);
 			issuesList = issuesService.searchIssuesByParam(param);
 //			for (int i = 0; i < issuesList.size(); i++) {
 //				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 //				issuesList.get(i).setLabels(labelList);
 //			}
 		}
+		
+		if (userList != null && userList.size() > 0) {
+			for (int i = 0; i < userList.size(); i++) {
+				if (uno != null) {
+					if (uno.equals(userList.get(i).getUno())) {
+						selectedUserName = userList.get(i).getUname();
+					}
+				}
+			}
+		}
+		
+		if (milestoneList != null && milestoneList.size() > 0) {
+			for (int i = 0; i < milestoneList.size(); i++) {
+				if (mno != null) {
+					if (mno.equals(milestoneList.get(i).getMno())) {
+						selectedMilestone = milestoneList.get(i).getMtitle();
+					}
+				}
+			}
+		}
+		
+		if (allLabelList != null && allLabelList.size() > 0) {
+			for (int i = 0; i < allLabelList.size(); i++) {
+				if (lno != null) {
+					if (lno.equals(allLabelList.get(i).getLno())) {
+						selectedLabelName = allLabelList.get(i).getLtitle();
+					}
+				}
+			}
+		}
 
 		model.addAttribute("stat", stat);
 		model.addAttribute("uno", uno);
+		model.addAttribute("mno", mno);
+		model.addAttribute("lno", lno);
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
-		model.addAttribute("allMilestoneList", allMilestoneList);
+		model.addAttribute("milestoneList", milestoneList);
+		model.addAttribute("selectedUserName", selectedUserName);
+		model.addAttribute("selectedMilestone", selectedMilestone);
+		model.addAttribute("selectedLabelName", selectedLabelName);
 
 		return "/issues/issues";
 	}

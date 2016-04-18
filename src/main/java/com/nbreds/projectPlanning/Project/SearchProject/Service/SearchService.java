@@ -22,8 +22,6 @@ public interface SearchService {
 	
 	public int getTotalProjectNo();
 	
-	public CodeTable getCodeName(HashMap<String, String> param);
-	
 	public User getUserForNo(int uno);
 	
 	/** 페이징 처리를 위한 allProjectList */

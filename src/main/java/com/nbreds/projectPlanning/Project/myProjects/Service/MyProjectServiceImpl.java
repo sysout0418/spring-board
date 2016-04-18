@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.myProjects.Dao.MyProjectDao;
-import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Service("MyProjectService")
@@ -29,10 +28,6 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public Project getProjectByPno(int pno) {
 		return myProjectsDao.getProjectByPno(pno);
 	}
-	public CodeTable getCodeName(HashMap<String, String> param) {
-		return myProjectsDao.getCodeName(param);
-	}
-
 	@Override
 	public List<Project> searchProject(HashMap<String, Object> param) {
 		return myProjectsDao.searchProject(param);

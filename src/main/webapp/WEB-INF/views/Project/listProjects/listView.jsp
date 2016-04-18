@@ -26,7 +26,7 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
-		<td>${project.plevel["0"]}</td>
+		<td></td>
 		<td>${project.pskill}</td>
 		<td>${project.pduedate}</td>
 		<td>${project.uname}</td>

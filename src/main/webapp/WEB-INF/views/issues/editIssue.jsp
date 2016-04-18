@@ -72,7 +72,9 @@
 						</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown"><span class="caret"
 							style="height: 10px; margin-top: 10px;"></span></a>
+						<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
 						<ul class="dropdown-menu">
+							<li class="userNo1"><a href="#" alt="">Unassigned</a></li>
 							<c:forEach var="users" items="${userList}">
 								<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
 							</c:forEach>
@@ -96,6 +98,7 @@
 						</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown"><span class="caret"
 							style="height: 10px; margin-top: 10px;"></span></a>
+						<a href="/${uno}/${pno}/milestones/new" class="btn btn-default" id="assigntome" style="margin-left: 10px;">Create New Milestone</a>
 						<ul class="dropdown-menu">
 							<c:forEach var="milestone" items="${milestoneList}">
 								<li class="milestoneNo"><a href="#"
@@ -158,6 +161,12 @@
 						</div> -->
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="inputDuedate" class="col-lg-2 control-label">Due Date</label>
+					<div class="btn-group" style="margin-left: 15px;">
+						<input type="text" id="iduedate" name="iduedate" required="required" readonly="readonly" value="${issues.iduedate }"/>
+					</div>
+				</div>
 				<br> <br> <br> <br> <br> <br> <br>
 				<br> <br> <br>
 				<div class="form-group">
@@ -175,6 +184,21 @@ $(document).ready(function(){
 		e.preventDefault();
 		$(this).parent().remove();
 	});
+});
+
+$(function() {
+	$( "#iduedate" ).datepicker({
+		altFormat : "mm/dd/yy",
+		minDate: 0
+	});
+});
+
+$("#assigntome").click(function() {
+	var userName = $("#myname").val();
+	var userNo = $("#myname").attr("alt");
+	console.log(userNo);
+	$("#uno").val(userNo);
+	$("#selectedAssign").text(userName);
 });
 
 /* $('#inputLarge').textext({

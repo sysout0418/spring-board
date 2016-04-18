@@ -217,7 +217,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-<!-- 	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
+	<update id="updateIssues" parameterType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     UPDATE Issues SET
 		ititle = #{ititle},
@@ -231,7 +231,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		uno = #{uno}
 	WHERE ino = #{ino}
 	]]>
-	</update> -->
+	</update>
 
 <!-- 	<delete id="removeIssues" parameterType="int">
     <![CDATA[
@@ -256,7 +256,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 
-	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
+	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.issues.VO.Label">
     <![CDATA[
     SELECT lno, ltitle, lbgcolor
     FROM Label
@@ -264,7 +264,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- <select id="getLabelsByIno" parameterType="int"
-		resultType="com.nbreds.projectPlanning.label.VO.Label">
+		resultType="com.nbreds.projectPlanning.issues.VO.Label">
     <![CDATA[
     SELECT l.lno, ltitle, lbgcolor, pno
     FROM Label l
@@ -289,7 +289,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 2016. 04. 18. 모든 유저 리스트 가져오기 -->
 	<select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    SELECT u.uno, uname, uphoneno, udepartment, uemail, uposition, pno, stat
+    SELECT u.uno, uname, uphoneno, udepartment, uemail, uposition
     FROM User u
     ]]>
 	</select>

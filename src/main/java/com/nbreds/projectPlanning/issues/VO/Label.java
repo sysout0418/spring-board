@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.label.VO;
+package com.nbreds.projectPlanning.issues.VO;
 
 public class Label {
 	private int Lno;

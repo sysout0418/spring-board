@@ -15,11 +15,16 @@
 <div style="width: 1200; margin: 0 auto; background-color: #fff">
 	<form:form class="form-horizontal" method="post"
 		action="/issues/regist" commandName="Issues" enctype="multipart/form-data">
-		<input type="hidden" value="${uno}" name="uno" id="uno">
+		<input type="hidden" value="" name="uno" id="uno">
 		<input type="hidden" value="${pno}" name="pno" id="pno">
 		<input type="hidden" value="" id="mno" name="mno">
 		<!-- <input type="hidden" value="" name="iweight" id="iweight"> -->
-		<input type="hidden" value="" name="lno" id="lno">
+		<input type="hidden" value="4" name="lno" id="lno">
+		<c:forEach var="user" items="${userList}">
+			<c:if test="${user.uno == uno}">
+				<input type="hidden" value="${user.uname}" name="myname" id="myname" alt="${user.uno}">
+			</c:if>
+		</c:forEach>
 		<fieldset>
 			<legend class="page-header">
 				<h4>New Issue</h4>
@@ -52,9 +57,11 @@
 						Assignee</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
+					<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
 					<ul class="dropdown-menu">
+						<li class="userNo1"><a href="#" alt="">Unassigned</a></li>
 						<c:forEach var="users" items="${userList}">
-							<li class="userNo1"><a href="#" alt="${users.uno }">${users.uname}</a></li>
+							<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -67,6 +74,7 @@
 						Milestone</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
+					<a href="/${uno}/${pno}/milestones/new" class="btn btn-default" id="assigntome" style="margin-left: 10px;">Create New Milestone</a>
 					<ul class="dropdown-menu">
 						<c:forEach var="milestone" items="${milestoneList}">
 							<li class="milestoneNo"><a href="#" alt="${milestone.mno}">${milestone.mtitle}</a></li>
@@ -87,6 +95,12 @@
 							<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
 						</c:forEach>
 					</ul>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputDuedate" class="col-lg-2 control-label">Due Date</label>
+				<div class="btn-group" style="margin-left: 15px;">
+					<input type="text" class="form-control" id="iduedate" name="iduedate" required="required">
 				</div>
 			</div>
 			<%-- <div class="form-group">
@@ -122,17 +136,31 @@
 	</form:form>
 	</div>
 <script type="text/javascript">
+$(function() {
+	$( "#iduedate" ).datepicker({
+		altFormat : "mm/dd/yy",
+		minDate: 0
+	});
+});
+
+$("#assigntome").click(function() {
+	var userName = $("#myname").val();
+	var userNo = $("#myname").attr("alt");
+	console.log(userNo);
+	$("#uno").val(userNo);
+	$("#selectedAssign").text(userName);
+});
 /* $('#inputLarge').textext({
 	plugins : 'tags'
 }); */
 
-$('.labelNo > a').bind('click', function() {
+/* $('.labelNo > a').bind('click', function() {
 	var text = $(this).text();
 	var lno = $(this).attr("alt");
 	$('#inputLarge').textext()[0].tags().addTags([ text ]);
 	$('.text-tags > .text-tag').last().append(
 			"<input type=hidden id=lno1 value="+lno+">");
-});
+}); */
 
 /* $('#submit').click(function() {
 	var lno = "";

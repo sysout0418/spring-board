@@ -10,11 +10,11 @@
   		<table class="table">
   		<tr>
    		<td>필요 기술 : ${project.pskill}</td>
-   		<td>프로젝트 인원 : ${project.pmember}</td>
+   		<td>프로젝트 인원 : </td>
    		<td>담당자 : ${project.uname}</td>
   		</tr> 
    	<tr>
-   		<td>난이도 : ${project.plevel["0"]}</td>
+   		<td>난이도 :</td>
    		<td>진행상황 : ${project.pprogress}</td>
    		<td>모집마감일 : ${project.pduedate}</td>
    	</tr>
