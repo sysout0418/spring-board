@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Service
@@ -20,8 +19,6 @@ public interface MyProjectService {
 	public User getUserForNo(int uno);
 	
 	public Project getProjectByPno(int pno);
-	
-	public CodeTable getCodeName(HashMap<String, String> param);
 
 	public List<Project> searchProject(HashMap<String, Object> param);
 }

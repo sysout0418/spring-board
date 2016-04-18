@@ -66,18 +66,4 @@ public class RegistController {
 		
 		return devList;
 	}
-	
-	@ModelAttribute("experience")
-	public List<CodeTable> getExperience(){
-		List<CodeTable> devList = registService.getCodeTable("007");
-		
-		return devList;
-	}
-	
-	@ModelAttribute("level")
-	public List<CodeTable> getLevel(){
-		List<CodeTable> devList = registService.getCodeTable("008");
-		
-		return devList;
-	}
 }

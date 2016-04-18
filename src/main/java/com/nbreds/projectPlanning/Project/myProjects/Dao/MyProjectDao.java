@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Repository("MyProjectDao")
@@ -29,10 +28,6 @@ public class MyProjectDao {
 	public Project getProjectByPno(int pno) {
 		return sqlSession.selectOne("project.my.getProjectByPno", pno);
 	}
-	public CodeTable getCodeName(HashMap<String, String> param) {
-		return sqlSession.selectOne("project.my.getCodeName", param);
-	}
-
 	public List<Project> searchProject(HashMap<String, Object> param) {
 		return sqlSession.selectList("project.my.searchProject", param);
 	}

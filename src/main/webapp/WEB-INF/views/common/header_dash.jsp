@@ -121,9 +121,6 @@ $(function () {
 		<li><a href="/milestones/open"><span class="glyphicon glyphicon-time" aria-hidden="true" style="padding-right: 10px"></span>Milestones</a></li>
 	    <li><a href="/issues/open"><span class="glyphicon glyphicon-alert" aria-hidden="true" style="padding-right: 10px"></span>Issues</a></li>
 	</ul>
-	<ul class="nav nav-sidebar">
-	    <li><a href=""><span class="glyphicon glyphicon-cog" aria-hidden="true" style="padding-right: 10px"></span>Profile Settings</a></li>
-	</ul>
 </div>
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

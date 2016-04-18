@@ -33,9 +33,7 @@ public class SearchDao {
 		
 		return count;
 	}
-	public CodeTable getCodeName(HashMap<String, String> param) {
-		return sqlSession.selectOne("project.search.getCodeName", param);
-	}
+	
 	public User getUserForNo(int uno) {
 		return sqlSession.selectOne("project.search.getUserForNo", uno);
 	}

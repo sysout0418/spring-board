@@ -43,10 +43,4 @@ public class RegistDao {
 	public User getUserForNo(int uno) {
 		return sqlSession.selectOne("project.regist.getUserForNo", uno);
 	}
-	
-	// 03-22 추가
-	// 모든 유저의 이름과 유저 번호 가져옴
-	public List<User> getAllUserNameAndNo() {
-		return sqlSession.selectList("project.regist.getAllUserNameAndNo");
-	}
 }

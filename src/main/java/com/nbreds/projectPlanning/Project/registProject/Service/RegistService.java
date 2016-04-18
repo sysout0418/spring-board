@@ -20,8 +20,4 @@ public interface RegistService {
 	public List<User> getUsersForName(String uname);
 
 	public User getUserForNo(int uno);
-	
-	// 03-22 추가
-	// 모든 유저의 이름과 유저번호 가져옴
-	public List<User> getAllUserNameAndNo();
 }

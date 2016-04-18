@@ -14,7 +14,7 @@ import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
-import com.nbreds.projectPlanning.label.VO.Label;
+import com.nbreds.projectPlanning.issues.VO.Label;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Repository("IssueDao")

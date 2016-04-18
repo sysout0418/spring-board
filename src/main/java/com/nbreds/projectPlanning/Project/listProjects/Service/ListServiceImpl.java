@@ -38,10 +38,6 @@ public class ListServiceImpl implements ListService {
 	public void removeProject(int pno) {
 		listDao.removeProject(pno);
 	}
-	
-	public CodeTable getCodeName(HashMap<String, String> param) {
-		return listDao.getCodeName(param);
-	}
 
 	public void updateProject(Project project) {
 		listDao.updateProject(project);

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
@@ -24,6 +23,7 @@ public class RegistServiceImpl implements RegistService{
 	
 	@Transactional
 	public void savePrjAndPrjMS(Project project, ProjectMemberStat projectMS) {
+		/*
 		try {
 			registDao.saveProject(project);
 			int maxPno = getLastno();
@@ -43,15 +43,8 @@ public class RegistServiceImpl implements RegistService{
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
+		*/
 	}
-	
-//	public void saveProject(Project project) {
-//		registDao.saveProject(project);
-//	}	
-//
-//	public void saveProjectMS(ProjectMemberStat projectMS) {
-//		registDao.saveProjectMS(projectMS);
-//	}
 	
 	public int getLastno() {
 		return registDao.getLastno();
@@ -67,11 +60,5 @@ public class RegistServiceImpl implements RegistService{
 
 	public User getUserForNo(int uno) {
 		return registDao.getUserForNo(uno);
-	}
-	
-	// 03-22 추가
-	// 모든 유저의 이름과 유저번호 가져옴
-	public List<User> getAllUserNameAndNo() {
-		return registDao.getAllUserNameAndNo();
 	}
 }

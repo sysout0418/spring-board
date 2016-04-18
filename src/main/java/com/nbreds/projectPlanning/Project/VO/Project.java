@@ -8,14 +8,11 @@ public class Project {
 	private String pdetail="";
 	private String pdata="";
 	private String pduedate="";
-	private String pmember="";
 	private int uno;
 	
 	private List<String> pdevelopment;
 	private List<String> pdesign;
-	private List<String> pexperience;
 	private List<String> pplanning;
-	private List<String> plevel;
 	private String pprogress;
 
 	private String uname;
@@ -51,12 +48,6 @@ public class Project {
 	public void setPduedate(String pduedate) {
 		this.pduedate = pduedate;
 	}
-	public String getPmember() {
-		return pmember;
-	}
-	public void setPmember(String pmember) {
-		this.pmember = pmember;
-	}
 	public int getUno() {
 		return uno;
 	}
@@ -78,26 +69,12 @@ public class Project {
 		for (String tmp : pdesign)		this.pdata+="005"+tmp+",";	
 		this.pdesign = pdesign;
 	}
-	public List<String> getPexperience() {
-		return pexperience;
-	}
-	public void setPexperience(List<String> pexperience) {
-		for (String tmp : pexperience)		this.pdata+="007"+tmp+",";	
-		this.pexperience = pexperience;
-	}
 	public List<String> getPplanning() {
 		return pplanning;
 	}
 	public void setPplanning(List<String> pplanning) {
 		for (String tmp : pplanning)		this.pdata+="006"+tmp+",";	
 		this.pplanning = pplanning;
-	}
-	public List<String> getPlevel() {
-		return plevel;
-	}
-	public void setPlevel(List<String> plevel) {
-		for (String tmp : plevel)		this.pdata+="008"+tmp+",";	
-		this.plevel = plevel;
 	}
 	public String getPprogress() {
 		return pprogress;

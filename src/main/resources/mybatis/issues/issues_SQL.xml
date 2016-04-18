@@ -17,9 +17,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ititle
 	  ,idescription
 	  ]]>
-		<if test="iweight != 0">
-		  ,iweight
-		</if>
 		<if test="mno != 0">
 		  ,mno
 		</if>
@@ -30,9 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  #{ititle}
 	  ,#{idescription}
 	  ]]>
-		<if test="iweight != 0">
-		  ,#{iweight}
-		</if>
 		<if test="mno != 0">
 		  ,#{mno}
 		</if>
@@ -106,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllIssues" resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT 
-    	i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname
+    	i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname
     ]]>
 		<if test="mno != null">
 			, mtitle
@@ -129,7 +123,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByIno" parameterType="int"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
@@ -143,13 +137,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByPno" parameterType="map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
 	LEFT JOIN Milestones m
 	ON i.mno = m.mno
-	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, lbgcolor
 			FROM Label l
 			JOIN IssueLabel il
             ON l.lno = il.lno ) l2
@@ -169,13 +163,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchIssues" parameterType="map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
     FROM Issues i
 			LEFT JOIN User u
 			ON i.uno = u.uno
 			LEFT JOIN Milestones m
 			ON i.mno = m.mno
-			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, lbgcolor
 			FROM Label l
 			LEFT JOIN IssueLabel il
 			ON l.lno = il.lno ) l2
@@ -190,9 +184,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test="mno != null">
 			and i.mno=#{mno}
-		</if>
-		<if test="weight != null">
-			and iweight=#{weight}
 		</if>
 		<if test="lno != null">
 			and lno=#{lno}
@@ -215,7 +206,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     UPDATE Issues SET
 		ititle = #{ititle},
 		idescription = #{idescription},
-		iweight = #{iweight},
 		]]>
 		<if test="mno != 0">
 			mno = #{mno},
@@ -249,17 +239,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 
-	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.label.VO.Label">
+	<select id="getAllLabel" resultType="com.nbreds.projectPlanning.issues.VO.Label">
     <![CDATA[
-    SELECT lno, ltitle, ldescription, lbgcolor, pno
+    SELECT lno, ltitle, lbgcolor
     FROM Label
 	]]>
 	</select>
 
 	<select id="getLabelsByIno" parameterType="int"
-		resultType="com.nbreds.projectPlanning.label.VO.Label">
+		resultType="com.nbreds.projectPlanning.issues.VO.Label">
     <![CDATA[
-    SELECT l.lno, ltitle, ldescription, lbgcolor, pno
+    SELECT l.lno, ltitle, lbgcolor, pno
     FROM Label l
     JOIN IssueLabel il
     ON l.lno = il.lno
@@ -298,13 +288,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByUno" parameterType="Map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
 	LEFT JOIN Milestones m
 	ON i.mno = m.mno
-	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, lbgcolor
 			FROM Label l
 			JOIN IssueLabel il
             ON l.lno = il.lno ) l2
@@ -324,13 +314,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchIssuesByParam" parameterType="Map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, iweight, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, ldescription, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
     FROM Issues i
 			LEFT JOIN User u
 			ON i.uno = u.uno
 			LEFT JOIN Milestones m
 			ON i.mno = m.mno
-			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, ldescription, lbgcolor
+			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, lbgcolor
 			FROM Label l
 			LEFT JOIN IssueLabel il
 			ON l.lno = il.lno ) l2
@@ -345,9 +335,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test="mno != null">
 			and i.mno=#{mno}
-		</if>
-		<if test="weight != null">
-			and iweight=#{weight}
 		</if>
 		<if test="lno != null">
 			and lno=#{lno}

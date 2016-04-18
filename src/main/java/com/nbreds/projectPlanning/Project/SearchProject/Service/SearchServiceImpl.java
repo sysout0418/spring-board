@@ -34,9 +34,6 @@ public class SearchServiceImpl implements SearchService{
 		
 		return totalProjectNo;	
 	}
-	public CodeTable getCodeName(HashMap<String, String> param) {
-		return searchDao.getCodeName(param);
-	}
 	public User getUserForNo(int uno) {
 		return searchDao.getUserForNo(uno);
 	}

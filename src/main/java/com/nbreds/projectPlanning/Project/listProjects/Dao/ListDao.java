@@ -36,9 +36,7 @@ public class ListDao {
 	public void removeProject(int pno) {
 		sqlSession.delete("project.list.removeProject", pno);
 	}
-	public CodeTable getCodeName(HashMap<String, String> param) {
-		return sqlSession.selectOne("project.list.getCodeName", param);
-	}
+
 	public void updateProject(Project project) {
 		sqlSession.update("project.list.updateProject", project);
 	}

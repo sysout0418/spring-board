@@ -37,24 +37,6 @@
 				</c:forEach>
 			</td>
 		</tr>
-		<tr>
-			<td style="width:230px; text-align: center; vertical-align: middle;"  class="active">전문분야/특별경험</td>
-			<td colspan="3">
-				<c:forEach var="exp" items="${experience}">
-			           <input type="checkbox" value="${exp.CODE_TYPE}${exp.CODE}" name="checked" style="margin-left : 2px">${exp.CODE_NAME}
-				</c:forEach>
-			</td>
-		</tr>
-		<tr>
-			<td style="width:230px; text-align: center; vertical-align: middle;"  class="active">등급</td>
-			<td style="width:300px">
-				<c:forEach var="lev" items="${level}">
-			           <input type="checkbox" value="${lev.CODE_TYPE}${lev.CODE}" name="checked" style="margin-left : 2px">${lev.CODE_NAME}
-				</c:forEach>
-			</td>
-			<td></td>
-			<td></td>
-		</tr>
 		<tr><td colspan="4"></td></tr>
 		</table>
 		<div align="center">
@@ -65,7 +47,6 @@
 		<table class="table">
 		<tr class="active">
 			<td style="width:500px; text-align: center;">프로젝트</td>
-		   	<td>등급</td>
 		   	<td>모집분야</td>
 		   	<td>마감일</td>
 		   	<td>담당자</td>
@@ -83,7 +64,6 @@
 					</c:otherwise>
 				</c:choose>
 		  	</td>
-  			<td>${project.plevel["0"]}</td>
   			<td>${project.pskill}</td>
   			<td>${project.pduedate}</td>
   			<td>${project.uname}</td>

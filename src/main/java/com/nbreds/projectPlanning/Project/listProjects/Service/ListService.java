@@ -22,8 +22,6 @@ public interface ListService {
 	public Project getProjectByPno(int pno);
 
 	public void removeProject(int pno);
-	
-	public CodeTable getCodeName(HashMap<String, String> param);
 
 	public void updateProject(Project project);
 	

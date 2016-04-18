@@ -87,15 +87,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT M.mno, M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
 	FROM Project P inner join Milestones M on M.pno = P.pno
 	             inner join User U on P.uno = U.uno
-	WHERE 
 	]]>
 	<if test="mstatement != null">
-	M.mstatement=#{mstatement} AND 
+	WHERE M.mstatement=#{mstatement}
 	</if>
-	<![CDATA[
-	(P.pmember like '%' #{uno} '%' OR P.uno = #{uno})
-	ORDER BY M.mno DESC
-	]]> 
     </select>
     
     <select id="getPnameByPno" parameterType="int" resultType="String">

@@ -3,8 +3,6 @@ package com.nbreds.projectPlanning.issues.VO;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nbreds.projectPlanning.label.VO.Label;
-
 public class Issue {
 	private int ino;
 	private String ititle;
