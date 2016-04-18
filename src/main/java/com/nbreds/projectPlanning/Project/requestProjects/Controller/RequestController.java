@@ -23,12 +23,27 @@ public class RequestController {
 	@Autowired
 	RequestService requestService;
 	
-	@RequestMapping("/requestProject")
-	public String requestProject(HttpSession session, Model model) {
+	@RequestMapping("/requestProject/{statement}")
+	public String requestProject(@PathVariable("statement") String stat, HttpSession session, Model model) {
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		
-		List<Project> list = requestService.getRequestProjects(uno);
+		List<Project> list = null;
+		HashMap<String, Object> param = new HashMap<>();
+		if (stat.equals("requested")) {
+			param.put("uno", uno);
+			param.put("stat", "000");
+			list = requestService.getRequestProjects(param);
+		} else if (stat.equals("accepted")) {
+			param.put("uno", uno);
+			param.put("stat", "001");
+			list = requestService.getRequestProjects(param);
+		} else if (stat.equals("declined")) {
+			param.put("uno", uno);
+			param.put("stat", "002");
+			list = requestService.getRequestProjects(param);
+		}else {}
 		
+		model.addAttribute("stat", stat);
 		model.addAttribute("list", list);
 		
 		return "/Project/requestProjects/requestProjects";
@@ -45,6 +60,6 @@ public class RequestController {
 		
 		requestService.updateStat(param);
 		
-		return "redirect:/requestProject";
+		return "redirect:/requestProject/requested";
 	}
 }

@@ -101,7 +101,7 @@ $(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
        	<li><a href="/regist" data-toggle="tooltip" data-placement="bottom" title="New Project"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
-      	<li><a href="/requestProject" data-toggle="tooltip" data-placement="bottom" title="Request"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><c:if test="${req > 0}"><span class="badge">${req}</span></c:if></a></li>
+      	<li><a href="/requestProject/requested" data-toggle="tooltip" data-placement="bottom" title="Request"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><c:if test="${req > 0}"><span class="badge">${req}</span></c:if></a></li>
         <li><a href="/logout" data-toggle="tooltip" data-placement="bottom" title="Sign Out"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
       </ul>
     </div>

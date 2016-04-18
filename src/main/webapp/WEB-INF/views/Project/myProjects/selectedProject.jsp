@@ -25,7 +25,17 @@
    			${project.pdetail}
    		</td>
    	</tr>
-  		<tr><td colspan="3"></td></tr>
+  		<tr><td colspan="3">
+  		<c:forEach var="list" items="${request}">
+  		${list.uname}
+			<c:if test="${list.stat == '002'}">
+				${list.CODE_NAME}<a class="btn btn-primary" href="/updateStat/${project.pno}/000" role="button">재요청</a>
+			</c:if>
+			<c:if test="${list.stat != '002'}">
+				${list.CODE_NAME}
+			</c:if>
+  		</c:forEach>
+  		</td></tr>
 	</table>
 	<c:if test="${charged != null}">
 	<div align="center">

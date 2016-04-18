@@ -32,4 +32,8 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public List<Project> searchProject(HashMap<String, Object> param) {
 		return myProjectsDao.searchProject(param);
 	}
+	@Override
+	public List<HashMap<String, Object>> getRequestMember(int pno) {
+		return myProjectsDao.getRequestMember(pno);
+	}
 }

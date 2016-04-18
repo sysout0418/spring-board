@@ -43,4 +43,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     (S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno})
     ]]>
     </select>
+    
+    <select id="getRequestMember" parameterType="int" resultType="hashmap">
+    <![CDATA[
+	SELECT U.uname, S.stat, C.CODE_NAME
+	FROM ProjectMemberStat S, User U, CodeTable C
+	WHERE S.uno = U.uno AND S.stat=C.CODE AND C.CODE_TYPE=010 AND S.pno=#{pno}
+    ]]>  
+    </select>
 </mapper>

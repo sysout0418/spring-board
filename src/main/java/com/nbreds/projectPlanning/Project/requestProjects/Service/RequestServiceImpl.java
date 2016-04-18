@@ -17,11 +17,6 @@ public class RequestServiceImpl implements RequestService {
 	
 	@Autowired
 	RequestDao requestDao;
-	
-	@Override
-	public List<Project> getRequestProjects(String uno) {
-		return requestDao.getRequestProjects(uno);
-	}
 
 	@Override
 	public void updateStat(HashMap<String, Object> param) {
@@ -31,5 +26,10 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public int getCountRequestProjects(String uno) {
 		return requestDao.getCountRequestProjects(uno);
+	}
+
+	@Override
+	public List<Project> getRequestProjects(HashMap<String, Object> param) {
+		return requestDao.getRequestProjects(param);
 	}
 }
