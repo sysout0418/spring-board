@@ -25,7 +25,7 @@
 				<input type="hidden" id="uno" name="uno" value="">
 				<input type="hidden" id="mno" name="mno" value="">
 				<input type="hidden" id="lno" name="lno" value="">
-				<input type="hidden" id="weight" name="weight" value="">
+				<!-- <input type="hidden" id="weight" name="weight" value=""> -->
 				<div class="btn-group">
 					<a href="#" class="btn btn-default"><span id="selectedAssign">Assignee</span></a>
 					<a href="#" class="btn btn-default dropdown-toggle"
@@ -58,14 +58,14 @@
 						aria-expanded="false"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
-						<c:forEach var="milestone" items="${allMilestoneList}">
+						<c:forEach var="milestone" items="${milestoneList}">
 							<li class="milestoneNo"><a id="milestoneNo"
 								alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedLabel">Label</span></a>
+					<a href="#" class="btn btn-default"><span id="selectedLabel">Weight</span></a>
 					<a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown" aria-expanded="false"><span
 						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
@@ -76,7 +76,7 @@
 						</c:forEach>
 					</ul>
 				</div>
-				<div class="btn-group">
+				<%-- <div class="btn-group">
 					<a href="#" class="btn btn-default"><span id="selectedWeight">Weight</span></a>
 					<a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown" aria-expanded="false"><span
@@ -90,7 +90,7 @@
 							}
 						%>
 					</ul>
-				</div>
+				</div> --%>
 				<a href="#" id="searchBtn" class="btn btn-success">Search</a>
 			</div>
 
@@ -159,7 +159,7 @@
 	$('#searchBtn').click(function() {
 		$('#searchBtn').attr("href", "/issues/${stat}/search?uno=" 
 				+ $("#uno").val() + "&mno=" + $("#mno").val()
-				+ "&lno=" + $("#lno").val() + "&weight=" + $("#weight").val());
+				+ "&lno=" + $("#lno").val());
 	});
 </script>
 <jsp:include

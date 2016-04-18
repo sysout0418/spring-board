@@ -11,11 +11,10 @@
 		<form:form class="form-horizontal" method="post"
 			action="/issues/edit" commandName="Issues" enctype="multipart/form-data">
 			<input type="hidden" value="${ino}" name="ino" id="ino">
-			<input type="hidden" value="${issues.uno}" name="uno" id="uno">
 			<input type="hidden" value="${pno}" name="pno" id="pno">
-			<input type="hidden" value="${issues.iweight}" name="iweight"
-				id="iweight">
-			<input type="hidden" value="0" name="lno" id="lno">
+			<input type="hidden" value="${issues.uno}" name="uno" id="uno">
+			<%-- <input type="hidden" value="${issues.iweight}" name="iweight" id="iweight"> --%>
+			<input type="hidden" value="${issues.lno}" name="lno" id="lno">
 			<input type="hidden" value="${issues.mno}" name="mno" id="mno">
 			<fieldset>
 				<legend class="page-header">
@@ -48,7 +47,11 @@
 								</p>
 							</c:forEach>
 						</section>
-						<!-- <input type="button" id="addfile" value='파일추가'/> -->
+						<div>
+							<c:if test="${empty fileList}">
+								<input type="button" id="addfile" value="파일추가"/>
+							</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -57,14 +60,15 @@
 					<div class="btn-group">
 						<a href="#" class="btn btn-default btn-width"
 							style="text-align: left; margin-left: 15px;"><span
-							id="selectedAssign"> <c:choose>
-									<c:when test="${!empty issues.uname}">
+							id="selectedAssign"> 
+							<c:choose>
+								<c:when test="${!empty issues.uname}">
 									${issues.uname}
 								</c:when>
-									<c:when test="${empty issues.uname}">
-									select assignee
+								<c:when test="${empty issues.uname}">
+									Select Assignee
 								</c:when>
-								</c:choose>
+							</c:choose>
 						</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown"><span class="caret"
 							style="height: 10px; margin-top: 10px;"></span></a>
@@ -80,14 +84,15 @@
 					<div class="btn-group">
 						<a href="#" class="btn btn-default btn-width"
 							style="text-align: left; margin-left: 15px;"><span
-							id="selectedMilestone"> <c:choose>
-									<c:when test="${!empty issues.mtitle}">
+							id="selectedMilestone"> 
+							<c:choose>
+								<c:when test="${!empty issues.mtitle}">
 									${issues.mtitle}
 								</c:when>
-									<c:when test="${empty issues.mtitle}">
-									select milestone
+								<c:when test="${empty issues.mtitle}">
+									Select Milestone
 								</c:when>
-								</c:choose>
+							</c:choose>
 						</span></a> <a href="#" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown"><span class="caret"
 							style="height: 10px; margin-top: 10px;"></span></a>
@@ -99,7 +104,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="form-group">
+				<%-- <div class="form-group">
 					<label for="inputWeight" class="col-lg-2 control-label">Weight</label>
 					<div class="btn-group">
 						<a href="#" class="btn btn-default btn-width"
@@ -124,24 +129,33 @@
 							%>
 						</ul>
 					</div>
-				</div>
+				</div> --%>
 				<div class="form-group">
-					<label for="inputLabels" class="col-lg-2 control-label">Labels</label>
+					<label for="inputLabels" class="col-lg-2 control-label">Weight</label>
 					<div class="btn-group">
 						<a href="#" class="btn btn-default btn-width"
-							style="text-align: left; margin-left: 15px;"><span
-							id="selectedLabel">Select Labels</span></a><a href="#"
-							class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
-							class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+							style="text-align: left; margin-left: 15px;">
+							<span id="selectedLabel">
+							<c:choose>
+								<c:when test="${!empty issues.ltitle}">
+									${issues.ltitle}
+								</c:when>
+								<c:when test="${empty issues.ltitle}">
+									Select Weight
+								</c:when>
+							</c:choose>
+							</span></a>
+							<a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 						<ul class="dropdown-menu">
 							<c:forEach var="labels" items="${labelList}" varStatus="status">
 								<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
 							</c:forEach>
 						</ul>
-						<div style="margin-left: 15px; margin-top: 50px;">
+						<!-- <div style="margin-left: 15px; margin-top: 50px;">
 							<input style="width: 0px; height: 33px;"
 								class="form-control input-lg" type="text" id="inputLarge">
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<br> <br> <br> <br> <br> <br> <br>
@@ -163,21 +177,18 @@ $(document).ready(function(){
 	});
 });
 
-$('#inputLarge').textext({
+/* $('#inputLarge').textext({
 	plugins : 'tags'
-});
+}); */
 
-$('.labelNo > a').bind(
-		'click',
-		function() {
-			var text = $(this).text();
-			var lno = $(this).attr("alt");
-			$('#inputLarge').textext()[0].tags().addTags([ text ]);
-			$('.text-tags > .text-tag').last().append(
-					"<input type=hidden id=lno1 value="+lno+">");
-		});
+/* $('.labelNo > a').bind('click', function() {
+	var text = $(this).text();
+	var lno = $(this).attr("alt");
+	$('#inputLarge').textext()[0].tags().addTags([ text ]);
+	$('.text-tags > .text-tag').last().append("<input type=hidden id=lno1 value="+lno+">");
+}); */
 
-$('#submit').click(function() {
+/* $('#submit').click(function() {
 	var lno = "";
 	$('.text-tags > .text-tag > #lno1').each(function() {
 		if ($(this).val() != '') {
@@ -187,7 +198,7 @@ $('#submit').click(function() {
 	if (lno != "") {
 		$('#lno').val(lno.substring(0, lno.length - 1));
 	}
-});
+}); */
 
 $('.dropdown-menu > .userNo1 > a').bind('click', function() {
 	var userName = $(this).text();
@@ -205,19 +216,27 @@ $('.dropdown-menu > .milestoneNo > a').bind('click', function() {
 	$("#selectedMilestone").text(mTitle);
 });
 
-$('.dropdown-menu > .weight > a').bind('click', function() {
+$('.dropdown-menu > .labelNo > a').bind('click', function() {
+	var lTitle = $(this).text();
+	var lno = $(this).attr("alt");
+	console.log(lTitle);
+	$("#lno").val(lno);
+	$("#selectedLabel").text(lTitle);
+});
+
+/* $('.dropdown-menu > .weight > a').bind('click', function() {
 	var weight = $(this).text();
 	//var weight = $(this).attr("alt");
 	//console.log(userNo);
 	$("#iweight").val(weight);
 	$("#selectedWeight").text(weight);
-});
+}); */
 
 // file upload를 위한 function
-/* var count = 0;
+var count = 0;
 $(function(){
-	if (count < 5) {
-		$('#addfile').click(function(event){
+	$('#addfile').click(function(event){
+		if (count < 1) {
 			$("#fileNum").val(Number($("#fileNum").val())+1);
 			console.log($("#fileNum").val());
 			$("<div id='item_"+count+"'/>")
@@ -225,11 +244,11 @@ $(function(){
 	           .append($("<input type='button' value='삭제' onclick='removeForm("+count+")'/>"))
 			.appendTo('#filecontent');
 			count++;
-		});
-	} else {
-		alert("파일 업로드는 최대 1개 입니다..");
-	}
-}); */
+		} else {
+			alert("파일 업로드는 최대 1개 입니다..");
+		}
+	});
+});
 
 /* function removeForm(count){
 	$("#fileNum").val(Number($("#fileNum").val())-1);

@@ -28,25 +28,26 @@
 <td rowspan="4" class="active">
 	<span class="text1">Assignee</span><br/> ${issues.uname} <br/><hr>
 	<span class="text1">Milestone</span><br/>${issues.mtitle} <br/><hr>
-	<span class="text1">Weight</span><br/>${issues.iweight} <br/>
-	<span class="text1">Label</span><br/>
-	<c:forEach var="labels" items="${issues.labels}">
-		<span class="label color-label has_tooltip"
-			style="
-			background-color:${labels.lbgcolor}; color: #FFFFFF; font-size: 15px;
-			font-weight: normal;
-			padding:5px;
-			border-radius: 5px;"
-			title="" data-container="body" data-original-title="">${labels.ltitle}</span>
-	</c:forEach>
+	<%-- <span class="text1">Weight</span><br/>${issues.iweight} <br/> --%>
+	<span class="text1">Weight</span><br/>
+	<%-- <c:forEach var="labels" items="${issues.labels}"> --%>
+	<span class="label color-label has_tooltip" 
+		style="background-color:${issues.lbgcolor}; 
+		color: #FFFFFF; 
+		font-size: 15px;
+		font-weight: normal;
+		padding:5px;
+		border-radius: 5px;"
+		title="" data-container="body" data-original-title="">${issues.ltitle}</span>
+	<%-- </c:forEach> --%>
 </td>
 </tr>
 <tr><td>
 	<h4>${issues.ititle}</h4>  	
 	${issues.idescription}
 	<c:forEach var="file" items="${fileList}">
-		<input type="hidden" id="fno" value="${file.fno }">
-		<a href="/issue/downloadFile/${file.fno}" style="color:#4d94c4">${file.originalName }</a> 
+		<input type="hidden" id="fno" value="${file.fno}">
+		<a href="/issue/downloadFile/${file.fno}" style="color:#4d94c4">${file.originalName}</a> 
 		(${file.fileSize}kb)
 	</c:forEach>
 </td></tr>

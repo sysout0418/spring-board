@@ -96,10 +96,14 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
+	public List<Milestone> getMilestoneByPno(int pno) {
+		return issueDao.getMilestoneByPno(pno);
+	}
+
+	@Override
 	public List<Milestone> getAllMilestone() {
 		return issueDao.getAllMilestone();
 	}
-
 
 	@Override
 	@Transactional
@@ -162,10 +166,15 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
+	public List<User> getUserListByPno(int pno) {
+		return issueDao.getUserListByPno(pno);
+	}
+
+	@Override
 	public List<User> getAllUserNameAndNo() {
 		return issueDao.getAllUserNameAndNo();
 	}
-
+	
 	@Override
 	public List<Label> getLabelsByIno(int ino) {
 		return issueDao.getLabelsByIno(ino);

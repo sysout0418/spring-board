@@ -61,43 +61,39 @@ public class IssueController {
 		logger.info("pno : " + pno);
 		logger.info("statement : " + stat);
 		List<Issue> issuesList = new ArrayList<Issue>();
-		List<Label> labelList = new ArrayList<Label>();
+//		List<Label> labelList = new ArrayList<Label>();
 		List<Label> allLabelList = issuesService.getAllLabel();
-		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
-		List<User> userList = issuesService.getAllUserNameAndNo();
+		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
+		List<User> userList = issuesService.getUserListByPno(pno);
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("pno", pno);
+		param.put("uno", uno);
 		if (stat.equals("open")) {
-			param.put("pno", pno);
-			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByPno(param);
-			for (int i = 0; i < issuesList.size(); i++) {
+			/*for (int i = 0; i < issuesList.size(); i++) {
 				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
-			}
+			}*/
 		} else if (stat.equals("closed")) {
-			param.put("pno", pno);
-			param.put("uno", uno);
 			param.put("istatement", "001");
 			issuesList = issuesService.getIssuesByPno(param);
-			for (int i = 0; i < issuesList.size(); i++) {
+			/*for (int i = 0; i < issuesList.size(); i++) {
 				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
-			}
+			}*/
 		} else {
-			param.put("pno", pno);
-			param.put("uno", uno);
 			issuesList = issuesService.getIssuesByPno(param);
-			for (int i = 0; i < issuesList.size(); i++) {
+			/*for (int i = 0; i < issuesList.size(); i++) {
 				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
 				issuesList.get(i).setLabels(labelList);
-			}
+			}*/
 		}
 		model.addAttribute("stat", stat);
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
-		model.addAttribute("allMilestoneList", allMilestoneList);
+		model.addAttribute("milestoneList", milestoneList);
 
 		return "/Project/myProjects/Issues/issues";
 	}
@@ -107,8 +103,8 @@ public class IssueController {
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
 		Issue issues = issuesService.getIssuesByIno(ino);
-		List<Label> labelList = issuesService.getLabelsByIno(ino);
-		issues.setLabels(labelList);
+//		List<Label> labelList = issuesService.getLabelsByIno(ino);
+//		issues.setLabels(labelList);
 
 		// ino로 파일 리스트 불러오기
 		List<Files> fileList = issuesService.getFileListByIno(ino);
@@ -148,13 +144,13 @@ public class IssueController {
 	@RequestMapping("/{uno}/{pno}/issues/new")
 	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
 		List<Label> labels = issuesService.getAllLabel();
-		List<User> userList = issuesService.getAllUserNameAndNo();
-		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
+		List<User> userList = issuesService.getUserListByPno(pno);
+		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("labels", labels);
 		model.addAttribute("userList", userList);
-		model.addAttribute("allMilestoneList", allMilestoneList);
+		model.addAttribute("milestoneList", milestoneList);
 
 		return "/issues/newIssue";
 	}
@@ -165,21 +161,22 @@ public class IssueController {
 			HttpServletRequest request) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
-		logger.info("weight : " + issues.getIweight());
 		logger.info("pno : " + issues.getPno());
 		logger.info("lno : " + issues.getLno());
-		String[] lnos = String.valueOf(issues.getLno()).split(",");
-		logger.info("lno[0] : " + lnos[0]);
+//		String[] lnos = String.valueOf(issues.getLno()).split(",");
+//		logger.info("lno[0] : " + lnos[0]);
 		issuesService.saveIssues(issues, request);
 		int lastInsertIno = issuesService.getLastIno();
 		logger.info("ino : " + String.valueOf(lastInsertIno));
 		IssueLabel issueLabel = new IssueLabel();
 		issueLabel.setIno(lastInsertIno);
-		if (lnos != null && lnos.length > 0 && !lnos[0].equals("0")) {
-			for (int i = 0; i < lnos.length; i++) {
-				issueLabel.setLno(Integer.parseInt(lnos[i]));
-				issuesService.saveIssueLabel(issueLabel);
-			}
+		if (issues.getLno() != 0) {
+			issueLabel.setLno(issues.getLno());
+			issuesService.saveIssueLabel(issueLabel);
+//			for (int i = 0; i < lnos.length; i++) {
+//				issueLabel.setLno(Integer.parseInt(lnos[i]));
+//				issuesService.saveIssueLabel(issueLabel);
+//			}
 		}
 		
 		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
@@ -205,16 +202,15 @@ public class IssueController {
 	public String editFormIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
 			@PathVariable("ino") int ino, @ModelAttribute("issues") Issue issues, Model model) {
 		issues = issuesService.getIssuesByIno(ino);
-		List<User> userList = issuesService.getAllUserNameAndNo();
+		List<User> userList = issuesService.getUserListByPno(pno);
 		List<Label> labelList = issuesService.getAllLabel();
-		List<Milestone> milestoneList = issuesService.getAllMilestone();
+		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		// ino로 파일 리스트 불러오기
 		List<Files> fileList = issuesService.getFileListByIno(ino);
 		logger.info("---------------update page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
-		logger.info("weight : " + issues.getIweight());
 
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
@@ -234,17 +230,19 @@ public class IssueController {
 		logger.info("---------------updating page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
-		logger.info("weight : " + issues.getIweight());
 		logger.info("lnos : " + issues.getLno());
-		String[] lnos = String.valueOf(issues.getLno()).split(",");
-		if (lnos != null && lnos.length > 0 && !lnos[0].equals("0")) {
+//		String[] lnos = String.valueOf(issues.getLno()).split(",");
+		if (issues.getLno() != 0) {
 			issuesService.removeIssueLabelForUpdate(issues);
 			IssueLabel issueLabel = new IssueLabel();
-			for (int i = 0; i < lnos.length; i++) {
-				issueLabel.setLno(Integer.parseInt(lnos[i]));
-				issueLabel.setIno(issues.getIno());
-				issuesService.saveIssueLabel(issueLabel);
-			}
+			issueLabel.setLno(issues.getLno());
+			issueLabel.setIno(issues.getIno());
+			issuesService.saveIssueLabel(issueLabel);
+//			for (int i = 0; i < lnos.length; i++) {
+//				issueLabel.setLno(Integer.parseInt(lnos[i]));
+//				issueLabel.setIno(issues.getIno());
+//				issuesService.saveIssueLabel(issueLabel);
+//			}
 			issuesService.updateIssueByIno(issues, request);
 		} else {
 			issuesService.removeIssueLabelForUpdate(issues);
@@ -277,30 +275,28 @@ public class IssueController {
 	public String searchIssueByUno(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
 			@PathVariable("statement") String stat, @RequestParam(value = "userNo", required = false) Integer userNo,
 			@RequestParam(value = "mno", required = false) Integer mno,
-			@RequestParam(value = "lno", required = false) Integer lno,
-			@RequestParam(value = "weight", required = false) Integer weight, Model model) {
+			@RequestParam(value = "lno", required = false) Integer lno, Model model) {
 		logger.info("userNo : " + userNo);
 		logger.info("mno : " + mno);
 		logger.info("lno : " + lno);
-		logger.info("weight : " + weight);
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issue> issuesList = new ArrayList<Issue>();
-		List<Label> labelList = new ArrayList<Label>();
-		List<User> userList = issuesService.getAllUserNameAndNo();
+//		List<Label> labelList = new ArrayList<Label>();
+		List<User> userList = issuesService.getUserListByPno(pno);
 		List<Label> allLabelList = issuesService.getAllLabel();
-		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
+		List<Milestone> allMilestoneList = issuesService.getMilestoneByPno(pno);
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("istatement", "000");
 			param.put("userNo", userNo);
 			param.put("mno", mno);
 			param.put("lno", lno);
-			param.put("weight", weight);
+//			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
-			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issuesList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+//				issuesList.get(i).setLabels(labelList);
+//			}
 		}
 		if (stat.equals("closed")) {
 			param.put("pno", pno);
@@ -308,24 +304,24 @@ public class IssueController {
 			param.put("userNo", userNo);
 			param.put("mno", mno);
 			param.put("lno", lno);
-			param.put("weight", weight);
+//			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
 			System.out.println(issuesList.size());
-			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issuesList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+//				issuesList.get(i).setLabels(labelList);
+//			}
 		} else {
 			param.put("pno", pno);
 			param.put("userNo", userNo);
 			param.put("mno", mno);
 			param.put("lno", lno);
-			param.put("weight", weight);
+//			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
-			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issuesList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+//				issuesList.get(i).setLabels(labelList);
+//			}
 		}
 
 		model.addAttribute("stat", stat);
@@ -343,7 +339,7 @@ public class IssueController {
 	public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
 		List<Issue> issueList = new ArrayList<Issue>();
-		List<Label> labelList = new ArrayList<Label>();
+//		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
@@ -352,25 +348,25 @@ public class IssueController {
 			param.put("uno", uno);
 			param.put("istatement", "000");
 			issueList = issuesService.getIssuesByUno(param);
-			for (int i = 0; i < issueList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
-				issueList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issueList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
+//				issueList.get(i).setLabels(labelList);
+//			}
 		} else if (stat.equals("closed")) {
 			param.put("uno", uno);
 			param.put("istatement", "001");
 			issueList = issuesService.getIssuesByUno(param);
-			for (int i = 0; i < issueList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
-				issueList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issueList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
+//				issueList.get(i).setLabels(labelList);
+//			}
 		} else {
 			param.put("uno", uno);
 			issueList = issuesService.getIssuesByUno(param);
-			for (int i = 0; i < issueList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
-				issueList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issueList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
+//				issueList.get(i).setLabels(labelList);
+//			}
 		}
 
 		model.addAttribute("stat", stat);
@@ -394,7 +390,7 @@ public class IssueController {
 		logger.info("weight : " + weight);
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issue> issuesList = new ArrayList<Issue>();
-		List<Label> labelList = new ArrayList<Label>();
+//		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
@@ -406,10 +402,10 @@ public class IssueController {
 			param.put("lno", lno);
 			param.put("weight", weight);
 			issuesList = issuesService.searchIssuesByParam(param);
-			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issuesList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+//				issuesList.get(i).setLabels(labelList);
+//			}
 		}
 		if (stat.equals("closed")) {
 			// param.put("pno", pno);
@@ -420,10 +416,10 @@ public class IssueController {
 			param.put("weight", weight);
 			issuesList = issuesService.searchIssuesByParam(param);
 			System.out.println(issuesList.size());
-			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issuesList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+//				issuesList.get(i).setLabels(labelList);
+//			}
 		} else {
 			// param.put("pno", pno);
 			param.put("uno", uno);
@@ -431,10 +427,10 @@ public class IssueController {
 			param.put("lno", lno);
 			param.put("weight", weight);
 			issuesList = issuesService.searchIssuesByParam(param);
-			for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}
+//			for (int i = 0; i < issuesList.size(); i++) {
+//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
+//				issuesList.get(i).setLabels(labelList);
+//			}
 		}
 
 		model.addAttribute("stat", stat);

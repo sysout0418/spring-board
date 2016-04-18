@@ -9,11 +9,11 @@ public class Issue {
 	private int ino;
 	private String ititle;
 	private String idescription;
-	private int iweight;
 	private String istatement;
 	private int mno;
 	private int pno;
 	private int uno;
+	private String iduedate;
 	
 	/** 03.27 table JOIN을 위한 필드 추가 **/
 	private String uname;
@@ -22,9 +22,6 @@ public class Issue {
 	private String ltitle;
 	private String ldescription;
 	private String lbgcolor;
-	private List<Label> labels = new ArrayList<Label>();
-	
-	/*******************************/
 	
 	public int getIno() {
 		return ino;
@@ -43,12 +40,6 @@ public class Issue {
 	}
 	public void setIdescription(String idescription) {
 		this.idescription = idescription;
-	}
-	public int getIweight() {
-		return iweight;
-	}
-	public void setIweight(int iweight) {
-		this.iweight = iweight;
 	}
 	public String getIstatement() {
 		return istatement;
@@ -75,11 +66,10 @@ public class Issue {
 		this.uno = uno;
 	}
 	
-	/********************* 03.27 추가 **********************/
 	public String getUname() {
 		return uname;
 	}
-	public void setUtame(String uname) {
+	public void setUname(String uname) {
 		this.uname = uname;
 	}
 	public String getMtitle() {
@@ -112,13 +102,11 @@ public class Issue {
 	public void setLbgcolor(String lbgcolor) {
 		this.lbgcolor = lbgcolor;
 	}
-	public List<Label> getLabels() {
-		return labels;
+	public String getIduedate() {
+		return iduedate;
 	}
-	public void setLabels(List<Label> labels) {
-		this.labels = labels;
+	public void setIduedate(String iduedate) {
+		this.iduedate = iduedate;
 	}
-	/****************************************************/ 
-	
 	
 }

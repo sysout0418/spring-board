@@ -59,6 +59,10 @@ public class IssueDao {
 		return sqlSession.selectList("issues.searchIssues", param);
 	}
 	
+	public List<Milestone> getMilestoneByPno(int pno) {
+		return sqlSession.selectList("issues.getMilestoneByPno", pno);
+	}
+	
 	public List<Milestone> getAllMilestone() {
 		return sqlSession.selectList("issues.getAllMilestone");
 	}
@@ -89,6 +93,10 @@ public class IssueDao {
 	
 	public List<Label> getAllLabel() {
 		return sqlSession.selectList("issues.getAllLabel");
+	}
+	
+	public List<User> getUserListByPno(int pno) {
+		return sqlSession.selectList("issues.getUserListByPno", pno);
 	}
 	
 	public List<User> getAllUserNameAndNo() {
