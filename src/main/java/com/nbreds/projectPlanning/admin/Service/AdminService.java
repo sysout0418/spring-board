@@ -23,9 +23,14 @@ public interface AdminService {
 
 	int getCountProjects();
 
-	List<Project> getAllProjects();
+	List<Project> getAllProjects(Map<String, Object> param);
 
+	int totalProjectCount(Map<String, Object> param);
+	
 	void removeProjects(int i);
+	
+	/** 회원 탈퇴처리 -> Authority 테이블 enabled 컬럼값 0으로 update */
+	void removeUsers(int uno);
 	
 	/** 모든 유저 리스트 가져오기 */
 	List<User> selectAllUser(Map<String, Object> param);

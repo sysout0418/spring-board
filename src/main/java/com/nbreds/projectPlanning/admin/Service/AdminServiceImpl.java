@@ -41,13 +41,23 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Project> getAllProjects() {
-		return adminDao.getAllProjects();
+	public List<Project> getAllProjects(Map<String, Object> param) {
+		return adminDao.getAllProjects(param);
+	}
+	
+	@Override
+	public int totalProjectCount(Map<String, Object> param) {
+		return adminDao.totalProjectCount(param);
 	}
 	
 	@Override
 	public void removeProjects(int i) {
 		adminDao.removeProjects(i);
+	}
+	
+	@Override
+	public void removeUsers(int uno) {
+		adminDao.removeUsers(uno);
 	}
 	
 	@Override
@@ -74,4 +84,6 @@ public class AdminServiceImpl implements AdminService {
 	public List<Project> getProjectsByUname(String item) {
 		return adminDao.getProjectsByUname(item);
 	}
+
+
 }

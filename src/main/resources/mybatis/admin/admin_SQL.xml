@@ -37,13 +37,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getAllProjects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <!-- <select id="getAllProjects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
 	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
 	FROM Project P, User U
 	WHERE P.uno = U.uno
 	ORDER BY P.pregdate DESC
     ]]>  
+    </select> -->
+    
+    <!-- 페이징 처리를 위한 getAllProjects -->
+	<select id="getAllProjects" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<![CDATA[	
+		SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+		FROM Project P
+		JOIN User U
+		ON P.uno = U.uno
+		]]>
+		<if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('pname')">
+						AND P.pname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('uname')">
+						AND U.uname like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	<![CDATA[
+	ORDER BY P.pno DESC
+	LIMIT #{start}, #{interval}
+	]]>
+	</select>
+	
+	<!-- 페이징 처리를 위한 totalProjectCount -->
+    <select id="totalProjectCount" parameterType="Map" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM Project
+    ]]>
+    <if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('name')">
+						P.pname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('phoneNumber')">
+						U.uname like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
     </select>
     
     <delete id="removeProjects" parameterType="int">
@@ -51,34 +97,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     delete from Project where pno=#{i}
     ]]>  
     </delete>
-	
-	<!-- 
-    <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    
+    <update id="removeUsers" parameterType="int">
     <![CDATA[
-    SELECT pno, pname, pdetail, pdata, pduedate, uno
-    FROM Project
-    ]]>
-    <if test="pdata != null">
-		<where>
-			<foreach collection="pdata" item="data" index="index" separator="or">
-		<![CDATA[
-				pdata like '%' #{data} '%'
-		]]>
-			</foreach>
-		</where>
-	</if>
-	<![CDATA[
-	ORDER BY pno DESC
-	LIMIT #{start}, #{interval}
-    ]]>
-    </select>
-    -->
+    UPDATE Authority SET enabled = '0' WHERE uno = #{uno}
+    ]]>  
+    </update>
     
     <!-- 페이징 처리를 위한 selectAllUser -->
 	<select id="selectAllUser" parameterType="Map" resultType="com.nbreds.projectPlanning.common.VO.User">
 	<![CDATA[	
-		SELECT uno, uname, uphoneno, udepartment, uemail, upassword, uregdate
-		FROM User
+		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate, authority, enabled
+		FROM User u
+		JOIN Authority a
+		ON u.uno = a.uno
 		]]>
 		<if test="word != null and !word.equals('') and !key.equals('all')">
 			<where>
@@ -96,12 +128,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</where>
 		</if>
 	<![CDATA[
-	ORDER BY uno DESC
+	ORDER BY uregdate ASC
 	LIMIT #{start}, #{interval}
 	]]>
 	</select>
 	
-	<!-- 페이징 처리를 위한 totalCount -->
+	<!-- 페이징 처리를 위한 totalUserCount -->
     <select id="totalUserCount" parameterType="Map" resultType="int">
     <![CDATA[
     SELECT COUNT(*) cnt

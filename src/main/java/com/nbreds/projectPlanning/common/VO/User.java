@@ -11,6 +11,8 @@ public class User {
 	private String uemail;
 	private String upassword;
 	private String uregdate;
+	private String authority;
+	private String enabled;
 	
 	public String getUname() {
 		return uname;
@@ -59,6 +61,18 @@ public class User {
 	}
 	public void setUdepartmentName(String udepartmentName) {
 		this.udepartmentName = udepartmentName;
+	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+	public String getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 	@Override
 	public String toString() {

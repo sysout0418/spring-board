@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,6 +38,16 @@ public class AdminController {
 		List<User> user = adminService.get5Users();
 		List<Project> project = adminService.get5Projects();
 		
+		// 부서 코드 한글화
+		List<CodeTable> departmentCodeList = getDepartmentList();
+		for (int i = 0; i < user.size(); i++) {
+			for (int j = 0; j < departmentCodeList.size(); j++) {
+				if (user.get(i).getUdepartment().equals(departmentCodeList.get(j).getCODE())) {
+					user.get(i).setUdepartmentName(departmentCodeList.get(j).getCODE_NAME());
+				}
+			}
+		}
+		
 		model.addAttribute("countUsers", countUsers);
 		model.addAttribute("countProjects", countProjects);
 		model.addAttribute("user", user);
@@ -50,9 +61,10 @@ public class AdminController {
 		String word = request.getParameter("word");
 		String key = request.getParameter("key");
 		String page = request.getParameter("pageNo");
-		logger.info(word);
-		logger.info(key);
-		logger.info(page);
+		logger.info("검색어: " + word);
+		logger.info("검색조건: " + key);
+		logger.info("pageNo: " + page);
+		
 		int pageNo;
 		try {
 			pageNo = Integer.parseInt(page);
@@ -60,6 +72,7 @@ public class AdminController {
 			// page 정보가 전송되지 않은 경우 이므로 첫 페이지로 처리하기위해.
 			pageNo = 1;
 		}
+		
 		// 페이지빈 생성자로 페이지 정보 셋팅하고 Map으로 값 SQL.xml로 전달
 		PageBean pageBean = new PageBean(key, word, null, pageNo);
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -76,7 +89,7 @@ public class AdminController {
 		// 유저 리스트 가져오기
 		List<User> allUserList = adminService.selectAllUser(param);
 		
-		// 코드 한글화
+		// 부서 코드 한글화
 		List<CodeTable> departmentCodeList = getDepartmentList();
 		for (int i = 0; i < allUserList.size(); i++) {
 			for (int j = 0; j < departmentCodeList.size(); j++) {
@@ -91,41 +104,84 @@ public class AdminController {
 		return "/admin/allUsers";
 	}
 	
-	@RequestMapping(value = "/admin/projects", method = RequestMethod.GET)
-	public String projects(Model model) {
+	@RequestMapping("/admin/projects")
+	public String projects(Model model, HttpServletRequest request) throws Exception {
+		String word = request.getParameter("word");
+		String key = request.getParameter("key");
+		String page = request.getParameter("pageNo");
+		logger.info("검색어: " + word);
+		logger.info("검색조건: " + key);
+		logger.info("pageNo: " + page);
+		
+		int pageNo;
+		try {
+			pageNo = Integer.parseInt(page);
+		} catch (Exception e) {
+			// page 정보가 전송되지 않은 경우 이므로 첫 페이지로 처리하기위해.
+			pageNo = 1;
+		}
+		
+		// 페이지빈 생성자로 페이지 정보 셋팅하고 Map으로 값 SQL.xml로 전달
+		PageBean pageBean = new PageBean(key, word, null, pageNo);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("key", key);
+		param.put("word", word);
+		param.put("start", pageBean.getStart());
+		param.put("interval", pageBean.getInterval());
+		
+		// 페이지바 생성
+		int totalPrjCnt = adminService.totalProjectCount(param);
+		PageUtility bar = new PageUtility(pageBean.getInterval(), totalPrjCnt, pageBean.getPageNo());
+		pageBean.setPagelink(bar.getPageBar());
+		
 		int countProjects = adminService.getCountProjects();
-		List<Project> project = adminService.getAllProjects();
+		List<Project> project = adminService.getAllProjects(param);
 		
 		model.addAttribute("countProjects", countProjects);
 		model.addAttribute("project", project);
+		model.addAttribute("pageBean", pageBean);
 		
 		return "/admin/allProjects";
 	}
 	
-	@RequestMapping(value = "/admin/projects/delete", method = RequestMethod.POST)
-	public String deleteProjects(int pno[]) {
-		for (int i : pno) {
-			adminService.removeProjects(i);
+	@RequestMapping("/admin/users/delete")
+	public String deleteUsers(HttpServletRequest request) {
+		String[] checkedUserList = request.getParameterValues("cbList");
+		if (checkedUserList != null) {
+			for (int i = 0; i < checkedUserList.length; i++) {
+				logger.info("checkedUserList[" + i + "] : " + checkedUserList[i]);
+				adminService.removeUsers(Integer.parseInt(checkedUserList[i]));
+			}
+		}
+		
+		return "redirect:/admin/users";
+	}
+	
+	@RequestMapping("/admin/projects/delete")
+	public String deleteProjects(HttpServletRequest request) {
+		String[] checkedPnoList = request.getParameterValues("pno");
+		if (checkedPnoList != null) {
+			for (int i = 0; i < checkedPnoList.length; i++) {
+				logger.info("checkedPnoList[" + i + "] : " + checkedPnoList[i]);
+				adminService.removeProjects(Integer.parseInt(checkedPnoList[i]));
+			}
 		}
 		
 		return "redirect:/admin/projects";
 	}
 	
-	@RequestMapping(value = "/admin/projects/search", method = RequestMethod.GET)
-	public String searchProjects(String group, String item, Model model) {
-		int countProjects = adminService.getCountProjects();
-		List<Project> project = null;
-		if(group.equals("프로젝트명")){
-			project = adminService.getProjectsByPname(item);
-		}
-		else if(group.equals("담당자")){
-			project = adminService.getProjectsByUname(item);
-		}
+	@RequestMapping("/admin/users/detail/{uno}")
+	public String userDetail(@PathVariable("uno") int uno) {
+		logger.info("uno: " + uno);
 		
-		model.addAttribute("countProjects", countProjects);
-		model.addAttribute("project", project);
+		return "/admin/userDetail";
+	}
+	
+	@RequestMapping("/admin/users/editForm/{uno}")
+	public String userEditForm(@PathVariable("uno") int uno) {
+		logger.info("uno: " + uno);
 		
-		return "/admin/allProjects";
+		return "/admin/userEditForm";
 	}
 	
 	@ModelAttribute("department")

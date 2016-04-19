@@ -28,11 +28,13 @@
 							<input type="checkbox" name="cbListAll" onclick="checkCbListAll()">
 						</label>
 					</div></th>
-				<th>name</th>
-				<th>phone number</th>
-				<th>department</th>
-				<th>email</th>
-				<th>registered date</th>
+				<th>이름</th>
+				<th>휴대폰 번호</th>
+				<th>부서</th>
+				<th>이메일</th>
+				<th>가입일</th>
+				<th>탈퇴여부</th>
+				<th>관리</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -43,15 +45,25 @@
 								<input type="checkbox" name="cbList" value="${user.uno}">
 							</label>
 						</div></td>
-					<td><a href="회원정보 수정 URL">${user.uname}</a></td>
+					<td><a href="/admin/users/detail/${user.uno}">${user.uname}</a></td>
 					<td>${user.uphoneno}</td>
 					<td>${user.udepartmentName}</td>
 					<td>${user.uemail}</td>
 					<td>${user.uregdate}</td>
+					<c:choose>
+						<c:when test="${user.enabled == 0}">
+							<td>Y</td>
+						</c:when>
+						<c:otherwise>
+							<td>N</td>
+						</c:otherwise>
+					</c:choose>
+					<td><a href="/admin/users/editForm/${user.uno}">수정</a>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	<button class="btn btn-primary" onclick="delList()">선택 회원 탈퇴</button>
 	
 	<!-- 페이징 -->
 	<div align="center">
@@ -59,7 +71,6 @@
 	</div>
 	
 	</form>
-	<a href="#" class="btn btn-danger">회원 강제탈퇴</a>
 </div>
 <script type="text/javascript">
 function pagelist(page) {
@@ -125,12 +136,12 @@ function delList() {
 	}
 
 	if (items == "") {
-		alert("삭제 선택");
+		alert("탈퇴 처리 할 유저를 선택하세요.");
 		return false;
 	}
 
-	if (confirm("삭제?")) {
-		f.action = "URL";
+	if (confirm("정말로 해당 회원을 탈퇴 처리 하시겠습니까?")) {
+		f.action = "/admin/users/delete";
 		f.submit();
 	}
 }

@@ -9,17 +9,17 @@
 총 회원 수 ${countUsers}명
 <table class="table">
 <tr class="active">
-	<td>name</td>
-	<td>phone number</td>
-	<td>department</td>
-	<td>email</td>
-	<td>regdate</td>
+	<td>이름</td>
+	<td>휴대폰 번호</td>
+	<td>부서</td>
+	<td>이메일</td>
+	<td>가입일</td>
 </tr>
 <c:forEach items="${user}" var="user">
 <tr>
 	<td>${user.uname}</td>
 	<td>${user.uphoneno}</td>
-	<td>${user.udepartment}</td>
+	<td>${user.udepartmentName}</td>
 	<td>${user.uemail}</td>
 	<td>${user.uregdate}</td>
 </tr>
@@ -29,7 +29,7 @@
 <a class="btn btn-primary" href="/admin/users" role="button">회원 전체보기</a>
 <br><br>
 신규 프로젝트<br>
-총 프로젝트 수 ${countProjects}명
+총 프로젝트 수 ${countProjects}개
 <table class="table">
 <tr class="active">
 	<td>프로젝트명</td>

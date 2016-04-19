@@ -2,19 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp"/>
+<jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
 <!-- Begin page content -->
 <div style="width:1200; margin:0 auto; background-color: #fff">
 <h4>Projects</h4>
-총 프로젝트 수 ${countProjects}명<br>
-<form class="form-inline" action="/admin/projects/search" method="get">
-<select class="form-control" id="group" name="group">
-  <option>프로젝트명</option>
-  <option>담당자</option>
-</select>
-<input type="text" class="form-control" id="item" name="item">
-<button type="submit" class="btn btn-primary">검색</button>
-</form>
-<form action="/admin/projects/delete" method="post">
+총 프로젝트 수 ${countProjects}개<br>
+<form name="frm" id="frm" method="post">
+<div class="form-inline">
+	<select class="form-control" id="group" name="key" >
+		<option value="all" <%=pageBean.getKey("all")%>>모두</option>
+		<option value="pname" <%=pageBean.getKey("pname")%>>프로젝트명</option>
+		<option value="uname" <%=pageBean.getKey("uname")%>>담당자</option>
+	</select>
+	<input type="text" class="form-control" placeholder="Search" name="word" id="word" value="${pageBean.word}">
+	<button type="button" class="btn btn-primary" onclick="javascript:pagelist(1)">검색</button>
+</div>
+<input type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
 <table class="table">
 <tr class="active">
 	<td><input type="checkbox" id="allCheck"></td>
@@ -34,26 +37,21 @@
 	<td><a href="/update?pno=${project.pno}">수정</a></td>
 </tr>
 </c:forEach>
-<tr><td><button class="btn btn-primary">선택삭제</button></td></tr>
 </table>
+<button class="btn btn-primary" onclick="delList()">선택삭제</button>
+<!-- 페이징 -->
 <div align="center">
-	<ul class="pagination">
-  		<li><a href="list?pageNo=1">처음</a></li>
-  		<c:if test="${groupNo >1 }">
-		<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-		</c:if>
-		<c:forEach var="i" begin="${startPageNo}" end = "${endPageNo}">
-			<li <c:if test="${pageNo ==i}">class="active"</c:if>><a href="list?pageNo=${i}">${i}</a></li>
-		</c:forEach>
-		<c:if test="${groupNo < totalGroupNo }">
-			<li><a href="list?pageNo=${endPageNo+1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-		</c:if>
-		<li><a href="?pageNo=${totalPageNo}">맨끝</a></li>
-  	</ul>
+	${pageBean.pagelink}
 </div>
 </form>
 </div>
 <script type="text/javascript">
+	function pagelist(page) {
+		$("#pageNo").val(page);
+		$("#frm").get(0).action = "/admin/projects";
+		$("#frm").get(0).submit();
+	}
+
 	$(function(){
 		$("#allCheck").click(function(){
 			if($("#allCheck").prop("checked")) {
@@ -63,5 +61,34 @@
 			}
 		})
 	})
+	
+	function delList() {
+	var f = document.frm;
+	var items = "";
+
+	if (!f.pno)
+		return false;
+
+	if (typeof (f.pno.length) == "undefined") {
+		if (f.pno.checked)
+			items = f.pno.value;
+	} else {
+		for (var i = 0; i < f.pno.length; i++) {
+			if (f.pno[i].checked) {
+				items += ((items) ? "," : "") + f.pno[i].value;
+			}
+		}
+	}
+
+	if (items == "") {
+		alert("삭제 할 프로젝트를 선택하세요.");
+		return false;
+	}
+
+	if (confirm("정말로 해당 프로젝트를 삭제 하시겠습니까?")) {
+		f.action = "/admin/projects/delete";
+		f.submit();
+	}
+}
 </script>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

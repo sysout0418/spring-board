@@ -36,12 +36,20 @@ public class AdminDao {
 		return sqlSession.selectOne("admin.getCountProjects");
 	}
 
-	public List<Project> getAllProjects() {
-		return sqlSession.selectList("admin.getAllProjects");
+	public List<Project> getAllProjects(Map<String, Object> param) {
+		return sqlSession.selectList("admin.getAllProjects", param);
+	}
+	
+	public int totalProjectCount(Map<String, Object> param) {
+		return sqlSession.selectOne("admin.totalProjectCount", param);
 	}
 
 	public void removeProjects(int i) {
 		sqlSession.delete("admin.removeProjects", i);
+	}
+	
+	public void removeUsers(int uno) {
+		sqlSession.update("admin.removeUsers", uno);
 	}
 	
 	public List<User> selectAllUser(Map<String, Object> param) {
