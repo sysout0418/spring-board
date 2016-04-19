@@ -103,7 +103,6 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 						<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">변경</a>
 						<div class="selectedUserList">
 							<c:forEach var="participate" items="${participatedUserList}">
-								<input type="hidden" name="oldRequestedUserNo" id="oldRequestedUserNo" value="${participate.uno}">
 								<span class="btn btn-warning btn-xs">${participate.uname}</span>&nbsp;
 							</c:forEach>
 						</div>
@@ -114,6 +113,11 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 							<div class="pop-container">
 								<div class="pop-conts">
 									<!--content //-->
+									<div class="checkbox">
+								        <label>
+								        	<input type="checkbox" name="userName" value="" alt="">없음
+								        </label>
+							        </div>
 									<c:forEach var="users" items="${allUserList}">
 										<div class="checkbox">
 								        	<label>
@@ -199,6 +203,8 @@ $('#okBtn').click(function(e){
 		for (var i = 0; i < userName.length; i++) {
 			$('.selectedUserList').append('<span class="btn btn-warning btn-xs">'+ userName[i] +'</span>&nbsp;');
 		}
+	} else {
+		$('.selectedUserList').empty();
 	}
 	e.preventDefault();
 });
@@ -246,13 +252,13 @@ function selectChkRow() {
 	//alert(rowid);
 }
 
-/* $(function() {
+$(function() {
 	var chk = document.getElementsByName("userName"); // 체크박스 객체
 	console.log($('.selectedUserList > span').text());
 	for (var i = 0; i < chk.length; i++) {
 		
 	}
-}); */
+});
 
 <%-- $(function () {
 	var pmember = $("#pmember").val().substring(0, $("#pmember").val().length - 1).split(",");

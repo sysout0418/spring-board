@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         
     <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail, uposition
+    select uno, uname, uphoneno, udepartment, uemail
     from User
     where uno=#{uno}
     ]]>  
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 2016. 04. 19. 플젝 업데이트에서 플젝 참여 인원 수정 시 모든 유저 리스트 팝업 띄우는 용도 -->
     <select id="getAllUser" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    SELECT uno, uname, uphoneno, udepartment, uemail, uposition
+    SELECT uno, uname, uphoneno, udepartment, uemail
     FROM User
     ]]>  
     </select>
@@ -77,22 +77,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM ProjectMemberStat p
     JOIN User u
     ON p.uno = u.uno
-    WHERE pno = #{pno} AND stat = '000'
+    WHERE pno = #{pno}
     ]]>  
     </select>
     
-    <!-- 2016. 04. 19. 플젝 수정 시 플젝 참여 인원 정보 update -->
-    <!-- <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
+    <!-- 2016. 04. 19. 플젝 수정 시 ProjectMemberStat 테이블 초기화 -->
+    <delete id="deleteMSByPno" parameterType="int">
     <![CDATA[
-    UPDATE Project SET
-	    pname = #{pname},
-		pdetail = #{pdetail},
-		pdata=#{pdata},
-		pregdate=curdate(),
-		pduedate=#{pduedate}
+    DELETE FROM ProjectMemberStat
 	WHERE pno = #{pno}
-	]]> 
-    </update> -->
+    ]]>
+	</delete>
+	
+    <!-- 2016. 04. 19. 플젝 수정 시 플젝 참여 인원 정보 INSERT -->
+	<insert id="saveProjectMS" parameterType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
+	<![CDATA[
+	INSERT INTO ProjectMemberStat (
+		uno
+		,pno
+	) VALUES (
+		#{uno}
+		,#{pno}
+	)
+    ]]>  
+    </insert>
     
     <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
     <![CDATA[
@@ -102,7 +110,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getUsersForName" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail, uposition
+    select uno, uname, uphoneno, udepartment, uemail
     from User
     where uname like '%' #{uname} '%'
     ]]>  

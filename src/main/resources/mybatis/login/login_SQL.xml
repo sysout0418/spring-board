@@ -11,14 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,uphoneno
 		  ,udepartment
 		  ,uemail
-		  ,uposition
 		  ,upassword
 		) VALUES (
 		  #{uname}
 		  ,#{uphoneno}
 		  ,#{udepartment}
 		  ,#{uemail}
-		  ,#{uposition}
 		  ,#{upassword}
 		);
     ]]>  
@@ -32,7 +30,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ,uphoneno
     ,udepartment
     ,uemail
-    ,uposition
     ,upassword
     FROM User
     WHERE uemail = #{uemail} and upassword = #{upassword}
@@ -47,7 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ,uphoneno
     ,udepartment
     ,uemail
-    ,uposition
     ,upassword
     FROM User
     WHERE uemail = #{uemail}
@@ -62,7 +58,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ,uphoneno
     ,udepartment
     ,uemail as username
-    ,uposition
     ,upassword as password
     ,authority
     ,enabled

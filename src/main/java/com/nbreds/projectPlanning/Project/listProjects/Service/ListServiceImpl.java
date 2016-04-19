@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
@@ -40,8 +42,27 @@ public class ListServiceImpl implements ListService {
 		listDao.removeProject(pno);
 	}
 
-	public void updateProject(Project project, String requestedUserNoList) {
-		listDao.updateProject(project);
+	@Override
+	@Transactional
+	public void updateProject(Project project, String requestUserNoList) {
+		try {
+			listDao.updateProject(project);
+			ProjectMemberStat projectMS = new ProjectMemberStat();
+			projectMS.setPno(project.getPno());
+			String[] requestUserNos = requestUserNoList.split(",");
+			if (requestUserNos != null && !requestUserNos[0].equals("")) {
+				deleteMSByPno(project.getPno());
+				for (int i = 0; i < requestUserNos.length; i++) {
+					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
+					saveProjectMS(projectMS);
+				}
+			} else {
+				deleteMSByPno(project.getPno());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
 	}
 	
 	public User getUserForNo(int uno) {
@@ -63,6 +84,16 @@ public class ListServiceImpl implements ListService {
 		return listDao.getAllUser();
 	}
 	
+	@Override
+	public void deleteMSByPno(int pno) {
+		listDao.deleteMSByPno(pno);
+	}
+	
+	@Override
+	public void saveProjectMS(ProjectMemberStat projectMS) {
+		listDao.saveProjectMS(projectMS);
+	}
+	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
 		return listDao.getCodeTable(CODE_TYPE);
 	}
@@ -70,6 +101,7 @@ public class ListServiceImpl implements ListService {
 	public List<User> getUsersForName(String uname) {
 		return listDao.getUsersForName(uname);
 	}
+
 
 
 

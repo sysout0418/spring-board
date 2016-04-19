@@ -292,7 +292,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUserListByPno" parameterType="int"
 		resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    SELECT u.uno, uname, uphoneno, udepartment, uemail, uposition, pno, stat
+    SELECT u.uno, uname, uphoneno, udepartment, uemail, pno, stat
     FROM User u
     JOIN ProjectMemberStat p
     ON u.uno = p.uno
@@ -303,7 +303,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 2016. 04. 18. 모든 유저 리스트 가져오기 -->
 	<select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    SELECT u.uno, uname, uphoneno, udepartment, uemail, uposition
+    SELECT u.uno, uname, uphoneno, udepartment, uemail
     FROM User u
     ]]>
 	</select>

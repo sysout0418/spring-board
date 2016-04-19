@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail, uposition
+    select uno, uname, uphoneno, udepartment, uemail
     from User
     where uno=#{uno}
     ]]>  
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-     select pno, pname, pdetail, pdata, pduedate, uno from Project where pno=#{pno};
+     select pno, pname, pdetail, pdata, pregdate, pduedate, uno from Project where pno=#{pno};
     ]]>  
     </select>
     
@@ -49,6 +49,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT U.uname, S.stat, C.CODE_NAME
 	FROM ProjectMemberStat S, User U, CodeTable C
 	WHERE S.uno = U.uno AND S.stat=C.CODE AND C.CODE_TYPE=010 AND S.pno=#{pno}
+    ]]>  
+    </select>
+    
+    <!-- 2016. 04. 19. 현재 pno에 참여하고 있는 플젝 인원 카운트 -->
+    <select id="getParticipateUserCnt" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM ProjectMemberStat
+    WHERE pno = #{pno}
     ]]>  
     </select>
 </mapper>

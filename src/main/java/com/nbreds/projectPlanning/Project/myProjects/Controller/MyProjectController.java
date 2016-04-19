@@ -31,7 +31,7 @@ public class MyProjectController {
 	public String  home(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model, HttpSession session) {
 		Project project = myProjectService.getProjectByPno(pno);
 		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
-		
+		int participatedUserCnt = myProjectService.getParticipateUserCnt(pno);
 		String pdata = project.getPdata();
 		//한글화
 		List<String> skills = (List<String>)commonController.getCodeForCodeType(pdata, "skills");
@@ -46,6 +46,7 @@ public class MyProjectController {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("project", project);
+		model.addAttribute("userCnt", participatedUserCnt);
 		
 		return "/Project/myProjects/selectedProject";
 	}

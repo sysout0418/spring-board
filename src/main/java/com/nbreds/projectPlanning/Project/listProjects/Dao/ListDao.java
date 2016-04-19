@@ -58,6 +58,14 @@ public class ListDao {
 		return sqlSession.selectList("project.list.getAllUser");
 	}
 	
+	public void deleteMSByPno(int pno) {
+		sqlSession.delete("project.list.deleteMSByPno", pno);
+	}
+	
+	public void saveProjectMS(ProjectMemberStat projectMS) {
+		sqlSession.insert("project.list.saveProjectMS", projectMS);
+	}
+	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
 		return sqlSession.selectList("project.list.getCodeTable", CODE_TYPE);
 	}

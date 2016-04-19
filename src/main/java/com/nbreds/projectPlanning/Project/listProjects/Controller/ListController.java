@@ -167,8 +167,8 @@ public class ListController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result) {
 		logger.info("pdata : "+project.getPdata());
-		String requestedUserNoList = request.getParameter("requestUserNoList");
-		listService.updateProject(project, requestedUserNoList);
+		String requestUserNoList = request.getParameter("requestUserNoList");
+		listService.updateProject(project, requestUserNoList);
 		
 		return "redirect:/DetailProject/"+project.getPno();
 	}

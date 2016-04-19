@@ -36,4 +36,8 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public List<HashMap<String, Object>> getRequestMember(int pno) {
 		return myProjectsDao.getRequestMember(pno);
 	}
+	@Override
+	public int getParticipateUserCnt(int pno) {
+		return myProjectsDao.getParticipateUserCnt(pno);
+	}
 }

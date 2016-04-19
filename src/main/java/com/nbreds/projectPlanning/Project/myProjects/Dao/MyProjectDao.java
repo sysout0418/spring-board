@@ -34,4 +34,8 @@ public class MyProjectDao {
 	public List<HashMap<String, Object>> getRequestMember(int pno) {
 		return sqlSession.selectList("project.my.getRequestMember", pno);
 	}
+	
+	public int getParticipateUserCnt(int pno) {
+		return sqlSession.selectOne("project.my.getParticipateUserCnt", pno);
+	}
 }

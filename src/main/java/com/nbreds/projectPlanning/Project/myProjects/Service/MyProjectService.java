@@ -23,4 +23,6 @@ public interface MyProjectService {
 	public List<Project> searchProject(HashMap<String, Object> param);
 
 	public List<HashMap<String, Object>> getRequestMember(int pno);
+	
+	int getParticipateUserCnt(int pno);
 }

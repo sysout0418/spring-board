@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail, uposition
+    select uno, uname, uphoneno, udepartment, uemail
     from User
     where uno=#{uno}
     ]]>  

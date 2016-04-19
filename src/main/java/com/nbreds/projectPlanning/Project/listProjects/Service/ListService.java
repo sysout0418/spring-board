@@ -24,7 +24,7 @@ public interface ListService {
 
 	public void removeProject(int pno);
 
-	public void updateProject(Project project, String requestedUserNoList);
+	public void updateProject(Project project, String requestUserNoList);
 	
 	public User getUserForNo(int uno);
 	
@@ -34,7 +34,12 @@ public interface ListService {
 	
 	List<User> getAllUser();
 	
+	void deleteMSByPno(int pno);
+	
+	void saveProjectMS(ProjectMemberStat projectMS);
+	
 	public List<CodeTable> getCodeTable(String CODE_TYPE);
 	
 	public List<User> getUsersForName(String uname);
+	
 }
