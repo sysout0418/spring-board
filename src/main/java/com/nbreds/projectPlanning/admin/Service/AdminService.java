@@ -6,13 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Service
 public interface AdminService {
 	static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
-
+	
 	List<Project> get5Projects();
 
 	List<User> get5Users();
@@ -24,4 +25,10 @@ public interface AdminService {
 	List<Project> getAllProjects();
 
 	void removeProjects(int i);
+	
+	/** 모든 유저 리스트 가져오기 */
+	List<User> selectAllUser();
+	
+	/** 부서 한글화를 위해서 CodeTable에서 CODE_NAME 가져오기 */
+	List<CodeTable> getDepartmentList(String codeType);
 }

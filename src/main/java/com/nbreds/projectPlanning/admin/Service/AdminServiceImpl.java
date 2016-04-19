@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Dao.AdminDao;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Service("AdminService")
@@ -46,5 +47,15 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void removeProjects(int i) {
 		adminDao.removeProjects(i);
+	}
+	
+	@Override
+	public List<User> selectAllUser() {
+		return adminDao.selectAllUser();
+	}
+
+	@Override
+	public List<CodeTable> getDepartmentList(String codeType) {
+		return adminDao.getDepartmentList(codeType);
 	}
 }

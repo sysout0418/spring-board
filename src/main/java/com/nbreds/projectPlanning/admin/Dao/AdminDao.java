@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -17,7 +18,7 @@ public class AdminDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	public List<Project> get5Projects() {
 		return sqlSession.selectList("admin.get5Projects");
 	}
@@ -41,4 +42,13 @@ public class AdminDao {
 	public void removeProjects(int i) {
 		sqlSession.delete("admin.removeProjects", i);
 	}
+	
+	public List<User> selectAllUser() {
+		return sqlSession.selectList("admin.selectAllUser");
+	}
+
+	public List<CodeTable> getDepartmentList(String codeType) {
+		return sqlSession.selectList("admin.getDepartmentList", codeType);
+	}
+	
 }

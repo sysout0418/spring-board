@@ -7,11 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Service.AdminService;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
@@ -37,8 +39,18 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
-	public String users() {
-
+	public String users(Model model) {
+		List<User> allUserList = adminService.selectAllUser();
+		List<CodeTable> departmentCodeList = getDepartmentList();
+		for (int i = 0; i < allUserList.size(); i++) {
+			for (int j = 0; j < departmentCodeList.size(); j++) {
+				if (allUserList.get(i).getUdepartment().equals(departmentCodeList.get(j).getCODE())) {
+					allUserList.get(i).setUdepartmentName(departmentCodeList.get(j).getCODE_NAME());
+				}
+			}
+		}
+		
+		model.addAttribute("allUserList", allUserList);
 		return "/admin/allUsers";
 	}
 	
@@ -60,5 +72,12 @@ public class AdminController {
 		}
 		
 		return "redirect:/admin/projects";
+	}
+	
+	@ModelAttribute("department")
+	public List<CodeTable> getDepartmentList(){
+		List<CodeTable> departmentList = adminService.getDepartmentList("002");
+		
+		return departmentList;
 	}
 }

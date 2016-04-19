@@ -7,6 +7,7 @@ public class User {
 	private String uname;
 	private String uphoneno;
 	private String udepartment;
+	private String udepartmentName;
 	private String uemail;
 	private String upassword;
 	private String uregdate;
@@ -52,6 +53,12 @@ public class User {
 	}
 	public void setUregdate(String uregdate) {
 		this.uregdate = uregdate;
+	}
+	public String getUdepartmentName() {
+		return udepartmentName;
+	}
+	public void setUdepartmentName(String udepartmentName) {
+		this.udepartmentName = udepartmentName;
 	}
 	@Override
 	public String toString() {
