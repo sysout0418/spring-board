@@ -1,6 +1,10 @@
 package com.nbreds.projectPlanning.admin.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,8 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Service.AdminService;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.common.util.PageBean;
+import com.nbreds.projectPlanning.common.util.PageUtility;
 
 @Controller
 public class AdminController {
@@ -38,9 +44,38 @@ public class AdminController {
 		return "/admin/index";
 	}
 	
-	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
-	public String users(Model model) {
-		List<User> allUserList = adminService.selectAllUser();
+	@RequestMapping("/admin/users")
+	public String users(Model model, HttpServletRequest request) throws Exception {
+		String word = request.getParameter("word");
+		String key = request.getParameter("key");
+		String page = request.getParameter("pageNo");
+		logger.info(word);
+		logger.info(key);
+		logger.info(page);
+		int pageNo;
+		try {
+			pageNo = Integer.parseInt(page);
+		} catch (Exception e) {
+			// page 정보가 전송되지 않은 경우 이므로 첫 페이지로 처리하기위해.
+			pageNo = 1;
+		}
+		// 페이지빈 생성자로 페이지 정보 셋팅하고 Map으로 값 SQL.xml로 전달
+		PageBean pageBean = new PageBean(key, word, null, pageNo);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("key", key);
+		param.put("word", word);
+		param.put("start", pageBean.getStart());
+		param.put("interval", pageBean.getInterval());
+		
+		// 페이지바 생성
+		int totalUserCnt = adminService.totalUserCount(param);
+		PageUtility bar = new PageUtility(pageBean.getInterval(), totalUserCnt, pageBean.getPageNo());
+		pageBean.setPagelink(bar.getPageBar());
+		
+		// 유저 리스트 가져오기
+		List<User> allUserList = adminService.selectAllUser(param);
+		
+		// 코드 한글화
 		List<CodeTable> departmentCodeList = getDepartmentList();
 		for (int i = 0; i < allUserList.size(); i++) {
 			for (int j = 0; j < departmentCodeList.size(); j++) {
@@ -51,6 +86,7 @@ public class AdminController {
 		}
 		
 		model.addAttribute("allUserList", allUserList);
+		model.addAttribute("pageBean", pageBean);
 		return "/admin/allUsers";
 	}
 	

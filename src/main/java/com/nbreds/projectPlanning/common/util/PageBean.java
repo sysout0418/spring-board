@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 public class PageBean implements Serializable {
 	/** 검색 조건 이름, 아이디... */
-//	private String key;
-	/** 검색 단어 */
+	private String key;
+	/** 검색 단어 1개 */
+	private String word; 
+	/** 검색 단어 배열 */
 	private String[] datas;
 	/** 페이징 처리에 대한 link 정보 */
 	private String pagelink;
@@ -18,34 +20,34 @@ public class PageBean implements Serializable {
 	/** 페이지의 끝 번호 */
 	private int end = interval;
 
-//	public String getKey() {
-//		return key;
-//	}
+	public String getKey() {
+		return key;
+	}
 
-//	public String getKey(String k) {
-//		if (k != null && key.equals(k))
-//			return "selected='selected'";
-//		else
-//			return "";
-//	}
+	public String getKey(String k) {
+		if (k != null && key.equals(k))
+			return "selected='selected'";
+		else
+			return "";
+	}
 	
-//	public void setKey(String key) {
-//		if (key == null)
-//			this.key = "all";
-//		else
-//			this.key = key;
-//	}
+	public void setKey(String key) {
+		if (key == null)
+			this.key = "all";
+		else
+			this.key = key;
+	}
 
-//	public String getWord() {
-//		return word;
-//	}
-//
-//	public void setWord(String word) {
-//		if (word == null)
-//			this.word = "";
-//		else
-//			this.word = word;
-//	}
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		if (word == null)
+			this.word = "";
+		else
+			this.word = word;
+	}
 
 	public String[] getDatas() {
 		return datas;
@@ -84,21 +86,36 @@ public class PageBean implements Serializable {
 	}
 
 	public PageBean() {
-//		setKey("all");
+		setKey("all");
 		setPagelink("1");
 		setPageNo(1);
 	}
 
+	// 다중 검색(배열)으로 검색시 사용하는 생성자
 	public PageBean(String[] datas, String pagelink, int pageNo) {
-//		setKey(key);
+		setKey(key);
 		setDatas(datas);
 		setPagelink(pagelink);
 		setPageNo(pageNo);
 	}
 
 	public PageBean(String[] datas, String pagelink, String pageNo) {
-//		setKey(key);
+		setKey(key);
 		setDatas(datas);
+		setPagelink(pagelink);
+		setPageNo(pageNo);
+	}
+	
+	// 단일 검색어로 검색시 사용하는 생성자
+	public PageBean(String key, String word, String pagelink, int pageNo) {
+		setKey(key);
+		setWord(word);
+		setPagelink(pagelink);
+		setPageNo(pageNo);
+	}
+	public PageBean(String key, String word, String pagelink, String pageNo) {
+		setKey(key);
+		setWord(word);
 		setPagelink(pagelink);
 		setPageNo(pageNo);
 	}

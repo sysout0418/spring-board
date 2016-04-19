@@ -1,13 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
+<jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
 <!-- Begin page content -->
 <div style="width: 1200; margin: 0 auto; background-color: #fff">
 	<h4>Users</h4>
 	<form name="frm" id="frm" method="post">
 	<input type="hidden" name="isCheckCbListAll" value="F">
+	<input type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
 	<table class="table table-striped table-hover ">
 		<thead>
 			<tr>
@@ -40,10 +41,36 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	
+	<!-- 페이징 -->
+	<div align="center">
+		${pageBean.pagelink}
+	</div>
+	
+	<fieldset class="srch">
+		<legend>검색영역</legend>
+		<select name="key">
+			<option value="all" <%=pageBean.getKey("all")%>>All</option>
+			<option value="name" <%=pageBean.getKey("name")%>>Name</option>
+			<option value="phoneNumber" <%=pageBean.getKey("phoneNumber")%>>Phone Number</option>
+			<option value="email" <%=pageBean.getKey("email")%>>Email</option>
+		</select>
+		<div class="form-group" align="center">
+			<input type="text" class="form-control" placeholder="Search" name="word" id="word" value="${pageBean.word}">
+		</div>
+		<button type="button" class="btn btn-default" onclick="javascript:pagelist(1)">Search</button>
+	</fieldset>
+	
 	</form>
 	<a href="#" class="btn btn-danger">회원 강제탈퇴</a>
 </div>
 <script type="text/javascript">
+function pagelist(page) {
+	$("#pageNo").val(page);
+	$("#frm").get(0).action = "/admin/users";
+	$("#frm").get(0).submit();
+}
+
 //문자열 공백제거 함수
 String.prototype.stripspace = function() {
 	return this.replace(/ /g, "");
