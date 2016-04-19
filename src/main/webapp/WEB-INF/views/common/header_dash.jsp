@@ -1,6 +1,7 @@
 <html>
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -113,13 +114,20 @@ $(function () {
 <div class="col-sm-2 col-md-2 sidebar">
 	<ul class="nav nav-sidebar">
 		<li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true" style="padding-right: 10px"></span>MyProjects</a></li>
-	    <li><a href="/regist"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="padding-right: 10px"></span>Regist</a></li>
+		 <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+	    	<li><a href="/regist"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="padding-right: 10px"></span>Regist</a></li>
+	     </sec:authorize>
 	    <li><a href="/search"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true" style="padding-right: 10px"></span>Search</a></li>
 	    <li><a href="/list"><span class="glyphicon glyphicon-book" aria-hidden="true" style="padding-right: 10px"></span>Projects</a></li>
 	</ul>
 	<ul class="nav nav-sidebar">
 		<li><a href="/milestones/open"><span class="glyphicon glyphicon-time" aria-hidden="true" style="padding-right: 10px"></span>Milestones</a></li>
 	    <li><a href="/issues/open"><span class="glyphicon glyphicon-alert" aria-hidden="true" style="padding-right: 10px"></span>Issues</a></li>
+	</ul>
+	<ul class="nav nav-sidebar">
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+	    	<li><a href="/admin"><span class="glyphicon glyphicon-wrench" aria-hidden="true" style="padding-right: 10px"></span>Admin</a></li>
+	    </sec:authorize>
 	</ul>
 </div>
 </div>
