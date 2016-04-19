@@ -52,12 +52,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </delete>
 	
-	<select id="selectAllUser" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<!-- 
+    <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT pno, pname, pdetail, pdata, pduedate, uno
+    FROM Project
+    ]]>
+    <if test="pdata != null">
+		<where>
+			<foreach collection="pdata" item="data" index="index" separator="or">
+		<![CDATA[
+				pdata like '%' #{data} '%'
+		]]>
+			</foreach>
+		</where>
+	</if>
+	<![CDATA[
+	ORDER BY pno DESC
+	LIMIT #{start}, #{interval}
+    ]]>
+    </select>
+    -->
+    
+    <!-- 페이징 처리를 위한 selectAllUser -->
+	<select id="selectAllUser" parameterType="Map" resultType="com.nbreds.projectPlanning.common.VO.User">
 	<![CDATA[	
-		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate
-		FROM User u
+		SELECT uno, uname, uphoneno, udepartment, uemail, upassword, uregdate
+		FROM User
+		]]>
+		<if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('name')">
+						uname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('phoneNumber')">
+						uphoneno like '%' #{word} '%'
+					</when>
+					<when test="key.equals('email')">
+						uemail like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	<![CDATA[
+	ORDER BY uno DESC
+	LIMIT #{start}, #{interval}
 	]]>
 	</select>
+	
+	<!-- 페이징 처리를 위한 totalCount -->
+    <select id="totalUserCount" parameterType="Map" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM User
+    ]]>
+    <if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('name')">
+						uname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('phoneNumber')">
+						uphoneno like '%' #{word} '%'
+					</when>
+					<when test="key.equals('email')">
+						uemail like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+    </select>
 	
 	<select id="getDepartmentList" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
 	<![CDATA[	

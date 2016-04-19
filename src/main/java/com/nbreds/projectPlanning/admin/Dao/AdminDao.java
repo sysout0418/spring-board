@@ -1,6 +1,7 @@
 package com.nbreds.projectPlanning.admin.Dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -8,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Repository("AdminDao")
@@ -43,10 +44,14 @@ public class AdminDao {
 		sqlSession.delete("admin.removeProjects", i);
 	}
 	
-	public List<User> selectAllUser() {
-		return sqlSession.selectList("admin.selectAllUser");
+	public List<User> selectAllUser(Map<String, Object> param) {
+		return sqlSession.selectList("admin.selectAllUser", param);
 	}
 
+	public int totalUserCount(Map<String, Object> param) {
+		return sqlSession.selectOne("admin.totalUserCount", param);
+	}
+	
 	public List<CodeTable> getDepartmentList(String codeType) {
 		return sqlSession.selectList("admin.getDepartmentList", codeType);
 	}

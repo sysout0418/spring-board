@@ -1,6 +1,7 @@
 package com.nbreds.projectPlanning.admin.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,22 +44,27 @@ public class AdminServiceImpl implements AdminService {
 	public List<Project> getAllProjects() {
 		return adminDao.getAllProjects();
 	}
-
+	
 	@Override
 	public void removeProjects(int i) {
 		adminDao.removeProjects(i);
 	}
 	
 	@Override
-	public List<User> selectAllUser() {
-		return adminDao.selectAllUser();
+	public List<User> selectAllUser(Map<String, Object> param) {
+		return adminDao.selectAllUser(param);
 	}
 
+	@Override
+	public int totalUserCount(Map<String, Object> param) {
+		return adminDao.totalUserCount(param);
+	}
+	
 	@Override
 	public List<CodeTable> getDepartmentList(String codeType) {
 		return adminDao.getDepartmentList(codeType);
 	}
-
+	
 	@Override
 	public List<Project> getProjectsByPname(String item) {
 		return adminDao.getProjectsByPname(item);
