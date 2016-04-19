@@ -31,6 +31,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="mno != 0">
 		  ,#{mno}
 		</if>
+    <![CDATA[
+	  ,#{pno}
+	  ]]>
 		<choose>
 			<when test="uno == 0">
 				,0
@@ -39,8 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,#{uno}
 			</otherwise>
 		</choose>
-    <![CDATA[
-	  ,#{pno}
+	<![CDATA[
 	  ,#{iduedate}
 	)
     ]]>
@@ -303,7 +305,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 2016. 04. 18. 모든 유저 리스트 가져오기 -->
 	<select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    SELECT u.uno, uname, uphoneno, udepartment, uemail
+    SELECT uno, uname, uphoneno, udepartment, uemail
     FROM User u
     ]]>
 	</select>

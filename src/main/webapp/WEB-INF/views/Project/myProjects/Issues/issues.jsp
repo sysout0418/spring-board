@@ -139,6 +139,7 @@
 						<td>Issue Title</td>
 						<td>Milestone Title</td>
 						<td>Weight</td>
+						<td>Due Date</td>
 						<!-- <td>Weight</td> -->
 					</tr>
 						<c:forEach var="issues" items="${issuesList}" varStatus="status">
@@ -169,7 +170,7 @@
 									title="" data-container="body" data-original-title="">${issues.ltitle}</span>
 								</td>
 
-								<%-- <td>${issues.iweight}</td> --%>
+								<td>${issues.iduedate}</td>
 							</tr>
 						</c:forEach>
 						<tr><td colspan="5"></td></tr>
