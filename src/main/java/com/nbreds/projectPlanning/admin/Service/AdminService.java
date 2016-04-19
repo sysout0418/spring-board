@@ -22,4 +22,6 @@ public interface AdminService {
 	int getCountProjects();
 
 	List<Project> getAllProjects();
+
+	void removeProjects(int i);
 }

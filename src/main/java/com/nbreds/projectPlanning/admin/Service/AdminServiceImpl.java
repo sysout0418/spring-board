@@ -42,4 +42,9 @@ public class AdminServiceImpl implements AdminService {
 	public List<Project> getAllProjects() {
 		return adminDao.getAllProjects();
 	}
+
+	@Override
+	public void removeProjects(int i) {
+		adminDao.removeProjects(i);
+	}
 }

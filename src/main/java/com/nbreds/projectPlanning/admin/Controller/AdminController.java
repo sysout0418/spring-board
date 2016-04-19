@@ -55,9 +55,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/projects/delete", method = RequestMethod.POST)
 	public String deleteprojects(int pno[]) {
-		System.out.println(pno);
 		for (int i : pno) {
-			System.out.println(i);
+			adminService.removeProjects(i);
 		}
 		
 		return "redirect:/admin/projects";

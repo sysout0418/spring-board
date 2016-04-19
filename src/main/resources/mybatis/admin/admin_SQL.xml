@@ -45,4 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	ORDER BY P.pregdate DESC
     ]]>  
     </select>
+    
+    <delete id="removeProjects" parameterType="int">
+    <![CDATA[
+    delete from Project where pno=#{i}
+    ]]>  
+    </delete>
 </mapper>
