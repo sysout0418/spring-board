@@ -11,30 +11,24 @@
 		<security:intercept-url pattern="/checkId" access="permitAll" />
 		<security:intercept-url pattern="/join" access="permitAll" />
 		<security:intercept-url pattern="/regist" access="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')" />
-		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')" />
 		
 		<security:form-login login-page="/loginForm"
 			login-processing-url="/login"
 			authentication-success-handler-ref="loginSuccessHandler"
-			authentication-failure-handler-ref="loginFailureHandler"
 			username-parameter="uemail" 
 			password-parameter="upassword" />
 		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler"/>
-		<security:access-denied-handler ref="loginDeniedHandler"/>
 		<security:csrf disabled="true"/>
 	</security:http>
 	
-	<bean id="loginDeniedHandler"
-		class="com.nbreds.projectPlanning.login.Service.LoginDeniedHandler"></bean>
 	<bean id="logoutSuccessHandler"
 		class="com.nbreds.projectPlanning.login.Service.LogoutSuccessHandler"></bean>
 	<bean id="loginSuccessHandler"
 		class="com.nbreds.projectPlanning.login.Service.LoginSuccessHandler">
 		<constructor-arg index="0" ref="loginService" />
 	</bean>
-	<bean id="loginFailureHandler"
-		class="com.nbreds.projectPlanning.login.Service.LoginFailureHandler"></bean>
 	<bean id="loginService" class="com.nbreds.projectPlanning.login.Service.LoginServiceImpl">
 		<constructor-arg index="0" ref="sqlSession" />
 	</bean>									
