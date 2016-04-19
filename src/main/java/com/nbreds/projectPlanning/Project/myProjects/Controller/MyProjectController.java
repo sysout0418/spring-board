@@ -33,7 +33,6 @@ public class MyProjectController {
 		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
 		
 		String pdata = project.getPdata();
-		int user_no = (int)session.getAttribute("user_no");
 		//한글화
 		List<String> skills = (List<String>)commonController.getCodeForCodeType(pdata, "skills");
 		String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
@@ -47,7 +46,6 @@ public class MyProjectController {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("project", project);
-		if(user_no == uno)	model.addAttribute("charged", true);
 		
 		return "/Project/myProjects/selectedProject";
 	}
