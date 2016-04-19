@@ -42,6 +42,9 @@ public interface IssueService {
 	/** param 조건에 따라 해당하는 Issue 검색 */
 	List<Issue> searchIssues(Map<String, Object> param);
 	
+	/** pno로 마일스톤 리스트 가져오는 기능 */
+	List<Milestone> getMilestoneByPno(int pno);
+	
 	/** 모든 마일스톤 리스트 가져오는 기능 */
 	List<Milestone> getAllMilestone();
 	
@@ -65,6 +68,9 @@ public interface IssueService {
 	
 	/** 모든 label 리스트 가져오는 기능 */
 	List<Label> getAllLabel();
+	
+	/** 현재 pno에 참여하고 있는 유저 리스트 가져오는 기능 */
+	List<User> getUserListByPno(int pno);
 	
 	/** 모든 유저 리스트 가져오는 기능 */
 	List<User> getAllUserNameAndNo();
@@ -96,10 +102,13 @@ public interface IssueService {
 	/** 코멘드 삭제 기능 */
 	void removeCommentByCno(int cno);
 	
+	/** 파일 저장 기능 */
 	void saveIssueFile(Map<String, Object> param);
 	
+	/** 파일 삭제(컬럼 isDel 값만 Y로) */
 	void deleteFileList(int ino);
 	
+	/** 파일 업데이트 */
 	void updateFile(Map<String, Object> param);
 
 	String getPnameByPno(int pno);

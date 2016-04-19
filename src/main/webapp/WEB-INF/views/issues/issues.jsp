@@ -22,16 +22,46 @@
 
 			<!-- Tab panes -->
 			<div class="tab-content well">
-				<input type="hidden" id="uno" name="uno" value="">
-				<input type="hidden" id="mno" name="mno" value="">
-				<input type="hidden" id="lno" name="lno" value="">
-				<input type="hidden" id="weight" name="weight" value="">
+				<c:choose>
+					<c:when test="${!empty selectedUserName}">
+						<input type="hidden" id="uno" name="uno" value="${uno}">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="uno" name="uno" value="">
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${!empty selectedMilestone}">
+						<input type="hidden" id="mno" name="mno" value="${mno}">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="mno" name="mno" value="">
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${!empty selectedLabelName}">
+						<input type="hidden" id="lno" name="lno" value="${lno}">
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="lno" name="lno" value="">
+					</c:otherwise>
+				</c:choose>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedAssign">Assignee</span></a>
+					<a href="#" class="btn btn-default">
+						<c:choose>
+							<c:when test="${!empty selectedUserName}">
+								<span id="selectedAssign">${selectedUserName}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedAssign">Assignee</span>
+							</c:otherwise>
+						</c:choose>
+					</a>
 					<a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown" aria-expanded="false"><span
 						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
+						<li class="uno1"><a alt="" href="#">Any</a></li>
 						<li class="uno1"><a alt="0" href="#">UnAssigned</a></li>
 						<c:forEach var="users" items="${userList}">
 							<li class="uno1"><a alt="${users.uno}" href="#">${users.uname}</a></li>
@@ -52,31 +82,51 @@
 					</ul>
 				</div> -->
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span
-						id="selectedMilestone">Milestone</span></a> <a href="#"
+					<a href="#" class="btn btn-default">
+						<c:choose>
+							<c:when test="${!empty selectedMilestone}">
+								<span id="selectedMilestone">${selectedMilestone}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedMilestone">Milestone</span>
+							</c:otherwise>
+						</c:choose>
+					</a> 
+					<a href="#"
 						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 						aria-expanded="false"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
-						<c:forEach var="milestone" items="${allMilestoneList}">
+						<li class="milestoneNo"><a id="milestoneNo" alt="" href="#">Any</a></li>
+						<c:forEach var="milestone" items="${milestoneList}">
 							<li class="milestoneNo"><a id="milestoneNo"
 								alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedLabel">Label</span></a>
+					<a href="#" class="btn btn-default">
+						<c:choose>
+							<c:when test="${!empty selectedLabelName}">
+								<span id="selectedLabel">${selectedLabelName}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedLabel">Weight</span>
+							</c:otherwise>
+						</c:choose>
+					</a>
 					<a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown" aria-expanded="false"><span
 						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
+						<li class="labelNo"><a id="labelNo" alt="" href="#">Any</a></li>
 						<c:forEach var="label" items="${allLabelList}">
 							<li class="labelNo"><a id="labelNo" alt="${label.lno}"
 								href="#" style="text-color: ${label.lbgcolor}">${label.ltitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
-				<div class="btn-group">
+				<%-- <div class="btn-group">
 					<a href="#" class="btn btn-default"><span id="selectedWeight">Weight</span></a>
 					<a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown" aria-expanded="false"><span
@@ -90,7 +140,7 @@
 							}
 						%>
 					</ul>
-				</div>
+				</div> --%>
 				<a href="#" id="searchBtn" class="btn btn-success">Search</a>
 			</div>
 
@@ -99,7 +149,7 @@
 					<tr class="active">
 						<td>Issue Title</td>
 						<td>Milestone Title</td>
-						<td>Label</td>
+						<!-- <td>Label</td> -->
 						<td>Weight</td>
 					</tr>
 					<c:forEach var="issues" items="${issuesList}" varStatus="status">
@@ -112,14 +162,13 @@
 							<td><a
 								href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
 
-							<td><c:forEach var="labels" items="${issues.labels}">
-									<a href="#"><span class="label color-label has_tooltip"
+							<td><span class="label color-label has_tooltip"
 										style="background-color:
-									${labels.lbgcolor}; color: #FFFFFF"
-										title="" data-container="body" data-original-title="">${labels.ltitle}</span></a>
-								</c:forEach></td>
+									${issues.lbgcolor}; color: #FFFFFF"
+										title="" data-container="body" data-original-title="">${issues.ltitle}</span>
+							</td>
 
-							<td>${issues.iweight}</td>
+							<%-- <td>${issues.iweight}</td> --%>
 						</tr>
 					</c:forEach>
 					<tr><td colspan="5"></td></tr>
@@ -159,7 +208,7 @@
 	$('#searchBtn').click(function() {
 		$('#searchBtn').attr("href", "/issues/${stat}/search?uno=" 
 				+ $("#uno").val() + "&mno=" + $("#mno").val()
-				+ "&lno=" + $("#lno").val() + "&weight=" + $("#weight").val());
+				+ "&lno=" + $("#lno").val());
 	});
 </script>
 <jsp:include

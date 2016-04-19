@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <![CDATA[
 	  ,pno
 	  ,uno
+	  ,iduedate
 	) VALUES (
 	  #{ititle}
 	  ,#{idescription}
@@ -30,9 +31,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="mno != 0">
 		  ,#{mno}
 		</if>
+		<choose>
+			<when test="uno == 0">
+				,0
+			</when>
+			<otherwise>
+				,#{uno}
+			</otherwise>
+		</choose>
     <![CDATA[
 	  ,#{pno}
-	  ,#{uno}
+	  ,#{iduedate}
 	)
     ]]>
 	</insert>
@@ -100,7 +109,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllIssues" resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
     SELECT 
-    	i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname
+    	i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, uname
     ]]>
 		<if test="mno != null">
 			, mtitle
@@ -123,21 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByIno" parameterType="int"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle
-	FROM Issues i
-    JOIN User u
-    ON i.uno = u.uno
-	LEFT JOIN Milestones m
-	ON i.mno = m.mno
-	WHERE i.ino=#{ino}
-	]]>
-	</select>
-
-	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
-	<select id="getIssuesByPno" parameterType="map"
-		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
-    <![CDATA[
-    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, uname, mtitle, lno, ltitle, lbgcolor
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
@@ -148,7 +143,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			JOIN IssueLabel il
             ON l.lno = il.lno ) l2
 	ON i.ino = l2.ino
-	where i.pno=#{pno}
+	WHERE i.ino=#{ino}
+	]]>
+	</select>
+
+	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
+	<select id="getIssuesByPno" parameterType="map"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, uname, mtitle, lno, ltitle, lbgcolor
+	FROM Issues i
+    JOIN User u
+    ON i.uno = u.uno
+	LEFT JOIN Milestones m
+	ON i.mno = m.mno
+	LEFT JOIN ( SELECT l.lno, il.ino, ltitle, lbgcolor
+			FROM Label l
+			JOIN IssueLabel il
+            ON l.lno = il.lno ) l2
+	ON i.ino = l2.ino
+	WHERE i.pno=#{pno}
 	]]>
 		<if test="istatement != null">
 			and istatement=#{istatement}
@@ -163,7 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchIssues" parameterType="map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, uname, mtitle, lno, ltitle, lbgcolor
     FROM Issues i
 			LEFT JOIN User u
 			ON i.uno = u.uno
@@ -174,7 +188,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			LEFT JOIN IssueLabel il
 			ON l.lno = il.lno ) l2
 			ON i.ino = l2.ino
-    where i.pno=#{pno}
+    WHERE i.pno=#{pno}
     ]]>
 		<if test="userNo != null">
 			and i.uno = #{userNo}
@@ -193,7 +207,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<!-- 2016.03.30 모든 milestone 정보 가져오기 -->
+	<!-- 2016.03.30 pno로 milestone 정보 가져오기 -->
+	<select id="getMilestoneByPno" parameterType="int" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
+    <![CDATA[
+    SELECT mno, mtitle, mdescription, mduedate, mstatement, pno
+    FROM Milestones
+    WHERE pno = #{pno}
+	]]>
+	</select>
+	
+	<!-- 2016.04.18 모든 milestone 정보 가져오기 -->
 	<select id="getAllMilestone" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
     SELECT mno, mtitle, mdescription, mduedate, mstatement, pno
@@ -206,22 +229,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     UPDATE Issues SET
 		ititle = #{ititle},
 		idescription = #{idescription},
+		iduedate = #{iduedate},
 		]]>
 		<if test="mno != 0">
 			mno = #{mno},
 		</if>
+		<choose>
+			<when test="uno == 0">
+				uno = 0
+			</when>
+			<otherwise>
+				uno = #{uno}
+			</otherwise>
+		</choose>
 		<![CDATA[
-		uno = #{uno}
 	WHERE ino = #{ino}
 	]]>
 	</update>
 
-	<delete id="removeIssues" parameterType="int">
+<!-- 	<delete id="removeIssues" parameterType="int">
     <![CDATA[
     DELETE FROM Issues 
 	WHERE ino = #{ino}
     ]]>
-	</delete>
+	</delete> -->
 
 	<update id="closeIssue" parameterType="Map">
     <![CDATA[
@@ -246,7 +277,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<select id="getLabelsByIno" parameterType="int"
+	<!-- <select id="getLabelsByIno" parameterType="int"
 		resultType="com.nbreds.projectPlanning.issues.VO.Label">
     <![CDATA[
     SELECT l.lno, ltitle, lbgcolor, pno
@@ -255,13 +286,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ON l.lno = il.lno
     WHERE ino = #{ino}
 	]]>
-	</select>
+	</select> -->
 
-	<select id="getAllUserNameAndNo" parameterType="String"
+	<!-- 2016. 04. 18. pno에 참여하는 유저리스트 가져오기 -->
+	<select id="getUserListByPno" parameterType="int"
 		resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail, uposition
-    from User
+    SELECT u.uno, uname, uphoneno, udepartment, uemail, uposition, pno, stat
+    FROM User u
+    JOIN ProjectMemberStat p
+    ON u.uno = p.uno
+    WHERE pno=#{pno} AND stat='001'
+    ]]>
+	</select>
+	
+	<!-- 2016. 04. 18. 모든 유저 리스트 가져오기 -->
+	<select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    SELECT u.uno, uname, uphoneno, udepartment, uemail, uposition
+    FROM User u
     ]]>
 	</select>
 
@@ -288,7 +331,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getIssuesByUno" parameterType="Map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, uname, mtitle, lno, ltitle, lbgcolor
 	FROM Issues i
     JOIN User u
     ON i.uno = u.uno
@@ -314,15 +357,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchIssuesByParam" parameterType="Map"
 		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, uname, mtitle, lno, ltitle, lbgcolor
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, uname, mtitle, lno, ltitle, lbgcolor
     FROM Issues i
 			LEFT JOIN User u
 			ON i.uno = u.uno
 			LEFT JOIN Milestones m
 			ON i.mno = m.mno
 			LEFT JOIN ( SELECT l.lno, il.ino, ltitle, lbgcolor
-			FROM Label l
-			LEFT JOIN IssueLabel il
+						FROM Label l
+						LEFT JOIN IssueLabel il
 			ON l.lno = il.lno ) l2
 			ON i.ino = l2.ino
     WHERE
