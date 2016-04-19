@@ -146,4 +146,8 @@ public class IssueDao {
 	public void updateFile(Map<String, Object> param) {
 		sqlSession.update("issues.updateFile", param);
 	}
+
+	public String getPnameByPno(int pno) {
+		return sqlSession.selectOne("issues.getPnameByPno", pno);
+	}
 }

@@ -232,4 +232,8 @@ public class IssueServiceImpl implements IssueService {
 		issueDao.saveIssueFile(param);
 	}
 
+	@Override
+	public String getPnameByPno(int pno) {
+		return issueDao.getPnameByPno(pno);
+	}
 }

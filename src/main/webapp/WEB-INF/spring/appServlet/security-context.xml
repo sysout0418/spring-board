@@ -10,7 +10,7 @@
 		<security:intercept-url pattern="/loginForm" access="permitAll" />
 		<security:intercept-url pattern="/checkId" access="permitAll" />
 		<security:intercept-url pattern="/join" access="permitAll" />
-		<security:intercept-url pattern="/**" access="hasAnyRole('ADMIN','USER')" />
+		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')" />
 		
 		<security:form-login login-page="/loginForm"
 			login-processing-url="/login"
@@ -19,9 +19,6 @@
 			username-parameter="uemail" 
 			password-parameter="upassword" />
 		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler"/>
-		<security:session-management>
-			<security:concurrency-control max-sessions="1" expired-url="/" error-if-maximum-exceeded="true"/>
-		</security:session-management>
 		<security:access-denied-handler ref="loginDeniedHandler"/>
 		<security:csrf disabled="true"/>
 	</security:http>

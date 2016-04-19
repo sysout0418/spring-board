@@ -111,4 +111,6 @@ public interface IssueService {
 	/** 파일 업데이트 */
 	void updateFile(Map<String, Object> param);
 
+	String getPnameByPno(int pno);
+
 }

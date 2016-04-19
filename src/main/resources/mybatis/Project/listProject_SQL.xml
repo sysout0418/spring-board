@@ -77,9 +77,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM ProjectMemberStat p
     JOIN User u
     ON p.uno = u.uno
-    WHERE pno = #{pno} AND stat = '001'
+    WHERE pno = #{pno} AND stat = '000'
     ]]>  
     </select>
+    
+    <!-- 2016. 04. 19. 플젝 수정 시 플젝 참여 인원 정보 update -->
+    <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    UPDATE Project SET
+	    pname = #{pname},
+		pdetail = #{pdetail},
+		pdata=#{pdata},
+		pregdate=curdate(),
+		pduedate=#{pduedate}
+	WHERE pno = #{pno}
+	]]> 
+    </update>
     
     <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
     <![CDATA[

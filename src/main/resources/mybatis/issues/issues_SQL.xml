@@ -443,4 +443,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE fno = #{fno}   
     ]]>
 	</update>
+	
+	<select id="getPnameByPno" parameterType="int" resultType="String">
+    <![CDATA[
+    select pname FROM Project
+	where pno=#{pno}
+	]]>
+    </select>
 </mapper>

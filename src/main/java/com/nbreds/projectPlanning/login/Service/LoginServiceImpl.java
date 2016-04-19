@@ -37,7 +37,6 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public void saveUser(User user) {
 		loginDao.saveUser(user);
-		logger.info("후uno : " + user.getUno());
 		loginDao.saveAuthority(user.getUno());
 	}
 

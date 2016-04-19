@@ -40,7 +40,7 @@ public class ListServiceImpl implements ListService {
 		listDao.removeProject(pno);
 	}
 
-	public void updateProject(Project project) {
+	public void updateProject(Project project, String requestedUserNoList) {
 		listDao.updateProject(project);
 	}
 	

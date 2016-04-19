@@ -24,7 +24,7 @@ public interface ListService {
 
 	public void removeProject(int pno);
 
-	public void updateProject(Project project);
+	public void updateProject(Project project, String requestedUserNoList);
 	
 	public User getUserForNo(int uno);
 	

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,7 @@ public class ListController {
 		param.put("rowsPerPage", rowsPerPage);
 		
 		List<Project> list = listService.getPageList(param);
-		/*
+
 		for(int i = 0; i<list.size(); i++){
 			String pdata = list.get(i).getPdata();		
 			
@@ -76,7 +78,7 @@ public class ListController {
 			list.get(i).setUname(uname);
 			
 		}
-		*/
+
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
 		model.addAttribute("totalPageNo", totalPageNo);
 		model.addAttribute("totalGroupNo", totalGroupNo);
@@ -163,9 +165,10 @@ public class ListController {
 	
 	//프로젝트 수정
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String  updateProject(@ModelAttribute("project") Project project, BindingResult result) {
+	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result) {
 		logger.info("pdata : "+project.getPdata());
-		listService.updateProject(project);
+		String requestedUserNoList = request.getParameter("requestUserNoList");
+		listService.updateProject(project, requestedUserNoList);
 		
 		return "redirect:/DetailProject/"+project.getPno();
 	}

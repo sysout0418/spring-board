@@ -100,7 +100,7 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 				<td colspan="2">프로젝트 요청</td>
 				<td>
 					<div>
-						<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">추가</a>
+						<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">변경</a>
 						<div class="selectedUserList">
 							<c:forEach var="participate" items="${participatedUserList}">
 								<span class="btn btn-warning btn-xs">${participate.uname}</span>&nbsp;
@@ -245,9 +245,14 @@ function selectChkRow() {
 	//alert(rowid);
 }
 
-$(function() {
-	
-});
+/* $(function() {
+	var chk = document.getElementsByName("userName"); // 체크박스 객체
+	console.log($('.selectedUserList > span').text());
+	for (var i = 0; i < chk.length; i++) {
+		
+	}
+}); */
+
 <%-- $(function () {
 	var pmember = $("#pmember").val().substring(0, $("#pmember").val().length - 1).split(",");
 	var userNames = "";
@@ -286,10 +291,10 @@ $(function() {
           }
       }); */
   
-$(function () {
+/* $(function () {
 	$('#submit').click(handler);
 	$("form").validate();
-	});
+}); */
   
 /* $(function () {
 	$(".text-remove").click(handler);

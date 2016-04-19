@@ -58,5 +58,4 @@ public class User {
 	public String toString() {
 		return super.toString() + "\n uemail: " + this.uemail + ", upassword: " + this.upassword;
 	}
-	
 }

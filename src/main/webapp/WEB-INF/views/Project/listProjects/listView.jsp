@@ -8,9 +8,9 @@
 	<table class="table">
 	<tr class="active">
 		<td style="width:500px; text-align: center;">프로젝트</td>
-		<td>등급</td>
 		<td>모집분야</td>
 		<td>마감일</td>
+		<td>등록일</td>
 		<td>담당자</td>
 	</tr>
 	<c:forEach var="project" items="${list}">
@@ -26,9 +26,9 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
-		<td></td>
 		<td>${project.pskill}</td>
 		<td>${project.pduedate}</td>
+		<td>${project.pregdate}</td>
 		<td>${project.uname}</td>
 	</tr>
 	</c:forEach>
