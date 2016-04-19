@@ -24,6 +24,8 @@ public interface AdminService {
 	int getCountProjects();
 
 	List<Project> getAllProjects();
+
+	void removeProjects(int i);
 	
 	/** 모든 유저 리스트 가져오기 */
 	List<User> selectAllUser(Map<String, Object> param);
@@ -33,4 +35,8 @@ public interface AdminService {
 	
 	/** 부서 한글화를 위해서 CodeTable에서 CODE_NAME 가져오기 */
 	List<CodeTable> getDepartmentList(String codeType);
+
+	List<Project> getProjectsByPname(String item);
+
+	List<Project> getProjectsByUname(String item);
 }

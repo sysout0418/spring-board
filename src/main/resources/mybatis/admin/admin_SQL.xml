@@ -45,6 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	ORDER BY P.pregdate DESC
     ]]>  
     </select>
+    
+    <delete id="removeProjects" parameterType="int">
+    <![CDATA[
+    delete from Project where pno=#{i}
+    ]]>  
+    </delete>
 	
 	<!-- 
     <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
@@ -126,4 +132,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<select id="getProjectsByPname" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<![CDATA[	
+	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno AND P.pname like '%' #{item} '%'
+	ORDER BY P.pregdate DESC
+	]]>
+	</select>
+	
+	<select id="getProjectsByUname" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<![CDATA[	
+	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno AND U.uname like '%' #{item} '%'
+	ORDER BY P.pregdate DESC
+	]]>
+	</select>
 </mapper>
