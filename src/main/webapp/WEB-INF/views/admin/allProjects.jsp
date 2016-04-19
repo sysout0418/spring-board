@@ -34,9 +34,23 @@
 	<td><a href="/update?pno=${project.pno}">수정</a></td>
 </tr>
 </c:forEach>
-<tr><td></td></tr>
+<tr><td><button class="btn btn-primary">선택삭제</button></td></tr>
 </table>
-<button class="btn btn-primary">선택삭제</button>
+<div align="center">
+	<ul class="pagination">
+  		<li><a href="list?pageNo=1">처음</a></li>
+  		<c:if test="${groupNo >1 }">
+		<li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+		</c:if>
+		<c:forEach var="i" begin="${startPageNo}" end = "${endPageNo}">
+			<li <c:if test="${pageNo ==i}">class="active"</c:if>><a href="list?pageNo=${i}">${i}</a></li>
+		</c:forEach>
+		<c:if test="${groupNo < totalGroupNo }">
+			<li><a href="list?pageNo=${endPageNo+1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+		</c:if>
+		<li><a href="?pageNo=${totalPageNo}">맨끝</a></li>
+  	</ul>
+</div>
 </form>
 </div>
 <script type="text/javascript">

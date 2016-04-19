@@ -25,6 +25,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Model model) {
+		
 		int countUsers = adminService.getCountUsers();
 		int countProjects = adminService.getCountProjects();
 		List<User> user = adminService.get5Users();
