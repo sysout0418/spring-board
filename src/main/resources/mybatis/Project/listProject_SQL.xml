@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!-- 2016. 04. 19. 플젝 수정 시 플젝 참여 인원 정보 update -->
-    <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
+    <!-- <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
     UPDATE Project SET
 	    pname = #{pname},
@@ -92,7 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pduedate=#{pduedate}
 	WHERE pno = #{pno}
 	]]> 
-    </update>
+    </update> -->
     
     <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
     <![CDATA[

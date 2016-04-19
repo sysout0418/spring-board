@@ -103,6 +103,7 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 						<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">변경</a>
 						<div class="selectedUserList">
 							<c:forEach var="participate" items="${participatedUserList}">
+								<input type="hidden" name="oldRequestedUserNo" id="oldRequestedUserNo" value="${participate.uno}">
 								<span class="btn btn-warning btn-xs">${participate.uname}</span>&nbsp;
 							</c:forEach>
 						</div>
