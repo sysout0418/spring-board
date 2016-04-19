@@ -6,18 +6,18 @@
 <div style="width:1200; margin:0 auto; background-color: #fff">
 <h4>Projects</h4>
 총 프로젝트 수 ${countProjects}명<br>
-<form class="form-inline">
-<select class="form-control">
+<form class="form-inline" action="/admin/projects/search" method="get">
+<select class="form-control" id="group" name="group">
   <option>프로젝트명</option>
   <option>담당자</option>
 </select>
-<input type="text" class="form-control" placeholder="Text input">
-<button type="button" class="btn btn-primary">검색</button>
+<input type="text" class="form-control" id="item" name="item">
+<button type="submit" class="btn btn-primary">검색</button>
 </form>
 <form action="/admin/projects/delete" method="post">
 <table class="table">
 <tr class="active">
-	<td><input type="checkbox" value="" id="allCheck"></td>
+	<td><input type="checkbox" id="allCheck"></td>
 	<td>프로젝트명</td>
 	<td>등록일</td>
 	<td>만기일</td>

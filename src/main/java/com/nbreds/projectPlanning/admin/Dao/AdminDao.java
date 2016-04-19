@@ -21,23 +21,27 @@ public class AdminDao {
 	private SqlSession sqlSession;
 	
 	public List<Project> get5Projects() {
-		return sqlSession.selectList("get5Projects");
+		return sqlSession.selectList("admin.get5Projects");
 	}
 
 	public List<User> get5Users() {
-		return sqlSession.selectList("get5Users");
+		return sqlSession.selectList("admin.get5Users");
 	}
 
 	public int getCountUsers() {
-		return sqlSession.selectOne("getCountUsers");
+		return sqlSession.selectOne("admin.getCountUsers");
 	}
 
 	public int getCountProjects() {
-		return sqlSession.selectOne("getCountProjects");
+		return sqlSession.selectOne("admin.getCountProjects");
 	}
 
 	public List<Project> getAllProjects() {
-		return sqlSession.selectList("getAllProjects");
+		return sqlSession.selectList("admin.getAllProjects");
+	}
+
+	public void removeProjects(int i) {
+		sqlSession.delete("admin.removeProjects", i);
 	}
 	
 	public List<User> selectAllUser(Map<String, Object> param) {
@@ -51,5 +55,12 @@ public class AdminDao {
 	public List<CodeTable> getDepartmentList(String codeType) {
 		return sqlSession.selectList("admin.getDepartmentList", codeType);
 	}
-	
+
+	public List<Project> getProjectsByPname(String item) {
+		return sqlSession.selectList("admin.getProjectsByPname", item);
+	}
+
+	public List<Project> getProjectsByUname(String item) {
+		return sqlSession.selectList("admin.getProjectsByUname", item);
+	}
 }
