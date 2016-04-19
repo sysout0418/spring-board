@@ -31,4 +31,8 @@ public interface AdminService {
 	
 	/** 부서 한글화를 위해서 CodeTable에서 CODE_NAME 가져오기 */
 	List<CodeTable> getDepartmentList(String codeType);
+
+	List<Project> getProjectsByPname(String item);
+
+	List<Project> getProjectsByUname(String item);
 }

@@ -58,4 +58,14 @@ public class AdminServiceImpl implements AdminService {
 	public List<CodeTable> getDepartmentList(String codeType) {
 		return adminDao.getDepartmentList(codeType);
 	}
+
+	@Override
+	public List<Project> getProjectsByPname(String item) {
+		return adminDao.getProjectsByPname(item);
+	}
+
+	@Override
+	public List<Project> getProjectsByUname(String item) {
+		return adminDao.getProjectsByUname(item);
+	}
 }

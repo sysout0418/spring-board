@@ -50,5 +50,12 @@ public class AdminDao {
 	public List<CodeTable> getDepartmentList(String codeType) {
 		return sqlSession.selectList("admin.getDepartmentList", codeType);
 	}
-	
+
+	public List<Project> getProjectsByPname(String item) {
+		return sqlSession.selectList("admin.getProjectsByPname", item);
+	}
+
+	public List<Project> getProjectsByUname(String item) {
+		return sqlSession.selectList("admin.getProjectsByUname", item);
+	}
 }

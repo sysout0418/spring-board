@@ -66,12 +66,29 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/projects/delete", method = RequestMethod.POST)
-	public String deleteprojects(int pno[]) {
+	public String deleteProjects(int pno[]) {
 		for (int i : pno) {
 			adminService.removeProjects(i);
 		}
 		
 		return "redirect:/admin/projects";
+	}
+	
+	@RequestMapping(value = "/admin/projects/search", method = RequestMethod.GET)
+	public String searchProjects(String group, String item, Model model) {
+		int countProjects = adminService.getCountProjects();
+		List<Project> project = null;
+		if(group.equals("프로젝트명")){
+			project = adminService.getProjectsByPname(item);
+		}
+		else if(group.equals("담당자")){
+			project = adminService.getProjectsByUname(item);
+		}
+		
+		model.addAttribute("countProjects", countProjects);
+		model.addAttribute("project", project);
+		
+		return "/admin/allProjects";
 	}
 	
 	@ModelAttribute("department")
