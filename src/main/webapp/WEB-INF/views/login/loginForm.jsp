@@ -43,6 +43,11 @@
 <div class="container">
 	<c:url value="/login" var="login" />
     <form:form cssClass="form-signin" action="${login}" method="post">
+    	<c:if test="${param.error != null}">
+    		<script type="text/javascript">
+	    		alert("아이디 및 비밀번호가 틀렸습니다.");
+    		</script>
+    	</c:if>
     	<h2 class="form-signin-heading">Please sign in</h2>
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="text" id="uemail" name="uemail" class="form-control" 
