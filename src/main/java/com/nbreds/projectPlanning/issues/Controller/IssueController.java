@@ -63,9 +63,9 @@ public class IssueController {
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		List<User> userList = issuesService.getUserListByPno(pno);
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("pno", pno);
-		param.put("uno", uno);
 		if (stat.equals("open")) {
+			param.put("pno", pno);
+			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByPno(param);
 			/*for (int i = 0; i < issuesList.size(); i++) {
@@ -73,6 +73,8 @@ public class IssueController {
 				issuesList.get(i).setLabels(labelList);
 			}*/
 		} else if (stat.equals("closed")) {
+			param.put("pno", pno);
+			param.put("uno", uno);
 			param.put("istatement", "001");
 			issuesList = issuesService.getIssuesByPno(param);
 			/*for (int i = 0; i < issuesList.size(); i++) {
@@ -80,6 +82,8 @@ public class IssueController {
 				issuesList.get(i).setLabels(labelList);
 			}*/
 		} else {
+			param.put("pno", pno);
+			param.put("uno", uno);
 			issuesList = issuesService.getIssuesByPno(param);
 			/*for (int i = 0; i < issuesList.size(); i++) {
 				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
@@ -146,11 +150,13 @@ public class IssueController {
 	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
 		List<Label> labels = issuesService.getAllLabel();
 		List<User> userList = issuesService.getUserListByPno(pno);
+		List<User> allUserList = issuesService.getAllUserNameAndNo();
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("labels", labels);
 		model.addAttribute("userList", userList);
+		model.addAttribute("allUserList", allUserList);
 		model.addAttribute("milestoneList", milestoneList);
 
 		return "/issues/newIssue";
@@ -204,6 +210,7 @@ public class IssueController {
 			@PathVariable("ino") int ino, @ModelAttribute("issues") Issue issues, Model model) {
 		issues = issuesService.getIssuesByIno(ino);
 		List<User> userList = issuesService.getUserListByPno(pno);
+		List<User> allUserList = issuesService.getAllUserNameAndNo();
 		List<Label> labelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		// ino로 파일 리스트 불러오기
@@ -217,6 +224,7 @@ public class IssueController {
 		model.addAttribute("pno", pno);
 		model.addAttribute("issues", issues);
 		model.addAttribute("userList", userList);
+		model.addAttribute("allUserList", allUserList);
 		model.addAttribute("labelList", labelList);
 		model.addAttribute("milestoneList", milestoneList);
 		model.addAttribute("fileList", fileList);
