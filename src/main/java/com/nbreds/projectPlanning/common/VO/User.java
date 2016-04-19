@@ -9,6 +9,7 @@ public class User {
 	private String udepartment;
 	private String uemail;
 	private String upassword;
+	private String uregdate;
 	
 	public String getUname() {
 		return uname;
@@ -46,7 +47,12 @@ public class User {
 	public void setUpassword(String upassword) {
 		this.upassword = upassword;
 	}
-
+	public String getUregdate() {
+		return uregdate;
+	}
+	public void setUregdate(String uregdate) {
+		this.uregdate = uregdate;
+	}
 	@Override
 	public String toString() {
 		return super.toString() + "\n uemail: " + this.uemail + ", upassword: " + this.upassword;

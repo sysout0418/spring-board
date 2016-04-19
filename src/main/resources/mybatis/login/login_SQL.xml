@@ -12,12 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,udepartment
 		  ,uemail
 		  ,upassword
+		  ,uregdate
 		) VALUES (
 		  #{uname}
 		  ,#{uphoneno}
 		  ,#{udepartment}
 		  ,#{uemail}
 		  ,#{upassword}
+		  ,NOW()
 		);
     ]]>  
     </insert>

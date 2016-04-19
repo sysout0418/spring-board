@@ -1,13 +1,18 @@
 package com.nbreds.projectPlanning.admin.Controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Service.AdminService;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class AdminController {
@@ -17,8 +22,17 @@ public class AdminController {
 	AdminService adminService;	
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String home() {
-
+	public String home(Model model) {
+		int countUsers = adminService.getCountUsers();
+		int countProjects = adminService.getCountProjects();
+		List<User> user = adminService.get5Users();
+		List<Project> project = adminService.get5Projects();
+		
+		model.addAttribute("countUsers", countUsers);
+		model.addAttribute("countProjects", countProjects);
+		model.addAttribute("user", user);
+		model.addAttribute("project", project);
+		
 		return "/admin/index";
 	}
 	
@@ -29,8 +43,23 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/projects", method = RequestMethod.GET)
-	public String projects() {
-
+	public String projects(Model model) {
+		int countProjects = adminService.getCountProjects();
+		List<Project> project = adminService.getAllProjects();
+		
+		model.addAttribute("countProjects", countProjects);
+		model.addAttribute("project", project);
+		
 		return "/admin/allProjects";
+	}
+	
+	@RequestMapping(value = "/admin/projects/delete", method = RequestMethod.POST)
+	public String deleteprojects(int pno[]) {
+		System.out.println(pno);
+		for (int i : pno) {
+			System.out.println(i);
+		}
+		
+		return "redirect:/admin/projects";
 	}
 }
