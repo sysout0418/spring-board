@@ -8,7 +8,6 @@ public class User {
 	private String uphoneno;
 	private String udepartment;
 	private String uemail;
-	private String uposition;
 	private String upassword;
 	
 	public String getUname() {
@@ -34,12 +33,6 @@ public class User {
 	}
 	public void setUemail(String uemail) {
 		this.uemail = uemail;
-	}
-	public String getUposition() {
-		return uposition;
-	}
-	public void setUposition(String uposition) {
-		this.uposition = uposition;
 	}
 	public int getUno() {
 		return uno;

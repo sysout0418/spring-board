@@ -15,8 +15,8 @@
    		<td>담당자 : ${project.uname}</td>
   		</tr> 
    	<tr>
-   		<td>등록일 : ${project.pregdate}</td>
    		<td>진행상황 : ${project.pprogress}</td>
+   		<td>등록일 : ${project.pregdate}</td>
    		<td>모집마감일 : ${project.pduedate}</td>
    	</tr>
    	<tr>

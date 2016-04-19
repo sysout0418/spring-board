@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <configuration>
     <mappers>
+    	<mapper resource="mybatis/admin/admin_SQL.xml" />
     	<mapper resource="mybatis/Project/commonProject_SQL.xml" />
         <mapper resource="mybatis/Project/listProject_SQL.xml" />
         <mapper resource="mybatis/Project/myProject_SQL.xml" />
