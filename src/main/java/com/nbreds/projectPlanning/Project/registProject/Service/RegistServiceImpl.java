@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
@@ -22,18 +23,17 @@ public class RegistServiceImpl implements RegistService{
 	private RegistDao registDao;
 	
 	@Transactional
-	public void savePrjAndPrjMS(Project project, ProjectMemberStat projectMS) {
-		/*
+	public void savePrjAndPrjMS(Project project, String requestedUserNoList) {
 		try {
 			registDao.saveProject(project);
 			int maxPno = getLastno();
+			ProjectMemberStat projectMS = new ProjectMemberStat();
 			projectMS.setPno(maxPno);
 			
 			// 임시 stat 저장
 			projectMS.setStat("000");
-			String uno = project.getPmember();
-			if (!uno.equals("")) {
-				String[] unos = uno.split(",");
+			if (!requestedUserNoList.equals("")) {
+				String[] unos = requestedUserNoList.split(",");
 				for (int i = 0; i < unos.length; i++) {
 					projectMS.setUno(Integer.parseInt(unos[i]));
 					registDao.saveProjectMS(projectMS);
@@ -43,7 +43,6 @@ public class RegistServiceImpl implements RegistService{
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
-		*/
 	}
 	
 	public int getLastno() {
@@ -61,4 +60,10 @@ public class RegistServiceImpl implements RegistService{
 	public User getUserForNo(int uno) {
 		return registDao.getUserForNo(uno);
 	}
+
+	@Override
+	public List<User> getAllUser() {
+		return registDao.getAllUser();
+	}
+
 }

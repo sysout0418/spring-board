@@ -11,7 +11,7 @@ import com.nbreds.projectPlanning.common.VO.User;
 
 @Service
 public interface RegistService {
-	public void savePrjAndPrjMS(Project project, ProjectMemberStat projectMS);
+	public void savePrjAndPrjMS(Project project, String requestedUserNoList);
 	
 	public int getLastno();
 	
@@ -20,4 +20,7 @@ public interface RegistService {
 	public List<User> getUsersForName(String uname);
 
 	public User getUserForNo(int uno);
+	
+	List<User> getAllUser();
+	
 }

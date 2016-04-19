@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -26,6 +27,12 @@ public interface ListService {
 	public void updateProject(Project project);
 	
 	public User getUserForNo(int uno);
+	
+	int getParticipateUserCnt(int pno);
+	
+	List<ProjectMemberStat> getParticipateUserList(int pno);
+	
+	List<User> getAllUser();
 	
 	public List<CodeTable> getCodeTable(String CODE_TYPE);
 	

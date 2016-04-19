@@ -11,14 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,pdetail
 		  ,pdata
 		  ,pduedate
-		  ,pmember
+		  ,pregdate
 		  ,uno
 		) VALUES (
 		  #{pname}
 		  ,#{pdetail}
 		  ,#{pdata}
 		  ,#{pduedate}
-		  ,#{pmember}
+		  ,curdate()
 		  ,#{uno}
 		)
     ]]>  
@@ -65,4 +65,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     where uno=#{uno}
     ]]>  
     </select>
+    
+    <select id="getAllUser" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    SELECT uno, uname, uphoneno, udepartment, uemail, uposition
+    FROM User
+    ]]>  
+    </select>
+    
 </mapper>

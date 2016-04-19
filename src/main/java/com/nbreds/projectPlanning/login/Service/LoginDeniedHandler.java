@@ -25,7 +25,7 @@ public class LoginDeniedHandler implements AccessDeniedHandler {
 		logger.info("StackTrace : {}", ade.getStackTrace());
 
 		req.setAttribute("errMsg", ade.getMessage());
-		req.getRequestDispatcher("/WEB-INF/views/joinError.jsp").forward(req, res);
+		req.getRequestDispatcher("/WEB-INF/views/login/joinError.jsp").forward(req, res);
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.Project.listProjects.Dao.ListDao;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
@@ -47,6 +48,21 @@ public class ListServiceImpl implements ListService {
 		return listDao.getUserForNo(uno);
 	}
 	
+	@Override
+	public int getParticipateUserCnt(int pno) {
+		return listDao.getParticipateUserCnt(pno);
+	}
+	
+	@Override
+	public List<ProjectMemberStat> getParticipateUserList(int pno) {
+		return listDao.getParticipateUserList(pno);
+	}
+	
+	@Override
+	public List<User> getAllUser() {
+		return listDao.getAllUser();
+	}
+	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
 		return listDao.getCodeTable(CODE_TYPE);
 	}
@@ -54,4 +70,7 @@ public class ListServiceImpl implements ListService {
 	public List<User> getUsersForName(String uname) {
 		return listDao.getUsersForName(uname);
 	}
+
+
+
 }

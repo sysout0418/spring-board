@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.Project.common.Controller.CommonController;
 import com.nbreds.projectPlanning.Project.listProjects.Service.ListService;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
@@ -92,6 +93,7 @@ public class ListController {
 	@RequestMapping(value = "/DetailProject/{pno}", method = RequestMethod.GET)
 	public String  DetailView(@PathVariable("pno") int pno, Model model) {
 		Project project = listService.getProjectByPno(pno);
+		int participatedUserCnt = listService.getParticipateUserCnt(pno);
 		String pdata = project.getPdata();
 		
 		//한글화
@@ -108,6 +110,7 @@ public class ListController {
 		project.setUname(uname);
 		
 		model.addAttribute("project", project);
+		model.addAttribute("userCnt", participatedUserCnt);
 		
 		return "Project/listProjects/detailView";
 	}
@@ -124,7 +127,8 @@ public class ListController {
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public String  UpdateView(int pno, Model model, @ModelAttribute("project") Project project) {
 		project = listService.getProjectByPno(pno);
-		
+		List<User> allUserList = listService.getAllUser();
+		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserList(pno);
 		List<String> skills = (List<String>)commonController.getCodeForCodeType(project.getPdata(), "skills");
 		String pprogress = (String) commonController.getCodeForCodeType(project.getPdata(), "progress");
 		
@@ -150,6 +154,8 @@ public class ListController {
 		if (model != null) {
 			model.addAttribute("project", project);
 			model.addAttribute("user",user);
+			model.addAttribute("allUserList", allUserList);
+			model.addAttribute("participatedUserList", participatedUserList);
 		}
 		
 		return "Project/listProjects/updateView";

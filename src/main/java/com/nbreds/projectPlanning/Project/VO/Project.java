@@ -8,6 +8,7 @@ public class Project {
 	private String pdetail="";
 	private String pdata="";
 	private String pduedate="";
+	private String pregdate;
 	private int uno;
 	
 	private List<String> pdevelopment;
@@ -96,4 +97,11 @@ public class Project {
 	public void setPskill(String pskill) {
 		this.pskill = pskill;
 	}
+	public String getPregdate() {
+		return pregdate;
+	}
+	public void setPregdate(String pregdate) {
+		this.pregdate = pregdate;
+	}
+	
 }

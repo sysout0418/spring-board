@@ -10,7 +10,7 @@
 		<security:intercept-url pattern="/loginForm" access="permitAll" />
 		<security:intercept-url pattern="/checkId" access="permitAll" />
 		<security:intercept-url pattern="/join" access="permitAll" />
-		<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<security:intercept-url pattern="/**" access="hasAnyRole('ADMIN','USER')" />
 		
 		<security:form-login login-page="/loginForm"
 			login-processing-url="/login"
@@ -46,7 +46,7 @@
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
-	<!-- 회원가입시 패스워드 암호화 할 때 사용하는데 지금은 보류 -->
+	<!-- 회원가입시 패스워드 암호화 할 때 사용 -->
 	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
 		<constructor-arg index="0" value="256" />
 	</bean>

@@ -43,4 +43,9 @@ public class RegistDao {
 	public User getUserForNo(int uno) {
 		return sqlSession.selectOne("project.regist.getUserForNo", uno);
 	}
+	
+	public List<User> getAllUser() {
+		return sqlSession.selectList("project.regist.getAllUser");
+	}
+	
 }

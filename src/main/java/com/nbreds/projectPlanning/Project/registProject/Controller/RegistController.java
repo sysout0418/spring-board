@@ -2,6 +2,7 @@ package com.nbreds.projectPlanning.Project.registProject.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
@@ -33,16 +35,18 @@ public class RegistController {
 		
 		User user = registService.getUserForNo(uno);
 		model.addAttribute("user",user);
+		model.addAttribute("allUserList", registService.getAllUser());
 		
         return "Project/registProject/registProject";
 	}
 	
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String RegistProcess(@ModelAttribute("project")
-							Project project, BindingResult result, @ModelAttribute("project2") ProjectMemberStat projectMS, HttpSession session) {
+							Project project, BindingResult result, HttpServletRequest request, HttpSession session) {
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
 		project.setPprogress("011000");
-		registService.savePrjAndPrjMS(project, projectMS);
+		String requestedUserNoList = request.getParameter("requestUserNoList");
+		registService.savePrjAndPrjMS(project, requestedUserNoList);
 		return "redirect:/list";
 	}
 	

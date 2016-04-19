@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -43,6 +44,18 @@ public class ListDao {
 	
 	public User getUserForNo(int uno) {
 		return sqlSession.selectOne("project.list.getUserForNo", uno);
+	}
+	
+	public int getParticipateUserCnt(int pno) {
+		return sqlSession.selectOne("project.list.getParticipateUserCnt", pno);
+	}
+	
+	public List<ProjectMemberStat> getParticipateUserList(int pno) {
+		return sqlSession.selectList("project.list.getParticipateUserList", pno);
+	}
+	
+	public List<User> getAllUser() {
+		return sqlSession.selectList("project.list.getAllUser");
 	}
 	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
