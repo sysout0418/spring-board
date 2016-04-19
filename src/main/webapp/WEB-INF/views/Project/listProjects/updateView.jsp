@@ -1,3 +1,4 @@
+<%@page import="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat"%>
 <%@page import="com.nbreds.projectPlanning.HomeController"%>
 <%@page import="com.nbreds.projectPlanning.common.VO.User"%>
 <%@page import="java.util.List"%>
@@ -6,6 +7,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	List<User> userInfoList = HomeController.USER_INFO;
+	List<ProjectMemberStat> participatedUserList = (List<ProjectMemberStat>) request.getAttribute("participatedUserList");
 %>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
@@ -113,15 +115,10 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 							<div class="pop-container">
 								<div class="pop-conts">
 									<!--content //-->
-									<div class="checkbox">
-								        <label>
-								        	<input type="checkbox" name="userName" value="" alt="">없음
-								        </label>
-							        </div>
 									<c:forEach var="users" items="${allUserList}">
 										<div class="checkbox">
 								        	<label>
-								        		<input type="checkbox" name="userName" value="${users.uno}" alt="${users.uname}">${users.uname}
+										        <input type="checkbox" name="userName" value="${users.uno}" alt="${users.uname}">${users.uname}
 								        	</label>
 							        	</div>
 									</c:forEach>
@@ -158,6 +155,18 @@ $(function() {
 			$('#date').val(date);
 		}
 	});
+	
+	var chk = document.getElementsByName("userName"); // 체크박스 객체
+	for (var i = 0; i < chk.length; i++) {
+		<% if (participatedUserList != null) {
+			for (int j = 0; j < participatedUserList.size(); j++) { %>
+				if ('<%= participatedUserList.get(j).getUname() %>' == chk[i].alt) {
+					chk[i].checked = true;
+				}
+			<% }
+		} %>
+	}
+	
 });
 
 function layer_open(el){
@@ -251,14 +260,6 @@ function selectChkRow() {
 	//alert(rowName);
 	//alert(rowid);
 }
-
-$(function() {
-	var chk = document.getElementsByName("userName"); // 체크박스 객체
-	console.log($('.selectedUserList > span').text());
-	for (var i = 0; i < chk.length; i++) {
-		
-	}
-});
 
 <%-- $(function () {
 	var pmember = $("#pmember").val().substring(0, $("#pmember").val().length - 1).split(",");

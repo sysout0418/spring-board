@@ -127,7 +127,7 @@ public class ListController {
 	
 	//프로젝트 수정페이지
 	@RequestMapping(value = "update", method = RequestMethod.GET)
-	public String  UpdateView(int pno, Model model, @ModelAttribute("project") Project project) {
+	public String  UpdateView(int pno, Model model, HttpServletRequest request, @ModelAttribute("project") Project project) {
 		project = listService.getProjectByPno(pno);
 		List<User> allUserList = listService.getAllUser();
 		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserList(pno);
@@ -158,6 +158,7 @@ public class ListController {
 			model.addAttribute("user",user);
 			model.addAttribute("allUserList", allUserList);
 			model.addAttribute("participatedUserList", participatedUserList);
+			request.setAttribute("participatedUserList", participatedUserList);
 		}
 		
 		return "Project/listProjects/updateView";
