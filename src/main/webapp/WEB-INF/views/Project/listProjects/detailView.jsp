@@ -28,10 +28,6 @@
   		<tr><td colspan="3"></td></tr>
 	</table>
 	<div align="center">
-		<c:if test="${user_no==project.uno}">
-			<a class="btn btn-default" href="/update?pno=${project.pno}" role="button">수정</a>
-			<a class="btn btn-default" href="/DeleteProject?pno=${project.pno}" role="button">삭제</a>
-		</c:if>
 		<a class="btn btn-default" href="/list" role="button">목록</a>
 	</div>
 </div>

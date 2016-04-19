@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_project.jsp"/>
 <!-- Begin page content -->
 <div style="width:1200; margin:0 auto; background-color: #fff">
@@ -37,11 +38,11 @@
   		</c:forEach>
   		</td></tr>
 	</table>
-	<c:if test="${charged != null}">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
 	<div align="center">
 		<a class="btn btn-default" href="/update?pno=${project.pno}" role="button">수정</a>
 		<a class="btn btn-default" href="/DeleteProject?pno=${project.pno}" role="button">삭제</a>
 	</div>
-	</c:if>
+	</sec:authorize>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

@@ -1,6 +1,7 @@
 <html>
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -107,7 +108,9 @@ $(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-      	<li><a href="/regist" data-toggle="tooltip" data-placement="bottom" title="New Project"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
+      	<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+      		<li><a href="/regist" data-toggle="tooltip" data-placement="bottom" title="New Project"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
+      	</sec:authorize>
       	<li><a href="/requestProject/open" data-toggle="tooltip" data-placement="bottom" title="Request"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><c:if test="${req > 0}"><span class="badge">${req}</span></c:if></a></li>
         <li><a href="/logout" data-toggle="tooltip" data-placement="bottom" title="Sign Out"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
       </ul>
