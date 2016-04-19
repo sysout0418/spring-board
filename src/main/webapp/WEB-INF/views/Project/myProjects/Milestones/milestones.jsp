@@ -3,7 +3,7 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_project.jsp"/>
 <!-- Begin page content -->
 <div style="width:1200; margin:0 auto; background-color: #fff">
-<h4 class="page-header">Milestones</h4>  	
+<h4 class="page-header">${pname} / Milestones</h4>  	
 <div role="tabpanel">
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">

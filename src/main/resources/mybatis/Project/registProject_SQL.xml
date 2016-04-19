@@ -10,15 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  pname
 		  ,pdetail
 		  ,pdata
+		  ,pregdate
 		  ,pduedate
-		  ,pmember
 		  ,uno
 		) VALUES (
 		  #{pname}
 		  ,#{pdetail}
 		  ,#{pdata}
+		  ,NOW()
 		  ,#{pduedate}
-		  ,#{pmember}
 		  ,#{uno}
 		)
     ]]>  

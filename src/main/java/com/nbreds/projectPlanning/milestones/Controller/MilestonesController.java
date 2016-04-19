@@ -86,8 +86,10 @@ public class MilestonesController {
 			milestone.setCountIssues(countIssues);
 			milestone.setCompleteIssuePercent((int) Math.round((completeIssuePercent / countIssues) * 100));
 		}
-
+		String pname = milestonesService.getPnameByPno(pno);
+		
 		model.addAttribute("stat", stat);
+		model.addAttribute("pname", pname);
 		model.addAttribute("list", list);
 
 		return "/Project/myProjects/Milestones/milestones";

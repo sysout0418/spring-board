@@ -102,4 +102,6 @@ public interface IssueService {
 	
 	void updateFile(Map<String, Object> param);
 
+	String getPnameByPno(int pno);
+
 }

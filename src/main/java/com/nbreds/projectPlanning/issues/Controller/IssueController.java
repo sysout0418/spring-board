@@ -90,6 +90,10 @@ public class IssueController {
 				issuesList.get(i).setLabels(labelList);
 			}
 		}
+		
+		String pname = issuesService.getPnameByPno(pno);
+		
+		model.addAttribute("pname", pname);
 		model.addAttribute("stat", stat);
 		model.addAttribute("issuesList", issuesList);
 		model.addAttribute("userList", userList);
