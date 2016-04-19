@@ -4,23 +4,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="admin">
-	<select id="countAllUser" resultType="int">
-	<![CDATA[	
-		SELECT COUNT(*)
-		FROM User
-	]]>
-	</select>
-
-	<select id="selectNewUser" resultType="com.nbreds.projectPlanning.common.VO.User">
-	<![CDATA[	
-		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate
-		FROM User u
-		JOIN Authority a
-		ON u.uno = a.uno
-		WHERE enabled = 0
-		OR uregdate BETWEEN (SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM dual) AND NOW()
-	]]>
-	</select>
+	<select id="get5Projects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+   	select P.pname, P.pregdate, P.pduedate, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno
+	ORDER BY P.pregdate DESC
+	LIMIT 5
+    ]]>  
+    </select>
+    
+    <select id="get5Users" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+   	SELECT uname, uphoneno, udepartment, uemail, uregdate
+  	FROM User
+	ORDER BY uregdate DESC
+	LIMIT 5
+    ]]>  
+    </select>
+    
+    <select id="getCountUsers" resultType="int">
+    <![CDATA[
+	SELECT count(*)
+	FROM User
+    ]]>  
+    </select>
+    
+    <select id="getCountProjects" resultType="int">
+    <![CDATA[
+	SELECT count(*)
+	FROM Project
+    ]]>  
+    </select>
+    
+    <select id="getAllProjects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno
+	ORDER BY P.pregdate DESC
+    ]]>  
+    </select>
 	
 	<select id="selectAllUser" resultType="com.nbreds.projectPlanning.common.VO.User">
 	<![CDATA[	

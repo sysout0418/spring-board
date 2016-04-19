@@ -7,17 +7,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Service
 public interface AdminService {
 	static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
-	/** 모든 유저 수 카운트 */
-	int countAllUser();
-	
-	/** 신규 유저 리스트 가져오기 */
-	List<User> selectNewUser();
+	List<Project> get5Projects();
+
+	List<User> get5Users();
+
+	int getCountUsers();
+
+	int getCountProjects();
+
+	List<Project> getAllProjects();
 	
 	/** 모든 유저 리스트 가져오기 */
 	List<User> selectAllUser();

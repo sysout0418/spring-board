@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Dao.AdminDao;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
@@ -19,13 +20,28 @@ public class AdminServiceImpl implements AdminService {
 	AdminDao adminDao;
 
 	@Override
-	public int countAllUser() {
-		return adminDao.countAllUser();
+	public List<Project> get5Projects() {
+		return adminDao.get5Projects();
 	}
-	
+
 	@Override
-	public List<User> selectNewUser() {
-		return adminDao.selectNewUser();
+	public List<User> get5Users() {
+		return adminDao.get5Users();
+	}
+
+	@Override
+	public int getCountUsers() {
+		return adminDao.getCountUsers();
+	}
+
+	@Override
+	public int getCountProjects() {
+		return adminDao.getCountProjects();
+	}
+
+	@Override
+	public List<Project> getAllProjects() {
+		return adminDao.getAllProjects();
 	}
 	
 	@Override

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.User;
 
 @Repository("AdminDao")
@@ -18,12 +19,24 @@ public class AdminDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int countAllUser() {
-		return sqlSession.selectOne("admin.countAllUser");
+	public List<Project> get5Projects() {
+		return sqlSession.selectList("get5Projects");
 	}
-	
-	public List<User> selectNewUser() {
-		return sqlSession.selectList("admin.selectNewUser");
+
+	public List<User> get5Users() {
+		return sqlSession.selectList("get5Users");
+	}
+
+	public int getCountUsers() {
+		return sqlSession.selectOne("getCountUsers");
+	}
+
+	public int getCountProjects() {
+		return sqlSession.selectOne("getCountProjects");
+	}
+
+	public List<Project> getAllProjects() {
+		return sqlSession.selectList("getAllProjects");
 	}
 	
 	public List<User> selectAllUser() {
