@@ -4,4 +4,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="admin">
+	<select id="countAllUser" resultType="int">
+	<![CDATA[	
+		SELECT COUNT(*)
+		FROM User
+	]]>
+	</select>
+
+	<select id="selectNewUser" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<![CDATA[	
+		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate
+		FROM User u
+		JOIN Authority a
+		ON u.uno = a.uno
+		WHERE enabled = 0
+		OR uregdate BETWEEN (SELECT DATE_SUB(NOW(), INTERVAL 7 DAY) FROM dual) AND NOW()
+	]]>
+	</select>
+	
+	<select id="selectAllUser" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<![CDATA[	
+		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate
+		FROM User u
+	]]>
+	</select>
+	
+	<select id="getDepartmentList" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
+	<![CDATA[	
+		SELECT CODE_TYPE, CODE, CODE_NAME
+		FROM CodeTable
+		WHERE CODE_TYPE = #{codeType}
+	]]>
+	</select>
+	
 </mapper>
