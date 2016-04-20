@@ -99,6 +99,7 @@ public class AdminController {
 			}
 		}
 		
+		request.setAttribute("allUserList2", allUserList);
 		model.addAttribute("allUserList", allUserList);
 		model.addAttribute("pageBean", pageBean);
 		return "/admin/allUsers";

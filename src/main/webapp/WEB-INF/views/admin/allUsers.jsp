@@ -1,8 +1,28 @@
+<%@page import="com.nbreds.projectPlanning.common.VO.User"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
 <jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
+<link href="http://www.blacktie.co/demo/dashgum/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://www.blacktie.co/demo/dashgum/assets/js/gritter/css/jquery.gritter.css">
+<link href="http://www.blacktie.co/demo/dashgum/assets/css/style.css" rel="stylesheet">
+<link href="http://www.blacktie.co/demo/dashgum/assets/css/style-responsive.css" rel="stylesheet">
+<% List<User> allUserList2 = (List<User>) request.getAttribute("allUserList2"); %>
+<style>
+.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
+.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
+.layer .pop-layer {display:block;}
+
+.pop-layer {display:none; position: absolute; top: 50%; left: 50%; width: 400px; height: auto;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
+.pop-layer .pop-container {padding: 20px 25px;}
+.pop-layer p.ctxt {color: #666; line-height: 25px;}
+.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
+
+a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
+a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
+</style>
 <!-- Begin page content -->
 <div style="width: 1200; margin: 0 auto; background-color: #fff">
 	<h4>Users</h4>
@@ -57,7 +77,7 @@
 								<input type="checkbox" name="cbList" value="${user.uno}">
 							</label>
 						</div></td>
-					<td><a href="/admin/users/detail/${user.uno}">${user.uname}</a></td>
+					<td class="getUserName"><a href="#" onclick="layer_open('layer2');return false;" alt="${user.uno}">${user.uname}</a></td>
 					<td>${user.uphoneno}</td>
 					<td>${user.udepartmentName}</td>
 					<td>${user.uemail}</td>
@@ -98,12 +118,113 @@
 	</div>
 	
 	</form>
+	
+	<div class="layer">
+		<div class="bg"></div>
+		<div id="layer2" class="pop-layer">
+			<div class="pop-container">
+				<div class="pop-conts">
+					<!--content //-->
+					<div class="sp-title">
+						<h3></h3>
+					</div>
+					<p class="uphoneno"><i class="fa fa-user"></i></p>
+					<p class="udepartment"><i class="fa fa-user"></i></p>
+					<p class="uemail"><i class="fa fa-user"></i></p>
+					<p class="uregdate"><i class="fa fa-user"></i></p>
+					<p class="isAdmit"><i class="fa fa-user"></i></p>
+					<p class="isDel"><i class="fa fa-user"></i></p>
+						
+					<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
+					<!--// content-->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- <div class="showback">
+	<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+		</button>
+						
+		Modal
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel"></h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="content-panel pn">
+								<div id="spotify">
+									<div class="col-xs-4 col-xs-offset-8">
+										<button class="btn btn-sm btn-clear-g">FOLLOW</button>
+									</div>
+									<div class="sp-title">
+										<h3></h3>
+									</div>
+									<div class="play">
+										<i class="fa fa-play-circle"></i>
+									</div>
+								</div>
+								<p class="uphoneno"><i class="fa fa-user"></i>폰번호<br> 부서</p>
+								<p class="udepartment"><i class="fa fa-user"></i>부서</p>
+								<p class="uemail"><i class="fa fa-user"></i>메일</p>
+								<p class="uregdate"><i class="fa fa-user"></i>가입신청일</p>
+								<p class="isAdmit"><i class="fa fa-user"></i>가입승인여부</p>
+								<p class="isDel"><i class="fa fa-user"></i>탈퇴여부</p>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>      				
+	</div> --><!-- /showback -->
+      				
 </div>
 <script type="text/javascript">
 function pagelist(page) {
 	$("#pageNo").val(page);
 	$("#frm").get(0).action = "/admin/users";
 	$("#frm").get(0).submit();
+}
+
+function layer_open(el){
+
+	var temp = $('#' + el);
+	var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
+
+	if(bg){
+		$('.layer').fadeIn();	//'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
+	}else{
+		temp.fadeIn();
+	}
+
+	// 화면의 중앙에 레이어를 띄운다.
+	if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
+	else temp.css('top', '0px');
+	if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
+	else temp.css('left', '0px');
+
+	temp.find('#closeBtn').click(function(e){
+		if(bg){
+			$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
+		}else{
+			temp.fadeOut();
+		}
+		e.preventDefault();
+	});
+	
+	$('.layer .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+		$('.layer').fadeOut();
+		e.preventDefault();
+	});
+
 }
 
 //문자열 공백제거 함수
@@ -182,6 +303,42 @@ $(function() {
 			f.submit();
 		}
 	});
+	
+	$('.getUserName > a').bind('click', function() {
+		console.log($(this).text());
+		var uno = $(this).attr("alt");
+		//$('#myModalLabel').text($(this).text() + " 님 회원정보");
+		<% for (int i = 0; i < allUserList2.size(); i++) { %>
+				if (uno == '<%= allUserList2.get(i).getUno() %>') {
+					$('.pop-conts > .sp-title > h3').text("<%= allUserList2.get(i).getUname() %>" + " 님의 회원정보");
+					$('.pop-conts > .uphoneno > i').text("휴대폰 번호 : " + "<%= allUserList2.get(i).getUphoneno() %>");
+					$('.pop-conts > .udepartment > i').text("부서명 : " + "<%= allUserList2.get(i).getUdepartmentName() %>");
+					$('.pop-conts > .uemail > i').text("메일 주소 : " + "<%= allUserList2.get(i).getUemail() %>");
+					$('.pop-conts > .uregdate > i').text("가입 신청일 : " + "<%= allUserList2.get(i).getUregdate() %>");
+					if ("<%= allUserList2.get(i).getEnabled() %>" == 1) {
+						$('.pop-conts > .isAdmit > i').text("가입 승인 여부 : 승인");
+					} else {
+						$('.pop-conts > .isAdmit > i').text("가입 승인 여부 : 승인 안됨");
+					}
+					if ("<%= allUserList2.get(i).getExpired() %>" == "Y") {
+						$('.pop-conts > .isDel > i').text("탈퇴 여부 : 탈퇴함");
+					} else {
+						$('.pop-conts > .isDel > i').text("탈퇴 여부 : 탈퇴 안함");
+					}
+				}
+		<% } %>
+	});
+	
+	/* <div class="pop-conts">
+	<p class="uphoneno"><i class="fa fa-user"></i>폰번호</p>
+	<p class="udepartment"><i class="fa fa-user"></i>부서</p>
+	<p class="uemail"><i class="fa fa-user"></i>메일</p>
+	<p class="uregdate"><i class="fa fa-user"></i>가입신청일</p>
+	<p class="isAdmit"><i class="fa fa-user"></i>가입승인여부</p>
+	<p class="isDel"><i class="fa fa-user"></i>탈퇴여부</p>
+		
+	<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
+</div>*/
 	
 });
 
@@ -329,5 +486,8 @@ function recoverList() {
 	}
 }
 </script>
+<script type="text/javascript" src="http://www.blacktie.co/demo/dashgum/assets/js/gritter/js/jquery.gritter.js"></script>
+<script type="text/javascript" src="http://www.blacktie.co/demo/dashgum/assets/js/gritter-conf.js"></script>
+<script src="http://www.blacktie.co/demo/dashgum/assets/js/sparkline-chart.js"></script>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
