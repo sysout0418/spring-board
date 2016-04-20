@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="login">
+	<insert id="saveUser" parameterType="com.nbreds.projectPlanning.common.VO.User" useGeneratedKeys="true" keyProperty="uno">
+    <![CDATA[
+		 INSERT INTO User (
+		  uname
+		  ,uphoneno
+		  ,udepartment
+		  ,uemail
+		  ,upassword
+		  ,uregdate
+		) VALUES (
+		  #{uname}
+		  ,#{uphoneno}
+		  ,#{udepartment}
+		  ,#{uemail}
+		  ,#{upassword}
+		  ,NOW()
+		);
+    ]]>  
+    </insert>
+    
+    <select id="loginUserByIdPw" parameterType="com.nbreds.projectPlanning.common.VO.User" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    SELECT 
+    uno
+    ,uname
+    ,uphoneno
+    ,udepartment
+    ,uemail
+    ,upassword
+    FROM User
+    WHERE uemail = #{uemail} and upassword = #{upassword}
+    ]]>  
+    </select>
+
+    <select id="checkUserById" parameterType="com.nbreds.projectPlanning.common.VO.User" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    SELECT 
+    uno
+    ,uname
+    ,uphoneno
+    ,udepartment
+    ,uemail
+    ,upassword
+    FROM User
+    WHERE uemail = #{uemail}
+    ]]>  
+    </select>
+    
+    <select id="getUserAuthority" resultType="map">
+    <![CDATA[
+    SELECT
+    u.uno as uno
+    ,uname
+    ,uphoneno
+    ,udepartment
+    ,uemail as username
+    ,upassword as password
+    ,authority
+    ,enabled
+    FROM User u
+    JOIN Authority a
+    on u.uno = a.uno
+    WHERE uemail = #{uemail}
+    ]]>  
+    </select>
+    
+     <insert id="saveAuthority" parameterType="int">
+    <![CDATA[
+		insert into Authority (
+		   uno
+		) VALUES (
+		   #{uno}
+		)
+    ]]>  
+    </insert>
+</mapper>

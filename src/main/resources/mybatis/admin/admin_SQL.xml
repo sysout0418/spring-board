@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="admin">
+	<select id="get5Projects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+   	select P.pname, P.pregdate, P.pduedate, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno
+	ORDER BY P.pregdate DESC
+	LIMIT 5
+    ]]>  
+    </select>
+    
+    <select id="get5Users" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+   	SELECT uname, uphoneno, udepartment, uemail, uregdate, expired
+  	FROM User
+	ORDER BY uregdate DESC
+	LIMIT 5
+    ]]>  
+    </select>
+    
+    <select id="getCountUsers" resultType="int">
+    <![CDATA[
+	SELECT count(*)
+	FROM User
+    ]]>  
+    </select>
+    
+    <select id="getCountProjects" resultType="int">
+    <![CDATA[
+	SELECT count(*)
+	FROM Project
+    ]]>  
+    </select>
+    
+    <!-- <select id="getAllProjects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno
+	ORDER BY P.pregdate DESC
+    ]]>  
+    </select> -->
+    
+    <!-- 페이징 처리를 위한 getAllProjects -->
+	<select id="getAllProjects" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<![CDATA[	
+		SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+		FROM Project P
+		JOIN User U
+		ON P.uno = U.uno
+		]]>
+		<if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('pname')">
+						AND P.pname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('uname')">
+						AND U.uname like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	<![CDATA[
+	ORDER BY P.pno DESC
+	LIMIT #{start}, #{interval}
+	]]>
+	</select>
+	
+	<!-- 페이징 처리를 위한 totalProjectCount -->
+    <select id="totalProjectCount" parameterType="Map" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM Project
+    ]]>
+    <if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('name')">
+						P.pname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('phoneNumber')">
+						U.uname like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+    </select>
+    
+    <delete id="removeProjects" parameterType="int">
+    <![CDATA[
+    delete from Project where pno=#{i}
+    ]]>  
+    </delete>
+
+    <update id="removeUsersByUno" parameterType="int">
+    <![CDATA[
+    UPDATE User SET expired = 'Y' WHERE uno = #{uno}
+    ]]>  
+    </update>
+    
+    <update id="recoverUsersByUno" parameterType="int">
+    <![CDATA[
+    UPDATE User SET expired = 'N' WHERE uno = #{uno}
+    ]]>  
+    </update>
+    
+    <update id="admitUserByUno" parameterType="int">
+    <![CDATA[
+    UPDATE Authority SET enabled = 1 WHERE uno = #{uno}
+    ]]>
+    </update>
+    
+    <update id="denyUserByUno" parameterType="int">
+    <![CDATA[
+    UPDATE Authority SET enabled = 0 WHERE uno = #{uno}
+    ]]>
+    </update>
+    
+    <!-- 페이징 처리를 위한 selectAllUser -->
+	<select id="selectAllUser" parameterType="Map" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<![CDATA[	
+		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate, expired, authority, enabled
+		FROM User u
+		JOIN Authority a
+		ON u.uno = a.uno
+		]]>
+		<if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('name')">
+						uname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('phoneNumber')">
+						uphoneno like '%' #{word} '%'
+					</when>
+					<when test="key.equals('email')">
+						uemail like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	<![CDATA[
+	ORDER BY uregdate DESC
+	LIMIT #{start}, #{interval}
+	]]>
+	</select>
+	
+	<!-- 페이징 처리를 위한 totalUserCount -->
+    <select id="totalUserCount" parameterType="Map" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM User
+    ]]>
+    <if test="word != null and !word.equals('') and !key.equals('all')">
+			<where>
+				<choose>
+					<when test="key.equals('name')">
+						uname like '%' #{word} '%'
+					</when>
+					<when test="key.equals('phoneNumber')">
+						uphoneno like '%' #{word} '%'
+					</when>
+					<when test="key.equals('email')">
+						uemail like '%' #{word} '%'
+					</when>
+				</choose>
+			</where>
+		</if>
+    </select>
+	
+	<select id="getDepartmentList" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
+	<![CDATA[	
+		SELECT CODE_TYPE, CODE, CODE_NAME
+		FROM CodeTable
+		WHERE CODE_TYPE = #{codeType}
+	]]>
+	</select>
+	
+	<select id="getProjectsByPname" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<![CDATA[	
+	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno AND P.pname like '%' #{item} '%'
+	ORDER BY P.pregdate DESC
+	]]>
+	</select>
+	
+	<select id="getProjectsByUname" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<![CDATA[	
+	SELECT P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+	FROM Project P, User U
+	WHERE P.uno = U.uno AND U.uname like '%' #{item} '%'
+	ORDER BY P.pregdate DESC
+	]]>
+	</select>
+	
+	<select id="getUserInfoByUno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<![CDATA[	
+	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, enabled
+	FROM User u
+	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
+			FROM CodeTable
+			WHERE CODE_TYPE = 002 ) c
+	ON udepartment = c.CODE
+	JOIN Authority a
+	ON u.uno = a.uno
+	WHERE u.uno = #{uno}
+	]]>
+	</select>
+	
+	<select id="getAllAuthority" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<![CDATA[	
+	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, enabled
+	FROM User u
+	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
+			FROM CodeTable
+			WHERE CODE_TYPE = 002 ) c
+	ON udepartment = c.CODE
+	JOIN Authority a
+	ON u.uno = a.uno
+	WHERE u.uno = #{uno}
+	]]>
+	</select>
+	
+	<select id="getAllDepartmentList" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<![CDATA[	
+	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, enabled
+	FROM User u
+	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
+			FROM CodeTable
+			WHERE CODE_TYPE = 002 ) c
+	ON udepartment = c.CODE
+	JOIN Authority a
+	ON u.uno = a.uno
+	WHERE u.uno = #{uno}
+	]]>
+	</select>
+	
+</mapper>

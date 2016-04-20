@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="project.request">
+	<select id="getRequestProjects" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+  	SELECT P.pno, pname, pdata, pduedate, U.uname
+	FROM Project P
+	JOIN ProjectMemberStat S ON P.pno = S.pno
+	JOIN User U ON P.uno = U.uno
+	WHERE S.stat=#{stat} AND S.uno=#{uno}
+	ORDER BY P.pno ASC
+    ]]>  
+    </select>
+    
+    <update id="updateStat" parameterType="hashmap">
+    <![CDATA[
+	UPDATE ProjectMemberStat SET
+	stat = #{stat}
+	WHERE uno = #{uno}
+	AND pno = #{pno}
+	]]> 
+    </update>
+    
+    <select id="getCountRequestProjects" parameterType="String" resultType="int">
+    <![CDATA[
+	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
+    ]]>  
+    </select>
+</mapper>

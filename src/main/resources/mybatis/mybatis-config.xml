@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<configuration>
+    <mappers>
+    	<mapper resource="mybatis/admin/admin_SQL.xml" />
+    	<mapper resource="mybatis/Project/commonProject_SQL.xml" />
+        <mapper resource="mybatis/Project/listProject_SQL.xml" />
+        <mapper resource="mybatis/Project/myProject_SQL.xml" />
+        <mapper resource="mybatis/Project/registProject_SQL.xml" />
+        <mapper resource="mybatis/Project/requestProject_SQL.xml" />
+        <mapper resource="mybatis/Project/searchProject_SQL.xml" />
+        <mapper resource="mybatis/milestones/milestones_SQL.xml" />
+        <mapper resource="mybatis/issues/issues_SQL.xml" />
+        <mapper resource="mybatis/issueLabel/issueLabel_SQL.xml" />
+        <mapper resource="mybatis/login/login_SQL.xml" />
+    </mappers>
+</configuration>

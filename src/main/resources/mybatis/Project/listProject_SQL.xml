@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="project.list">
+	<select id="getTotalProjectNo" resultType="int">
+    <![CDATA[
+   		select count(*) from Project
+    ]]>  
+    </select>
+    
+    <select id="getProjectList" parameterType="hashmap" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+	   	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno
+		FROM Project
+		ORDER BY pno DESC
+		LIMIT #{pageNo}, #{rowsPerPage}
+    ]]>  
+    </select>
+    
+    <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+     SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno
+     FROM Project
+     WHERE pno=#{pno}
+    ]]>  
+    </select>
+    
+   	<delete id="removeProject" parameterType="int">
+    <![CDATA[
+    delete from Project where pno = #{pno}
+    ]]>  
+    </delete>
+    
+    <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    UPDATE Project SET
+	    pname = #{pname},
+		pdetail = #{pdetail},
+		pdata=#{pdata},
+		pregdate=curdate(),
+		pduedate=#{pduedate}
+	WHERE pno = #{pno}
+	]]> 
+    </update>
+        
+    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail
+    from User
+    where uno=#{uno}
+    ]]>  
+    </select>
+    
+    <!-- 2016. 04. 19. 현재 pno에 참여하고 있는 플젝 인원 카운트 -->
+    <select id="getParticipateUserCnt" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM ProjectMemberStat
+    WHERE pno = #{pno}
+    ]]>  
+    </select>
+    
+    <!-- 2016. 04. 19. 플젝 업데이트에서 플젝 참여 인원 수정 시 모든 유저 리스트 팝업 띄우는 용도 -->
+    <select id="getAllUser" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    SELECT uno, uname, uphoneno, udepartment, uemail
+    FROM User
+    ]]>  
+    </select>
+    
+    <!-- 2016. 04. 19. 현재 pno에 참여하고 있는 플젝 인원 정보 select -->
+    <select id="getParticipateUserList" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
+    <![CDATA[
+    SELECT pno, p.uno, stat, uname
+    FROM ProjectMemberStat p
+    JOIN User u
+    ON p.uno = u.uno
+    WHERE pno = #{pno}
+    ]]>  
+    </select>
+    
+    <!-- 2016. 04. 19. 플젝 수정 시 ProjectMemberStat 테이블 초기화 -->
+    <delete id="deleteMSByPno" parameterType="int">
+    <![CDATA[
+    DELETE FROM ProjectMemberStat
+	WHERE pno = #{pno}
+    ]]>
+	</delete>
+	
+    <!-- 2016. 04. 19. 플젝 수정 시 플젝 참여 인원 정보 INSERT -->
+	<insert id="saveProjectMS" parameterType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
+	<![CDATA[
+	INSERT INTO ProjectMemberStat (
+		uno
+		,pno
+	) VALUES (
+		#{uno}
+		,#{pno}
+	)
+    ]]>  
+    </insert>
+    
+    <select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
+    <![CDATA[
+     select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE}
+    ]]>  
+    </select>
+    
+    <select id="getUsersForName" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail
+    from User
+    where uname like '%' #{uname} '%'
+    ]]>  
+    </select>
+</mapper>

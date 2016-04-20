@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="project.common">
+    <select id="getAllUserNameAndNo" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail
+    from User
+    ]]>  
+    </select>
+    
+    <select id="getCodeName" parameterType="hashmap" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
+    <![CDATA[
+      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE} and CODE=#{CODE}
+    ]]>  
+    </select>
+</mapper>

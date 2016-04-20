@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="project.my">
+    <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT distinct P.pno, P.pname, P.pdetail, P.uno, U.uname
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+ 	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
+    ]]>  
+    </select>
+    
+    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <![CDATA[
+    select uno, uname, uphoneno, udepartment, uemail
+    from User
+    where uno=#{uno}
+    ]]>  
+    </select>
+    
+    <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+     select pno, pname, pdetail, pdata, pregdate, pduedate, uno from Project where pno=#{pno};
+    ]]>  
+    </select>
+    
+    <select id="searchProject" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+    SELECT P.pno, P.pname, P.pdetail, P.uno, U.uname
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+ 	WHERE 
+ 	]]> 
+ 	<if test="item != null">
+    P.pname like #{item} '%' AND
+    </if>
+    <![CDATA[
+    (S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno})
+    ]]>
+    </select>
+    
+    <select id="getRequestMember" parameterType="int" resultType="hashmap">
+    <![CDATA[
+	SELECT U.uname, S.stat, C.CODE_NAME
+	FROM ProjectMemberStat S, User U, CodeTable C
+	WHERE S.uno = U.uno AND S.stat=C.CODE AND C.CODE_TYPE=010 AND S.pno=#{pno}
+    ]]>  
+    </select>
+    
+    <!-- 2016. 04. 19. 현재 pno에 참여하고 있는 플젝 인원 카운트 -->
+    <select id="getParticipateUserCnt" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM ProjectMemberStat
+    WHERE pno = #{pno}
+    ]]>  
+    </select>
+</mapper>
