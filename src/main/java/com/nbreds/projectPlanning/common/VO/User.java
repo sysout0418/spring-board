@@ -12,7 +12,8 @@ public class User {
 	private String upassword;
 	private String uregdate;
 	private String authority;
-	private String enabled;
+	private int enabled;
+	private String expired; 
 	
 	public String getUname() {
 		return uname;
@@ -68,11 +69,17 @@ public class User {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	public String getEnabled() {
+	public int getEnabled() {
 		return enabled;
 	}
-	public void setEnabled(String enabled) {
+	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+	public String getExpired() {
+		return expired;
+	}
+	public void setExpired(String expired) {
+		this.expired = expired;
 	}
 	@Override
 	public String toString() {

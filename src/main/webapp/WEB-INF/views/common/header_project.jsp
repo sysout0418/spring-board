@@ -35,22 +35,6 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui/jquery-ui.min.css" />">
 <script type="text/javascript" src="<c:url value="/resources/javascript/jquery-ui/jquery-ui.min.js " />"></script>
 
-<!-- autocomplete CSS -->
-<link href="<c:url value="/resources/css/autocomplete/textext.core.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/resources/css/autocomplete/textext.plugin.tags.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/resources/css/autocomplete/textext.plugin.autocomplete.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/resources/css/autocomplete/textext.plugin.focus.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/resources/css/autocomplete/textext.plugin.prompt.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/resources/css/autocomplete/textext.plugin.arrow.css" />" rel="stylesheet" type="text/css">
-<link href="<c:url value="/resources/css/autocomplete/textext.plugin.clear.css" />" rel="stylesheet" type="text/css">
-
-<!-- autocomplete JavaScript -->
-<script type="text/javascript" src="<c:url value="/resources/javascript/autocomplete/textext.core.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/autocomplete/textext.plugin.tags.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/autocomplete/textext.plugin.autocomplete.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/autocomplete/textext.plugin.filter.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/autocomplete/textext.plugin.ajax.js" />"></script>
-
 <!-- validate JavaScript -->
 <script type="text/javascript" src="/resources/javascript/validation/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/resources/javascript/validation/additional-methods.min.js"></script>
