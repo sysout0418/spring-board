@@ -38,11 +38,20 @@
 a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
 a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 </style>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
-<!-- Begin page content -->
-<div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4>New Project</h4>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+   		<h3><i class="fa fa-angle-right"></i> New Project</h3>
+   		<div class="col-lg-12">
+   		    			<div class="row mt">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 	<p>
 		<strong>담당자 정보</strong>
 	</p>
@@ -138,7 +147,7 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 		</table>
 		<input class="btn btn-success" type="submit" id="submit" value="Create Project">
 	</form:form>
-</div>
+</div></div></div></div>
 <script type="text/javascript">
 $(function() {
 	$( "#datepicker" ).datepicker({

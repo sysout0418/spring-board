@@ -1,38 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	
-	<!-- Bootstrap core CSS -->
-	<link href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
-	
-	<!-- Custom styles for this template -->
-	<link href="<c:url value="/resources/css/bootstrap/signin.css" />" rel="stylesheet"  type="text/css" />
-	
-	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/ie-emulation-modes-warning.js " />"></script>
-	
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/ie10-viewport-bug-workaround.js" />"></script>
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="<c:url value="http://code.jquery.com/jquery-latest.min.js" />"></script>
-	<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
-	<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/ie-emulation-modes-warning.js " />"></script>
-</head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
 <script type="text/javascript">
 function checkId() {
 	// email 정규표현식
@@ -72,22 +44,35 @@ function checkId() {
 	}
 }
 </script>
-<body>
-<div class="container">
-<form:form cssClass="form-signin" method="post" action="/join" commandName="UserInfo">
-	<h2 class="form-signin-heading">Sign up</h2>
-	<label for="inputEmail" class="sr-only">Email</label>
-	<input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()" maxlength="20" required autofocus>
-	<span id="checkResult"></span>
-	<label for="input" class="sr-only">Name</label>
-	<input type="text" class="form-control" id="uname" name="uname" placeholder="Name" maxlength="20" required>
-	<label for="input" class="sr-only">Phone</label>
-	<input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" maxlength="20" required>
-	<label for="inputPassword" class="sr-only">Password</label>
-	<input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" maxlength="20" required>
-	<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Sign up</button>
-</form:form>
-</div> <!-- /container -->
+<div id="login-page">
+	<div class="container">
+    <form:form cssClass="form-login" method="post" action="/join" commandName="UserInfo">
+       <h2 class="form-login-heading">sign up</h2>
+       <div class="login-wrap">
+           <input type="email" id="uemail" name="uemail" class="form-control" placeholder="Email" onblur="checkId()" maxlength="20" required autofocus>
+           <span id="checkResult"></span>
+           <input type="text" class="form-control" id="uname" name="uname" placeholder="Name" maxlength="20" required>
+           <input type="text" class="form-control" id="uphoneno" name="uphoneno" placeholder="Phone Number" maxlength="20" required>
+           <input type="password" id="upassword" name="upassword" class="form-control" placeholder="Password" maxlength="20" required>
+           <br>
+           <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> SIGN UP</button>
+       </div>
+     </form:form>	  	
+	
+	</div>
+</div>
 
-</body>
+ <!-- js placed at the end of the document so the pages load faster -->
+ <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.js" />"></script>
+ <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
+
+ <!--BACKSTRETCH-->
+ <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+ <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.backstretch.min.js" />"></script>
+ <script>
+     $.backstretch("<c:url value="/resources/img/login-bg.jpg" />", {speed: 500});
+ </script>
+
+
+  </body>
 </html>
