@@ -32,8 +32,9 @@
 				<th>휴대폰 번호</th>
 				<th>부서</th>
 				<th>이메일</th>
-				<th>가입일</th>
-				<th>탈퇴여부</th>
+				<th>가입 신청일</th>
+				<th>가입 승인 여부</th>
+				<th>탈퇴 여부</th>
 				<th>관리</th>
 			</tr>
 		</thead>
@@ -52,10 +53,18 @@
 					<td>${user.uregdate}</td>
 					<c:choose>
 						<c:when test="${user.enabled == 0}">
-							<td>Y</td>
+							<td><span class="label label-warning">승인안됨</span></td>
 						</c:when>
 						<c:otherwise>
-							<td>N</td>
+							<td><span class="label label-success">승인</span></td>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${user.expired == 1}">
+							<td><span class="label label-info">Y</span></td>
+						</c:when>
+						<c:otherwise>
+							<td><span class="label label-danger">N</span></td>
 						</c:otherwise>
 					</c:choose>
 					<td><a href="/admin/users/editForm/${user.uno}">수정</a>
@@ -64,6 +73,7 @@
 		</tbody>
 	</table>
 	<button class="btn btn-primary" onclick="delList()">선택 회원 탈퇴</button>
+	<button class="btn btn-success" onclick="okList()">선택 회원 가입승인</button>
 	
 	<!-- 페이징 -->
 	<div align="center">
