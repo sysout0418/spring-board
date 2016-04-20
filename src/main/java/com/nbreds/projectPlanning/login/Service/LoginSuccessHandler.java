@@ -37,17 +37,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			HttpSession session = req.getSession();
 			session.setAttribute("user_no", Integer.parseInt(uno));
 			logger.info(Integer.parseInt(uno) + "");
-			
-			// 아이디 저장 관련 쿠키 설정
-			String uemail = req.getParameter("uemail");
-			String rememberId = req.getParameter("rememberId");
-			Cookie cookie = new Cookie("rememberId", uemail);
-			if (rememberId != null && rememberId.equals("t")) {
-				cookie.setMaxAge(2000000000);
-			} else {
-				cookie.setMaxAge(0);
-			}
-			res.addCookie(cookie);
 		}
 		logger.info(req.getParameter("uemail"));
 		logger.info(req.getParameter("upassword"));

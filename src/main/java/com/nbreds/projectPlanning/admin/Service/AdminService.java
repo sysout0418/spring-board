@@ -52,8 +52,12 @@ public interface AdminService {
 
 	List<Project> getProjectsByPname(String item);
 
+<<<<<<< HEAD
 	List<Project> getProjectsByUname(String item);
 	
 	/** uno로 유저 정보 가져오기 */
 	User getUserInfoByUno(int uno);
+=======
+	List<Project> getProjectsByUname(String item);
+>>>>>>> branch 'master' of http://gitlab.nbreds.com:30000/sangil/Web.git
 }
