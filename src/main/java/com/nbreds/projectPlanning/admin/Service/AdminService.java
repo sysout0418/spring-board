@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.common.VO.Authority;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -52,12 +53,13 @@ public interface AdminService {
 
 	List<Project> getProjectsByPname(String item);
 
-<<<<<<< HEAD
-	List<Project> getProjectsByUname(String item);
-	
 	/** uno로 유저 정보 가져오기 */
 	User getUserInfoByUno(int uno);
-=======
-	List<Project> getProjectsByUname(String item);
->>>>>>> branch 'master' of http://gitlab.nbreds.com:30000/sangil/Web.git
+	
+	/** 모든 권한 목록 가져오기 */
+	List<Authority> getAllAuthority();
+	
+	/** 모든 부서 목록 가져오기 */
+	List<CodeTable> getAllDepartmentList();
+	
 }

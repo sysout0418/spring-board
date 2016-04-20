@@ -12,6 +12,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Dao.AdminDao;
+import com.nbreds.projectPlanning.common.VO.Authority;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -119,13 +120,18 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Project> getProjectsByUname(String item) {
-		return adminDao.getProjectsByUname(item);
+	public User getUserInfoByUno(int uno) {
+		return adminDao.getUserInfoByUno(uno);
 	}
 
 	@Override
-	public User getUserInfoByUno(int uno) {
-		return adminDao.getUserInfoByUno(uno);
+	public List<Authority> getAllAuthority() {
+		return adminDao.getAllAuthority();
+	}
+
+	@Override
+	public List<CodeTable> getAllDepartmentList() {
+		return adminDao.getAllDepartmentList();
 	}
 
 }

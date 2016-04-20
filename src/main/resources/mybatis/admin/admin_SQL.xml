@@ -202,7 +202,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getUserInfoByUno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
 	<![CDATA[	
-	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, enabled
+	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, authority, enabled
 	FROM User u
 	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
 			FROM CodeTable
@@ -214,31 +214,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<select id="getAllAuthority" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<select id="getAllAuthority" resultType="com.nbreds.projectPlanning.common.VO.Authority">
 	<![CDATA[	
-	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, enabled
-	FROM User u
-	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
-			FROM CodeTable
-			WHERE CODE_TYPE = 002 ) c
-	ON udepartment = c.CODE
-	JOIN Authority a
-	ON u.uno = a.uno
-	WHERE u.uno = #{uno}
+	SELECT DISTINCT authority
+	FROM Authority
 	]]>
 	</select>
 	
-	<select id="getAllDepartmentList" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+	<select id="getAllDepartmentList" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
 	<![CDATA[	
-	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, enabled
-	FROM User u
-	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
-			FROM CodeTable
-			WHERE CODE_TYPE = 002 ) c
-	ON udepartment = c.CODE
-	JOIN Authority a
-	ON u.uno = a.uno
-	WHERE u.uno = #{uno}
+	SELECT CODE_TYPE, CODE, CODE_NAME
+	FROM CodeTable
+	WHERE CODE_TYPE = 002
 	]]>
 	</select>
 	

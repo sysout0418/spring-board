@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.common.VO.Authority;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 
@@ -86,6 +87,14 @@ public class AdminDao {
 	
 	public User getUserInfoByUno(int uno) {
 		return sqlSession.selectOne("admin.getUserInfoByUno", uno);
+	}
+	
+	public List<Authority> getAllAuthority() {
+		return sqlSession.selectList("admin.getAllAuthority");
+	}
+	
+	public List<CodeTable> getAllDepartmentList() {
+		return sqlSession.selectList("admin.getAllDepartmentList");
 	}
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Service.AdminService;
+import com.nbreds.projectPlanning.common.VO.Authority;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.common.util.PageBean;
@@ -234,8 +235,12 @@ public class AdminController {
 	public String userEditForm(@PathVariable("uno") int uno, Model model) {
 		logger.info("uno: " + uno);
 		User userInfo = adminService.getUserInfoByUno(uno);
+		List<Authority> authorityList = adminService.getAllAuthority();
+		List<CodeTable> departmentList = adminService.getAllDepartmentList();
 		
 		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("authorityList", authorityList);
+		model.addAttribute("departmentList", departmentList);
 		
 		return "/admin/userEditForm";
 	}

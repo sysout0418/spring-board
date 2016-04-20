@@ -22,7 +22,7 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 <!-- Begin page content -->
 <div style="width: 1200; margin: 0 auto; background-color: #fff">
 	<h4>Users</h4>
-	<form name="frm" id="frm" method="post">
+	<form class="form-horizontal" name="frm" id="frm" method="post">
 	<div class="form-inline">
 		<select class="form-control" id="group" name="key" >
 			<option value="all" <%=pageBean.getKey("all")%>>모두</option>
@@ -80,7 +80,7 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 					<td>${user.uregdate}</td>
 					<c:choose>
 						<c:when test="${user.enabled == 0}">
-							<td class="admit"><a class="label label-warning" alt="${user.uno}">승인안됨</a></td>
+							<td class="admit"><a class="label label-warning" alt="${user.uno}">미승인</a></td>
 						</c:when>
 						<c:otherwise>
 							<td class="deny"><a class="label label-success" alt="${user.uno}">승인</a></td>
