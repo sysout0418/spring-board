@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="get5Users" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-   	SELECT uname, uphoneno, udepartment, uemail, uregdate
+   	SELECT uname, uphoneno, udepartment, uemail, uregdate, expired
   	FROM User
 	ORDER BY uregdate DESC
 	LIMIT 5
@@ -97,17 +97,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     delete from Project where pno=#{i}
     ]]>  
     </delete>
-    
-    <update id="removeUsers" parameterType="int">
+
+    <update id="removeUsersByUno" parameterType="int">
     <![CDATA[
-    UPDATE Authority SET enabled = '0' WHERE uno = #{uno}
+    UPDATE User SET expired = 'Y' WHERE uno = #{uno}
     ]]>  
+    </update>
+    
+    <update id="recoverUsersByUno" parameterType="int">
+    <![CDATA[
+    UPDATE User SET expired = 'N' WHERE uno = #{uno}
+    ]]>  
+    </update>
+    
+    <update id="admitUserByUno" parameterType="int">
+    <![CDATA[
+    UPDATE Authority SET enabled = 1 WHERE uno = #{uno}
+    ]]>
+    </update>
+    
+    <update id="denyUserByUno" parameterType="int">
+    <![CDATA[
+    UPDATE Authority SET enabled = 0 WHERE uno = #{uno}
+    ]]>
     </update>
     
     <!-- 페이징 처리를 위한 selectAllUser -->
 	<select id="selectAllUser" parameterType="Map" resultType="com.nbreds.projectPlanning.common.VO.User">
 	<![CDATA[	
-		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate, authority, enabled
+		SELECT u.uno, uname, uphoneno, udepartment, uemail, upassword, uregdate, expired, authority, enabled
 		FROM User u
 		JOIN Authority a
 		ON u.uno = a.uno

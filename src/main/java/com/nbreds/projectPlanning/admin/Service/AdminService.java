@@ -29,8 +29,17 @@ public interface AdminService {
 	
 	void removeProjects(int i);
 	
-	/** 회원 탈퇴처리 -> Authority 테이블 enabled 컬럼값 0으로 update */
-	void removeUsers(int uno);
+	/** 회원 탈퇴 처리 -> User 테이블 expired 컬럼값 N에서 Y로 update */
+	void removeUsersByUno(int uno);
+	
+	/** 회원 복구 처리 -> User 테이블 expired 컬럼값 N으로 update */
+	void recoverUsersByUno(int uno);
+	
+	/** 회원 가입 승인 처리 -> Authority 테이블 enabled 컬럼값 1으로 update */
+	void admitUserByUno(int uno);
+	
+	/** 회원 가입 거절 처리 -> Authority 테이블 enabled 컬럼값 0으로 update */
+	void denyUserByUno(int uno);
 	
 	/** 모든 유저 리스트 가져오기 */
 	List<User> selectAllUser(Map<String, Object> param);

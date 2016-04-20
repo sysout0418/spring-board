@@ -48,8 +48,20 @@ public class AdminDao {
 		sqlSession.delete("admin.removeProjects", i);
 	}
 	
-	public void removeUsers(int uno) {
-		sqlSession.update("admin.removeUsers", uno);
+	public void removeUsersByUno(int uno) {
+		sqlSession.update("admin.removeUsersByUno", uno);
+	}
+	
+	public void recoverUsersByUno(int uno) {
+		sqlSession.update("admin.recoverUsersByUno",uno);
+	}
+	
+	public void admitUserByUno(int uno) {
+		sqlSession.update("admin.admitUserByUno", uno);
+	}
+	
+	public void denyUserByUno(int uno) {
+		sqlSession.update("admin.denyUserByUno", uno);
 	}
 	
 	public List<User> selectAllUser(Map<String, Object> param) {

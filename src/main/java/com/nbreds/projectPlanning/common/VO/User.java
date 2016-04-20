@@ -13,7 +13,7 @@ public class User {
 	private String uregdate;
 	private String authority;
 	private int enabled;
-	private int expired; 
+	private String expired; 
 	
 	public String getUname() {
 		return uname;
@@ -75,10 +75,10 @@ public class User {
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
-	public int getExpired() {
+	public String getExpired() {
 		return expired;
 	}
-	public void setExpired(int expired) {
+	public void setExpired(String expired) {
 		this.expired = expired;
 	}
 	@Override

@@ -144,19 +144,6 @@ public class AdminController {
 		return "/admin/allProjects";
 	}
 	
-	@RequestMapping("/admin/users/delete")
-	public String deleteUsers(HttpServletRequest request) {
-		String[] checkedUserList = request.getParameterValues("cbList");
-		if (checkedUserList != null) {
-			for (int i = 0; i < checkedUserList.length; i++) {
-				logger.info("checkedUserList[" + i + "] : " + checkedUserList[i]);
-				adminService.removeUsers(Integer.parseInt(checkedUserList[i]));
-			}
-		}
-		
-		return "redirect:/admin/users";
-	}
-	
 	@RequestMapping("/admin/projects/delete")
 	public String deleteProjects(HttpServletRequest request) {
 		String[] checkedPnoList = request.getParameterValues("pno");
@@ -168,6 +155,78 @@ public class AdminController {
 		}
 		
 		return "redirect:/admin/projects";
+	}
+	
+	// 회원 탈퇴. User 테이블 expired 컬럼값 'N' -> 'Y' 로 update
+	@RequestMapping("/admin/users/delete")
+	public String deleteUsers(HttpServletRequest request) {
+		String[] deleteUsers = request.getParameterValues("cbList");
+		String uno = request.getParameter("uno");
+		
+		if (deleteUsers != null) {
+			for (int i = 0; i < deleteUsers.length; i++) {
+				logger.info("deleteUsers[" + i + "] : " + deleteUsers[i]);
+				adminService.removeUsersByUno(Integer.parseInt(deleteUsers[i]));
+			}
+		} else if (uno != null && !uno.equals("")) {
+			adminService.removeUsersByUno(Integer.parseInt(uno));
+		}
+		
+		return "redirect:/admin/users";
+	}
+	
+	// 회원 탈퇴 복구. User 테이블 expired 컬럼값 'Y' -> 'N' 로 update
+	@RequestMapping("/admin/users/recover")
+	public String recoverUsers(HttpServletRequest request) {
+		String[] recoverUsers = request.getParameterValues("cbList");
+		String uno = request.getParameter("uno");
+		
+		if (recoverUsers != null) {
+			for (int i = 0; i < recoverUsers.length; i++) {
+				logger.info("recoverUsers[" + i + "] : " + recoverUsers[i]);
+				adminService.recoverUsersByUno(Integer.parseInt(recoverUsers[i]));
+			}
+		} else if (uno != null && !uno.equals("")) {
+			adminService.recoverUsersByUno(Integer.parseInt(uno));
+		}
+		
+		return "redirect:/admin/users";
+	}
+	
+	// 가입 허가. Authority 테이블 enabled 컬럼값 0 -> 1 로 update
+	@RequestMapping("/admin/users/admit")
+	public String admitUser(HttpServletRequest request) {
+		String[] admitUnoList = request.getParameterValues("cbList");
+		String uno = request.getParameter("uno");
+		
+		if (admitUnoList != null) {
+			for (int i = 0; i < admitUnoList.length; i++) {
+				logger.info("admitUnoList[" + i + "] : " + admitUnoList[i]);
+				adminService.admitUserByUno(Integer.parseInt(admitUnoList[i]));
+			}
+		} else if (uno != null && !uno.equals("")) {
+			adminService.admitUserByUno(Integer.parseInt(uno));
+		}
+		
+		return "redirect:/admin/users";
+	}
+	
+	// 가입 거절. Authority 테이블 enabled 컬럼 값 0으로 update
+	@RequestMapping("/admin/users/deny")
+	public String denyUser(HttpServletRequest request) {
+		String[] denyUnoList = request.getParameterValues("cbList");
+		String uno = request.getParameter("uno");
+		
+		if (denyUnoList != null) {
+			for (int i = 0; i < denyUnoList.length; i++) {
+				logger.info("denyUnoList[" + i + "] : " + denyUnoList[i]);
+				adminService.denyUserByUno(Integer.parseInt(denyUnoList[i]));
+			}
+		} else if (uno != null && !uno.equals("")) {
+			adminService.denyUserByUno(Integer.parseInt(uno));
+		}
+		
+		return "redirect:/admin/users";
 	}
 	
 	@RequestMapping("/admin/users/detail/{uno}")
