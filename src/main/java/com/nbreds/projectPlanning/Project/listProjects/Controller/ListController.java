@@ -60,8 +60,17 @@ public class ListController {
 		param.put("pageNo", value);
 		param.put("rowsPerPage", rowsPerPage);
 		
-		List<Project> list = listService.getPageList(param);
-
+		List<HashMap<String, Object>> list = listService.getPageList(param);
+		for (HashMap<String, Object> project : list) {
+			int pno = (int) project.get("pno");
+			int countAllMilestone = listService.getCountAllMilestone(pno);
+			double completeMilestonPercent = listService.getCountClosedMilestone(pno);
+			project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
+			logger.info("countAllMilestone: "+countAllMilestone);
+			logger.info("completeMilestonPercent: "+completeMilestonPercent);
+			logger.info("completeIssuePercent: "+project.get("completeIssuePercent"));
+		}
+/*
 		for(int i = 0; i<list.size(); i++){
 			String pdata = list.get(i).getPdata();		
 			
@@ -78,6 +87,7 @@ public class ListController {
 			list.get(i).setUname(uname);
 			
 		}
+		*/
 
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
 		model.addAttribute("totalPageNo", totalPageNo);
