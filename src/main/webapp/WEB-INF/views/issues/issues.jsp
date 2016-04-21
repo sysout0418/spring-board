@@ -1,10 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
-	<!-- Begin page content -->
-	<div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4>Issues</h4>  
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+	<h3><i class="fa fa-angle-right"></i> Issues</h3>
 		<div role="tabpanel">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
@@ -176,7 +181,9 @@
 				</table>
 			</form>
 		</div>
-	</div>
+	</section>
+</section>	
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 	$('.dropdown-menu > .uno1 > a').bind('click', function() {
 		var userName = $(this).text();
@@ -212,5 +219,3 @@
 				+ "&lno=" + $("#lno").val());
 	});
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

@@ -33,9 +33,11 @@ public class MyProjectController {
 		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
 		int participatedUserCnt = myProjectService.getParticipateUserCnt(pno);
 		String pdata = project.getPdata();
+		logger.info("padata> " + pdata);
 		//한글화
 		List<String> skills = (List<String>)commonController.getCodeForCodeType(pdata, "skills");
 		String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
+		logger.info("pprogress> " + pprogress);
 
 		project.setPskill(commonController.getCodeName(skills.get(0)));
 		project.setPprogress(commonController.getCodeName(pprogress));

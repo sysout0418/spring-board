@@ -7,25 +7,10 @@
 <%
 	List<User> userInfoList = HomeController.USER_INFO;
 %>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
 <style type="text/css">
-.custom-combobox {
-	position: relative;
-	display: inline-block;
-}
-
-.custom-combobox-toggle {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin-left: -1px;
-	padding: 0;
-}
-
-.custom-combobox-input {
-	margin: 0;
-	padding: 5px 10px;
-}
-
 .layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
 .layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
 .layer .pop-layer {display:block;}
@@ -38,107 +23,108 @@
 a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
 a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 </style>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
 <!-- Begin page content -->
-<div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4>New Project</h4>
-	<p>
-		<strong>담당자 정보</strong>
-	</p>
-	<table class="table">
-		<tr>
-			<td style="width: 200px;" class="active">담당자명</td>
-			<td style="width: 350px">${user.uname}</td>
-			<td style="width: 200px;" class="active">부서</td>
-			<td>${user.udepartment}</td>
-		</tr>
-		<tr>
-			<td class="active">담당자 연락처</td>
-			<td>${user.uphoneno}</td>
-			<td class="active">담당자 이메일</td>
-			<td>${user.uemail}</td>
-		</tr>
-		<tr>
-			<td colspan="4"></td>
-		</tr>
-	</table>
-
-	<p>
-		<strong>프로젝트 키워드</strong>
-	</p>
-	<form:form method="POST" action="regist" id="regist" commandName="project">
-		<input type="hidden" id="requestUserNoList" name="requestUserNoList" value="">
-		<input type="hidden" id="requestUserNameList" name="requestUserNameList" value="">
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<h3><i class="fa fa-angle-right"></i> New Project</h3>
+		<p>
+			<strong>담당자 정보</strong>
+		</p>
 		<table class="table">
 			<tr>
-				<td colspan="2" style="width: 500px; vertical-align: middle; text-align: center;" class="active">프로젝트 명</td>
-				<td style="width: 300px" colspan="2"><form:input
-						path="pname" class="form-control" name="projectName" required="required" maxlength="20"/></td>
+				<td style="width: 200px;" class="active">담당자명</td>
+				<td style="width: 350px">${user.uname}</td>
+				<td style="width: 200px;" class="active">부서</td>
+				<td>${user.udepartment}</td>
 			</tr>
 			<tr>
-				<td rowspan="3" style="width: 100px; vertical-align: middle; text-align: center;" class="active">기본분야</td>
-				<td style="width: 200px; vertical-align: middle; text-align: center;" class="active">개발</td>
-				<td colspan="2"><form:checkboxes path="pdevelopment"
-						items="${development}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				<td class="active">담당자 연락처</td>
+				<td>${user.uphoneno}</td>
+				<td class="active">담당자 이메일</td>
+				<td>${user.uemail}</td>
 			</tr>
 			<tr>
-				<td class="active" style="vertical-align: middle; text-align: center;">디자인/퍼블리싱</td>
-				<td colspan="2"><form:checkboxes path="pdesign"
-						items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				<td colspan="4"></td>
 			</tr>
-			<tr>
-				<td class="active" style="vertical-align: middle; text-align: center;">기획/컨설턴트</td>
-				<td colspan="2"><form:checkboxes path="pplanning"
-						items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
-			</tr>
-			<tr>
-				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">상세내용</td>
-				<td colspan="2"><form:textarea path="pdetail"
-						cssClass="form-control" cssStyle="height:400px" name="projectContent" required="required"/></td>
-			</tr>
-			<tr>
-				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">모집마감일자</td>
-				<td><form:input path="pduedate" id="datepicker" name="datepicker" required="required"/></td>
-			</tr>
-			<tr>
-				<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">프로젝트 요청</td>
-				<!-- <td><textarea id="textarea" class="example" rows="1"></textarea></td> -->
-				<td>
-					<div>
-						<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">추가</a>
-						<div class="selectedUserList">
+		</table>
+	
+		<p>
+			<strong>프로젝트 키워드</strong>
+		</p>
+		<form:form method="POST" action="regist" id="regist" commandName="project">
+			<input type="hidden" id="requestUserNoList" name="requestUserNoList" value="">
+			<input type="hidden" id="requestUserNameList" name="requestUserNameList" value="">
+			<table class="table">
+				<tr>
+					<td colspan="2" style="width: 500px; vertical-align: middle; text-align: center;" class="active">프로젝트 명</td>
+					<td style="width: 300px" colspan="2"><form:input
+							path="pname" class="form-control" name="projectName" required="required" maxlength="20"/></td>
+				</tr>
+				<tr>
+					<td rowspan="3" style="width: 100px; vertical-align: middle; text-align: center;" class="active">기본분야</td>
+					<td style="width: 200px; vertical-align: middle; text-align: center;" class="active">개발</td>
+					<td colspan="2"><form:checkboxes path="pdevelopment"
+							items="${development}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				</tr>
+				<tr>
+					<td class="active" style="vertical-align: middle; text-align: center;">디자인/퍼블리싱</td>
+					<td colspan="2"><form:checkboxes path="pdesign"
+							items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				</tr>
+				<tr>
+					<td class="active" style="vertical-align: middle; text-align: center;">기획/컨설턴트</td>
+					<td colspan="2"><form:checkboxes path="pplanning"
+							items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">상세내용</td>
+					<td colspan="2"><form:textarea path="pdetail"
+							cssClass="form-control" cssStyle="height:400px" name="projectContent" required="required"/></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">모집마감일자</td>
+					<td><form:input path="pduedate" id="datepicker" name="datepicker" required="required"/></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="active" style="vertical-align: middle; text-align: center;">프로젝트 요청</td>
+					<!-- <td><textarea id="textarea" class="example" rows="1"></textarea></td> -->
+					<td>
+						<div>
+							<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">추가</a>
+							<div class="selectedUserList">
+							</div>
 						</div>
-					</div>
-					<div class="layer">
-						<div class="bg"></div>
-						<div id="layer2" class="pop-layer">
-							<div class="pop-container">
-								<div class="pop-conts">
-									<!--content //-->
-									<c:forEach var="user" items="${allUserList}">
-										<div class="checkbox">
-								        	<label>
-								        		<input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}">${user.uname}
-								        	</label>
-							        	</div>
-									</c:forEach>
-									<a href="#" class="btn btn-success" id="okBtn">OK</a>
-									<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
-									<!--// content-->
+						<div class="layer">
+							<div class="bg"></div>
+							<div id="layer2" class="pop-layer">
+								<div class="pop-container">
+									<div class="pop-conts">
+										<!--content //-->
+										<c:forEach var="user" items="${allUserList}">
+											<div class="checkbox">
+									        	<label>
+									        		<input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}">${user.uname}
+									        	</label>
+								        	</div>
+										</c:forEach>
+										<a href="#" class="btn btn-success" id="okBtn">OK</a>
+										<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
+										<!--// content-->
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3"></td>
-			</tr>
-		</table>
-		<input class="btn btn-success" type="submit" id="submit" value="Create Project">
-	</form:form>
-</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+				</tr>
+			</table>
+			<input class="btn btn-success" type="submit" id="submit" value="Create Project">
+		</form:form>
+	</section>
+</section>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 $(function() {
 	$( "#datepicker" ).datepicker({
@@ -273,5 +259,3 @@ function handler() {
 }
 --%>
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

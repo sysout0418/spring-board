@@ -57,7 +57,7 @@ MAIN CONTENT
               </div><!-- /col-md-12 -->
           </div><!-- /row -->
        </div>		
-	</section><! --/wrapper -->
+	</section>
 </section><!-- /MAIN CONTENT -->
 <!--main content end-->
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
