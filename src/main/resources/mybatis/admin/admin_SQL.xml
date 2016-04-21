@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="get5Users" resultType="hashmap">
     <![CDATA[
-	SELECT @rownum1:=@rownum1+1 as rownum1, uphoneno, uname, C.CODE_NAME AS udepartment, uemail, uregdate, expired
+	SELECT @rownum1:=@rownum1+1 as rownum1, uno, uphoneno, uname, C.CODE_NAME AS udepartment, uemail, uregdate, expired
 	FROM User U, CodeTable C
 	WHERE U.udepartment =C.CODE AND C.CODE_TYPE='002'
 	ORDER BY uregdate DESC

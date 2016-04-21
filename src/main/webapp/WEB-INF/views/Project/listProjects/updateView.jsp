@@ -7,145 +7,220 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	List<User> userInfoList = HomeController.USER_INFO;
-	List<ProjectMemberStat> participatedUserList = (List<ProjectMemberStat>) request.getAttribute("participatedUserList");
+	List<ProjectMemberStat> participatedUserList = (List<ProjectMemberStat>) request
+			.getAttribute("participatedUserList");
 %>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
 <style>
-.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
-.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
-.layer .pop-layer {display:block;}
+.layer {
+	display: none;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
 
-.pop-layer {display:none; position: absolute; top: 50%; left: 50%; width: 410px; height:auto;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
-.pop-layer .pop-container {padding: 20px 25px;}
-.pop-layer p.ctxt {color: #666; line-height: 25px;}
-.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
+.layer .bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
 
-a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
-a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
+.layer .pop-layer {
+	display: block;
+}
+
+.pop-layer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 410px;
+	height: auto;
+	background-color: #fff;
+	border: 5px solid #3571B5;
+	z-index: 10;
+}
+
+.pop-layer .pop-container {
+	padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+	color: #666;
+	line-height: 25px;
+}
+
+.pop-layer .btn-r {
+	width: 100%;
+	margin: 10px 0 20px;
+	padding-top: 10px;
+	border-top: 1px solid #DDD;
+	text-align: right;
+}
+
+a.cbtn {
+	display: inline-block;
+	height: 25px;
+	padding: 0 14px 0;
+	border: 1px solid #304a8a;
+	background-color: #3f5a9d;
+	font-size: 13px;
+	color: #fff;
+	line-height: 25px;
+}
+
+a.cbtn:hover {
+	border: 1px solid #091940;
+	background-color: #1f326a;
+	color: #fff;
+}
 </style>
 <!-- Begin page content -->
-<div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4 class="page-header">Edit Project</h4>
-	<p>
-		<strong>담당자 정보</strong>
-	</p>
-	<table class="table">
-		<tr>
-			<td style="width: 200px;">담당자명</td>
-			<td style="width: 350px">${user.uname}</td>
-			<td style="width: 200px;">부서</td>
-			<td>${user.udepartment}</td>
-		</tr>
-		<tr>
-			<td>담당자 연락처</td>
-			<td>${user.uphoneno}</td>
-			<td>담당자 이메일</td>
-			<td>${user.uemail}</td>
-		</tr>
-		<tr>
-			<td colspan="4"></td>
-		</tr>
-	</table>
-
-	<p>
-		<strong>프로젝트 키워드</strong>
-	</p>
-	<form:form method="POST" action="update" commandName="project">
-		<%-- <input type="hidden" id="pmember" name="pmember" value="${project.pmember }"> --%>
-		<input type="hidden" id="requestUserNoList" name="requestUserNoList" value="">
-		<input type="hidden" id="requestUserNameList" name="requestUserNameList" value="">
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<h3>
+			<i class="fa fa-angle-right"></i> Edit Project
+		</h3>
+		<p>
+			<strong>담당자 정보</strong>
+		</p>
 		<table class="table">
 			<tr>
-				<td colspan="2" style="width: 500px">프로젝트 명</td>
-				<td style="width: 300px" colspan="2"><form:input
-						path="pname" class="form-control" required="required"/></td>
+				<td style="width: 200px;">담당자명</td>
+				<td style="width: 350px">${user.uname}</td>
+				<td style="width: 200px;">부서</td>
+				<td>${user.udepartment}</td>
 			</tr>
 			<tr>
-				<td rowspan="3" style="width: 100px">기본분야</td>
-				<td style="width: 200px">개발</td>
-				<td colspan="2"><form:checkboxes path="pdevelopment"
-						items="${development}" itemValue="CODE" itemLabel="CODE_NAME" />
-				</td>
+				<td>담당자 연락처</td>
+				<td>${user.uphoneno}</td>
+				<td>담당자 이메일</td>
+				<td>${user.uemail}</td>
 			</tr>
 			<tr>
-				<td>디자인/퍼블리싱</td>
-				<td colspan="2"><form:checkboxes path="pdesign"
-						items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				<td colspan="4"></td>
 			</tr>
-			<tr>
-				<td>기획/컨설턴트</td>
-				<td colspan="2"><form:checkboxes path="pplanning"
-						items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
-			</tr>
-			<%-- <tr>
+		</table>
+
+		<p>
+			<strong>프로젝트 키워드</strong>
+		</p>
+		<form:form method="POST" action="update" commandName="project">
+			<%-- <input type="hidden" id="pmember" name="pmember" value="${project.pmember }"> --%>
+			<input type="hidden" id="requestUserNoList" name="requestUserNoList"
+				value="">
+			<input type="hidden" id="requestUserNameList"
+				name="requestUserNameList" value="">
+			<table class="table">
+				<tr>
+					<td colspan="2" style="width: 500px">프로젝트 명</td>
+					<td style="width: 300px" colspan="2"><form:input path="pname"
+							class="form-control" required="required" /></td>
+				</tr>
+				<tr>
+					<td rowspan="3" style="width: 100px">기본분야</td>
+					<td style="width: 200px">개발</td>
+					<td colspan="2"><form:checkboxes path="pdevelopment"
+							items="${development}" itemValue="CODE" itemLabel="CODE_NAME" />
+					</td>
+				</tr>
+				<tr>
+					<td>디자인/퍼블리싱</td>
+					<td colspan="2"><form:checkboxes path="pdesign"
+							items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				</tr>
+				<tr>
+					<td>기획/컨설턴트</td>
+					<td colspan="2"><form:checkboxes path="pplanning"
+							items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+				</tr>
+				<%-- <tr>
 				<td colspan="2">전문분야/특별경험</td>
 				<td colspan="2"><form:checkboxes path="pexperience"
 						items="${experience}" itemValue="CODE" itemLabel="CODE_NAME" />
 				</td>
 			</tr> --%>
-			<tr>
-				<td colspan="2">상세내용</td>
-				<td colspan="2"><form:textarea path="pdetail"
-						cssClass="form-control" cssStyle="height:400px" required="required"/></td>
-			</tr>
-			<%-- <tr>
+				<tr>
+					<td colspan="2">상세내용</td>
+					<td colspan="2"><form:textarea path="pdetail"
+							cssClass="form-control" cssStyle="height:400px"
+							required="required" /></td>
+				</tr>
+				<%-- <tr>
 				<td colspan="2">등급</td>
 				<td><form:select path="plevel" items="${level}"
 						itemValue="CODE" itemLabel="CODE_NAME" required="required"/></td>
 			</tr> --%>
-			<tr>
-				<td colspan="2">모집마감일자</td>
-				<td><form:input path="pduedate" id="datepicker" required="required"/></td>
-			</tr>
-			<tr>
-				<td colspan="2">프로젝트 요청</td>
-				<td>
-					<div>
-						<a href="#" class="btn btn-primary btn-xs" onclick="layer_open('layer2');return false;">변경</a>
-						<div class="selectedUserList">
-							<c:forEach var="participate" items="${participatedUserList}">
-								<span class="btn btn-warning btn-xs">${participate.uname}</span>&nbsp;
+				<tr>
+					<td colspan="2">모집마감일자</td>
+					<td><form:input path="pduedate" id="datepicker"
+							required="required" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">프로젝트 요청</td>
+					<td>
+						<div>
+							<a href="#" class="btn btn-primary btn-xs"
+								onclick="layer_open('layer2');return false;">변경</a>
+							<div class="selectedUserList">
+								<c:forEach var="participate" items="${participatedUserList}">
+									<span class="btn btn-warning btn-xs">${participate.uname}</span>&nbsp;
 							</c:forEach>
-						</div>
-					</div>
-					<div class="layer">
-						<div class="bg"></div>
-						<div id="layer2" class="pop-layer">
-							<div class="pop-container">
-								<div class="pop-conts">
-									<!--content //-->
-									<c:forEach var="users" items="${allUserList}">
-										<div class="checkbox">
-								        	<label>
-										        <input type="checkbox" name="userName" value="${users.uno}" alt="${users.uname}">${users.uname}
-								        	</label>
-							        	</div>
-									</c:forEach>
-									<a href="#" class="btn btn-success" id="okBtn">OK</a>
-									<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
-									<!--// content-->
-								</div>
 							</div>
 						</div>
-					</div>
-					<!-- <textarea id="textarea" class="example" rows="3"></textarea> -->
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3"><input type="hidden" id="pno" name="pno"
-					value="${project.pno}" /> <input type="hidden" id="pprogress"
-					name="pprogress" value="${project.pprogress}" /></td>
-			</tr>
-		</table>
-		<input class="btn btn-success" type="submit" id="submit" value="Save Changes">
-		<!-- 테스트용 버튼 (지워도 됨) -->
-		<!-- <div align="center">
+						<div class="layer">
+							<div class="bg"></div>
+							<div id="layer2" class="pop-layer">
+								<div class="pop-container">
+									<div class="pop-conts">
+										<!--content //-->
+										<c:forEach var="users" items="${allUserList}">
+											<div class="checkbox">
+												<label> <input type="checkbox" name="userName"
+													value="${users.uno}" alt="${users.uname}">${users.uname}
+												</label>
+											</div>
+										</c:forEach>
+										<a href="#" class="btn btn-success" id="okBtn">OK</a> <a
+											href="#" class="btn btn-warning" id="closeBtn">Close</a>
+										<!--// content-->
+									</div>
+								</div>
+							</div>
+						</div> <!-- <textarea id="textarea" class="example" rows="3"></textarea> -->
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"><input type="hidden" id="pno" name="pno"
+						value="${project.pno}" /> <input type="hidden" id="pprogress"
+						name="pprogress" value="${project.pprogress}" /></td>
+				</tr>
+			</table>
+			<input class="btn btn-success" type="submit" id="submit"
+				value="Save Changes">
+			<!-- 테스트용 버튼 (지워도 됨) -->
+			<!-- <div align="center">
 			<input class="btn btn-primary btn-lg" type="button" id="test" value="테스트">
 		</div> -->
-	</form:form>
-</div>
-
+		</form:form>
+	</section>
+</section>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 $(function() {
 	$( "#datepicker" ).datepicker({
@@ -158,13 +233,13 @@ $(function() {
 	
 	var chk = document.getElementsByName("userName"); // 체크박스 객체
 	for (var i = 0; i < chk.length; i++) {
-		<% if (participatedUserList != null) {
-			for (int j = 0; j < participatedUserList.size(); j++) { %>
-				if ('<%= participatedUserList.get(j).getUname() %>' == chk[i].alt) {
+		<%if (participatedUserList != null) {
+				for (int j = 0; j < participatedUserList.size(); j++) {%>
+				if ('<%=participatedUserList.get(j).getUname()%>' == chk[i].alt) {
 					chk[i].checked = true;
 				}
-			<% }
-		} %>
+			<%}
+			}%>
 	}
 	
 });
@@ -323,5 +398,3 @@ function selectChkRow() {
 	$("#pmember").val(uno);
 }	 --%>
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

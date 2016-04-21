@@ -3,143 +3,238 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
 <jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
-<% List<User> allUserList2 = (List<User>) request.getAttribute("allUserList2"); %>
+<%
+	List<User> allUserList2 = (List<User>) request.getAttribute("allUserList2");
+%>
 <style>
-.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
-.layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
-.layer .pop-layer {display:block;}
+.layer {
+	display: none;
+	position: fixed;
+	_position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
 
-.pop-layer {display:none; position: absolute; top: 50%; left: 50%; width: 400px; height: auto;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}	
-.pop-layer .pop-container {padding: 20px 25px;}
-.pop-layer p.ctxt {color: #666; line-height: 25px;}
-.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
+.layer .bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
 
-a.cbtn {display:inline-block; height:25px; padding:0 14px 0; border:1px solid #304a8a; background-color:#3f5a9d; font-size:13px; color:#fff; line-height:25px;}	
-a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
+.layer .pop-layer {
+	display: block;
+}
+
+.pop-layer {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: auto;
+	background-color: #fff;
+	border: 5px solid #3571B5;
+	z-index: 10;
+}
+
+.pop-layer .pop-container {
+	padding: 20px 25px;
+}
+
+.pop-layer p.ctxt {
+	color: #666;
+	line-height: 25px;
+}
+
+.pop-layer .btn-r {
+	width: 100%;
+	margin: 10px 0 20px;
+	padding-top: 10px;
+	border-top: 1px solid #DDD;
+	text-align: right;
+}
+
+a.cbtn {
+	display: inline-block;
+	height: 25px;
+	padding: 0 14px 0;
+	border: 1px solid #304a8a;
+	background-color: #3f5a9d;
+	font-size: 13px;
+	color: #fff;
+	line-height: 25px;
+}
+
+a.cbtn:hover {
+	border: 1px solid #091940;
+	background-color: #1f326a;
+	color: #fff;
+}
 </style>
-<!-- Begin page content -->
-<div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4>Users</h4>
-	<form class="form-horizontal" name="frm" id="frm" method="post">
-	<div class="form-inline">
-		<select class="form-control" id="group" name="key" >
-			<option value="all" <%=pageBean.getKey("all")%>>모두</option>
-			<option value="name" <%=pageBean.getKey("name")%>>이름</option>
-			<option value="phoneNumber" <%=pageBean.getKey("phoneNumber")%>>휴대폰 번호</option>
-			<option value="email" <%=pageBean.getKey("email")%>>이메일</option>
-		</select>
-		<input type="text" class="form-control" placeholder="Search" name="word" id="word" value="${pageBean.word}">
-		<button type="button" class="btn btn-primary" onclick="javascript:pagelist(1)">검색</button>
-	</div>
-	
-	<input type="hidden" name="isCheckCbListAll" value="F">
-	<input type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
-	<input type="hidden" name="uno" id="uno" value="" />
-	<table class="table table-striped table-hover ">
-		<thead>
-			<tr>
-				<th><div class="checkboxAll">
-						<label> 
-							<input type="checkbox" name="cbListAll" onclick="checkCbListAll()">
-						</label>
-					</div></th>
-				<th>이름</th>
-				<th>휴대폰 번호</th>
-				<th>부서</th>
-				<th>이메일</th>
-				<th>가입 신청일</th>
-				<th>가입 승인 여부</th>
-				<th>탈퇴 여부</th>
-				<th>관리</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="user" items="${allUserList}">
-				<c:choose>
-					<c:when test="${user.enabled == 0}">
-						<tr class="danger">
-					</c:when>
-					<c:when test="${user.expired eq 'Y'}">
-						<tr class="danger">
-					</c:when>
-					<c:otherwise>
-						<tr>
-					</c:otherwise>
-				</c:choose>
-					<td><div class="checkbox">
-							<label> 
-								<input type="checkbox" name="cbList" value="${user.uno}">
-							</label>
-						</div></td>
-					<td class="getUserName"><a href="#" onclick="layer_open('layer2');return false;" alt="${user.uno}">${user.uname}</a></td>
-					<td>${user.uphoneno}</td>
-					<td>${user.udepartmentName}</td>
-					<td>${user.uemail}</td>
-					<td>${user.uregdate}</td>
-					<c:choose>
-						<c:when test="${user.enabled == 0}">
-							<td class="admit"><a class="label label-warning" alt="${user.uno}">미승인</a></td>
-						</c:when>
-						<c:otherwise>
-							<td class="deny"><a class="label label-success" alt="${user.uno}">승인</a></td>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${user.expired eq 'Y'}">
-							<td class="reco"><a class="label label-info" alt="${user.uno}">Y</a></td>
-						</c:when>
-						<c:otherwise>
-							<td class="del"><a class="label label-danger" alt="${user.uno}">N</a></td>
-						</c:otherwise>
-					</c:choose>
-					<td class="getUserNo">
-					<a href="#" class="btn btn-round btn-info btn-xs" alt="${user.uno}">수정</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<div style="margin-bottom: 10px; float: right;">
-		<button class="btn btn-primary" onclick="delList()">선택 회원<br>탈퇴 처리</button>
-		<button class="btn btn-primary" onclick="recoverList()">선택 회원<br>복구 처리</button>
-	</div>
-	<div style="float: left;">
-		<button class="btn btn-success" onclick="admitList()">선택 회원<br>가입 승인</button>
-		<button class="btn btn-success" onclick="denyList()">선택 회원<br>가입 거절</button>
-	</div>
-	
-	<!-- 페이징 -->
-	<div align="center">
-		${pageBean.pagelink}
-	</div>
-	
-	</form>
-	
-	<div class="layer">
-		<div class="bg"></div>
-		<div id="layer2" class="pop-layer">
-			<div class="pop-container">
-				<div class="pop-conts">
-					<!--content //-->
-					<div class="sp-title">
-						<h3></h3>
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<h3>
+			<i class="fa fa-angle-right"></i> Users
+		</h3>
+		<form class="form-horizontal" name="frm" id="frm" method="post">
+			<div class="form-inline">
+				<select class="form-control" id="group" name="key">
+					<option value="all" <%=pageBean.getKey("all")%>>모두</option>
+					<option value="name" <%=pageBean.getKey("name")%>>이름</option>
+					<option value="phoneNumber" <%=pageBean.getKey("phoneNumber")%>>휴대폰
+						번호</option>
+					<option value="email" <%=pageBean.getKey("email")%>>이메일</option>
+				</select> <input type="text" class="form-control" placeholder="Search"
+					name="word" id="word" value="${pageBean.word}">
+				<button type="button" class="btn btn-primary"
+					onclick="javascript:pagelist(1)">검색</button>
+			</div>
+
+			<input type="hidden" name="isCheckCbListAll" value="F"> <input
+				type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
+			<input type="hidden" name="uno" id="uno" value="" />
+			<table class="table table-striped table-hover ">
+				<thead>
+					<tr>
+						<th><div class="checkboxAll">
+								<label> <input type="checkbox" name="cbListAll"
+									onclick="checkCbListAll()">
+								</label>
+							</div></th>
+						<th>이름</th>
+						<th>휴대폰 번호</th>
+						<th>부서</th>
+						<th>이메일</th>
+						<th>가입 신청일</th>
+						<th>가입 승인 여부</th>
+						<th>탈퇴 여부</th>
+						<th>관리</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="user" items="${allUserList}">
+						<c:choose>
+							<c:when test="${user.enabled == 0}">
+								<tr class="danger">
+							</c:when>
+							<c:when test="${user.expired eq 'Y'}">
+								<tr class="danger">
+							</c:when>
+							<c:otherwise>
+								<tr>
+							</c:otherwise>
+						</c:choose>
+						<td><div class="checkbox">
+								<label> <input type="checkbox" name="cbList"
+									value="${user.uno}">
+								</label>
+							</div></td>
+						<td class="getUserName"><a href="#"
+							onclick="layer_open('layer2');return false;" alt="${user.uno}">${user.uname}</a></td>
+						<td>${user.uphoneno}</td>
+						<td>${user.udepartmentName}</td>
+						<td>${user.uemail}</td>
+						<td>${user.uregdate}</td>
+						<c:choose>
+							<c:when test="${user.enabled == 0}">
+								<td class="admit"><a class="label label-warning"
+									alt="${user.uno}">미승인</a></td>
+							</c:when>
+							<c:otherwise>
+								<td class="deny"><a class="label label-success"
+									alt="${user.uno}">승인</a></td>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${user.expired eq 'Y'}">
+								<td class="reco"><a class="label label-info"
+									alt="${user.uno}">Y</a></td>
+							</c:when>
+							<c:otherwise>
+								<td class="del"><a class="label label-danger"
+									alt="${user.uno}">N</a></td>
+							</c:otherwise>
+						</c:choose>
+						<td class="getUserNo"><a href="#"
+							class="btn btn-round btn-info btn-xs" alt="${user.uno}">수정</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<div style="margin-bottom: 10px; float: right;">
+				<button class="btn btn-success" onclick="recoverList()">
+					선택 회원<br>복구 처리
+				</button>
+				<button class="btn btn-danger" onclick="delList()">
+					선택 회원<br>탈퇴 처리
+				</button>
+			</div>
+			<div style="float: left;">
+				<button class="btn btn-success" onclick="admitList()">
+					선택 회원<br>가입 승인
+				</button>
+				<button class="btn btn-danger" onclick="denyList()">
+					선택 회원<br>가입 거절
+				</button>
+			</div>
+
+			<!-- 페이징 -->
+			<div align="center">${pageBean.pagelink}</div>
+
+		</form>
+
+		<div class="layer">
+			<div class="bg"></div>
+			<div id="layer2" class="pop-layer">
+				<div class="pop-container">
+					<div class="pop-conts">
+						<!--content //-->
+						<div class="sp-title">
+							<h3></h3>
+						</div>
+						<p class="uphoneno">
+							<i class="fa fa-user"></i>
+						</p>
+						<p class="udepartment">
+							<i class="fa fa-user"></i>
+						</p>
+						<p class="uemail">
+							<i class="fa fa-user"></i>
+						</p>
+						<p class="uregdate">
+							<i class="fa fa-user"></i>
+						</p>
+						<p class="isAdmit">
+							<i class="fa fa-user"></i>
+						</p>
+						<p class="isDel">
+							<i class="fa fa-user"></i>
+						</p>
+
+						<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
+						<!--// content-->
 					</div>
-					<p class="uphoneno"><i class="fa fa-user"></i></p>
-					<p class="udepartment"><i class="fa fa-user"></i></p>
-					<p class="uemail"><i class="fa fa-user"></i></p>
-					<p class="uregdate"><i class="fa fa-user"></i></p>
-					<p class="isAdmit"><i class="fa fa-user"></i></p>
-					<p class="isDel"><i class="fa fa-user"></i></p>
-						
-					<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
-					<!--// content-->
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- <div class="showback">
+
+		<!-- <div class="showback">
 	<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
 		</button>
 						
@@ -181,9 +276,12 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 				</div>
 			</div>
 		</div>      				
-	</div> --><!-- /showback -->
-      				
-</div>
+	</div> -->
+		<!-- /showback -->
+
+	</section>
+</section>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 function pagelist(page) {
 	$("#pageNo").val(page);
@@ -480,5 +578,3 @@ function recoverList() {
 	}
 }
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

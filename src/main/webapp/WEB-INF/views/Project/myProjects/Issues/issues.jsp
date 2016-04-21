@@ -1,30 +1,41 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_project.jsp" />
-	<!-- Begin page content -->
-	<div style="width: 1200; margin: 0 auto; background-color: #fff">
-	<h4 class="page-header">${pname} / Issues</h4>  	
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<h3>
+			<i class="fa fa-angle-right"></i> ${pname} / Issues
+		</h3>
 		<div role="tabpanel">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" 
-					<c:if test="${stat=='open'}"> class="active"</c:if>>
-					<a href="/${uno}/${pno}/issues/open">Open</a></li>
 				<li role="presentation"
-					<c:if test="${stat=='closed'}"> class="active"</c:if>>
-					<a href="/${uno}/${pno}/issues/closed">Closed</a></li>
+					<c:if test="${stat=='open'}"> class="active"</c:if>><a
+					href="/${uno}/${pno}/issues/open">Open</a></li>
 				<li role="presentation"
-					<c:if test="${stat=='all'}"> class="active"</c:if>>
-					<a href="/${uno}/${pno}/issues/all">All</a></li>
-					<li style="width:1000px;"><div style="float: right;"><a href="/${uno}/${pno}/issues/new" class="btn btn-success">New Issues</a></div></li>
+					<c:if test="${stat=='closed'}"> class="active"</c:if>><a
+					href="/${uno}/${pno}/issues/closed">Closed</a></li>
+				<li role="presentation"
+					<c:if test="${stat=='all'}"> class="active"</c:if>><a
+					href="/${uno}/${pno}/issues/all">All</a></li>
+				<li style="width: 1000px;"><div style="float: right;">
+						<a href="/${uno}/${pno}/issues/new" class="btn btn-success">New
+							Issues</a>
+					</div></li>
 			</ul>
 
 			<!-- Tab panes -->
 			<div class="tab-content well">
 				<c:choose>
 					<c:when test="${!empty selectedUserName}">
-						<input type="hidden" id="userNo" name="userNo" value="${searchUno}">
+						<input type="hidden" id="userNo" name="userNo"
+							value="${searchUno}">
 					</c:when>
 					<c:otherwise>
 						<input type="hidden" id="userNo" name="userNo" value="">
@@ -47,8 +58,7 @@
 					</c:otherwise>
 				</c:choose>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default">
-						<c:choose>
+					<a href="#" class="btn btn-default"> <c:choose>
 							<c:when test="${!empty selectedUserName}">
 								<span id="selectedAssign">${selectedUserName}</span>
 							</c:when>
@@ -56,22 +66,18 @@
 								<span id="selectedAssign">Assignee</span>
 							</c:otherwise>
 						</c:choose>
-					</a> 
-					<a href="#"
-						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-						aria-expanded="false"><span class="caret"
-						style="height: 10px; margin-top: 10px;"></span></a>
+					</a> <a href="#" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false"><span
+						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
 						<li class="userNo1"><a alt="" href="#">Any</a></li>
 						<c:forEach var="users" items="${userList}">
-							<li class="userNo1">
-							<a alt="${users.uno}" href="#">${users.uname}</a></li>
+							<li class="userNo1"><a alt="${users.uno}" href="#">${users.uname}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default">
-						<c:choose>
+					<a href="#" class="btn btn-default"> <c:choose>
 							<c:when test="${!empty selectedMilestone}">
 								<span id="selectedMilestone">${selectedMilestone}</span>
 							</c:when>
@@ -79,21 +85,19 @@
 								<span id="selectedMilestone">Milestone</span>
 							</c:otherwise>
 						</c:choose>
-					</a> 
-					<a href="#"
-						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-						aria-expanded="false"><span class="caret"
-						style="height: 10px; margin-top: 10px;"></span></a>
+					</a> <a href="#" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false"><span
+						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
 						<li class="milestoneNo"><a id="milestoneNo" alt="" href="#">Any</a></li>
 						<c:forEach var="milestone" items="${milestoneList}">
-						<li class="milestoneNo"><a id="milestoneNo" alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
+							<li class="milestoneNo"><a id="milestoneNo"
+								alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default">
-						<c:choose>
+					<a href="#" class="btn btn-default"> <c:choose>
 							<c:when test="${!empty selectedLabelName}">
 								<span id="selectedLabel">${selectedLabelName}</span>
 							</c:when>
@@ -101,15 +105,14 @@
 								<span id="selectedLabel">Weight</span>
 							</c:otherwise>
 						</c:choose>
-					</a> 
-					<a href="#"
-						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-						aria-expanded="false"><span class="caret"
-						style="height: 10px; margin-top: 10px;"></span></a>
+					</a> <a href="#" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false"><span
+						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
 						<li class="labelNo"><a id="labelNo" alt="" href="#">Any</a></li>
 						<c:forEach var="label" items="${allLabelList}">
-							<li class="labelNo"><a id="labelNo" alt="${label.lno}" href="#" style="color: ${label.lbgcolor}">${label.ltitle}</a></li>
+							<li class="labelNo"><a id="labelNo" alt="${label.lno}"
+								href="#" style="color: ${label.lbgcolor}">${label.ltitle}</a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -142,43 +145,45 @@
 						<td>Due Date</td>
 						<!-- <td>Weight</td> -->
 					</tr>
-						<c:forEach var="issues" items="${issuesList}" varStatus="status">
-							<input type="hidden" name="issueState"
-								value="${issues.istatement }">
-							<tr>
-								<td><div class="checkbox">
-										<label> <input type="checkbox" name="cbList"
-											value="${issues.ino }">
-										</label>
-									</div></td>
-								<td><a
-									href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
-									${issues.idescription }</td>
-								<td>
-									<c:choose>
-										<c:when test="${!empty issues.mtitle}">
-											<a href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>
-										</c:when>
-										<c:otherwise>
+					<c:forEach var="issues" items="${issuesList}" varStatus="status">
+						<input type="hidden" name="issueState"
+							value="${issues.istatement }">
+						<tr>
+							<td><div class="checkbox">
+									<label> <input type="checkbox" name="cbList"
+										value="${issues.ino }">
+									</label>
+								</div></td>
+							<td><a
+								href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
+								${issues.idescription }</td>
+							<td><c:choose>
+									<c:when test="${!empty issues.mtitle}">
+										<a href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>
+									</c:when>
+									<c:otherwise>
 											No Milestone
 										</c:otherwise>
-									</c:choose>
-								</td>
+								</c:choose></td>
 
-								<td><span class="label color-label has_tooltip" style="background-color:
+							<td><span class="label color-label has_tooltip"
+								style="background-color:
 									${issues.lbgcolor}; color: #FFFFFF"
-									title="" data-container="body" data-original-title="">${issues.ltitle}</span>
-								</td>
+								title="" data-container="body" data-original-title="">${issues.ltitle}</span>
+							</td>
 
-								<td>${issues.iduedate}</td>
-							</tr>
-						</c:forEach>
-						<tr><td colspan="5"></td></tr>
+							<td>${issues.iduedate}</td>
+						</tr>
+					</c:forEach>
+					<tr>
+						<td colspan="5"></td>
+					</tr>
 				</table>
 			</form>
 		</div>
-	</div>
-</div>
+	</section>
+</section>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 	$('.dropdown-menu > .userNo1 > a').bind('click', function() {
 		var userName = $(this).text();
@@ -209,12 +214,15 @@
 		$("#selectedWeight").text(weight);
 	}); */
 
-	$('#searchBtn').click(function() {
-		$('#searchBtn').attr("href", "/${uno}/${pno}/issues/${stat}/search?userNo=" 
-				+ $("#userNo").val() + "&mno=" + $("#mno").val()
-				+ "&lno=" + $("#lno").val());
-	});
-	
+	$('#searchBtn').click(
+			function() {
+				$('#searchBtn').attr(
+						"href",
+						"/${uno}/${pno}/issues/${stat}/search?userNo="
+								+ $("#userNo").val() + "&mno="
+								+ $("#mno").val() + "&lno=" + $("#lno").val());
+			});
+
 	//문자열 공백제거 함수
 	String.prototype.stripspace = function() {
 		return this.replace(/ /g, "");
@@ -282,5 +290,3 @@
 		}
 	}
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
