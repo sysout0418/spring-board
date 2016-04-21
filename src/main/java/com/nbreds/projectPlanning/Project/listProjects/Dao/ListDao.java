@@ -28,8 +28,8 @@ public class ListDao {
 		return count;
 	}
 	
-	public List<Project> getPageList(HashMap<String, Integer> param) {
-		return sqlSession.selectList("project.list.getProjectList", param);
+	public List<HashMap<String, Object>> getPageList(HashMap<String, Integer> param) {
+		return sqlSession.selectList("project.list.getPageList", param);
 	}
 	public Project getProjectByPno(int pno) {
 		return sqlSession.selectOne("project.list.getProjectByPno", pno);
@@ -71,5 +71,15 @@ public class ListDao {
 	}
 	public List<User> getUsersForName(String uname) {
 		return sqlSession.selectList("project.list.getUsersForName", uname);
+	}
+
+	public int getCountAllMilestone(int pno) {
+		return sqlSession.selectOne("project.list.getCountAllMilestone", pno);
+	}
+	public double getCountClosedMilestone(int pno) {
+		return sqlSession.selectOne("project.list.getCountClosedMilestone", pno);
+	}
+	public void setRownum() {
+		sqlSession.selectOne("project.my.setRownum");
 	}
 }

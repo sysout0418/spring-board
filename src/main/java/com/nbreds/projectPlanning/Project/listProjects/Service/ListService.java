@@ -18,7 +18,7 @@ public interface ListService {
 	
 	public int getTotalProjectNo();
 
-	public List<Project> getPageList(HashMap<String, Integer> param);
+	public List<HashMap<String, Object>> getPageList(HashMap<String, Integer> param);
 
 	public Project getProjectByPno(int pno);
 
@@ -41,5 +41,9 @@ public interface ListService {
 	public List<CodeTable> getCodeTable(String CODE_TYPE);
 	
 	public List<User> getUsersForName(String uname);
+
+	public int getCountAllMilestone(int pno);
+
+	public double getCountClosedMilestone(int pno);
 	
 }

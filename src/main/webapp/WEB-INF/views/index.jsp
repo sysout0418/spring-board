@@ -26,9 +26,10 @@ MAIN CONTENT
                         <thead>
 	                        <tr>
 	                        	<th> #</th>
-	                        	<th><i class="fa fa-bullhorn"></i> Project Name</th>
-	                            <th><i class="fa fa-question-circle"></i> Project Progress</th>
-	                            <th><i class="fa fa-bookmark"></i> Status</th>
+	                        	<th><i class="fa fa-bullhorn"></i> 프로젝트명</th>
+	                            <th><i class="fa fa-question-circle"></i> 프로젝트 진행도</th>
+	                            <th><i class="fa fa-bookmark"></i>  상태</th>
+	                            <th><i class="fa fa-edit"></i> 담당자</th>
 	                            <th></th>
 	                        </tr>
                         </thead>
@@ -49,6 +50,7 @@ MAIN CONTENT
                                  	<a href="/update?pno=${project.pno}" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
                                  	<a href="/DeleteProject?pno=${project.pno}" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>
                             	</td>
+                            	<td>${project.uname}</td>
                           </tr>
                           </c:forEach>
                       	</tbody>

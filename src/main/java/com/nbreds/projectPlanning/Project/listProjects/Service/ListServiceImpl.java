@@ -30,7 +30,8 @@ public class ListServiceImpl implements ListService {
 		return totalProjectNo;	
 	}
 
-	public List<Project> getPageList(HashMap<String, Integer> param) {
+	public List<HashMap<String, Object>> getPageList(HashMap<String, Integer> param) {
+		listDao.setRownum();
 		return listDao.getPageList(param);
 	}
 
@@ -102,7 +103,13 @@ public class ListServiceImpl implements ListService {
 		return listDao.getUsersForName(uname);
 	}
 
+	@Override
+	public int getCountAllMilestone(int pno) {
+		return listDao.getCountAllMilestone(pno);
+	}
 
-
-
+	@Override
+	public double getCountClosedMilestone(int pno) {
+		return listDao.getCountClosedMilestone(pno);
+	}
 }
