@@ -1,12 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp"/>
+
 <jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
-<!-- Begin page content -->
-<div style="width:1200; margin:0 auto; background-color: #fff">
-<h4>Projects</h4>
-총 프로젝트 수 ${countProjects}개<br>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+   		<h3><i class="fa fa-angle-right"></i> All Projects</h3>
+   		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
+&nbsp;총 프로젝트 수 ${countProjects}개
+<hr>
 <form name="frm" id="frm" method="post">
 <div class="form-inline">
 	<select class="form-control" id="group" name="key" >
@@ -15,18 +27,21 @@
 		<option value="uname" <%=pageBean.getKey("uname")%>>담당자</option>
 	</select>
 	<input type="text" class="form-control" placeholder="Search" name="word" id="word" value="${pageBean.word}">
-	<button type="button" class="btn btn-primary" onclick="javascript:pagelist(1)">검색</button>
-</div>
+	<button type="button" class="btn btn-theme02" onclick="javascript:pagelist(1)">검색</button>
+</div><br>
 <input type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
-<table class="table">
-<tr class="active">
-	<td><input type="checkbox" id="allCheck"></td>
-	<td>프로젝트명</td>
-	<td>등록일</td>
-	<td>만기일</td>
-	<td>담당자</td>
-	<td>관리</td>
+<table class="table table-hover">
+<thead>
+<tr>
+	<th><input type="checkbox" id="allCheck"></th>
+	<th>프로젝트명</th>
+	<th>등록일</th>
+	<th>만기일</th>
+	<th>담당자</th>
+	<th></th>
 </tr>
+</thead>
+<tbody>
 <c:forEach items="${project}" var="project">
 <tr>
 	<td><input type="checkbox" value="${project.pno}" id="pno" name="pno"></td>
@@ -34,17 +49,29 @@
 	<td>${project.pregdate}</td>
 	<td>${project.pduedate}</td>
 	<td>${project.uname}</td>
-	<td><a href="/update?pno=${project.pno}">수정</a></td>
+	<td>
+		<a href="/${project.uno}/${project.pno}" class="btn btn-success btn-xs" role="button"><i class="fa fa-check"></i></a>
+        <a href="/update?pno=${project.pno}" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+        <a href="/DeleteProject?pno=${project.pno}" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>
+	</td>
 </tr>
 </c:forEach>
+</tbody>
 </table>
-<button class="btn btn-primary" onclick="delList()">선택삭제</button>
+&nbsp;<button class="btn btn-theme03" onclick="delList()">선택삭제</button>
 <!-- 페이징 -->
 <div align="center">
 	${pageBean.pagelink}
 </div>
 </form>
-</div>
+ </div><!-- /content-panel -->
+             </div><!-- /col-md-12 -->
+         </div><!-- /row -->
+      </div>		
+</section><!--wrapper -->
+</section><!-- /MAIN CONTENT -->
+
+<!--main content end-->
 <script type="text/javascript">
 	function pagelist(page) {
 		$("#pageNo").val(page);
@@ -91,4 +118,4 @@
 	}
 }
 </script>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

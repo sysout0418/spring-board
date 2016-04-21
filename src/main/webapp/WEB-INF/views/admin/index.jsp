@@ -29,17 +29,22 @@ MAIN CONTENT
 					<th>부서</th>
 					<th>이메일</th>
 					<th>가입일</th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${user}" var="user">
 				<tr>
-					<td>#</td>
+					<td>${user.rownum1}</td>
 					<td>${user.uname}</td>
 					<td>${user.uphoneno}</td>
-					<td>${user.udepartmentName}</td>
+					<td>${user.udepartment}</td>
 					<td>${user.uemail}</td>
 					<td>${user.uregdate}</td>
+					<td>
+						<a href="#" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+       					<a href="#" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>
+					</td>
 				</tr>
 				</c:forEach>
 				</tbody>
@@ -60,16 +65,22 @@ MAIN CONTENT
 					<th>등록일</th>
 					<th>만기일</th>
 					<th>담당자</th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${project}" var="project">
 				<tr>
-					<td>#</td>
+					<td>${project.rownum2}</td>
 					<td>${project.pname}</td>
 					<td>${project.pregdate}</td>
 					<td>${project.pduedate}</td>
 					<td>${project.uname}</td>
+					<td>
+						<a href="/${project.uno}/${project.pno}" class="btn btn-success btn-xs" role="button"><i class="fa fa-check"></i></a>
+				        <a href="/update?pno=${project.pno}" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+				        <a href="/DeleteProject?pno=${project.pno}" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>
+					</td>
 				</tr>
 				</c:forEach>
 				</tbody>

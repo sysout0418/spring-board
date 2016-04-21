@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.admin.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,9 @@ import com.nbreds.projectPlanning.common.VO.User;
 public interface AdminService {
 	static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
-	List<Project> get5Projects();
+	List<HashMap<String, Object>> get5Projects();
 
-	List<User> get5Users();
+	List<HashMap<String, Object>> get5Users();
 
 	int getCountUsers();
 

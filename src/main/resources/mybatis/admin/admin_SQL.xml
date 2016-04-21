@@ -4,9 +4,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="admin">
-	<select id="get5Projects" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<select id="setRownum1">
     <![CDATA[
-   	select P.pname, P.pregdate, P.pduedate, U.uname
+    SET @rownum1:=0
+    ]]>  
+    </select>
+    
+   	<select id="setRownum2">
+    <![CDATA[
+    SET @rownum2:=0
+    ]]>  
+    </select>
+	<select id="get5Projects" resultType="hashmap">
+    <![CDATA[
+   	SELECT @rownum2:=@rownum2+1 as rownum2, P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
 	FROM Project P, User U
 	WHERE P.uno = U.uno
 	ORDER BY P.pregdate DESC
@@ -14,10 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="get5Users" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <select id="get5Users" resultType="hashmap">
     <![CDATA[
-   	SELECT uname, uphoneno, udepartment, uemail, uregdate, expired
-  	FROM User
+	SELECT @rownum1:=@rownum1+1 as rownum1, uphoneno, uname, C.CODE_NAME AS udepartment, uemail, uregdate, expired
+	FROM User U, CodeTable C
+	WHERE U.udepartment =C.CODE AND C.CODE_TYPE='002'
 	ORDER BY uregdate DESC
 	LIMIT 5
     ]]>  
