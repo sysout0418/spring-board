@@ -10,6 +10,7 @@ public class Project {
 	private String pduedate="";
 	private String pregdate;
 	private int uno;
+	private int lno;
 	
 	private List<String> pdevelopment;
 	private List<String> pdesign;
@@ -55,7 +56,12 @@ public class Project {
 	public void setUno(int uno) {
 		this.uno = uno;
 	}	
-	
+	public int getLno() {
+		return lno;
+	}
+	public void setLno(int lno) {
+		this.lno = lno;
+	}
 	public List<String> getPdevelopment() {
 		return pdevelopment;
 	}

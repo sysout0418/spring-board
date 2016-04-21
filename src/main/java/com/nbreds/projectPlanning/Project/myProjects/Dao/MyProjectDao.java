@@ -19,7 +19,7 @@ public class MyProjectDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<Project> getProjectByUno(String uno) {
+	public List<HashMap<String, Object>> getProjectByUno(String uno) {
 		return sqlSession.selectList("project.my.getProjectByUno", uno);
 	}
 	public User getUserForNo(int uno) {
@@ -37,5 +37,14 @@ public class MyProjectDao {
 	
 	public int getParticipateUserCnt(int pno) {
 		return sqlSession.selectOne("project.my.getParticipateUserCnt", pno);
+	}
+	public int getCountAllMilestone(int pno) {
+		return sqlSession.selectOne("project.my.getCountAllMilestone", pno);
+	}
+	public double getCountClosedMilestone(int pno) {
+		return sqlSession.selectOne("project.my.getCountClosedMilestone", pno);
+	}
+	public void setRownum() {
+		sqlSession.selectOne("project.my.setRownum");
 	}
 }

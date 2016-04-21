@@ -19,7 +19,8 @@ public class MyProjectServiceImpl implements MyProjectService {
 	@Autowired
 	MyProjectDao myProjectsDao;
 	
-	public List<Project> getProjectByUno(String uno) {
+	public List<HashMap<String, Object>> getProjectByUno(String uno) {
+		myProjectsDao.setRownum();
 		return myProjectsDao.getProjectByUno(uno);
 	}
 	public User getUserForNo(int uno) {
@@ -39,5 +40,13 @@ public class MyProjectServiceImpl implements MyProjectService {
 	@Override
 	public int getParticipateUserCnt(int pno) {
 		return myProjectsDao.getParticipateUserCnt(pno);
+	}
+	@Override
+	public int getCountAllMilestone(int pno) {
+		return myProjectsDao.getCountAllMilestone(pno);
+	}
+	@Override
+	public double getCountClosedMilestone(int pno) {
+		return myProjectsDao.getCountClosedMilestone(pno);
 	}
 }

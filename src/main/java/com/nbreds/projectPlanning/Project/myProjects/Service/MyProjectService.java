@@ -14,7 +14,7 @@ import com.nbreds.projectPlanning.common.VO.User;
 public interface MyProjectService {
 	static final Logger logger = LoggerFactory.getLogger(MyProjectService.class);
 	
-	public List<Project> getProjectByUno(String uno);
+	public List<HashMap<String, Object>> getProjectByUno(String uno);
 	
 	public User getUserForNo(int uno);
 	
@@ -25,4 +25,8 @@ public interface MyProjectService {
 	public List<HashMap<String, Object>> getRequestMember(int pno);
 	
 	int getParticipateUserCnt(int pno);
+
+	public int getCountAllMilestone(int pno);
+
+	public double getCountClosedMilestone(int pno);
 }

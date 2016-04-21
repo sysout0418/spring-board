@@ -10,14 +10,14 @@ TOP BAR CONTENT & NOTIFICATIONS
           <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
       </div>
     <!--logo start-->
-    <a href="index.html" class="logo"><b>DASHBOARD</b></a>
+    <a href="/" class="logo"><b>DASHBOARD</b></a>
     <!--logo end-->
     <div class="nav notify-row" id="top_menu">
         <!--  notification start -->
         <ul class="nav top-menu">
             <!-- settings start -->
             <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <i class="fa fa-tasks"></i>
                     <span class="badge bg-theme">4</span>
                 </a>
@@ -86,7 +86,7 @@ TOP BAR CONTENT & NOTIFICATIONS
             <!-- settings end -->
             <!-- inbox dropdown start-->
             <li id="header_inbox_bar" class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <i class="fa fa-envelope-o"></i>
                      <c:if test="${req > 0}"><span class="badge bg-theme">${req}</span></c:if>
                 </a>

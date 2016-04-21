@@ -1,52 +1,86 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_dash.jsp"/>
-<!-- Begin page content -->
-<div style="width:1200; margin:0 auto; background-color: #fff">
-<h4>Admin</h4>
-신규 가입회원<br>
-총 회원 수 ${countUsers}명
-<table class="table">
-<tr class="active">
-	<td>이름</td>
-	<td>휴대폰 번호</td>
-	<td>부서</td>
-	<td>이메일</td>
-	<td>가입일</td>
-</tr>
-<c:forEach items="${user}" var="user">
-<tr>
-	<td>${user.uname}</td>
-	<td>${user.uphoneno}</td>
-	<td>${user.udepartmentName}</td>
-	<td>${user.uemail}</td>
-	<td>${user.uregdate}</td>
-</tr>
-</c:forEach>
-<tr><td></td></tr>
-</table>
-<a class="btn btn-primary" href="/admin/users" role="button">회원 전체보기</a>
-<br><br>
-신규 프로젝트<br>
-총 프로젝트 수 ${countProjects}개
-<table class="table">
-<tr class="active">
-	<td>프로젝트명</td>
-	<td>등록일</td>
-	<td>만기일</td>
-	<td>담당자</td>
-</tr>
-<c:forEach items="${project}" var="project">
-<tr>
-	<td>${project.pname}</td>
-	<td>${project.pregdate}</td>
-	<td>${project.pduedate}</td>
-	<td>${project.uname}</td>
-</tr>
-</c:forEach>
-<tr><td></td></tr>
-</table>
-<a class="btn btn-primary" href="/admin/projects" role="button">프로젝트 전체보기</a>
-</div>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+   		<h3><i class="fa fa-angle-right"></i> Admin</h3>
+    		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
+				<h4><i class="fa fa-angle-right"></i>신규 가입회원</h4>
+				&nbsp;총 회원 수 ${countUsers}명
+				<hr>
+				<table class="table table-hover">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>이름</th>
+					<th>휴대폰 번호</th>
+					<th>부서</th>
+					<th>이메일</th>
+					<th>가입일</th>
+				</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${user}" var="user">
+				<tr>
+					<td>#</td>
+					<td>${user.uname}</td>
+					<td>${user.uphoneno}</td>
+					<td>${user.udepartmentName}</td>
+					<td>${user.uemail}</td>
+					<td>${user.uregdate}</td>
+				</tr>
+				</c:forEach>
+				</tbody>
+				</table>
+				&nbsp;<a class="btn btn-theme03" href="/admin/users" role="button">View all users</a>
+				 </div><!-- /content-panel -->
+				 </div><!-- /col-md-12 -->
+				 <div class="col-md-12 mt">
+				 <div class="content-panel">
+				 <h4><i class="fa fa-angle-right"></i> 신규 프로젝트</h4>
+				  &nbsp;총 프로젝트 수 ${countProjects}개				
+				 <hr>
+				<table class="table table-hover">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>프로젝트명</th>
+					<th>등록일</th>
+					<th>만기일</th>
+					<th>담당자</th>
+				</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${project}" var="project">
+				<tr>
+					<td>#</td>
+					<td>${project.pname}</td>
+					<td>${project.pregdate}</td>
+					<td>${project.pduedate}</td>
+					<td>${project.uname}</td>
+				</tr>
+				</c:forEach>
+				</tbody>
+				</table>
+				&nbsp;<a class="btn btn-theme03" href="/admin/projects" role="button">View all projects</a>
+				 </div><!-- /content-panel -->
+             </div><!-- /col-md-12 -->
+         </div><!-- /row -->
+      </div>		
+</section><! --/wrapper -->
+</section><!-- /MAIN CONTENT -->
+
+<!--main content end-->
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

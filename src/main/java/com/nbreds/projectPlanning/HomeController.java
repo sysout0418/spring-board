@@ -37,7 +37,16 @@ public class HomeController {
 		// 유저 정보 저장
 		USER_INFO = commonService.getAllUserNameAndNo();
 		String uno = String.valueOf(session.getAttribute("user_no"));
-		List<Project> list = myProjectService.getProjectByUno(uno);
+		List<HashMap<String, Object>> list = myProjectService.getProjectByUno(uno);
+		for (HashMap<String, Object> project : list) {
+			int pno = (int) project.get("pno");
+			int countAllMilestone = myProjectService.getCountAllMilestone(pno);
+			double completeMilestonPercent = myProjectService.getCountClosedMilestone(pno);
+			project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
+			logger.info("countAllMilestone: "+countAllMilestone);
+			logger.info("completeMilestonPercent: "+completeMilestonPercent);
+			logger.info("completeIssuePercent: "+project.get("completeIssuePercent"));
+		}
 		model.addAttribute("list", list);
 		
 		return "index";

@@ -4,13 +4,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="project.my">
-    <select id="getProjectByUno" parameterType="String" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+	<select id="setRownum">
     <![CDATA[
-    SELECT distinct P.pno, P.pname, P.pdetail, P.uno, U.uname
+    SET @rownum:=0
+    ]]>  
+    </select>
+    
+    <select id="getProjectByUno" parameterType="String" resultType="hashmap">
+    <![CDATA[
+	SELECT @rownum:=@rownum+1 as rownum, P.pno, P.pregdate, P.pname, P.pdetail, P.uno, U.uname, L.ltitle, L.lbgcolor
 	FROM Project P
+	LEFT JOIN Label L ON P.lno = L.lno
+	LEFT JOIN User U ON P.uno = U.uno
 	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
-	JOIN User U ON P.uno = U.uno
- 	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
+	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
+	GROUP BY P.pno
     ]]>  
     </select>
     
@@ -58,6 +66,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT COUNT(*) cnt
     FROM ProjectMemberStat
     WHERE pno = #{pno}
+    ]]>  
+    </select>
+    
+    <select id="getCountAllMilestone" parameterType="int" resultType="int">
+    <![CDATA[
+	SELECT COUNT(*)
+	FROM Milestones
+	WHERE pno=#{pno}
+    ]]>  
+    </select>
+    
+    <select id="getCountClosedMilestone" parameterType="int" resultType="double">
+    <![CDATA[
+	SELECT COUNT(*)
+	FROM Milestones
+	WHERE pno=#{pno} AND mstatement=001
     ]]>  
     </select>
 </mapper>
