@@ -27,6 +27,10 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3><i class="fa fa-angle-right"></i> New Project</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 		<p>
 			<strong>담당자 정보</strong>
 		</p>
@@ -122,6 +126,10 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 			</table>
 			<input class="btn btn-success" type="submit" id="submit" value="Create Project">
 		</form:form>
+		</div>
+		</div>
+		</div>
+		</div>
 	</section>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

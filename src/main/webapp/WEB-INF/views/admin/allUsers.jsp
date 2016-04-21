@@ -92,6 +92,10 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Users
 		</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 		<form class="form-horizontal" name="frm" id="frm" method="post">
 			<div class="form-inline">
 				<select class="form-control" id="group" name="key">
@@ -278,7 +282,10 @@ MAIN CONTENT
 		</div>      				
 	</div> -->
 		<!-- /showback -->
-
+		</div>
+		</div>
+		</div>
+		</div>
 	</section>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

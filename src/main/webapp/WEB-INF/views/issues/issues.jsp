@@ -7,9 +7,17 @@
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
 <!--main content start-->
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
 	<h3><i class="fa fa-angle-right"></i> Issues</h3>
+	<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 		<div role="tabpanel">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
@@ -180,6 +188,10 @@ MAIN CONTENT
 					<tr><td colspan="5"></td></tr>
 				</table>
 			</form>
+		</div>
+		</div>
+		</div>
+		</div>
 		</div>
 	</section>
 </section>	
