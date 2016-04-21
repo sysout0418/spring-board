@@ -36,24 +36,15 @@ public class AdminController {
 		
 		int countUsers = adminService.getCountUsers();
 		int countProjects = adminService.getCountProjects();
-		List<User> user = adminService.get5Users();
-		List<Project> project = adminService.get5Projects();
+		List<HashMap<String, Object>> user = adminService.get5Users();
+		model.addAttribute("user", user);
 		
-		// 부서 코드 한글화
-		List<CodeTable> departmentCodeList = getDepartmentList();
-		for (int i = 0; i < user.size(); i++) {
-			for (int j = 0; j < departmentCodeList.size(); j++) {
-				if (user.get(i).getUdepartment().equals(departmentCodeList.get(j).getCODE())) {
-					user.get(i).setUdepartmentName(departmentCodeList.get(j).getCODE_NAME());
-				}
-			}
-		}
-		
+		List<HashMap<String, Object>> project = adminService.get5Projects();
+		model.addAttribute("project", project);
+
 		model.addAttribute("countUsers", countUsers);
 		model.addAttribute("countProjects", countProjects);
-		model.addAttribute("user", user);
-		model.addAttribute("project", project);
-		
+
 		return "/admin/index";
 	}
 	

@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.admin.Dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,11 +22,11 @@ public class AdminDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Project> get5Projects() {
+	public List<HashMap<String, Object>> get5Projects() {
 		return sqlSession.selectList("admin.get5Projects");
 	}
 
-	public List<User> get5Users() {
+	public List<HashMap<String, Object>> get5Users() {
 		return sqlSession.selectList("admin.get5Users");
 	}
 
@@ -97,4 +98,11 @@ public class AdminDao {
 		return sqlSession.selectList("admin.getAllDepartmentList");
 	}
 	
+	public void setRownum1() {
+		sqlSession.selectOne("admin.setRownum1");
+	}	
+	
+	public void setRownum2() {
+		sqlSession.selectOne("admin.setRownum2");
+	}	
 }

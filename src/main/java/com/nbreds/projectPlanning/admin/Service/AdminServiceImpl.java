@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.admin.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +25,14 @@ public class AdminServiceImpl implements AdminService {
 	AdminDao adminDao;
 
 	@Override
-	public List<Project> get5Projects() {
+	public List<HashMap<String, Object>> get5Projects() {
+		adminDao.setRownum2();
 		return adminDao.get5Projects();
 	}
 
 	@Override
-	public List<User> get5Users() {
+	public List<HashMap<String, Object>> get5Users() {
+		adminDao.setRownum1();
 		return adminDao.get5Users();
 	}
 

@@ -1,8 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!--footer start-->
 <footer class="site-footer">
     <div class="text-center">
         2014 - Alvarez.is
-        <a href="/#" class="go-top">
+        <a href="#" class="go-top">
             <i class="fa fa-angle-up"></i>
         </a>
     </div>
