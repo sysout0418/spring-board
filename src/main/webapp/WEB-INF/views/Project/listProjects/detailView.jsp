@@ -11,6 +11,10 @@ MAIN CONTENT
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3><i class="fa fa-angle-right"></i> Detail Project</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 		<p class="text-center">
 			<span style="font-size: 16px;">${project.pskill}</span><br> <span
 				style="font-size: 23px; font-weight: bold;">${project.pname}</span>
@@ -37,6 +41,10 @@ MAIN CONTENT
 		</table>
 		<div align="center">
 			<a class="btn btn-default" href="/list" role="button">목록</a>
+		</div>
+		</div>
+		</div>
+		</div>
 		</div>
 	</section>
 </section>

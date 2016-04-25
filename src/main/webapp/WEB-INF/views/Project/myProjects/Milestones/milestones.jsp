@@ -1,9 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header_project.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_project.jsp" />
 <!-- Begin page content -->
-<div style="width:1200; margin:0 auto; background-color: #fff">
-<h4 class="page-header">${pname} / Milestones</h4>  	
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<h3>
+			<i class="fa fa-angle-right"></i> ${pname} / Milestones
+		</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 <div role="tabpanel">
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
@@ -35,4 +48,9 @@
 </c:forEach>
 </table>
 </div>
+</div>
+</div>
+</div>
+</section>
+</section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp"/>

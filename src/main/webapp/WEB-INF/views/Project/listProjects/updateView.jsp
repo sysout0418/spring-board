@@ -96,6 +96,10 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Edit Project
 		</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 		<p>
 			<strong>담당자 정보</strong>
 		</p>
@@ -218,6 +222,10 @@ MAIN CONTENT
 			<input class="btn btn-primary btn-lg" type="button" id="test" value="테스트">
 		</div> -->
 		</form:form>
+		</div>
+		</div>
+		</div>
+		</div>
 	</section>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

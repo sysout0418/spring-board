@@ -15,11 +15,15 @@ MAIN CONTENT
 	<!--main content start-->
 	<section id="main-content">
 		<section class="wrapper site-min-height">
+				<h3><i class="fa fa-angle-right"></i> Search</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 			<div id="search" style="float: left">
 				<input type="hidden" name="pageNo" id="pageNo"
 					value="${pageBean.pageNo}" /> <input type="hidden" name="pdata"
 					id="pdata" value="" />
-				<h3><i class="fa fa-angle-right"></i> Search</h3>
 				<table class="table">
 					<tr>
 						<td
@@ -87,6 +91,10 @@ MAIN CONTENT
 
 				<!-- 페이징 -->
 				<div align="center">${pageBean.pagelink}</div>
+			</div>
+			</div>
+			</div>
+			</div>
 			</div>
 		</section>
 	</section>

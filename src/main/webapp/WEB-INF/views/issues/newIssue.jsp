@@ -9,10 +9,20 @@
 	width: 200px;
 }
 </style>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/header_project.jsp" />
-<!-- Begin page content -->
-<div style="width: 1200; margin: 0 auto; background-color: #fff">
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_project.jsp" />
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper site-min-height">
+		<h3><i class="fa fa-angle-right"></i> New Issue</h3>
+   		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 	<form:form class="form-horizontal" method="post"
 		action="/issues/regist" commandName="Issues" enctype="multipart/form-data">
 		<input type="hidden" value="${uno}" name="uno" id="uno">
@@ -26,9 +36,6 @@
 			</c:if>
 		</c:forEach>
 		<fieldset>
-			<legend class="page-header">
-				<h4>New Issue</h4>
-			</legend>
 			<div class="form-group">
 				<label for="inputTitle" class="col-lg-2 control-label">Title</label>
 				<div class="col-lg-10">
@@ -134,6 +141,11 @@
 		</fieldset>
 	</form:form>
 	</div>
+	</div>
+	</div>
+	</div>
+	</section>
+	</section>
 <script type="text/javascript">
 $(function() {
 	$( "#iduedate" ).datepicker({

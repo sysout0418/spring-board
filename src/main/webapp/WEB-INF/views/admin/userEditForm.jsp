@@ -16,6 +16,10 @@ MAIN CONTENT
 				<h3>
 					<i class="fa fa-angle-right"></i> User Edit
 				</h3>
+				<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">이메일(ID)</label>
 					<div class="col-lg-10">
@@ -119,6 +123,10 @@ MAIN CONTENT
 							onclick="history.back(-1)">Cancel</button>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
+				</div>
+				</div>
+				</div>
+				</div>
 				</div>
 			</fieldset>
 		</form>

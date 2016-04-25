@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_project.jsp" />
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
@@ -12,6 +12,10 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> ${pname} / Issues
 		</h3>
+		<div class="col-lg-12">
+    			<div class="row">
+            		<div class="col-md-12">
+                		<div class="content-panel">
 		<div role="tabpanel">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
@@ -180,6 +184,10 @@ MAIN CONTENT
 					</tr>
 				</table>
 			</form>
+		</div>
+		</div>
+		</div>
+		</div>
 		</div>
 	</section>
 </section>
