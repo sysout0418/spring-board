@@ -45,12 +45,12 @@ MAIN CONTENT
 			  						<small>${project.completeIssuePercent}% Complete</small>
 				  				</td>
                              	<td><span class="label label-warning label-mini" style="background-color: ${project.lbgcolor}">${project.ltitle}</span></td>
+                             	<td>${project.uname}</td>
                              	<td>
 	                               	<a href="/${project.uno}/${project.pno}" class="btn btn-success btn-xs" role="button"><i class="fa fa-check"></i></a>
                                  	<a href="/update?pno=${project.pno}" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
                                  	<a href="/DeleteProject?pno=${project.pno}" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>
                             	</td>
-                            	<td>${project.uname}</td>
                           </tr>
                           </c:forEach>
                       	</tbody>

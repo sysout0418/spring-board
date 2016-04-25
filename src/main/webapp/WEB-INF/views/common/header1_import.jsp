@@ -15,11 +15,13 @@
    <link href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
    <!--external css-->
    <link href="<c:url value="/resources/css/bootstrap-theme-dashgum/font-awesome/css/font-awesome.css" />" rel="stylesheet"  type="text/css" />
-       
+   
    <!-- Custom styles for this template -->
+   <link rel="stylesheet" type="text/css" href="<c:url value="/resources/lineicons/style.css" />"> 
    <link href="<c:url value="/resources/css/bootstrap-theme-dashgum/style.css" />" rel="stylesheet"  type="text/css" />
    <link href="<c:url value="/resources/css/bootstrap-theme-dashgum/style-responsive.css" />" rel="stylesheet"  type="text/css" />
 
+   <script src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/chart-master/Chart.js" />"></script>
    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
    <!--[if lt IE 9]>
      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
