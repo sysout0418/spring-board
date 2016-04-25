@@ -29,7 +29,7 @@ MAIN CONTENT
 		<input type="hidden" value="${pno}" name="pno" id="pno">
 		<input type="hidden" value="" id="mno" name="mno">
 		<!-- <input type="hidden" value="" name="iweight" id="iweight"> -->
-		<input type="hidden" value="4" name="lno" id="lno">
+		<input type="hidden" value="2" name="lno" id="lno">
 		<c:forEach var="user" items="${allUserList}">
 			<c:if test="${user.uno == uno}">
 				<input type="hidden" value="${user.uname}" name="myname" id="myname" alt="${user.uno}">
