@@ -18,7 +18,7 @@ public interface MyProjectService {
 	
 	public User getUserForNo(int uno);
 	
-	public Project getProjectByPno(int pno);
+	public HashMap<String, Object> getProjectByPno(int pno);
 
 	public List<Project> searchProject(HashMap<String, Object> param);
 

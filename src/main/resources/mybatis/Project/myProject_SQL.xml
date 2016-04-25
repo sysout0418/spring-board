@@ -30,9 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <select id="getProjectByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-     select pno, pname, pdetail, pdata, pregdate, pduedate, uno from Project where pno=#{pno};
+    SELECT pno, pname, pdetail, pdata, pregdate, pduedate, U.uname, L.ltitle, L.lbgcolor
+	FROM Project P, User U, Label L
+	WHERE pno=#{pno} AND P.uno = U.uno AND P.lno = L.lno
     ]]>  
     </select>
     

@@ -29,26 +29,16 @@ public class MyProjectController {
 	
 	@RequestMapping("/{uno}/{pno}")
 	public String  home(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model, HttpSession session) {
-		Project project = myProjectService.getProjectByPno(pno);
+		HashMap<String, Object> project = myProjectService.getProjectByPno(pno);
 		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
-		int participatedUserCnt = myProjectService.getParticipateUserCnt(pno);
-		String pdata = project.getPdata();
-		logger.info("padata> " + pdata);
-		//한글화
-		List<String> skills = (List<String>)commonController.getCodeForCodeType(pdata, "skills");
-		String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
-		logger.info("pprogress> " + pprogress);
-
-		project.setPskill(commonController.getCodeName(skills.get(0)));
-		project.setPprogress(commonController.getCodeName(pprogress));
 		
-		//담당자 코드->한글
-		String uname = myProjectService.getUserForNo(project.getUno()).getUname();
-		project.setUname(uname);
+		int countAllMilestone = myProjectService.getCountAllMilestone(pno);
+		double completeMilestonPercent = myProjectService.getCountClosedMilestone(pno);
+		project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
 		
 		model.addAttribute("request", request);
 		model.addAttribute("project", project);
-		model.addAttribute("userCnt", participatedUserCnt);
+		model.addAttribute("userCnt", request.size());
 		
 		return "/Project/myProjects/selectedProject";
 	}

@@ -25,7 +25,7 @@ public class MyProjectDao {
 	public User getUserForNo(int uno) {
 		return sqlSession.selectOne("project.my.getUserForNo", uno);
 	}
-	public Project getProjectByPno(int pno) {
+	public HashMap<String, Object> getProjectByPno(int pno) {
 		return sqlSession.selectOne("project.my.getProjectByPno", pno);
 	}
 	public List<Project> searchProject(HashMap<String, Object> param) {

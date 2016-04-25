@@ -26,7 +26,7 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public User getUserForNo(int uno) {
 		return myProjectsDao.getUserForNo(uno);
 	}
-	public Project getProjectByPno(int pno) {
+	public HashMap<String, Object> getProjectByPno(int pno) {
 		return myProjectsDao.getProjectByPno(pno);
 	}
 	@Override
