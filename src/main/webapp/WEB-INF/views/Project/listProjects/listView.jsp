@@ -36,7 +36,7 @@ MAIN CONTENT
 	<c:forEach var="project" items="${list}">
 	<tr>
 		<td>${project.rownum}</td>
-     	<td><a href="/${project.uno}/${project.pno}">${project.pname}</a><br/><small>Created ${fn:substring(project.pregdate,0,10)}</small></td>
+     	<td><a href="/DetailProject/${project.pno}">${project.pname}</a><br/><small>Created ${fn:substring(project.pregdate,0,10)}</small></td>
      	<td class="hidden-phone">
         	<div class="progress">
 				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${project.completeIssuePercent}%"></div>
