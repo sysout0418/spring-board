@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="project.search">
+    
 	<select id="getCodeTable" parameterType="String" resultType="com.nbreds.projectPlanning.common.VO.CodeTable">
     <![CDATA[
      select CODE_TYPE, CODE, CODE_NAME from CodeTable where CODE_TYPE=#{CODE_TYPE}
@@ -46,8 +47,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 페이징 처리를 위한 allProjectList -->
     <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-    SELECT pno, pname, pdetail, pdata, pduedate, uno
-    FROM Project
+    SELECT @rownum:=@rownum+1 AS rownum, pno, pname, pdetail, pdata, pduedate, P.uno, uname, L.ltitle, L.lbgcolor
+    FROM Project P
+    LEFT JOIN User U
+    ON P.uno = U.uno
+    LEFT JOIN Label L
+    ON P.lno = L.lno
+    INNER JOIN (SELECT @rownum:=0) T2
     ]]>
     <if test="pdata != null">
 		<where>
@@ -59,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</if>
 	<![CDATA[
-	ORDER BY pno DESC
+	ORDER BY rownum DESC
 	LIMIT #{start}, #{interval}
     ]]>
     </select>

@@ -47,4 +47,5 @@ public class SearchDao {
 	public int totalCount(Map<String, Object> param) {
 		return sqlSession.selectOne("project.search.totalCount", param);
 	}
+	
 }

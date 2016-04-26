@@ -65,7 +65,7 @@ public class SearchController {
 		PageUtility bar = new PageUtility(pageBean.getInterval(), totalCnt, pageBean.getPageNo());
 		pageBean.setPagelink(bar.getPageBar());
 		List<Project> list = searchService.allProjectList(param);
-		/*
+		
 		for(int i = 0; i < list.size(); i++){
 			String pdata = list.get(i).getPdata();
 			
@@ -76,18 +76,22 @@ public class SearchController {
 			if (skills.size() > 0) {
 				list.get(i).setPskill(commonController.getCodeName(skills.get(0)));
 			}
-			list.get(i).setPprogress(commonController.getCodeName(pprogress));
+//			list.get(i).setPprogress(commonController.getCodeName(pprogress));
 			
 			//담당자 코드->한글
 			String uname = searchService.getUserForNo(list.get(i).getUno()).getUname();
 			list.get(i).setUname(uname);
 		}
-		*/
+
 		request.setAttribute("pdatas", pdatas);
 		model.addAttribute("pageBean", pageBean);
-		model.addAttribute("list", list);
-		
-        return "Project/searchProject/searchProject";
+		if (list.isEmpty()) {
+			model.addAttribute("list", "none");
+		} else {
+			model.addAttribute("list", list);
+		}
+
+		return "Project/searchProject/searchProject";
 	}
 	
 	@ModelAttribute("development")

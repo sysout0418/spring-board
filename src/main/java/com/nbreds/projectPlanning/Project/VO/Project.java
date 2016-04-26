@@ -3,6 +3,7 @@ package com.nbreds.projectPlanning.Project.VO;
 import java.util.List;
 
 public class Project {
+	private int rowNum;
 	private int pno;
 	private String pname="";
 	private String pdetail="";
@@ -15,7 +16,9 @@ public class Project {
 	private List<String> pdevelopment;
 	private List<String> pdesign;
 	private List<String> pplanning;
-	private String pprogress;
+//	private String pprogress;
+	private String ltitle;
+	private String lbgcolor;
 
 	private String uname;
 	private String pskill="";
@@ -83,16 +86,27 @@ public class Project {
 		for (String tmp : pplanning)		this.pdata+="006"+tmp+",";	
 		this.pplanning = pplanning;
 	}
-	public String getPprogress() {
-		return pprogress;
-	}
-	public void setPprogress(String pprogress) {
-		this.pprogress = pprogress;
-		this.pdata += pprogress+",";
-	}
-	
+//	public String getPprogress() {
+//		return pprogress;
+//	}
+//	public void setPprogress(String pprogress) {
+//		this.pprogress = pprogress;
+//		this.pdata += pprogress+",";
+//	}
 	public String getUname() {
 		return uname;
+	}
+	public String getLtitle() {
+		return ltitle;
+	}
+	public void setLtitle(String ltitle) {
+		this.ltitle = ltitle;
+	}
+	public String getLbgcolor() {
+		return lbgcolor;
+	}
+	public void setLbgcolor(String lbgcolor) {
+		this.lbgcolor = lbgcolor;
 	}
 	public void setUname(String uname) {
 		this.uname = uname;
@@ -108,6 +122,12 @@ public class Project {
 	}
 	public void setPregdate(String pregdate) {
 		this.pregdate = pregdate;
+	}
+	public int getRowNum() {
+		return rowNum;
+	}
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 	
 }

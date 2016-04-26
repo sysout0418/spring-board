@@ -99,7 +99,7 @@ public class ListController {
 		if (skills.size() > 0) {
 			project.setPskill(commonController.getCodeName(skills.get(0)));
 		}
-		project.setPprogress(commonController.getCodeName(pprogress));
+//		project.setPprogress(commonController.getCodeName(pprogress));
 		
 		//담당자 코드->한글
 		String uname = listService.getUserForNo(project.getUno()).getUname();
@@ -142,7 +142,7 @@ public class ListController {
 		project.setPdesign(design);
 		project.setPplanning(plan);
 		project.setPduedate(project.getPduedate());
-		project.setPprogress(pprogress);
+//		project.setPprogress(pprogress);
 		
 		
 		int uno = project.getUno();

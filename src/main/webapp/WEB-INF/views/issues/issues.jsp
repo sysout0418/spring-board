@@ -166,25 +166,41 @@ MAIN CONTENT
 						<td>Weight</td>
 						<td>Due Date</td>
 					</tr>
-					<c:forEach var="issues" items="${issuesList}" varStatus="status">
-						<input type="hidden" name="issueState"
-							value="${issues.istatement }">
-						<tr>
-							<td><a
-								href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">${issues.ititle}</a><br>
-								${issues.idescription }</td>
-							<td><a
-								href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
-
-							<td><span class="label color-label has_tooltip"
-										style="background-color:
-									${issues.lbgcolor}; color: #FFFFFF"
-										title="" data-container="body" data-original-title="">${issues.ltitle}</span>
-							</td>
-
-							<td>${issues.iduedate}</td>
-						</tr>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${issuesList == 'none'}">
+							<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
+							No Issues to show
+							</td></tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="issues" items="${issuesList}" varStatus="status">
+								<input type="hidden" name="issueState"
+									value="${issues.istatement }">
+								<tr onclick="location.href='/${issues.uno}/${issues.pno}/issue/${issues.ino}'" style="cursor: pointer;">
+									<td><a href="#">${issues.ititle}</a><br>
+										${issues.idescription }</td>
+									
+									<c:choose>
+										<c:when test="${!empty issues.mtitle}">
+											<td>
+											<a href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
+										</c:when>
+										<c:otherwise>
+											<td>No Milestone</td>
+										</c:otherwise>
+									</c:choose>
+		
+									<td><span class="label color-label has_tooltip"
+												style="background-color:
+											${issues.lbgcolor}; color: #FFFFFF"
+												title="" data-container="body" data-original-title="">${issues.ltitle}</span>
+									</td>
+		
+									<td>${issues.iduedate}</td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 					<tr><td colspan="5"></td></tr>
 				</table>
 			</form>

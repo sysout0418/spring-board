@@ -95,7 +95,11 @@ public class IssueController {
 		
 		model.addAttribute("pname", pname);
 		model.addAttribute("stat", stat);
-		model.addAttribute("issuesList", issuesList);
+		if (issuesList.isEmpty()) {
+			model.addAttribute("issuesList", "none");
+		} else {
+			model.addAttribute("issuesList", issuesList);
+		}
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", milestoneList);
@@ -372,7 +376,11 @@ public class IssueController {
 		model.addAttribute("searchUno", userNo);
 		model.addAttribute("mno", mno);
 		model.addAttribute("lno", lno);
-		model.addAttribute("issuesList", issuesList);
+		if (issuesList.isEmpty()) {
+			model.addAttribute("issuesList", "none");
+		} else {
+			model.addAttribute("issuesList", issuesList);
+		}
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", milestoneList);
@@ -387,7 +395,7 @@ public class IssueController {
 	@RequestMapping(value = "/issues/{statement}", method = RequestMethod.GET)
 	public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
-		List<Issue> issueList = new ArrayList<Issue>();
+		List<Issue> issuesList = new ArrayList<Issue>();
 //		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
@@ -396,7 +404,7 @@ public class IssueController {
 		if (stat.equals("open")) {
 			param.put("uno", uno);
 			param.put("istatement", "000");
-			issueList = issuesService.getIssuesByUno(param);
+			issuesList = issuesService.getIssuesByUno(param);
 //			for (int i = 0; i < issueList.size(); i++) {
 //				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
 //				issueList.get(i).setLabels(labelList);
@@ -404,14 +412,14 @@ public class IssueController {
 		} else if (stat.equals("closed")) {
 			param.put("uno", uno);
 			param.put("istatement", "001");
-			issueList = issuesService.getIssuesByUno(param);
+			issuesList = issuesService.getIssuesByUno(param);
 //			for (int i = 0; i < issueList.size(); i++) {
 //				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
 //				issueList.get(i).setLabels(labelList);
 //			}
 		} else {
 			param.put("uno", uno);
-			issueList = issuesService.getIssuesByUno(param);
+			issuesList = issuesService.getIssuesByUno(param);
 //			for (int i = 0; i < issueList.size(); i++) {
 //				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
 //				issueList.get(i).setLabels(labelList);
@@ -419,7 +427,11 @@ public class IssueController {
 		}
 		
 		model.addAttribute("stat", stat);
-		model.addAttribute("issuesList", issueList);
+		if (issuesList.isEmpty()) {
+			model.addAttribute("issuesList", "none");
+		} else {
+			model.addAttribute("issuesList", issuesList);
+		}
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", allMilestoneList);
@@ -514,7 +526,11 @@ public class IssueController {
 		model.addAttribute("uno", uno);
 		model.addAttribute("mno", mno);
 		model.addAttribute("lno", lno);
-		model.addAttribute("issuesList", issuesList);
+		if (issuesList.isEmpty()) {
+			model.addAttribute("issuesList", "none");
+		} else {
+			model.addAttribute("issuesList", issuesList);
+		}
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", milestoneList);

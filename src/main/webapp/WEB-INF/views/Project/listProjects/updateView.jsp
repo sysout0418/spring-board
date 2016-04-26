@@ -7,8 +7,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	List<User> userInfoList = HomeController.USER_INFO;
-	List<ProjectMemberStat> participatedUserList = (List<ProjectMemberStat>) request
-			.getAttribute("participatedUserList");
+	List<ProjectMemberStat> participatedUserList = (List<ProjectMemberStat>) request.getAttribute("participatedUserList");
 %>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
@@ -126,10 +125,24 @@ MAIN CONTENT
 		</p>
 		<form:form method="POST" action="update" commandName="project">
 			<%-- <input type="hidden" id="pmember" name="pmember" value="${project.pmember }"> --%>
-			<input type="hidden" id="requestUserNoList" name="requestUserNoList"
-				value="">
-			<input type="hidden" id="requestUserNameList"
-				name="requestUserNameList" value="">
+			<% 
+			String userNos = "";
+			String userNames = "";
+			for (int i = 0; i < participatedUserList.size(); i++) {
+				if (participatedUserList.size() == 1) {				//체크된 체크박스의 개수가 한 개 일때,
+					userNos += participatedUserList.get(i).getUno();
+					userNames += participatedUserList.get(i).getUname();
+				} else if (i == participatedUserList.size() - 1) {			//체크된 체크박스 중 마지막 체크박스일 때,
+					userNos += participatedUserList.get(i).getUno();
+					userNames += participatedUserList.get(i).getUname();
+				} else {
+					userNos += participatedUserList.get(i).getUno() + ",";
+					userNames += participatedUserList.get(i).getUname() + ",";
+				}
+			}
+			%>
+			<input type="hidden" id="requestUserNoList" name="requestUserNoList" value="<%= userNos %>">
+			<input type="hidden" id="requestUserNameList" name="requestUserNameList" value="<%= userNames %>">
 			<table class="table">
 				<tr>
 					<td colspan="2" style="width: 500px">프로젝트 명</td>
@@ -210,9 +223,8 @@ MAIN CONTENT
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3"><input type="hidden" id="pno" name="pno"
-						value="${project.pno}" /> <input type="hidden" id="pprogress"
-						name="pprogress" value="${project.pprogress}" /></td>
+					<td colspan="3"><input type="hidden" id="pno" name="pno" value="${project.pno}" /> 
+					<%-- <input type="hidden" id="pprogress" name="pprogress" value="${project.pprogress}" /> --%></td>
 				</tr>
 			</table>
 			<input class="btn btn-success" type="submit" id="submit"

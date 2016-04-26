@@ -194,6 +194,7 @@ MAIN CONTENT
 		</div>
 		</section>
 		</section>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 $(document).ready(function(){
 	$("a[name^='delete']").on("click", function(e){ //삭제 버튼
@@ -296,5 +297,3 @@ $(function(){
 	$('#item_'+count).remove();
 } */
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

@@ -20,7 +20,7 @@ MAIN CONTENT
     			<div class="row">
             		<div class="col-md-12">
                 		<div class="content-panel">
-			<div id="search" style="float: left">
+			<div id="search" style="">
 				<input type="hidden" name="pageNo" id="pageNo"
 					value="${pageBean.pageNo}" /> <input type="hidden" name="pdata"
 					id="pdata" value="" />
@@ -56,37 +56,51 @@ MAIN CONTENT
 						<td colspan="4"></td>
 					</tr>
 				</table>
-				<div align="center">
-					<a href="javascript:pagelist(1)" class="btn btn-success">Search</a>
-				</div>
 			</div>
+				
+			<a href="javascript:pagelist(1)" class="btn btn-success" style="position: relative; left: 200px; top: -30px;">Search</a>
+			
 			<div id="searchResult">
-				<table class="table">
-					<tr class="active">
-						<td style="width: 500px; text-align: center;">프로젝트</td>
-						<td>모집분야</td>
-						<td>마감일</td>
-						<td>담당자</td>
-					</tr>
-					<c:forEach var="project" items="${list}">
+				<table class="table table-striped table-advance table-hover">
+					<thead>
 						<tr>
-							<td><a href="/DetailProject/${project.pno}">${project.pname}</a><br>
-								<c:choose>
-									<c:when test="${fn:length(project.pdetail) > 20}">
-										<c:out value="${fn:substring(project.pdetail,0,20)}" />....
-					</c:when>
-									<c:otherwise>
-										<c:out value="${project.pdetail}" />
-									</c:otherwise>
-								</c:choose></td>
-							<td>${project.pskill}</td>
-							<td>${project.pduedate}</td>
-							<td>${project.uname}</td>
+							<th>#</th>
+							<th><i class="fa fa-bullhorn"></i> 프로젝트명</th>
+							<th><i class="fa fa-paperclip"></i> 모집분야</th>
+							<th><i class="fa fa-calendar"></i> 마감일</th>
+							<th><i class="fa fa-bookmark"></i> 상태</th>
+							<th><i class="fa fa-user"></i> 담당자</th>
 						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="5"></td>
-					</tr>
+					</thead>
+					<tbody>
+					<c:choose>
+						<c:when test="${list == 'none'}">
+							<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
+	                        No projects to show
+	                        </td></tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="project" items="${list}">
+								<tr onclick="location.href='/DetailProject/${project.pno}'" style="cursor: pointer;">
+									<td>${project.rowNum}</td>
+									<td><a href="#">${project.pname}</a><br>
+										<c:choose>
+											<c:when test="${fn:length(project.pdetail) > 20}">
+												<c:out value="${fn:substring(project.pdetail,0,20)}" />....
+											</c:when>
+											<c:otherwise>
+												<c:out value="${project.pdetail}" />
+											</c:otherwise>
+										</c:choose></td>
+									<td>${project.pskill}</td>
+									<td>${project.pduedate}</td>
+									<td><span class="label label-warning label-mini"
+											style="background-color: ${project.lbgcolor}">${project.ltitle}</span></td>
+									<td>${project.uname}</td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</table>
 
 				<!-- 페이징 -->
