@@ -19,12 +19,14 @@ MAIN SIDEBAR MENU
                    <span>My Projects</span>
                </a>
            </li>
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
             <li class="sub-menu">
                <a href="/regist" >
                    <i class="fa fa-pencil-square-o custom"></i>
                    <span>Regist</span>
                </a>
            </li>
+           </sec:authorize>
            <li class="sub-menu">
                <a href="/search" >
                    <i class="fa fa-desktop"></i>
@@ -49,12 +51,14 @@ MAIN SIDEBAR MENU
                    <span>Issues</span>
                </a>
            </li>
+           <sec:authorize access="hasRole('ROLE_ADMIN')">
            <li class="sub-menu">
                <a href="/admin">
                    <i class="fa fa-cogs"></i>
                    <span>Admin</span>
                </a>
            </li>
+           </sec:authorize>
            
 
        </ul>

@@ -23,50 +23,50 @@ import com.nbreds.projectPlanning.common.VO.CodeTable;
 @Controller
 public class RegistController {
 	private static final Logger logger = LoggerFactory.getLogger(RegistController.class);
-	
+
 	@Autowired
 	RegistService registService;
-	
+
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
 	public String Regist(Project project, HttpSession session, Model model) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
-		
+
 		HashMap<String, Object> user = registService.getUserForNo(uno);
-		model.addAttribute("user",user);
+		model.addAttribute("user", user);
 		model.addAttribute("allUserList", registService.getAllUser());
-		
+
 		System.out.println(user);
-        return "Project/registProject/registProject";
+		return "Project/registProject/registProject";
 	}
-	
+
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String RegistProcess(@ModelAttribute("project")
-							Project project, BindingResult result, HttpServletRequest request, HttpSession session) {
+	public String RegistProcess(@ModelAttribute("project") Project project, BindingResult result,
+			HttpServletRequest request, HttpSession session) {
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
-//		project.setPprogress("011000");
+		// project.setPprogress("011000");
 		String requestedUserNoList = request.getParameter("requestUserNoList");
 		registService.savePrjAndPrjMS(project, requestedUserNoList);
 		return "redirect:/list";
 	}
-	
+
 	@ModelAttribute("development")
-	public List<CodeTable> getDevelopment(){
+	public List<CodeTable> getDevelopment() {
 		List<CodeTable> devList = registService.getCodeTable("004");
-		
+
 		return devList;
 	}
-	
+
 	@ModelAttribute("design")
-	public List<CodeTable> getDesign(){
+	public List<CodeTable> getDesign() {
 		List<CodeTable> devList = registService.getCodeTable("005");
-		
+
 		return devList;
 	}
-	
+
 	@ModelAttribute("planning")
-	public List<CodeTable> getPlanning(){
+	public List<CodeTable> getPlanning() {
 		List<CodeTable> devList = registService.getCodeTable("006");
-		
+
 		return devList;
 	}
 }
