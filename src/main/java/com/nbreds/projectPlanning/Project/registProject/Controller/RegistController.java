@@ -44,7 +44,7 @@ public class RegistController {
 	public String RegistProcess(@ModelAttribute("project")
 							Project project, BindingResult result, HttpServletRequest request, HttpSession session) {
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
-		project.setPprogress("011000");
+//		project.setPprogress("011000");
 		String requestedUserNoList = request.getParameter("requestUserNoList");
 		registService.savePrjAndPrjMS(project, requestedUserNoList);
 		return "redirect:/list";
