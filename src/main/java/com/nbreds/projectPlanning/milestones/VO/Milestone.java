@@ -5,6 +5,7 @@ public class Milestone {
 	private String mtitle;
 	private String mdescription;
 	private String mduedate;
+	private String mregdate;
 	private String mstatement;
 	private int pno;
 	
@@ -37,6 +38,12 @@ public class Milestone {
 	}
 	public void setMduedate(String mduedate) {
 		this.mduedate = mduedate;
+	}
+	public String getMregdate() {
+		return mregdate;
+	}
+	public void setMregdate(String mregdate) {
+		this.mregdate = mregdate;
 	}
 	public String getMstatement() {
 		return mstatement;

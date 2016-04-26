@@ -30,10 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  uno
 		  ,pno
 		  ,stat
+		  ,regDate
 		) VALUES (
 		  #{uno}
 		  ,#{pno}
 		  ,#{stat}
+		  ,NOW()
 		)
     ]]>  
     </insert>

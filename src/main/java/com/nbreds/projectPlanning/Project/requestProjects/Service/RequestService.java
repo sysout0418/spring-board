@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Service
 public interface RequestService {
@@ -18,4 +19,8 @@ public interface RequestService {
 	public void updateStat(HashMap<String, Object> param);
 
 	public int getCountRequestProjects(String uno);
+
+	public List<Milestone> getMilestones(String uno);
+
+	public List<HashMap<String, Object>> getMessages(String uno);
 }

@@ -17,11 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  mtitle
 	  ,mdescription
 	  ,mduedate
+	  ,mregdate
 	  ,pno
 	) VALUES (
 	  #{mtitle}
 	  ,#{mdescription}
 	  ,#{mduedate}
+	  ,NOW()
 	  ,#{pno}
 	)
     ]]>  

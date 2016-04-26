@@ -29,4 +29,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
     ]]>  
     </select>
+    
+    <select id="getMilestones" parameterType="String" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
+    <![CDATA[
+	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
+    ]]>  
+    </select>
+    
+    <select id="getMessages" parameterType="String" resultType="hashmap">
+    <![CDATA[
+	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
+    ]]>  
+    </select>
 </mapper>

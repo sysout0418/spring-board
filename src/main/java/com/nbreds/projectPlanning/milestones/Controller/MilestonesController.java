@@ -58,7 +58,8 @@ public class MilestonesController {
 		}
 
 		model.addAttribute("stat", stat);
-		model.addAttribute("list", list);
+		if(list.size() > 0)	model.addAttribute("list", list);
+		else model.addAttribute("list", "none");
 
 		return "milestones/milestones";
 	}

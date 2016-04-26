@@ -93,7 +93,7 @@ TOP BAR CONTENT & NOTIFICATIONS
                 <ul class="dropdown-menu extended inbox">
                     <div class="notify-arrow notify-arrow-green"></div>
                     <li>
-                        <p class="green">You have 5 new messages</p>
+                        <p class="green">You have ${req} new messages</p>
                     </li>
                     <li>
                         <a href="index.html#">

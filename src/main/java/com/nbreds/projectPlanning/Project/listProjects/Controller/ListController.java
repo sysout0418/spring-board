@@ -70,24 +70,6 @@ public class ListController {
 			logger.info("completeMilestonPercent: "+completeMilestonPercent);
 			logger.info("completeIssuePercent: "+project.get("completeIssuePercent"));
 		}
-/*
-		for(int i = 0; i<list.size(); i++){
-			String pdata = list.get(i).getPdata();		
-			
-			//한글화
-			List<String> skills = (List<String>)commonController.getCodeForCodeType(pdata, "skills");
-			String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
-			
-			if (skills.size() > 0) {
-				list.get(i).setPskill(commonController.getCodeName(skills.get(0)));
-			}
-			
-			//담당자 코드->한글
-			String uname = listService.getUserForNo(list.get(i).getUno()).getUname();
-			list.get(i).setUname(uname);
-			
-		}
-		*/
 
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
 		model.addAttribute("totalPageNo", totalPageNo);
@@ -96,7 +78,9 @@ public class ListController {
 		model.addAttribute("startPageNo", startPageNo);
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("list", list);
+		
+		if(list.size() > 0)	model.addAttribute("list", list);
+		else model.addAttribute("list", "none");
 				
         return "Project/listProjects/listView";
 	}

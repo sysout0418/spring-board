@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Repository("RequestDao")
 public class RequestDao {
@@ -26,5 +27,11 @@ public class RequestDao {
 	}
 	public int getCountRequestProjects(String uno) {
 		return sqlSession.selectOne("project.request.getCountRequestProjects", uno);
+	}
+	public List<Milestone> getMilestones(String uno) {
+		return sqlSession.selectList("project.request.getMilestones", uno);
+	}
+	public List<HashMap<String, Object>> getMessages(String uno) {
+		return sqlSession.selectList("project.request.getMessages", uno);
 	}
 }

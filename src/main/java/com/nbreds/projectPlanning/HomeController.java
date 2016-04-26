@@ -47,7 +47,9 @@ public class HomeController {
 			logger.info("completeMilestonPercent: "+completeMilestonPercent);
 			logger.info("completeIssuePercent: "+project.get("completeIssuePercent"));
 		}
-		model.addAttribute("list", list);
+		
+		if(list.size() > 0)	model.addAttribute("list", list);
+		else model.addAttribute("list", "none");
 		
 		return "index";
 	}

@@ -34,8 +34,14 @@ MAIN CONTENT
 	                        </tr>
                         </thead>
                         <tbody>
+                        	<c:if test="${list == 'none'}">
+                        	<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
+                        	No projects to show
+                        	</td></tr>
+                        	</c:if>
+                        	<c:if test="${list != 'none'}">
 	                        <c:forEach var="project" items="${list}">
-	                       	<tr>
+	                       	<tr onclick="location.href='/${project.uno}/${project.pno}'" style="cursor: pointer;">
 	                       		<td>${project.rownum}</td>
 	                           	<td><a href="/${project.uno}/${project.pno}">${project.pname}</a><br/><small>Created ${fn:substring(project.pregdate,0,10)}</small></td>
 	                           	<td class="hidden-phone">
@@ -53,6 +59,7 @@ MAIN CONTENT
                             	</td>
                           </tr>
                           </c:forEach>
+                          </c:if>
                       	</tbody>
                       </table>
                   </div><!-- /content-panel -->

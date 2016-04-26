@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.requestProjects.Dao.RequestDao;
+import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 @Service("RequestService")
 public class RequestServiceImpl implements RequestService {
@@ -31,5 +32,15 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public List<Project> getRequestProjects(HashMap<String, Object> param) {
 		return requestDao.getRequestProjects(param);
+	}
+
+	@Override
+	public List<Milestone> getMilestones(String uno) {
+		return requestDao.getMilestones(uno);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getMessages(String uno) {
+		return requestDao.getMessages(uno);
 	}
 }

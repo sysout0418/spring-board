@@ -34,9 +34,15 @@ MAIN CONTENT
 								</div>
 							</div>
 						</div>
-						<table class="table">
+						<table class="table table-hover">
+							<c:if test="${list == 'none'}">
+                        	<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
+                        	No projects to show
+                        	</td></tr>
+                        	</c:if>
+                        	<c:if test="${list != 'none'}">
 							<c:forEach var="milestone" items="${list}">
-								<tr>
+								<tr onclick="location.href='/milestone/${milestone.mno}'" style="cursor: pointer;">
 									<td
 										<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 										<a href="/milestone/${milestone.mno}">${milestone.mtitle}</a><br />
@@ -59,6 +65,7 @@ MAIN CONTENT
 									</td>
 								</tr>
 							</c:forEach>
+							</c:if>
 						</table>
 					</div>
 					<!-- /content-panel -->
