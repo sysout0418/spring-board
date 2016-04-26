@@ -241,4 +241,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
+	<update id="updateUserInfo" parameterType="Map">
+	<![CDATA[
+	UPDATE User SET uname = #{uname}, uphoneno = #{uphoneno}, udepartment = #{udepartment}, expired = #{expired}
+	WHERE uno = #{uno}
+	]]>
+	</update>
+	
+	<update id="updateUserAuthorityAndAdmit" parameterType="Map">
+	<![CDATA[
+	UPDATE Authority SET authority = #{authority}, enabled = #{enabled}
+	WHERE uno = #{uno}
+	]]>
+	</update>
+	
 </mapper>

@@ -104,5 +104,14 @@ public class AdminDao {
 	
 	public void setRownum2() {
 		sqlSession.selectOne("admin.setRownum2");
-	}	
+	}
+	
+	public void updateUserInfo(Map<String, Object> param) {
+		sqlSession.update("admin.updateUserInfo", param);
+	}
+	
+	public void updateUserAuthorityAndAdmit(Map<String, Object> param) {
+		sqlSession.update("admin.updateUserAuthorityAndAdmit", param);
+	}
+	
 }

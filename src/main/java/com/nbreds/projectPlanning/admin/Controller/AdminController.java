@@ -235,6 +235,31 @@ public class AdminController {
 		
 		return "/admin/userEditForm";
 	}
+
+	@RequestMapping("/admin/users/edit")
+	public String userEdit(HttpServletRequest request, int uno, String checkAdmit, String checkExpired, 
+			String uname, String uphoneno, String udepartment, String authority) {
+		logger.info("uno: " + uno);
+		logger.info("checkAdmit: " + checkAdmit);
+		logger.info("checkExpired: " + checkExpired);
+		logger.info("uname: " + uname);
+		logger.info("uphoneno: " + uphoneno);
+		logger.info("udepartment: " + udepartment);
+		logger.info("authority: " + authority);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("uno", uno);
+		param.put("enabled", checkAdmit);
+		param.put("expired", checkExpired);
+		param.put("uname", uname);
+		param.put("uphoneno", uphoneno);
+		param.put("udepartment", udepartment);
+		param.put("authority", authority);
+		
+		adminService.updateUserInfo(param);
+		
+		return "redirect:/admin/users";
+	}
 	
 	@ModelAttribute("department")
 	public List<CodeTable> getDepartmentList(){

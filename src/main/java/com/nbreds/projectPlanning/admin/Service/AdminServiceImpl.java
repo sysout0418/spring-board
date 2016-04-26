@@ -137,4 +137,21 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.getAllDepartmentList();
 	}
 
+	@Override
+	@Transactional
+	public void updateUserInfo(Map<String, Object> param) {
+		try {
+			adminDao.updateUserInfo(param);
+			updateUserAuthorityAndAdmit(param);
+		} catch (Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	@Override
+	public void updateUserAuthorityAndAdmit(Map<String, Object> param) {
+		adminDao.updateUserAuthorityAndAdmit(param);
+	}
+
 }

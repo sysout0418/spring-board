@@ -63,4 +63,10 @@ public interface AdminService {
 	/** 모든 부서 목록 가져오기 */
 	List<CodeTable> getAllDepartmentList();
 	
+	/** 회원정보 수정 */
+	void updateUserInfo(Map<String, Object> param);
+	
+	/** 회원권한 및 가입허가 정보 수정 */
+	void updateUserAuthorityAndAdmit(Map<String, Object> param);
+	
 }
