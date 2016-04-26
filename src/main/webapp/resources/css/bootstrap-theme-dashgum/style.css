@@ -1090,7 +1090,7 @@ PANELS CONFIGURATIONS
 .white-panel .white-header {
 	background: #f4f4f4;
 	padding: 3px;
-	margin-bottom: 15px;
+	margin-bottom: 35px;
 	color: #c6c6c6;
 }
 .white-panel .small {
@@ -1273,7 +1273,7 @@ PANELS CONFIGURATIONS
 
 /* Instagram Panel*/
 .instagram-panel {
-	background: url(../img/instagram.jpg) no-repeat center top;
+	background: url(/resources/img/instagram.jpg) no-repeat center top;
 	text-align: center;
 	background-position: center center;
 }

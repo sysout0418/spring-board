@@ -22,8 +22,9 @@
 
 <!--common script for all pages-->
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/common-scripts.js" />"></script>
-
+    
 <!--script for this page-->
+<script src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js"/>"></script>	
   
 <script>
   //custom select box
