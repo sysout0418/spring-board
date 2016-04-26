@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.registProject.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -57,7 +58,7 @@ public class RegistServiceImpl implements RegistService{
 		return registDao.getUsersForName(uname);
 	}
 
-	public User getUserForNo(int uno) {
+	public HashMap<String, Object> getUserForNo(int uno) {
 		return registDao.getUserForNo(uno);
 	}
 

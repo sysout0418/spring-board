@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.registProject.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.VO.Project;
-import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
-import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class RegistController {
@@ -33,10 +31,11 @@ public class RegistController {
 	public String Regist(Project project, HttpSession session, Model model) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
 		
-		User user = registService.getUserForNo(uno);
+		HashMap<String, Object> user = registService.getUserForNo(uno);
 		model.addAttribute("user",user);
 		model.addAttribute("allUserList", registService.getAllUser());
 		
+		System.out.println(user);
         return "Project/registProject/registProject";
 	}
 	

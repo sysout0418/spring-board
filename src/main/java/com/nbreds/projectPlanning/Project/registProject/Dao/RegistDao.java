@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.registProject.Dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,7 +41,7 @@ public class RegistDao {
 		return sqlSession.selectList("project.regist.getUsersForName", uname);
 	}
 
-	public User getUserForNo(int uno) {
+	public HashMap<String, Object> getUserForNo(int uno) {
 		return sqlSession.selectOne("project.regist.getUserForNo", uno);
 	}
 	

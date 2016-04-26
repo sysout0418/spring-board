@@ -58,11 +58,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+    <select id="getUserForNo" parameterType="int" resultType="hashmap">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail
-    from User
-    where uno=#{uno}
+    SELECT uno, uname, uphoneno, CODE_NAME, uemail
+    FROM User, CodeTable
+    WHERE uno=#{uno} AND CODE_TYPE='002' AND CODE=udepartment
     ]]>  
     </select>
     

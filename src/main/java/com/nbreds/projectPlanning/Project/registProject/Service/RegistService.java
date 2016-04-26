@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.registProject.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public interface RegistService {
 
 	public List<User> getUsersForName(String uname);
 
-	public User getUserForNo(int uno);
+	public HashMap<String, Object> getUserForNo(int uno);
 	
 	List<User> getAllUser();
 	

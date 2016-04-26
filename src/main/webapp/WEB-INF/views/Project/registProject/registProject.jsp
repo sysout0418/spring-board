@@ -39,7 +39,7 @@ a.cbtn:hover {border: 1px solid #091940; background-color:#1f326a; color:#fff;}
 				<td style="width: 200px;" class="active">담당자명</td>
 				<td style="width: 350px">${user.uname}</td>
 				<td style="width: 200px;" class="active">부서</td>
-				<td>${user.udepartment}</td>
+				<td>${user.CODE_NAME}</td>
 			</tr>
 			<tr>
 				<td class="active">담당자 연락처</td>
