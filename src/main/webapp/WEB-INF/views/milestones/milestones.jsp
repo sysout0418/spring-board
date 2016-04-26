@@ -37,7 +37,7 @@ MAIN CONTENT
 						<table class="table table-hover">
 							<c:if test="${list == 'none'}">
                         	<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
-                        	No projects to show
+                        	No milestones to show
                         	</td></tr>
                         	</c:if>
                         	<c:if test="${list != 'none'}">
