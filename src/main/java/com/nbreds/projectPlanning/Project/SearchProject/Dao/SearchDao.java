@@ -48,4 +48,14 @@ public class SearchDao {
 		return sqlSession.selectOne("project.search.totalCount", param);
 	}
 	
+	// pno로 모든 마일스톤 갯수 구해오기
+	public int getCountAllMilestone(int pno) {
+		return sqlSession.selectOne("project.search.getCountAllMilestone", pno);
+	}
+	
+	// pno로 closed 된 마일스톤 갯수 구해오기
+	public double getCountClosedMilestone(int pno) {
+		return sqlSession.selectOne("project.search.getCountClosedMilestone", pno);
+	}
+	
 }

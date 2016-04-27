@@ -17,6 +17,7 @@ public class Project {
 	private List<String> pdesign;
 	private List<String> pplanning;
 //	private String pprogress;
+	private int pprogress;
 	private String ltitle;
 	private String lbgcolor;
 
@@ -128,6 +129,12 @@ public class Project {
 	}
 	public void setRowNum(int rowNum) {
 		this.rowNum = rowNum;
+	}
+	public int getPprogress() {
+		return pprogress;
+	}
+	public void setPprogress(int pprogress) {
+		this.pprogress = pprogress;
 	}
 	
 }

@@ -236,14 +236,11 @@ MAIN CONTENT
 		$("#selectedWeight").text(weight);
 	}); */
 
-	$('#searchBtn').click(
-			function() {
-				$('#searchBtn').attr(
-						"href",
-						"/${uno}/${pno}/issues/${stat}/search?userNo="
+	$('#searchBtn').click(function() {
+		$('#searchBtn').attr("href", "/${uno}/${pno}/issues/${stat}/search?userNo="
 								+ $("#userNo").val() + "&mno="
 								+ $("#mno").val() + "&lno=" + $("#lno").val());
-			});
+	});
 
 	//문자열 공백제거 함수
 	String.prototype.stripspace = function() {
@@ -302,11 +299,11 @@ MAIN CONTENT
 		}
 
 		if (items == "") {
-			alert("삭제 선택");
+			alert("업데이트 할 목록을 선택하세요.");
 			return false;
 		}
 
-		if (confirm("삭제?")) {
+		if (confirm("업데이트 하시겠습니까?")) {
 			f.action = "URL";
 			f.submit();
 		}

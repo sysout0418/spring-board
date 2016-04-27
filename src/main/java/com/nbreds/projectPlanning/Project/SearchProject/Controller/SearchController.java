@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.SearchProject.Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,25 +67,39 @@ public class SearchController {
 		pageBean.setPagelink(bar.getPageBar());
 		List<Project> list = searchService.allProjectList(param);
 		
-		for(int i = 0; i < list.size(); i++){
-			String pdata = list.get(i).getPdata();
-			
-			//한글화
-			List<String> skills = (List<String>) commonController.getCodeForCodeType(pdata, "skills");
-			String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
-			
-			if (skills.size() > 0) {
-				list.get(i).setPskill(commonController.getCodeName(skills.get(0)));
-			}
-//			list.get(i).setPprogress(commonController.getCodeName(pprogress));
-			
-			//담당자 코드->한글
-			String uname = searchService.getUserForNo(list.get(i).getUno()).getUname();
-			list.get(i).setUname(uname);
+		List<Integer> completeIssuePercents = new ArrayList<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			int pno = list.get(i).getPno();
+			int countAllMilestone = searchService.getCountAllMilestone(pno);
+			double completeMilestonPercent = searchService.getCountClosedMilestone(pno);
+			completeIssuePercents.add((int) Math.round((completeMilestonPercent / countAllMilestone) * 100));
+			list.get(i).setPprogress(completeIssuePercents.get(i));
+			logger.info("countAllMilestone: "+countAllMilestone);
+			logger.info("completeMilestonPercent: "+completeMilestonPercent);
 		}
+		for (int i = 0; i < completeIssuePercents.size(); i++) {
+			logger.info("completeIssuePercent: "+completeIssuePercents.get(i));
+		}
+//		for(int i = 0; i < list.size(); i++){
+//			String pdata = list.get(i).getPdata();
+//			
+//			//한글화
+//			List<String> skills = (List<String>) commonController.getCodeForCodeType(pdata, "skills");
+//			String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
+//			
+//			if (skills.size() > 0) {
+//				list.get(i).setPskill(commonController.getCodeName(skills.get(0)));
+//			}
+//			list.get(i).setPprogress(commonController.getCodeName(pprogress));
+//			
+//			//담당자 코드->한글
+//			String uname = searchService.getUserForNo(list.get(i).getUno()).getUname();
+//			list.get(i).setUname(uname);
+//		}
 
 		request.setAttribute("pdatas", pdatas);
 		model.addAttribute("pageBean", pageBean);
+		model.addAttribute("completeIssuePercent", completeIssuePercents);
 		if (list.isEmpty()) {
 			model.addAttribute("list", "none");
 		} else {

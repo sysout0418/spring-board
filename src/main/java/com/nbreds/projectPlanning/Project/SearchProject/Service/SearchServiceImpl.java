@@ -47,4 +47,12 @@ public class SearchServiceImpl implements SearchService{
 	public int totalCount(Map<String, Object> param) {
 		return searchDao.totalCount(param);
 	}
+	@Override
+	public int getCountAllMilestone(int pno) {
+		return searchDao.getCountAllMilestone(pno);
+	}
+	@Override
+	public double getCountClosedMilestone(int pno) {
+		return searchDao.getCountClosedMilestone(pno);
+	}
 }
