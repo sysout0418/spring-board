@@ -35,6 +35,12 @@ MAIN CONTENT
 							</div>
 						</div>
 						<table class="table" style="font-size: 1.0em">
+							<c:if test="${list == 'none'}">
+                        	<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
+                        	No requests to show
+                        	</td></tr>
+                        	</c:if>
+                        	<c:if test="${list != 'none'}">
 							<c:forEach var="project" items="${list}">
 								<tr>
 									<td><a href="/${project.uno}/${project.pno}"
@@ -50,6 +56,7 @@ MAIN CONTENT
 										</c:if></td>
 								</tr>
 							</c:forEach>
+							</c:if>
 							<tr>
 								<td></td>
 								<td></td>

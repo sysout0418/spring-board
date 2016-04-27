@@ -20,7 +20,11 @@ public interface RequestService {
 
 	public int getCountRequestProjects(String uno);
 
-	public List<Milestone> getMilestones(String uno);
+	public List<HashMap<String, Object>> getMilestonesByUno(String uno);
 
-	public List<HashMap<String, Object>> getMessages(String uno);
+	public List<HashMap<String, Object>> getMessagesByUno(String uno);
+
+	public int countIssuesByMno(int mno);
+
+	public double countClosedIssueByMno(int mno);
 }

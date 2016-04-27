@@ -28,10 +28,16 @@ public class RequestDao {
 	public int getCountRequestProjects(String uno) {
 		return sqlSession.selectOne("project.request.getCountRequestProjects", uno);
 	}
-	public List<Milestone> getMilestones(String uno) {
-		return sqlSession.selectList("project.request.getMilestones", uno);
+	public List<HashMap<String, Object>> getMilestonesByUno(String uno) {
+		return sqlSession.selectList("project.request.getMilestonesByUno", uno);
 	}
-	public List<HashMap<String, Object>> getMessages(String uno) {
-		return sqlSession.selectList("project.request.getMessages", uno);
+	public List<HashMap<String, Object>> getMessagesByUno(String uno) {
+		return sqlSession.selectList("project.request.getMessagesByUno", uno);
+	}
+	public int countIssuesByMno(int mno) {
+		return sqlSession.selectOne("project.request.countIssuesByMno", mno);
+	}
+	public double countClosedIssueByMno(int mno) {
+		return sqlSession.selectOne("project.request.countClosedIssueByMno", mno);
 	}
 }

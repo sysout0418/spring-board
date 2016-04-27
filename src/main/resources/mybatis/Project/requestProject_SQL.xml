@@ -30,15 +30,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getMilestones" parameterType="String" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
+    <select id="getMilestonesByUno" parameterType="String" resultType="hashmap">
     <![CDATA[
-	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
+	   	SELECT DISTINCT M.mno, M.mtitle, M.mstatement
+		FROM Project P
+		Join Milestones M on M.pno = P.pno
+		join ProjectMemberStat S on M.pno = S.pno
+		WHERE P.uno=#{uno} OR S.uno=#{uno}
+		ORDER BY M.mregdate DESC
+		LIMIT 4
     ]]>  
     </select>
     
-    <select id="getMessages" parameterType="String" resultType="hashmap">
+    <select id="getMessagesByUno" parameterType="String" resultType="hashmap">
     <![CDATA[
-	   	select COUNT(pno) FROM ProjectMemberStat where uno=#{uno} and stat='000'
+	   	SELECT P.pname, S.regDate, U.uname
+		FROM ProjectMemberStat S
+		JOIN Project P ON S.pno = P.pno
+		JOIN User U ON P.uno = U.uno
+		WHERE S.uno=#{uno} AND stat=000
+		ORDER BY S.regDate DESC
+		LIMIT 4
     ]]>  
+    </select>
+    
+    <select id="countIssuesByMno" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(ino)
+	FROM Issues
+	WHERE mno=#{mno}
+	]]>
+    </select>
+    
+    <select id="countClosedIssueByMno" parameterType="int" resultType="double">
+    <![CDATA[
+    SELECT COUNT(ino)
+	FROM Issues
+	WHERE mno=#{mno} and istatement=001
+	]]>
     </select>
 </mapper>
