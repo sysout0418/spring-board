@@ -29,4 +29,8 @@ public interface SearchService {
 	
 	/** 페이징 처리를 위한 totalCount */
 	public int totalCount(Map<String, Object> param);
+	
+	int getCountAllMilestone(int pno);
+	
+	double getCountClosedMilestone(int pno);
 }

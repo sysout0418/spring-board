@@ -69,7 +69,7 @@ MAIN CONTENT
 
 						<div align="center">
 							<ul class="pagination">
-								<li><a href="list?pageNo=1">처음</a></li>
+								<li><a href="list?pageNo=1"><i class='fa fa-angle-double-left'></i></a></li>
 								<c:if test="${groupNo >1 }">
 									<li><a href="#" aria-label="Previous"><span
 											aria-hidden="true">&laquo;</span></a></li>
@@ -82,7 +82,7 @@ MAIN CONTENT
 									<li><a href="list?pageNo=${endPageNo+1}" aria-label="Next"><span
 											aria-hidden="true">&raquo;</span></a></li>
 								</c:if>
-								<li><a href="?pageNo=${totalPageNo}">맨끝</a></li>
+								<li><a href="?pageNo=${totalPageNo}"><i class='fa fa-angle-double-right'></i></a></li>
 							</ul>
 						</div>
 					</div>

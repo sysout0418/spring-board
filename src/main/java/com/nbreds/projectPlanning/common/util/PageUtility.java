@@ -73,11 +73,13 @@ public class PageUtility {
 												// 첫페이지로 갈수 있으므로 첫페이지로 링크
 //			sb.append(" <a href='javascript:pagelist(" + 1 + ")'><img src=\"" + imagepath
 //					+ "btn_paging_first.gif\" border='0'  hspace='3' align='absmiddle'></a>&nbsp;&nbsp;");
-			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>&nbsp;&nbsp;");
+//			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>&nbsp;&nbsp;");
+			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'><i class='fa fa-angle-double-left'></i></a></li>&nbsp;&nbsp;");
 		else // 총 페이지가 pagePercoun보다 작거나 현재 표시 페이지가 pagePercoun 내에 있으므로 첫페이지로 갈
 				// 필요 없으므로 이미지만 표시
 //			sb.append("<img src=\"" + imagepath + "btn_paging_first.gif\" border='0'  align=absmiddle>&nbsp;&nbsp;");
-			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>&nbsp;&nbsp;");
+//			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'>처음</a></li>&nbsp;&nbsp;");
+			sb.append("<ul class='pagination'><li><a href='javascript:pagelist(" + 1 + ")'><i class='fa fa-angle-double-left'></i></a></li>&nbsp;&nbsp;");
 			
 
 //		// 이전 pagePercount 페이지
@@ -112,10 +114,10 @@ public class PageUtility {
 		if (currentpagecount < totalpagecount)
 //			sb.append("&nbsp;&nbsp;<a href='javascript:pagelist(" + (totalpagecount) + ")'><img src=\"" + imagepath
 //					+ "btn_paging_end.gif\" border='0' align=absmiddle></a>");
-			sb.append("<li><a href='javascript:pagelist(" + (totalpagecount) + ")'>맨끝</a></li></ul>");
+			sb.append("<li><a href='javascript:pagelist(" + (totalpagecount) + ")'><i class='fa fa-angle-double-right'></i></a></li></ul>");
 		else
 //			sb.append("&nbsp;&nbsp;<img src=\"" + imagepath + "btn_paging_end.gif\" border='0' align=absmiddle>");
-			sb.append("<li><a href='javascript:pagelist(" + (totalpagecount) + ")'>맨끝</a></li></ul>");
+			sb.append("<li><a href='javascript:pagelist(" + (totalpagecount) + ")'><i class='fa fa-angle-double-right'></i></a></li></ul>");
 
 		return sb.toString();
 	}

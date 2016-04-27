@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 페이징 처리를 위한 allProjectList -->
     <select id="allProjectList" parameterType="Map" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-    SELECT @rownum:=@rownum+1 AS rownum, pno, pname, pdetail, pdata, pduedate, P.uno, uname, L.ltitle, L.lbgcolor
+    SELECT @rownum:=@rownum+1 AS rownum, pno, pname, pdetail, pdata, pregdate, pduedate, P.uno, uname, L.ltitle, L.lbgcolor
     FROM Project P
     LEFT JOIN User U
     ON P.uno = U.uno
@@ -85,5 +85,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</foreach>
 		</where>
 	</if>
+    </select>
+    
+    <!-- 모든 마일스톤 갯수 구해오기 -->
+    <select id="getCountAllMilestone" parameterType="int" resultType="int">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM Milestones
+	WHERE pno = #{pno}
+    ]]>
+    </select>
+    
+    <!-- 완료한(closed) 마일스톤 갯수 구해오기 -->
+    <select id="getCountClosedMilestone" parameterType="int" resultType="double">
+    <![CDATA[
+    SELECT COUNT(*) cnt
+    FROM Milestones
+	WHERE pno = #{pno} AND mstatement = 001
+    ]]>
     </select>
 </mapper>

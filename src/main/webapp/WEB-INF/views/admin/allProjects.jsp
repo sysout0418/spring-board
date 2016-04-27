@@ -72,6 +72,7 @@ MAIN CONTENT
 </section><!-- /MAIN CONTENT -->
 
 <!--main content end-->
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 	function pagelist(page) {
 		$("#pageNo").val(page);
@@ -118,4 +119,3 @@ MAIN CONTENT
 	}
 }
 </script>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
