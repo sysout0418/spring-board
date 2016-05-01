@@ -39,7 +39,7 @@
 	context2.textBaseline = "middle";
 	//context2.strokeStyle = "white";
 	//context2.strokeText(msg, 12, 45); // 텍스트 윤곽만 그리기
-	context2.fillStyle = "WHITE";
+	context2.fillStyle = "#E8E8E8";
 	context2.fillText(msg, canvas2.width/2, canvas2.height/2); // 텍스트 채우기
 </script>
 </body>

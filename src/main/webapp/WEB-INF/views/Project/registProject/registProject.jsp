@@ -143,19 +143,19 @@ a.cbtn:hover {
 										style="width: 200px; vertical-align: middle; text-align: center;"
 										class="active">개발</td>
 									<td colspan="2"><form:checkboxes path="pdevelopment"
-											items="${development}" itemValue="CODE" itemLabel="CODE_NAME"/></td>
+											items="${development}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
 								</tr>
 								<tr>
 									<td class="active"
 										style="vertical-align: middle; text-align: center;">디자인/퍼블리싱</td>
 									<td colspan="2"><form:checkboxes path="pdesign"
-											items="${design}" itemValue="CODE" itemLabel="CODE_NAME"/></td>
+											items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
 								</tr>
 								<tr>
 									<td class="active"
 										style="vertical-align: middle; text-align: center;">기획/컨설턴트</td>
 									<td colspan="2"><form:checkboxes path="pplanning"
-											items="${planning}" itemValue="CODE" itemLabel="CODE_NAME"/></td>
+											items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="active"
@@ -177,10 +177,15 @@ a.cbtn:hover {
 									<!-- <td><textarea id="textarea" class="example" rows="1"></textarea></td> -->
 									<td>
 										<div>
+											<!-- 
 											<a href="#" class="btn btn-primary btn-xs"
-												onclick="layer_open('layer2');return false;">추가</a>
+												onclick="layer_open('layer2');return false;">추가</a> 
+											-->
+											<!-- Button trigger modal -->
+											<a href="#" class="btn btn-primary btn-xs"
+												data-toggle="modal" data-target="#myModal"> 추가</a>
 											<div class="selectedUserList"></div>
-										</div>
+										</div> <%-- 
 										<div class="layer">
 											<div class="bg"></div>
 											<div id="layer2" class="pop-layer">
@@ -200,7 +205,190 @@ a.cbtn:hover {
 													</div>
 												</div>
 											</div>
+										</div> 
+										--%> <!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true" style="display: none;">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">×</button>
+														<h4 class="modal-title" id="myModalLabel">프로젝트 요청</h4>
+													</div>
+													<div class="modal-body">
+
+														<ul class="nav nav-tabs">
+															<li class="active"><a href="#a" data-toggle="tab"
+																aria-expanded="true">전체</a></li>
+															<li class=""><a href="#b" data-toggle="tab"
+																aria-expanded="false">경영지원팀</a></li>
+															<li class=""><a href="#c" data-toggle="tab"
+																aria-expanded="false">SCBS사업팀</a></li>
+															<li class=""><a href="#d" data-toggle="tab"
+																aria-expanded="false">SCBS전략팀</a></li>
+															<li class=""><a href="#e" data-toggle="tab"
+																aria-expanded="false">SCBS해외사업팀</a></li>
+															<li class=""><a href="#f" data-toggle="tab"
+																aria-expanded="false">Hardware개발팀</a></li>
+															<li class=""><a href="#g" data-toggle="tab"
+																aria-expanded="false">중국지사</a></li>
+															<li class=""><a href="#h" data-toggle="tab"
+																aria-expanded="false">Software개발팀</a></li>
+															<li class=""><a href="#i" data-toggle="tab"
+																aria-expanded="false">서비스기획팀</a></li>
+															<li class=""><a href="#j" data-toggle="tab"
+																aria-expanded="false">UI/UX팀</a></li>
+														</ul>
+														<div id="myTabContent" class="tab-content">
+															<div class="tab-pane fade active in" id="a">
+																<c:forEach var="user" items="${allUserList}">
+																	<div class="checkbox">
+																		<label> <input type="checkbox" name="userName"
+																			value="${user.uno}" alt="${user.uname}">${user.uname}
+																		</label>
+																	</div>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade active in" id="b">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 000}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="c">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 001}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="d">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 002}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="e">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 003}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="f">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 004}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="g">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 005}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="h">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 006}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="i">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 007}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+															<div class="tab-pane fade" id="j">
+																<c:forEach var="user" items="${allUserList}">
+																	<c:choose>
+																		<c:when test="${user.udepartment == 008}">
+																			<div class="checkbox">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}">${user.uname}
+																				</label>
+																			</div>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+															</div>
+														</div>
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">Close</button>
+														<button type="button" id="okBtn" class="btn btn-primary" data-dismiss="modal">OK</button>
+													</div>
+												</div>
+											</div>
 										</div>
+
 									</td>
 								</tr>
 							</table>
@@ -216,137 +404,125 @@ a.cbtn:hover {
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
-$(function() {
-	$( "#datepicker" ).datepicker({
-		altFormat : "mm/dd/yy",
-		minDate: 0
-	});
-});
-
-function layer_open(el){
-
-	var temp = $('#' + el);
-	var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
-
-	if(bg){
-		$('.layer').fadeIn();	//'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
-	}else{
-		temp.fadeIn();
-	}
-
-	// 화면의 중앙에 레이어를 띄운다.
-	if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-	else temp.css('top', '0px');
-	if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-	else temp.css('left', '0px');
-
-	temp.find('#closeBtn').click(function(e){
-		if(bg){
-			$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-		}else{
-			temp.fadeOut();
-		}
-		e.preventDefault();
-	});
-	
-	$('.layer .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
-		$('.layer').fadeOut();
-		e.preventDefault();
+	$(function() {
+		$("#datepicker").datepicker({
+			altFormat : "mm/dd/yy",
+			minDate : 0
+		});
 	});
 
-}				
+	/* 
+	function layer_open(el) {
 
-$('#okBtn').click(function(e){
-	$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-	selectChkRow();
-	if ($('#requestUserList').val() != '' && $('#requestUserNameList').val() != '') {
-		$('.selectedUserList').empty();
-		var userName = $('#requestUserNameList').val().split(",");
-		for (var i = 0; i < userName.length; i++) {
-			$('.selectedUserList').append('<span class="btn btn-warning btn-xs">'+ userName[i] +'</span>&nbsp;');
+		var temp = $('#' + el);
+		var bg = temp.prev().hasClass('bg'); //dimmed 레이어를 감지하기 위한 boolean 변수
+
+		if (bg) {
+			$('.layer').fadeIn(); //'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
+		} else {
+			temp.fadeIn();
 		}
-	} else {
-		$('.selectedUserList').empty();
-	}
-	e.preventDefault();
-});
 
-function selectChkRow() {
-	var chk = document.getElementsByName("userName"); // 체크박스객체를 담는다
-	var len = chk.length;	// 체크박스의 전체 개수
-	var checkRow = '';		// 체크된 체크박스의 value를 담기위한 변수
-	var checkText = '';		// 체크된 체크박스의 text를 담기위한 변수
-	var checkCnt = 0;		// 체크된 체크박스의 개수
-	var checkLast = '';		// 체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
-	var rowid = '';			// 체크된 체크박스의 모든 value 값을 담는다
-	var rowName = '';		// 체크된 체크박스의 모든 text 값을 담는다
-	var cnt = 0;                 
+		// 화면의 중앙에 레이어를 띄운다.
+		if (temp.outerHeight() < $(document).height())
+			temp.css('margin-top', '-' + temp.outerHeight() / 2 + 'px');
+		else
+			temp.css('top', '0px');
+		if (temp.outerWidth() < $(document).width())
+			temp.css('margin-left', '-' + temp.outerWidth() / 2 + 'px');
+		else
+			temp.css('left', '0px');
 
-	for(var i=0; i<len; i++) {
-		if(chk[i].checked == true) {
-			checkCnt++;        //체크된 체크박스의 개수
-			checkLast = i;     //체크된 체크박스의 인덱스
-		}
-	} 
-
-	for(var i=0; i<len; i++) {
-		if(chk[i].checked == true) {			//체크가 되어있는 값 구분
-			checkRow = chk[i].value;
-			checkText = chk[i].alt;
-			if (checkCnt == 1) {				//체크된 체크박스의 개수가 한 개 일때,
-				rowid += checkRow;				// value의 형태 (뒤에 ,(콤마)가 붙지않게)
-				rowName += checkText;
-			} else if(i == checkLast) {			//체크된 체크박스 중 마지막 체크박스일 때,
-				rowid += checkRow;  			//value의 형태 (뒤에 ,(콤마)가 붙지않게)
-				rowName += checkText;
+		temp.find('#closeBtn').click(function(e) {
+			if (bg) {
+				$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
 			} else {
-				rowid += checkRow + ",";		//value,의 형태 (뒤에 ,(콤마)가 붙게)
-				rowName += checkText + ",";
+				temp.fadeOut();
+			}
+			e.preventDefault();
+		});
+
+		$('.layer .bg').click(function(e) { //배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+			$('.layer').fadeOut();
+			e.preventDefault();
+		});
+
+	} 
+	*/
+
+	/* 
+	$('#okBtn').click(
+			function(e) {
+				$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
+				selectChkRow();
+				if ($('#requestUserList').val() != ''
+						&& $('#requestUserNameList').val() != '') {
+					$('.selectedUserList').empty();
+					var userName = $('#requestUserNameList').val().split(",");
+					for (var i = 0; i < userName.length; i++) {
+						$('.selectedUserList').append(
+								'<span class="btn btn-warning btn-xs">'
+										+ userName[i] + '</span>&nbsp;');
+					}
+				} else {
+					$('.selectedUserList').empty();
+				}
+				e.preventDefault();
+			}); 
+	*/
+	
+	$('#okBtn').click(function() {
+		selectChkRow();
+		if ($('#requestUserList').val() != '' && $('#requestUserNameList').val() != '') {
+			$('.selectedUserList').empty();
+			var userName = $('#requestUserNameList').val().split(",");
+			for (var i = 0; i < userName.length; i++) {
+				$('.selectedUserList').append('<span class="btn btn-warning btn-xs">' + userName[i] + '</span>&nbsp;&nbsp;');
+			}
+		} else {
+			$('.selectedUserList').empty();
+		}
+	});
+
+	function selectChkRow() {
+		var chk = document.getElementsByName("userName"); // 체크박스객체를 담는다
+		var len = chk.length; // 체크박스의 전체 개수
+		var checkRow = ''; // 체크된 체크박스의 value를 담기위한 변수
+		var checkText = ''; // 체크된 체크박스의 text를 담기위한 변수
+		var checkCnt = 0; // 체크된 체크박스의 개수
+		var checkLast = ''; // 체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+		var rowid = ''; // 체크된 체크박스의 모든 value 값을 담는다
+		var rowName = ''; // 체크된 체크박스의 모든 text 값을 담는다
+
+		for (var i = 0; i < len; i++) {
+			if (chk[i].checked == true) {
+				checkCnt++; //체크된 체크박스의 개수
+				checkLast = i; //체크된 체크박스의 인덱스
 			}
 		}
-		cnt++;
-		checkRow = '';	// checkRow초기화.
-		checkText = '';	// checkText초기화.
-	}
-	$('#requestUserNoList').val(rowid);
-	$('#requestUserNameList').val(rowName);
-	//alert(rowName);
-	//alert(rowid);
-}
 
-<%--
-$('#textarea')
-      .textext({
-          plugins : 'autocomplete filter tags ajax',
-          ajax : {
-              url : '/nameList',
-              dataType : 'json',
-              cacheResults : true
-          }
-      });
-  
-$(function () {
-	$('#submit').click(handler);
-	$("form").validate();
-});
-  
-$(function () {
-	$(".text-remove").click(handler); 
-});
-  
-function handler() {
-	var uno = "";
-	$(".text-button > .text-label").each(function() {
-		var userName = $(this).text();
-		if (userName != null && userName != "") {
-			<% for (int i = 0; i < userInfoList.size(); i++) { %>
-				if (userName == "<%= userInfoList.get(i).getUname() %>") {								
-					uno += "<%= userInfoList.get(i).getUno() + "," %>";
+		for (var i = 0; i < len; i++) {
+			if (chk[i].checked == true) { //체크가 되어있는 값 구분
+				checkRow = chk[i].value;
+				checkText = chk[i].alt;
+				if (checkCnt == 1) { //체크된 체크박스의 개수가 한 개 일때,
+					rowid += checkRow; // value의 형태 (뒤에 ,(콤마)가 붙지않게)
+					rowName += checkText;
+				} else if (i == checkLast) { //체크된 체크박스 중 마지막 체크박스일 때,
+					rowid += checkRow; //value의 형태 (뒤에 ,(콤마)가 붙지않게)
+					rowName += checkText;
+				} else {
+					rowid += checkRow + ","; //value,의 형태 (뒤에 ,(콤마)가 붙게)
+					rowName += checkText + ",";
 				}
-			<% } %>
+				
+			}
+			checkRow = ''; // checkRow초기화.
+			checkText = ''; // checkText초기화.
 		}
-		$("#pmember").val(uno);
-	});
-}
---%>
+		$('#requestUserNoList').val(rowid);
+		$('#requestUserNameList').val(rowName);
+		//alert(rowName);
+		//alert(rowid);
+	}
 </script>
