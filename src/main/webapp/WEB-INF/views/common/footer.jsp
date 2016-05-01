@@ -13,18 +13,15 @@
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/jquery/jquery-1.12.1.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery-ui-1.9.2.custom.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.ui.touch-punch.min.js" />"></script>
-<script class="include" type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.dcjqaccordion.2.7.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.scrollTo.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.nicescroll.js" />"></script>
 
-<!--common script for all pages-->
-<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/common-scripts.js" />"></script>
     
-<!--script for this page-->
-<script src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js"/>"></script>	
+<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/gritter/js/jquery.gritter.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/gritter-conf.js" />"></script>
 
 <script type="text/javascript">
 	var canvas = document.getElementById("cv");	//canvas의 DOM 객체를 얻는다
@@ -44,7 +41,6 @@
 	//context2.strokeText(msg, 12, 45); // 텍스트 윤곽만 그리기
 	context2.fillStyle = "WHITE";
 	context2.fillText(msg, canvas2.width/2, canvas2.height/2); // 텍스트 채우기
-	
 </script>
 </body>
 </html>

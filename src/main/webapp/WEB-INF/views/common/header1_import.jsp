@@ -22,7 +22,7 @@
 	rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/bootstrap-theme-dashgum/zabuto_calendar.css"/>">
-
+	
 <!-- Custom styles for this template -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/lineicons/style.css" />">
