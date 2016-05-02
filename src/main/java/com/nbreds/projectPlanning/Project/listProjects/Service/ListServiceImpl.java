@@ -35,7 +35,7 @@ public class ListServiceImpl implements ListService {
 		return listDao.getPageList(param);
 	}
 
-	public Project getProjectByPno(int pno) {
+	public HashMap<String, Object> getProjectByPno(int pno) {
 		return listDao.getProjectByPno(pno);
 	}
 
@@ -111,5 +111,10 @@ public class ListServiceImpl implements ListService {
 	@Override
 	public double getCountClosedMilestone(int pno) {
 		return listDao.getCountClosedMilestone(pno);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getRequestMember(int pno) {
+		return listDao.getRequestMember(pno);
 	}
 }

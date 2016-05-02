@@ -372,31 +372,38 @@ MAIN CONTENT
 			${project.ltitle}<br/>
 			${project.lbgcolor}<br/>
 			${project.pdata}<br/>
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+			<c:if test="${project.uno == uno}">
 				<a id="add-regular" class="btn btn-default btn-sm" href="/update?pno=${project.pno}">EDIT</a>
 				<a id="add-regular" class="btn btn-default btn-sm" href="/DeleteProject?pno=${project.pno}">DELETE</a>
-			</sec:authorize>
+			</c:if>
 		</div>
 	</div>
 <!-- USERS ONLINE SECTION -->
 <h3>TEAM MEMBERS</h3>
-<c:forEach var="list" items="${request}">
-<div class="desc">
-	<div class="thumb">
-		<img class="img-circle" src="<c:url value="/resources/img/ui-sam.jpg" />" width="35px" height="35px" align="">
-    </div>
-<div class="details">
-	<p><a href="#">${list.uname}</a><br>
-		<c:if test="${list.stat == '002'}">
-			<muted>${list.CODE_NAME}</muted><a class="btn btn-primary" href="/updateStat/${project.pno}/000" role="button">재요청</a>
-         </c:if>
-		<c:if test="${list.stat != '002'}">
-			${list.CODE_NAME}
-		</c:if>
-	</p>
-</div>
-</div>
-</c:forEach>
+<c:if test="${request == 'none'}">
+	<div class="desc" style="text-align: center;">
+			No members to show
+	</div>
+</c:if>
+<c:if test="${request != 'none'}">
+	<c:forEach var="list" items="${request}">
+	<div class="desc">
+		<div class="thumb">
+			<img class="img-circle" src="<c:url value="/resources/img/ui-sam.jpg" />" width="35px" height="35px" align="">
+	    </div>
+	<div class="details">
+		<p><a href="#">${list.uname}</a><br>
+			<c:if test="${list.stat == '002'}">
+				<muted>${list.CODE_NAME}</muted><a class="btn btn-primary" href="/updateStat/${project.pno}/000" role="button">재요청</a>
+	         </c:if>
+			<c:if test="${list.stat != '002'}">
+				${list.CODE_NAME}
+			</c:if>
+		</p>
+	</div>
+	</div>
+	</c:forEach>
+</c:if>
 <div id="calendar" class="mb">
  <div class="panel green-panel no-margin">
      <div class="panel-body">

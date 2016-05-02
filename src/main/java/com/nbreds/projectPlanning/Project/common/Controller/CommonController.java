@@ -47,18 +47,14 @@ public class CommonController {
 		String[] data = pdata.split(",");
 		
 		List <String>skills = new ArrayList<String>();
-		String progress = "";
 		
 		for (String str : data) {
 			String sub = str.substring(0,3);
 			if(sub.equals("004") || sub.equals("005") || sub.equals("006"))
 				skills.add(str);
-			else if(sub.equals("011"))
-				progress = str;
 		}
 		
 		if(type.equals("skills")) return skills;
-		if(type.equals("progress")) return progress;
 		else return "fail";
 	}
 	

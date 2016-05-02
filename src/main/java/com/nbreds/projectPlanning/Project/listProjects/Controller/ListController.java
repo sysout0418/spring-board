@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,28 +88,21 @@ public class ListController {
 	
 	//상세 프로젝트
 	@RequestMapping(value = "/DetailProject/{pno}", method = RequestMethod.GET)
-	public String  DetailView(@PathVariable("pno") int pno, Model model) {
-		Project project = listService.getProjectByPno(pno);
-		int participatedUserCnt = listService.getParticipateUserCnt(pno);
-		String pdata = project.getPdata();
+	public String  DetailView(@PathVariable("pno") int pno, Model model, HttpSession session) {
+		HashMap<String, Object> project = listService.getProjectByPno(pno);
+		List<HashMap<String, Object>> request = listService.getRequestMember(pno);
 		
-		//한글화
-		List<String> skills = (List<String>)commonController.getCodeForCodeType(pdata, "skills");
-		String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
-
-		if (skills.size() > 0) {
-			project.setPskill(commonController.getCodeName(skills.get(0)));
-		}
-//		project.setPprogress(commonController.getCodeName(pprogress));
+		int countAllMilestone = listService.getCountAllMilestone(pno);
+		double completeMilestonPercent = listService.getCountClosedMilestone(pno);
+		project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
 		
-		//담당자 코드->한글
-		String uname = listService.getUserForNo(project.getUno()).getUname();
-		project.setUname(uname);
+		if(request.size() > 0)		model.addAttribute("request", request);
+		else model.addAttribute("request", "none");
 		
 		model.addAttribute("project", project);
-		model.addAttribute("userCnt", participatedUserCnt);
 		
-		return "Project/listProjects/detailView";
+		model.addAttribute("uno", session.getAttribute("user_no"));
+		return "Project/listProjects/detailProject";
 	}
 	
 	//프로젝트 삭제
@@ -121,12 +115,11 @@ public class ListController {
 	
 	//프로젝트 수정페이지
 	@RequestMapping(value = "update", method = RequestMethod.GET)
-	public String  UpdateView(int pno, Model model, HttpServletRequest request, @ModelAttribute("project") Project project) {
+	public String  UpdateView(int pno, Model model, HttpServletRequest request, @ModelAttribute("project") HashMap<String, Object> project) {
 		project = listService.getProjectByPno(pno);
 		List<User> allUserList = listService.getAllUser();
 		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserList(pno);
-		List<String> skills = (List<String>)commonController.getCodeForCodeType(project.getPdata(), "skills");
-		String pprogress = (String) commonController.getCodeForCodeType(project.getPdata(), "progress");
+		List<String> skills = (List<String>)commonController.getCodeForCodeType((String)project.get("pdata"), "skills");
 		
 		List<String> dev = new ArrayList<>();
 		List<String> design = new ArrayList<>();
@@ -138,14 +131,12 @@ public class ListController {
 			if(skills.get(i).substring(0, 3).equals("006"))	plan.add(skills.get(i).substring(3, 6));
 		}
 		
-		project.setPdevelopment(dev);
-		project.setPdesign(design);
-		project.setPplanning(plan);
-		project.setPduedate(project.getPduedate());
-//		project.setPprogress(pprogress);
+		project.put("pdevelopment", dev);
+		project.put("pdesign", dev);
+		project.put("pplanning", dev);
 		
 		
-		int uno = project.getUno();
+		int uno = (int) project.get("uno");
 		User user = listService.getUserForNo(uno);
 		if (model != null) {
 			model.addAttribute("project", project);

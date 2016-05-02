@@ -51,6 +51,8 @@ public class HomeController {
 		if(list.size() > 0)	model.addAttribute("list", list);
 		else model.addAttribute("list", "none");
 		
+		model.addAttribute("uno", uno);
+		
 		return "index";
 	}
 	

@@ -20,7 +20,7 @@ public interface ListService {
 
 	public List<HashMap<String, Object>> getPageList(HashMap<String, Integer> param);
 
-	public Project getProjectByPno(int pno);
+	public HashMap<String, Object> getProjectByPno(int pno);
 
 	public void removeProject(int pno);
 
@@ -45,5 +45,7 @@ public interface ListService {
 	public int getCountAllMilestone(int pno);
 
 	public double getCountClosedMilestone(int pno);
+
+	public List<HashMap<String, Object>> getRequestMember(int pno);
 	
 }

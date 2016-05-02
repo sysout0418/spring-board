@@ -36,9 +36,9 @@ public class MyProjectController {
 		double completeMilestonPercent = myProjectService.getCountClosedMilestone(pno);
 		project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
 		
-		model.addAttribute("request", request);
+		if(request.size() > 0)		model.addAttribute("request", request);
+		else model.addAttribute("request", "none");
 		model.addAttribute("project", project);
-		model.addAttribute("userCnt", request.size());
 		
 		return "/Project/myProjects/selectedProject";
 	}

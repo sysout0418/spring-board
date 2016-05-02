@@ -29,13 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <select id="getProjectByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, P.uno, U.uname, L.ltitle, L.lbgcolor
+	SELECT P.pno, pname, pdetail, pdata, pregdate, pduedate, P.uno, U.uname, L.ltitle, L.lbgcolor, COUNT(S.uno) AS projectUser
 	FROM Project P
 	LEFT JOIN Label L ON P.lno = L.lno
 	LEFT JOIN User U ON P.uno = U.uno
-	WHERE pno=#{pno}
+  	LEFT JOIN ProjectMemberStat S ON P.pno = S.pno
+	WHERE P.pno=#{pno}
     ]]>  
     </select>
     
@@ -141,6 +142,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT COUNT(*)
 	FROM Milestones
 	WHERE pno=#{pno} AND mstatement=001
+    ]]>  
+    </select>
+    
+    <select id="getRequestMember" parameterType="int" resultType="hashmap">
+    <![CDATA[
+	SELECT U.uname, S.stat, C.CODE_NAME
+	FROM ProjectMemberStat S, User U, CodeTable C
+	WHERE S.uno = U.uno AND S.stat=C.CODE AND C.CODE_TYPE=010 AND S.pno=#{pno}
     ]]>  
     </select>
 </mapper>
