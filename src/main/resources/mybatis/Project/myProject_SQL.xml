@@ -32,9 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-    SELECT pno, pname, pdetail, pdata, pregdate, pduedate, U.uname, L.ltitle, L.lbgcolor
-	FROM Project P, User U, Label L
-	WHERE pno=#{pno} AND P.uno = U.uno AND P.lno = L.lno
+	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, U.uname, C.CODE_NAME AS udepartment, L.ltitle, L.lbgcolor
+	FROM Project P, User U, Label L, CodeTable C
+	WHERE pno=#{pno} AND P.uno = U.uno AND P.lno = L.lno AND C.CODE_TYPE='002' AND C.CODE=U.udepartment
     ]]>  
     </select>
     

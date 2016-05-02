@@ -3,10 +3,14 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
-<jsp:useBean id="pageBean" class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
+<jsp:include
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/header1_import.jsp" />
+<jsp:include
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
+<jsp:include
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<jsp:useBean id="pageBean"
+	class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
 <%
 	List<User> allUserList2 = (List<User>) request.getAttribute("allUserList2");
 %>
@@ -90,155 +94,159 @@ MAIN CONTENT
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
-			<i class="fa fa-angle-right"></i> Users
+			<i class="fa fa-angle-right"></i> All Users
 		</h3>
 		<div class="col-lg-12">
-    			<div class="row">
-            		<div class="col-md-12">
-                		<div class="content-panel">
-		<form class="form-horizontal" name="frm" id="frm" method="post">
-			<div class="form-inline">
-				<select class="form-control" id="group" name="key">
-					<option value="all" <%=pageBean.getKey("all")%>>모두</option>
-					<option value="name" <%=pageBean.getKey("name")%>>이름</option>
-					<option value="phoneNumber" <%=pageBean.getKey("phoneNumber")%>>휴대폰
-						번호</option>
-					<option value="email" <%=pageBean.getKey("email")%>>이메일</option>
-				</select> <input type="text" class="form-control" placeholder="Search"
-					name="word" id="word" value="${pageBean.word}">
-				<button type="button" class="btn btn-primary"
-					onclick="javascript:pagelist(1)">검색</button>
-			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content-panel">
+						&nbsp;총 유저 수 ${countUsers}명
+						<hr>
+						<form name="frm" id="frm" method="post">
+							<div class="form-inline">
+								<select class="form-control" id="group" name="key">
+									<option value="all" <%=pageBean.getKey("all")%>>모두</option>
+									<option value="name" <%=pageBean.getKey("name")%>>이름</option>
+									<option value="phoneNumber" <%=pageBean.getKey("phoneNumber")%>>휴대폰
+										번호</option>
+									<option value="email" <%=pageBean.getKey("email")%>>이메일</option>
+								</select> <input type="text" class="form-control" placeholder="Search"
+									name="word" id="word" value="${pageBean.word}">
+								<button type="button" class="btn btn-theme02"
+									onclick="javascript:pagelist(1)">검색</button>
+							</div>
 
-			<input type="hidden" name="isCheckCbListAll" value="F"> <input
-				type="hidden" name="pageNo" id="pageNo" value="${pageBean.pageNo}" />
-			<input type="hidden" name="uno" id="uno" value="" />
-			<table class="table table-striped table-hover ">
-				<thead>
-					<tr>
-						<th><div class="checkboxAll">
-								<label> <input type="checkbox" name="cbListAll"
-									onclick="checkCbListAll()">
-								</label>
-							</div></th>
-						<th>이름</th>
-						<th>휴대폰 번호</th>
-						<th>부서</th>
-						<th>이메일</th>
-						<th>가입 신청일</th>
-						<th>가입 승인 여부</th>
-						<th>탈퇴 여부</th>
-						<th>관리</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="user" items="${allUserList}">
-						<c:choose>
-							<c:when test="${user.enabled == 0}">
-								<tr class="danger">
-							</c:when>
-							<c:when test="${user.expired eq 'Y'}">
-								<tr class="danger">
-							</c:when>
-							<c:otherwise>
-								<tr>
-							</c:otherwise>
-						</c:choose>
-						<td><div class="checkbox">
-								<label> <input type="checkbox" name="cbList"
-									value="${user.uno}">
-								</label>
-							</div></td>
-						<td class="getUserName"><a href="#"
-							onclick="layer_open('layer2');return false;" alt="${user.uno}">${user.uname}</a></td>
-						<td>${user.uphoneno}</td>
-						<td>${user.udepartmentName}</td>
-						<td>${user.uemail}</td>
-						<td>${user.uregdate}</td>
-						<c:choose>
-							<c:when test="${user.enabled == 0}">
-								<td class="admit"><a class="label label-warning"
-									alt="${user.uno}">미승인</a></td>
-							</c:when>
-							<c:otherwise>
-								<td class="deny"><a class="label label-success"
-									alt="${user.uno}">승인</a></td>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${user.expired eq 'Y'}">
-								<td class="reco"><a class="label label-info"
-									alt="${user.uno}">Y</a></td>
-							</c:when>
-							<c:otherwise>
-								<td class="del"><a class="label label-danger"
-									alt="${user.uno}">N</a></td>
-							</c:otherwise>
-						</c:choose>
-						<td class="getUserNo"><a href="#"
-							class="btn btn-round btn-info btn-xs" alt="${user.uno}">수정</a></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div style="margin-bottom: 10px; float: right;">
-				<button class="btn btn-success" onclick="recoverList()">
-					선택 회원<br>복구 처리
-				</button>
-				<button class="btn btn-danger" onclick="delList()">
-					선택 회원<br>탈퇴 처리
-				</button>
-			</div>
-			<div style="float: left;">
-				<button class="btn btn-success" onclick="admitList()">
-					선택 회원<br>가입 승인
-				</button>
-				<button class="btn btn-danger" onclick="denyList()">
-					선택 회원<br>가입 거절
-				</button>
-			</div>
+							<input type="hidden" name="isCheckCbListAll" value="F"> <input
+								type="hidden" name="pageNo" id="pageNo"
+								value="${pageBean.pageNo}" /> <input type="hidden" name="uno"
+								id="uno" value="" /><br />
+							<table class="table table-hover ">
+								<thead>
+									<tr>
+										<th><div class="checkboxAll">
+												<label> <input type="checkbox" name="cbListAll"
+													onclick="checkCbListAll()">
+												</label>
+											</div></th>
+										<th>이름</th>
+										<th>휴대폰 번호</th>
+										<th>부서</th>
+										<th>이메일</th>
+										<th>가입 신청일</th>
+										<th>가입 승인 여부</th>
+										<th>탈퇴 여부</th>
+										<th>관리</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="user" items="${allUserList}">
+										<c:choose>
+											<c:when test="${user.enabled == 0}">
+												<tr class="danger">
+											</c:when>
+											<c:when test="${user.expired eq 'Y'}">
+												<tr class="danger">
+											</c:when>
+											<c:otherwise>
+												<tr>
+											</c:otherwise>
+										</c:choose>
+										<td><div class="checkbox">
+												<label> <input type="checkbox" name="cbList"
+													value="${user.uno}">
+												</label>
+											</div></td>
+										<td class="getUserName"><a href="#"
+											onclick="layer_open('layer2');return false;"
+											alt="${user.uno}">${user.uname}</a></td>
+										<td>${user.uphoneno}</td>
+										<td>${user.udepartmentName}</td>
+										<td>${user.uemail}</td>
+										<td>${user.uregdate}</td>
+										<c:choose>
+											<c:when test="${user.enabled == 0}">
+												<td class="admit"><a class="label label-warning"
+													alt="${user.uno}">미승인</a></td>
+											</c:when>
+											<c:otherwise>
+												<td class="deny"><a class="label label-success"
+													alt="${user.uno}">승인</a></td>
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${user.expired eq 'Y'}">
+												<td class="reco"><a class="label label-info"
+													alt="${user.uno}">Y</a></td>
+											</c:when>
+											<c:otherwise>
+												<td class="del"><a class="label label-danger"
+													alt="${user.uno}">N</a></td>
+											</c:otherwise>
+										</c:choose>
+										<td class="getUserNo"><a href="#"
+											class="btn btn-primary btn-xs" role="button"
+											alt="${user.uno}"><i class="fa fa-pencil"></i></a></td>
+									</c:forEach>
+								</tbody>
+							</table>
+							<div style="margin-bottom: 10px; float: right;">
+								<button class="btn btn-theme03" onclick="recoverList()">
+									선택 회원<br>복구 처리
+								</button>
+								<button class="btn btn-theme04" onclick="delList()">
+									선택 회원<br>탈퇴 처리
+								</button>
+							</div>
+							<div style="float: left;">
+								<button class="btn btn-theme03" onclick="admitList()">
+									선택 회원<br>가입 승인
+								</button>
+								<button class="btn btn-theme04" onclick="denyList()">
+									선택 회원<br>가입 거절
+								</button>
+							</div>
 
-			<!-- 페이징 -->
-			<div align="center">${pageBean.pagelink}</div>
+							<!-- 페이징 -->
+							<div align="center">${pageBean.pagelink}</div>
 
-		</form>
+						</form>
 
-		<div class="layer">
-			<div class="bg"></div>
-			<div id="layer2" class="pop-layer">
-				<div class="pop-container">
-					<div class="pop-conts">
-						<!--content //-->
-						<div class="sp-title">
-							<h3></h3>
+						<div class="layer">
+							<div class="bg"></div>
+							<div id="layer2" class="pop-layer">
+								<div class="pop-container">
+									<div class="pop-conts">
+										<!--content //-->
+										<div class="sp-title">
+											<h3></h3>
+										</div>
+										<p class="uphoneno">
+											<i class="fa fa-user"></i>
+										</p>
+										<p class="udepartment">
+											<i class="fa fa-user"></i>
+										</p>
+										<p class="uemail">
+											<i class="fa fa-user"></i>
+										</p>
+										<p class="uregdate">
+											<i class="fa fa-user"></i>
+										</p>
+										<p class="isAdmit">
+											<i class="fa fa-user"></i>
+										</p>
+										<p class="isDel">
+											<i class="fa fa-user"></i>
+										</p>
+
+										<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
+										<!--// content-->
+									</div>
+								</div>
+							</div>
 						</div>
-						<p class="uphoneno">
-							<i class="fa fa-user"></i>
-						</p>
-						<p class="udepartment">
-							<i class="fa fa-user"></i>
-						</p>
-						<p class="uemail">
-							<i class="fa fa-user"></i>
-						</p>
-						<p class="uregdate">
-							<i class="fa fa-user"></i>
-						</p>
-						<p class="isAdmit">
-							<i class="fa fa-user"></i>
-						</p>
-						<p class="isDel">
-							<i class="fa fa-user"></i>
-						</p>
 
-						<a href="#" class="btn btn-warning" id="closeBtn">Close</a>
-						<!--// content-->
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- <div class="showback">
+						<!-- <div class="showback">
 	<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
 		</button>
 						
@@ -281,14 +289,15 @@ MAIN CONTENT
 			</div>
 		</div>      				
 	</div> -->
-		<!-- /showback -->
-		</div>
-		</div>
-		</div>
+						<!-- /showback -->
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 </section>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+<jsp:include
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 function pagelist(page) {
 	$("#pageNo").val(page);
@@ -410,178 +419,180 @@ $(function() {
 		console.log($(this).text());
 		var uno = $(this).attr("alt");
 		//$('#myModalLabel').text($(this).text() + " 님 회원정보");
-		<% for (int i = 0; i < allUserList2.size(); i++) { %>
-				if (uno == '<%= allUserList2.get(i).getUno() %>') {
-					$('.pop-conts > .sp-title > h3').text("<%= allUserList2.get(i).getUname() %>" + " 님의 회원정보");
-					$('.pop-conts > .uphoneno > i').text("휴대폰 번호 : " + "<%= allUserList2.get(i).getUphoneno() %>");
-					$('.pop-conts > .udepartment > i').text("부서명 : " + "<%= allUserList2.get(i).getUdepartmentName() %>");
-					$('.pop-conts > .uemail > i').text("메일 주소 : " + "<%= allUserList2.get(i).getUemail() %>");
-					$('.pop-conts > .uregdate > i').text("가입 신청일 : " + "<%= allUserList2.get(i).getUregdate() %>");
-					if ("<%= allUserList2.get(i).getEnabled() %>" == 1) {
+		<%for (int i = 0; i < allUserList2.size(); i++) {%>
+				if (uno == '<%=allUserList2.get(i).getUno()%>') {
+					$('.pop-conts > .sp-title > h3').text("<%=allUserList2.get(i).getUname()%>" + " 님의 회원정보");
+					$('.pop-conts > .uphoneno > i').text("휴대폰 번호 : " + "<%=allUserList2.get(i).getUphoneno()%>");
+					$('.pop-conts > .udepartment > i').text("부서명 : " + "<%=allUserList2.get(i).getUdepartmentName()%>");
+					$('.pop-conts > .uemail > i').text("메일 주소 : " + "<%=allUserList2.get(i).getUemail()%>");
+					$('.pop-conts > .uregdate > i').text("가입 신청일 : " + "<%=allUserList2.get(i).getUregdate()%>");
+					if ("<%=allUserList2.get(i).getEnabled()%>" == 1) {
 						$('.pop-conts > .isAdmit > i').text("가입 승인 여부 : 승인");
 					} else {
 						$('.pop-conts > .isAdmit > i').text("가입 승인 여부 : 승인 안됨");
 					}
-					if ("<%= allUserList2.get(i).getExpired() %>" == "Y") {
-						$('.pop-conts > .isDel > i').text("탈퇴 여부 : 탈퇴함");
-					} else {
-						$('.pop-conts > .isDel > i').text("탈퇴 여부 : 탈퇴 안함");
-					}
+					if ("<%=allUserList2.get(i).getExpired()%>
+	" == "Y") {
+									$('.pop-conts > .isDel > i').text(
+											"탈퇴 여부 : 탈퇴함");
+								} else {
+									$('.pop-conts > .isDel > i').text(
+											"탈퇴 여부 : 탈퇴 안함");
+								}
+							}
+<%}%>
+	});
+
+		$('.getUserNo > a').bind('click', function() {
+			var uno = $(this).attr("alt");
+			console.log(uno);
+			f.action = "/admin/users/editForm/" + uno;
+			f.submit();
+		});
+
+	});
+
+	/* function delUser() {
+	 var f = document.frm;
+	 $('.del > a').bind('click', function() {
+	 console.log($('.del > a').attr('alt'));
+	 });
+	 }
+
+	 function admitUser() {
+	 var f = document.frm;
+	 $('.admit > a').bind('click', function() {
+	 console.log($('.admit > a').attr('alt'));
+	 });
+	 }
+
+	 function denyUser() {
+	 var f = document.frm;
+	 $('.deny > a').bind('click', function() {
+	 console.log($('.deny > a').attr('alt'));
+	 });
+	 }
+
+	 function recoverUser() {
+	 var f = document.frm;
+	 $('.reco > a').bind('click', function() {
+	 console.log($('.reco > a').attr('alt'));
+	 });
+	 } */
+
+	function delList() {
+		var f = document.frm;
+		var items = "";
+
+		if (!f.cbList)
+			return false;
+
+		if (typeof (f.cbList.length) == "undefined") {
+			if (f.cbList.checked)
+				items = f.cbList.value;
+		} else {
+			for (var i = 0; i < f.cbList.length; i++) {
+				if (f.cbList[i].checked) {
+					items += ((items) ? "," : "") + f.cbList[i].value;
 				}
-		<% } %>
-		
-	});
-	
-	$('.getUserNo > a').bind('click', function() {
-		var uno = $(this).attr("alt");
-		console.log(uno);
-		f.action = "/admin/users/editForm/" + uno;
-		f.submit();
-	});
-	
-});
-
-/* function delUser() {
-	var f = document.frm;
-	$('.del > a').bind('click', function() {
-		console.log($('.del > a').attr('alt'));
-	});
-}
-
-function admitUser() {
-	var f = document.frm;
-	$('.admit > a').bind('click', function() {
-		console.log($('.admit > a').attr('alt'));
-	});
-}
-
-function denyUser() {
-	var f = document.frm;
-	$('.deny > a').bind('click', function() {
-		console.log($('.deny > a').attr('alt'));
-	});
-}
-
-function recoverUser() {
-	var f = document.frm;
-	$('.reco > a').bind('click', function() {
-		console.log($('.reco > a').attr('alt'));
-	});
-} */
-
-function delList() {
-	var f = document.frm;
-	var items = "";
-
-	if (!f.cbList)
-		return false;
-
-	if (typeof (f.cbList.length) == "undefined") {
-		if (f.cbList.checked)
-			items = f.cbList.value;
-	} else {
-		for (var i = 0; i < f.cbList.length; i++) {
-			if (f.cbList[i].checked) {
-				items += ((items) ? "," : "") + f.cbList[i].value;
 			}
+		}
+
+		if (items == "") {
+			alert("탈퇴 처리 할 유저를 선택하세요.");
+			return false;
+		}
+
+		if (confirm("정말로 해당 회원을 탈퇴 처리 하시겠습니까?")) {
+			f.action = "/admin/users/delete";
+			f.submit();
 		}
 	}
 
-	if (items == "") {
-		alert("탈퇴 처리 할 유저를 선택하세요.");
-		return false;
-	}
+	function admitList() {
+		var f = document.frm;
+		var items = "";
 
-	if (confirm("정말로 해당 회원을 탈퇴 처리 하시겠습니까?")) {
-		f.action = "/admin/users/delete";
-		f.submit();
-	}
-}
+		if (!f.cbList)
+			return false;
 
-function admitList() {
-	var f = document.frm;
-	var items = "";
-
-	if (!f.cbList)
-		return false;
-
-	if (typeof (f.cbList.length) == "undefined") {
-		if (f.cbList.checked)
-			items = f.cbList.value;
-	} else {
-		for (var i = 0; i < f.cbList.length; i++) {
-			if (f.cbList[i].checked) {
-				items += ((items) ? "," : "") + f.cbList[i].value;
+		if (typeof (f.cbList.length) == "undefined") {
+			if (f.cbList.checked)
+				items = f.cbList.value;
+		} else {
+			for (var i = 0; i < f.cbList.length; i++) {
+				if (f.cbList[i].checked) {
+					items += ((items) ? "," : "") + f.cbList[i].value;
+				}
 			}
+		}
+
+		if (items == "") {
+			alert("가입 승인 처리 할 유저를 선택하세요.");
+			return false;
+		}
+
+		if (confirm("해당 회원을 가입 승인 처리 하시겠습니까?")) {
+			f.action = "/admin/users/admit";
+			f.submit();
 		}
 	}
 
-	if (items == "") {
-		alert("가입 승인 처리 할 유저를 선택하세요.");
-		return false;
-	}
+	function denyList() {
+		var f = document.frm;
+		var items = "";
 
-	if (confirm("해당 회원을 가입 승인 처리 하시겠습니까?")) {
-		f.action = "/admin/users/admit";
-		f.submit();
-	}
-}
+		if (!f.cbList)
+			return false;
 
-function denyList() {
-	var f = document.frm;
-	var items = "";
-
-	if (!f.cbList)
-		return false;
-
-	if (typeof (f.cbList.length) == "undefined") {
-		if (f.cbList.checked)
-			items = f.cbList.value;
-	} else {
-		for (var i = 0; i < f.cbList.length; i++) {
-			if (f.cbList[i].checked) {
-				items += ((items) ? "," : "") + f.cbList[i].value;
+		if (typeof (f.cbList.length) == "undefined") {
+			if (f.cbList.checked)
+				items = f.cbList.value;
+		} else {
+			for (var i = 0; i < f.cbList.length; i++) {
+				if (f.cbList[i].checked) {
+					items += ((items) ? "," : "") + f.cbList[i].value;
+				}
 			}
+		}
+
+		if (items == "") {
+			alert("가입 거절 처리 할 유저를 선택하세요.");
+			return false;
+		}
+
+		if (confirm("해당 회원을 가입 거절 처리 하시겠습니까?")) {
+			f.action = "/admin/users/deny";
+			f.submit();
 		}
 	}
 
-	if (items == "") {
-		alert("가입 거절 처리 할 유저를 선택하세요.");
-		return false;
-	}
+	function recoverList() {
+		var f = document.frm;
+		var items = "";
 
-	if (confirm("해당 회원을 가입 거절 처리 하시겠습니까?")) {
-		f.action = "/admin/users/deny";
-		f.submit();
-	}
-}
+		if (!f.cbList)
+			return false;
 
-function recoverList() {
-	var f = document.frm;
-	var items = "";
-
-	if (!f.cbList)
-		return false;
-
-	if (typeof (f.cbList.length) == "undefined") {
-		if (f.cbList.checked)
-			items = f.cbList.value;
-	} else {
-		for (var i = 0; i < f.cbList.length; i++) {
-			if (f.cbList[i].checked) {
-				items += ((items) ? "," : "") + f.cbList[i].value;
+		if (typeof (f.cbList.length) == "undefined") {
+			if (f.cbList.checked)
+				items = f.cbList.value;
+		} else {
+			for (var i = 0; i < f.cbList.length; i++) {
+				if (f.cbList[i].checked) {
+					items += ((items) ? "," : "") + f.cbList[i].value;
+				}
 			}
 		}
-	}
 
-	if (items == "") {
-		alert("탈퇴 복구할 유저를 선택하세요.");
-		return false;
-	}
+		if (items == "") {
+			alert("탈퇴 복구할 유저를 선택하세요.");
+			return false;
+		}
 
-	if (confirm("해당 회원을 탈퇴 복구 하시겠습니까?")) {
-		f.action = "/admin/users/recover";
-		f.submit();
+		if (confirm("해당 회원을 탈퇴 복구 하시겠습니까?")) {
+			f.action = "/admin/users/recover";
+			f.submit();
+		}
 	}
-}
 </script>

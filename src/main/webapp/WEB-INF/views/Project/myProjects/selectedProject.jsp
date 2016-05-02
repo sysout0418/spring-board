@@ -198,7 +198,7 @@ MAIN CONTENT
 	<section class="wrapper">
 		<div class="row">
 			<div class="col-lg-9 main-chart">
-			<h3><i class="fa fa-angle-right"></i> Project</h3>
+			<h3><i class="fa fa-angle-right"></i> Project #${pno} /${project.pname}</h3>
 			<div class="row">
 <div class="col-md-4 col-sm-4 mb">
                       		<div class="grey-panel pn donut-chart">

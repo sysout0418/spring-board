@@ -90,10 +90,12 @@ public class AdminController {
 				}
 			}
 		}
+		int countUsers = adminService.getCountUsers();
 		
 		request.setAttribute("allUserList2", allUserList);
 		model.addAttribute("allUserList", allUserList);
 		model.addAttribute("pageBean", pageBean);
+		model.addAttribute("countUsers", countUsers);
 		return "/admin/allUsers";
 	}
 	

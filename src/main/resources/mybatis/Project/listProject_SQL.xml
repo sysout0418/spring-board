@@ -31,11 +31,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-	SELECT P.pno, pname, pdetail, pdata, pregdate, pduedate, P.uno, U.uname, L.ltitle, L.lbgcolor, COUNT(S.uno) AS projectUser
+	SELECT P.pno, pname, pdetail, pdata, pregdate, pduedate, P.uno, U.uname, C.CODE_NAME AS udepartment, L.ltitle, L.lbgcolor, COUNT(S.uno) AS projectUser
 	FROM Project P
 	LEFT JOIN Label L ON P.lno = L.lno
 	LEFT JOIN User U ON P.uno = U.uno
   	LEFT JOIN ProjectMemberStat S ON P.pno = S.pno
+  	LEFT JOIN CodeTable C ON C.CODE_TYPE='002' AND C.CODE=U.udepartment
 	WHERE P.pno=#{pno}
     ]]>  
     </select>
