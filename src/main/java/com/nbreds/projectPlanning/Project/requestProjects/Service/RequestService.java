@@ -14,7 +14,7 @@ import com.nbreds.projectPlanning.milestones.VO.Milestone;
 public interface RequestService {
 	static final Logger logger = LoggerFactory.getLogger(RequestService.class);
 	
-	public List<Project> getRequestProjects(HashMap<String, Object> param);
+	public List<HashMap<String, Object>> getRequestProjects(HashMap<String, Object> param);
 
 	public void updateStat(HashMap<String, Object> param);
 
@@ -27,4 +27,8 @@ public interface RequestService {
 	public int countIssuesByMno(int mno);
 
 	public double countClosedIssueByMno(int mno);
+
+	public int getCountAllMilestone(int pno);
+
+	public double getCountClosedMilestone(int pno);
 }

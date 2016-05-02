@@ -15,7 +15,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.nbreds.projectPlanning.HomeController;
 import com.nbreds.projectPlanning.Project.common.Controller.CommonController;
 import com.nbreds.projectPlanning.Project.requestProjects.Service.RequestService;
-import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
 public class GeneralInterceptor extends HandlerInterceptorAdapter{
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -58,7 +57,7 @@ public class GeneralInterceptor extends HandlerInterceptorAdapter{
 			request.setAttribute("message", messages);
 		}
 		else	request.setAttribute("message", "none");
-		
+	
         return true;
     }
 }

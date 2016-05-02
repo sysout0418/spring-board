@@ -27,7 +27,7 @@ public class RequestController {
 	public String requestProject(@PathVariable("statement") String stat, HttpSession session, Model model) {
 		String uno = String.valueOf(session.getAttribute("user_no"));
 		
-		List<Project> list = null;
+		List<HashMap<String, Object>> list = null;
 		HashMap<String, Object> param = new HashMap<>();
 		if (stat.equals("requested")) {
 			param.put("uno", uno);
@@ -42,6 +42,16 @@ public class RequestController {
 			param.put("stat", "002");
 			list = requestService.getRequestProjects(param);
 		}else {}
+		
+		for (HashMap<String, Object> project : list) {
+			int pno = (int) project.get("pno");
+			int countAllMilestone = requestService.getCountAllMilestone(pno);
+			double completeMilestonPercent = requestService.getCountClosedMilestone(pno);
+			project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
+			logger.info("countAllMilestone: "+countAllMilestone);
+			logger.info("completeMilestonPercent: "+completeMilestonPercent);
+			logger.info("completeIssuePercent: "+project.get("completeIssuePercent"));
+		}
 		
 		model.addAttribute("stat", stat);
 		if(list.size() > 0)	model.addAttribute("list", list);

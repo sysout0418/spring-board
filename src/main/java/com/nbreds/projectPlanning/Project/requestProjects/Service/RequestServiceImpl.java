@@ -30,7 +30,8 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public List<Project> getRequestProjects(HashMap<String, Object> param) {
+	public List<HashMap<String, Object>> getRequestProjects(HashMap<String, Object> param) {
+		requestDao.setRownum();
 		return requestDao.getRequestProjects(param);
 	}
 
@@ -52,5 +53,14 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	public double countClosedIssueByMno(int mno) {
 		return requestDao.countClosedIssueByMno(mno);
+	}
+
+	@Override
+	public int getCountAllMilestone(int pno) {
+		return requestDao.getCountAllMilestone(pno);
+	}
+	@Override
+	public double getCountClosedMilestone(int pno) {
+		return requestDao.getCountClosedMilestone(pno);
 	}
 }

@@ -19,7 +19,7 @@ public class RequestDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Project> getRequestProjects(HashMap<String, Object> param) {
+	public List<HashMap<String, Object>> getRequestProjects(HashMap<String, Object> param) {
 		return sqlSession.selectList("project.request.getRequestProjects", param);
 	}
 	public void updateStat(HashMap<String, Object> param) {
@@ -39,5 +39,14 @@ public class RequestDao {
 	}
 	public double countClosedIssueByMno(int mno) {
 		return sqlSession.selectOne("project.request.countClosedIssueByMno", mno);
+	}
+	public void setRownum() {
+		sqlSession.selectOne("project.request.setRownum");
+	}
+	public int getCountAllMilestone(int pno) {
+		return sqlSession.selectOne("project.request.getCountAllMilestone", pno);
+	}
+	public double getCountClosedMilestone(int pno) {
+		return sqlSession.selectOne("project.request.getCountClosedMilestone", pno);
 	}
 }

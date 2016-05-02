@@ -22,7 +22,7 @@ MAIN CONTENT
     			<div class="row">
             		<div class="col-md-12">
                 		<div class="content-panel">
-                    	<table class="table table-striped table-advance table-hover">
+                    	<table class="table table-hover">
                         <thead>
 	                        <tr>
 	                        	<th> #</th>
