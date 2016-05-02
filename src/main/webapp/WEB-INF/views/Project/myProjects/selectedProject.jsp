@@ -234,7 +234,7 @@ MAIN CONTENT
 							<div class="instagram-panel pn">
 								<i class="fa fa-tasks fa-4x"></i>
 								<p>${project.pname}<br>
-									${project.pregdate}
+									Created ${project.pregdate}
 								</p>
 								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
 							</div>

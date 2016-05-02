@@ -431,8 +431,7 @@ $(function() {
 					} else {
 						$('.pop-conts > .isAdmit > i').text("가입 승인 여부 : 승인 안됨");
 					}
-					if ("<%=allUserList2.get(i).getExpired()%>
-	" == "Y") {
+					if ("<%=allUserList2.get(i).getExpired()%>" == "Y") {
 									$('.pop-conts > .isDel > i').text(
 											"탈퇴 여부 : 탈퇴함");
 								} else {
