@@ -30,7 +30,7 @@ TOP BAR CONTENT & NOTIFICATIONS
 						</c:if>
 						<c:if test="${projects != 'none'}">
 						<c:forEach var="project" items="${projects}">
-						<li><a href="index.html#">
+						<li><a href="/${project.uno}/${project.pno}">
 								<div class="task-info">
 									<div class="desc">${project.pname}</div>
 									<div class="percent">${project.completeIssuePercent}%</div>

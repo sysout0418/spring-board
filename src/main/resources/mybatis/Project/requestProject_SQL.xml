@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByUno" parameterType="String" resultType="hashmap">
     <![CDATA[
-	SELECT P.pno, P.pname
+	SELECT P.pno, P.pname, P.uno
 	FROM Project P
 	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
 	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
