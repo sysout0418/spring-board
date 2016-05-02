@@ -45,7 +45,7 @@ TOP BAR CONTENT & NOTIFICATIONS
 						</a></li>
 						</c:forEach>
 						</c:if>
-						<li class="external"><a href="/milestones/open">See All Tasks</a></li>
+						<li class="external"><a href="/">See All Projects</a></li>
 					</ul></li>
 				<!-- settings end -->
 				<!-- inbox dropdown start-->
