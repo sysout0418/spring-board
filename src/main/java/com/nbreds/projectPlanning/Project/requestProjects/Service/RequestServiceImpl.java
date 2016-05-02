@@ -36,29 +36,22 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getMilestonesByUno(String uno) {
-		return requestDao.getMilestonesByUno(uno);
-	}
-
-	@Override
 	public List<HashMap<String, Object>> getMessagesByUno(String uno) {
 		return requestDao.getMessagesByUno(uno);
 	}
 
 	@Override
-	public int countIssuesByMno(int mno) {
-		return requestDao.countIssuesByMno(mno);
-	}
-
-	@Override
-	public double countClosedIssueByMno(int mno) {
-		return requestDao.countClosedIssueByMno(mno);
+	public List<HashMap<String, Object>> getProjectByUno(String uno) {
+		requestDao.setRownum();
+		
+		return requestDao.getProjectByUno(uno);
 	}
 
 	@Override
 	public int getCountAllMilestone(int pno) {
 		return requestDao.getCountAllMilestone(pno);
 	}
+
 	@Override
 	public double getCountClosedMilestone(int pno) {
 		return requestDao.getCountClosedMilestone(pno);

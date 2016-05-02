@@ -10,6 +10,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
+    <select id="getProjectByUno" parameterType="String" resultType="hashmap">
+    <![CDATA[
+	SELECT P.pno, P.pname
+	FROM Project P
+	LEFT JOIN ProjectMemberStat S ON S.pno = P.pno
+	WHERE S.stat=001 AND S.uno=#{uno} OR P.uno=#{uno}
+	GROUP BY P.pno
+	LIMIT 4
+    ]]>  
+    </select>
+    
 	<select id="getRequestProjects" parameterType="hashmap" resultType="hashmap">
     <![CDATA[
   	SELECT @rownum:=@rownum+1 as rownum, P.pno, P.pregdate, P.pname, P.pdetail, P.uno, U.uname, L.ltitle, L.lbgcolor

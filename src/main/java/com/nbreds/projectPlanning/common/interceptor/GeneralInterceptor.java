@@ -29,24 +29,22 @@ public class GeneralInterceptor extends HandlerInterceptorAdapter{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String uno = String.valueOf(request.getSession().getAttribute("user_no"));
 		
-		//요청 milestones
-		List<HashMap<String, Object>> milestones = requestService.getMilestonesByUno(uno);
-		if(milestones.size() > 0){
-			for (HashMap<String, Object> milestone : milestones) {
-				int mno = (int) milestone.get("mno");
-				int countIssues = requestService.countIssuesByMno(mno);
-				double completeIssuePercent = requestService.countClosedIssueByMno(mno);
-				
-				milestone.put("CompleteIssuePercent", (int) Math.round((completeIssuePercent / countIssues) * 100));
+		//요청 Projects
+		List<HashMap<String, Object>> projects = requestService.getProjectByUno(uno);
+		if(projects.size() > 0){
+			for (HashMap<String, Object> project : projects) {
+				int pno = (int) project.get("pno");
+				int countAllMilestone = requestService.getCountAllMilestone(pno);
+				double completeMilestonPercent = requestService.getCountClosedMilestone(pno);
+				project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
 			}
-			request.setAttribute("milestone", milestones);
+			request.setAttribute("projects", projects);
 		}
-		else	request.setAttribute("milestone", "none");
+		else	request.setAttribute("projects", "none");
 		
 		//request project
 		int req = requestService.getCountRequestProjects(uno);
 		List<HashMap<String, Object>> messages = requestService.getMessagesByUno(uno);
-		request.setAttribute("milestones", milestones);
 		request.setAttribute("req", req);
 		
 		if(messages.size() > 0){

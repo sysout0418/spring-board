@@ -49,4 +49,7 @@ public class RequestDao {
 	public double getCountClosedMilestone(int pno) {
 		return sqlSession.selectOne("project.request.getCountClosedMilestone", pno);
 	}
+	public List<HashMap<String, Object>> getProjectByUno(String uno) {
+		return sqlSession.selectList("project.request.getProjectByUno", uno);
+	}
 }

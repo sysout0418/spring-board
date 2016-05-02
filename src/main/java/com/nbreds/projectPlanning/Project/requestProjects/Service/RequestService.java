@@ -19,14 +19,10 @@ public interface RequestService {
 	public void updateStat(HashMap<String, Object> param);
 
 	public int getCountRequestProjects(String uno);
-
-	public List<HashMap<String, Object>> getMilestonesByUno(String uno);
-
+	
 	public List<HashMap<String, Object>> getMessagesByUno(String uno);
 
-	public int countIssuesByMno(int mno);
-
-	public double countClosedIssueByMno(int mno);
+	public List<HashMap<String, Object>> getProjectByUno(String uno);
 
 	public int getCountAllMilestone(int pno);
 

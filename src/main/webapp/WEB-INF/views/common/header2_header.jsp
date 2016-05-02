@@ -23,23 +23,23 @@ TOP BAR CONTENT & NOTIFICATIONS
 					<ul class="dropdown-menu extended tasks-bar">
 						<div class="notify-arrow notify-arrow-green"></div>
 						<li>
-							<p class="green">Your milestones</p>
+							<p class="green">Your projects</p>
 						</li>
-						<c:if test="${milestone == 'none'}">
+						<c:if test="${projects == 'none'}">
 						<li style="text-align: center;"><a href="#"><span class="subject"> <span class="from">No milestones to show</span></span></a></li>
 						</c:if>
-						<c:if test="${milestone != 'none'}">
-						<c:forEach var="milestone" items="${milestone}">
-						<li<c:if test="${milestone.mstatement == '001'}"> style="background-color: #f9f9f9"</c:if>><a href="index.html#">
+						<c:if test="${projects != 'none'}">
+						<c:forEach var="project" items="${projects}">
+						<li><a href="index.html#">
 								<div class="task-info">
-									<div class="desc">${milestone.mtitle}</div>
-									<div class="percent">${milestone.CompleteIssuePercent}%</div>
+									<div class="desc">${project.pname}</div>
+									<div class="percent">${project.completeIssuePercent}%</div>
 								</div>
 								<div class="progress progress-striped">
 									<div class="progress-bar progress-bar-success"
 										role="progressbar" aria-valuenow="40" aria-valuemin="0"
-										aria-valuemax="100" style="width: ${milestone.CompleteIssuePercent}%">
-										<span class="sr-only">${milestone.CompleteIssuePercent}% Complete (success)</span>
+										aria-valuemax="100" style="width: ${project.completeIssuePercent}%">
+										<span class="sr-only">${project.completeIssuePercent}% Complete (success)</span>
 									</div>
 								</div>
 						</a></li>
