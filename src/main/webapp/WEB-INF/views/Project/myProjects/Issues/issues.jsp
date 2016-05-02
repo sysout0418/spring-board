@@ -37,7 +37,7 @@ MAIN CONTENT
 							</div>
 
 							<!-- Tab panes -->
-							<div class="tab-content well">
+							<form name="frm" id="frm" method="post">
 								<c:choose>
 									<c:when test="${!empty selectedUserName}">
 										<input type="hidden" id="userNo" name="userNo"
@@ -63,83 +63,170 @@ MAIN CONTENT
 										<input type="hidden" id="lno" name="lno" value="">
 									</c:otherwise>
 								</c:choose>
-								<div class="btn-group">
-									<a href="#" class="btn btn-default"> <c:choose>
-											<c:when test="${!empty selectedUserName}">
-												<span id="selectedAssign">${selectedUserName}</span>
-											</c:when>
-											<c:otherwise>
-												<span id="selectedAssign">Assignee</span>
-											</c:otherwise>
-										</c:choose>
-									</a> <a href="#" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown" aria-expanded="false"><span
-										class="caret" style="height: 10px; margin-top: 10px;"></span></a>
-									<ul class="dropdown-menu">
-										<li class="userNo1"><a alt="" href="#">Any</a></li>
-										<c:forEach var="users" items="${userList}">
-											<li class="userNo1"><a alt="${users.uno}" href="#">${users.uname}</a></li>
-										</c:forEach>
-									</ul>
+								<!-- update -->
+								<input type="hidden" id="status" name="status" value="">
+								<input type="hidden" id="userNo2" name="userNo2" value="">
+								<input type="hidden" id="mno2" name="mno2" value="">
+								<!-- //update -->
+								
+								<input type="checkbox" name="cbListAll"
+									onclick="checkCbListAll()"
+									style="position: absolute; top: 100px; left: 32px;">
+								<div class="tab-content well" id="originalForm"
+									style="display: block;">
+									<div style="margin-left: 20px;">
+										<div class="btn-group">
+											<a href="#" class="btn btn-default"> <c:choose>
+													<c:when test="${!empty selectedUserName}">
+														<span id="selectedAssign">${selectedUserName}</span>
+													</c:when>
+													<c:otherwise>
+														<span id="selectedAssign">Assignee</span>
+													</c:otherwise>
+												</c:choose>
+											</a> <a href="#" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false"><span
+												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+											<ul class="dropdown-menu">
+												<li class="userNo1"><a alt="" href="#">Any</a></li>
+												<c:forEach var="users" items="${userList}">
+													<li class="userNo1"><a alt="${users.uno}" href="#">${users.uname}</a></li>
+												</c:forEach>
+											</ul>
+										</div>
+
+										<div class="btn-group">
+											<a href="#" class="btn btn-default"> <c:choose>
+													<c:when test="${!empty selectedMilestone}">
+														<span id="selectedMilestone">${selectedMilestone}</span>
+													</c:when>
+													<c:otherwise>
+														<span id="selectedMilestone">Milestone</span>
+													</c:otherwise>
+												</c:choose>
+											</a> <a href="#" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false"><span
+												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+											<ul class="dropdown-menu">
+												<li class="milestoneNo"><a id="milestoneNo" alt=""
+													href="#">Any</a></li>
+												<c:forEach var="milestone" items="${milestoneList}">
+													<li class="milestoneNo"><a id="milestoneNo"
+														alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
+												</c:forEach>
+											</ul>
+										</div>
+
+										<div class="btn-group">
+											<a href="#" class="btn btn-default"> <c:choose>
+													<c:when test="${!empty selectedLabelName}">
+														<span id="selectedLabel">${selectedLabelName}</span>
+													</c:when>
+													<c:otherwise>
+														<span id="selectedLabel">Weight</span>
+													</c:otherwise>
+												</c:choose>
+											</a> <a href="#" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false"><span
+												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+											<ul class="dropdown-menu">
+												<li class="labelNo"><a id="labelNo" alt="" href="#">Any</a></li>
+												<c:forEach var="label" items="${allLabelList}">
+													<li class="labelNo"><a id="labelNo" alt="${label.lno}"
+														href="#" style="color: ${label.lbgcolor}">${label.ltitle}</a></li>
+												</c:forEach>
+											</ul>
+										</div>
+										<a href="#" id="searchBtn" class="btn btn-warning">SEARCH
+											ISSUES</a>
+									</div>
 								</div>
-								<div class="btn-group">
-									<a href="#" class="btn btn-default"> <c:choose>
-											<c:when test="${!empty selectedMilestone}">
-												<span id="selectedMilestone">${selectedMilestone}</span>
-											</c:when>
-											<c:otherwise>
-												<span id="selectedMilestone">Milestone</span>
-											</c:otherwise>
-										</c:choose>
-									</a> <a href="#" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown" aria-expanded="false"><span
-										class="caret" style="height: 10px; margin-top: 10px;"></span></a>
-									<ul class="dropdown-menu">
-										<li class="milestoneNo"><a id="milestoneNo" alt=""
-											href="#">Any</a></li>
-										<c:forEach var="milestone" items="${milestoneList}">
-											<li class="milestoneNo"><a id="milestoneNo"
-												alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
-										</c:forEach>
-									</ul>
+
+								<div class="tab-content well" id="updateIssuesForm"
+									style="display: none;">
+									<div style="margin-left: 20px;">
+										<div class="btn-group">
+											<a href="#" class="btn btn-default"> <span
+												id="selectedStatus">Status</span></a> <a href="#"
+												class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false"> <span
+												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+											<ul class="dropdown-menu">
+												<li class="status"><a alt="" href="#">Status</a></li>
+												<li class="status"><a alt="Open" href="#">Oepn</a></li>
+												<li class="status"><a alt="Closed" href="#">Closed</a></li>
+											</ul>
+										</div>
+
+										<div class="btn-group">
+											<a href="#" class="btn btn-default"> <span
+												id="selectedAssign2">Assignee</span>
+											</a> <a href="#" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false"> <span
+												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+											<ul class="dropdown-menu">
+												<li class="userNo2"><a alt="" href="#">Unassigned</a></li>
+												<c:forEach var="users" items="${userList}">
+													<li class="userNo2"><a alt="${users.uno}" href="#">${users.uname}</a></li>
+												</c:forEach>
+											</ul>
+										</div>
+
+										<div class="btn-group">
+											<a href="#" class="btn btn-default"> <span
+												id="selectedMilestone2">Milestone</span>
+											</a> <a href="#" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-expanded="false"> <span
+												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+											<ul class="dropdown-menu">
+												<li class="milestoneNo2"><a id="milestoneNo2" alt=""
+													href="#">Milestone</a></li>
+												<c:forEach var="milestone" items="${milestoneList}">
+													<li class="milestoneNo2"><a id="milestoneNo2"
+														alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
+												</c:forEach>
+											</ul>
+										</div>
+										<a href="#" onclick="updateIssueList()" class="btn btn-success">UPDATE
+											ISSUES</a>
+									</div>
 								</div>
-								<div class="btn-group">
-									<a href="#" class="btn btn-default"> <c:choose>
-											<c:when test="${!empty selectedLabelName}">
-												<span id="selectedLabel">${selectedLabelName}</span>
-											</c:when>
-											<c:otherwise>
-												<span id="selectedLabel">Weight</span>
-											</c:otherwise>
-										</c:choose>
-									</a> <a href="#" class="btn btn-default dropdown-toggle"
-										data-toggle="dropdown" aria-expanded="false"><span
-										class="caret" style="height: 10px; margin-top: 10px;"></span></a>
-									<ul class="dropdown-menu">
-										<li class="labelNo"><a id="labelNo" alt="" href="#">Any</a></li>
-										<c:forEach var="label" items="${allLabelList}">
-											<li class="labelNo"><a id="labelNo" alt="${label.lno}"
-												href="#" style="color: ${label.lbgcolor}">${label.ltitle}</a></li>
-										</c:forEach>
-									</ul>
-								</div>
-								<%-- <div class="btn-group">
-					<a href="#" class="btn btn-default"><span id="selectedWeight">Weight</span></a> <a href="#"
-						class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-						aria-expanded="false"><span class="caret"
-						style="height: 10px; margin-top: 10px;"></span></a>
-					<ul class="dropdown-menu">
-						<% for (int i = 1; i < 10; i++) { %>
-							<li class="weight"><a href="#"><%= i %></a></li>
-						<% } %>
-					</ul>
-				</div> --%>
-								<a href="#" id="searchBtn" class="btn btn-warning">Search</a>
-							</div>
-							<form name="frm" id="frm" method="post">
+
 								<input type="hidden" name="isCheckCbListAll" value="F">
 
-								<table class="table">
+								<c:choose>
+									<c:when test="${issuesList == 'none'}">
+										<div style="height: 100px">
+											<p style="text-align: center; vertical-align: middle;">
+												No Issues to show</p>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<ul class="list-group">
+											<c:forEach var="issues" items="${issuesList}"
+												varStatus="status">
+												<input type="hidden" name="issueState"
+													value="${issues.istatement }">
+												<li class="list-group-item"><span class="badge"><i
+														class="fa fa-comment" aria-hidden="true"></i>
+														${issues.commentCnt}</span> <input type="checkbox" name="cbList"
+													value="${issues.ino }" onclick="openUpdateIssuesForm()">
+													<a href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">
+														<span style="font-weight: bold; color: black;">${issues.ititle}</span>
+												</a> / <span class="label color-label has_tooltip"
+													style="background-color:
+															${issues.lbgcolor}; color: #FFFFFF"
+													title="" data-container="body" data-original-title="">${issues.ltitle}</span><br>
+													${issues.iregdate} by ${issues.uname} / <i
+													class="fa fa-clock-o" aria-hidden="true"></i> <a
+													href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>
+												</li>
+											</c:forEach>
+										</ul>
+									</c:otherwise>
+								</c:choose>
+
+								<%-- <table class="table">
 									<tr class="active">
 										<td><div class="checkboxAll">
 												<label> <input type="checkbox" name="cbListAll"
@@ -150,20 +237,23 @@ MAIN CONTENT
 										<td>Milestone Title</td>
 										<td>Weight</td>
 										<td>Due Date</td>
-										<!-- <td>Weight</td> -->
 									</tr>
 									<c:choose>
 										<c:when test="${issuesList == 'none'}">
-											<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
-				                        	No Issues to show
-				                        	</td></tr>
+											<tr style="height: 100px">
+												<td colspan="6"
+													style="text-align: center; vertical-align: middle;">
+													No Issues to show</td>
+											</tr>
 										</c:when>
 										<c:otherwise>
 											<c:forEach var="issues" items="${issuesList}"
 												varStatus="status">
 												<input type="hidden" name="issueState"
 													value="${issues.istatement }">
-												<tr onclick="location.href='/${issues.uno}/${issues.pno}/issue/${issues.ino}'" style="cursor: pointer;">
+												<tr
+													onclick="location.href='/${issues.uno}/${issues.pno}/issue/${issues.ino}'"
+													style="cursor: pointer;">
 													<td><div class="checkbox">
 															<label> <input type="checkbox" name="cbList"
 																value="${issues.ino }">
@@ -173,20 +263,20 @@ MAIN CONTENT
 														${issues.idescription }</td>
 													<c:choose>
 														<c:when test="${!empty issues.mtitle}">
-															<td>
-															<a href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
+															<td><a
+																href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
 														</c:when>
 														<c:otherwise>
 															<td>No Milestone</td>
 														</c:otherwise>
 													</c:choose>
-		
+
 													<td><span class="label color-label has_tooltip"
 														style="background-color:
 														${issues.lbgcolor}; color: #FFFFFF"
 														title="" data-container="body" data-original-title="">${issues.ltitle}</span>
 													</td>
-		
+
 													<td>${issues.iduedate}</td>
 												</tr>
 											</c:forEach>
@@ -195,7 +285,7 @@ MAIN CONTENT
 									<tr>
 										<td colspan="5"></td>
 									</tr>
-								</table>
+								</table> --%>
 							</form>
 						</div>
 					</div>
@@ -207,6 +297,7 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
+	// search
 	$('.dropdown-menu > .userNo1 > a').bind('click', function() {
 		var userName = $(this).text();
 		var userNo = $(this).attr("alt");
@@ -229,17 +320,37 @@ MAIN CONTENT
 		$("#lno").val(labelNo);
 		$("#selectedLabel").text(lTitle);
 	});
-	/* $('.dropdown-menu > .weight > a').bind('click', function() {
-		var weight = $(this).text();
-		console.log(weight);
-		$("#weight").val(weight);
-		$("#selectedWeight").text(weight);
-	}); */
-
-	$('#searchBtn').click(function() {
-		$('#searchBtn').attr("href", "/${uno}/${pno}/issues/${stat}/search?userNo="
+	$('#searchBtn').click(
+			function() {
+				$('#searchBtn').attr(
+						"href",
+						"/${uno}/${pno}/issues/${stat}/search?userNo="
 								+ $("#userNo").val() + "&mno="
 								+ $("#mno").val() + "&lno=" + $("#lno").val());
+			});
+	
+	// update
+	$('.dropdown-menu > .status > a').bind('click', function() {
+		var lTitle = $(this).text();
+		var labelNo = $(this).attr("alt");
+		console.log(labelNo);
+		$("#status").val(labelNo);
+		$("#selectedStatus").text(lTitle);
+	});
+	$('.dropdown-menu > .userNo2 > a').bind('click', function() {
+		var userName = $(this).text();
+		var userNo = $(this).attr("alt");
+		console.log(userNo);
+		console.log(userName);
+		$("#userNo2").val(userNo);
+		$("#selectedAssign2").text(userName);
+	});
+	$('.dropdown-menu > .milestoneNo2 > a').bind('click', function() {
+		var mTitle = $(this).text();
+		var milestoneNo = $(this).attr("alt");
+		console.log(milestoneNo);
+		$("#mno2").val(milestoneNo);
+		$("#selectedMilestone2").text(mTitle);
 	});
 
 	//문자열 공백제거 함수
@@ -273,14 +384,17 @@ MAIN CONTENT
 			checkCbAll(f.cbList, true);
 			f.cbListAll.checked = true;
 			f.isCheckCbListAll.value = "T";
+			openUpdateIssuesForm();
 		} else {
 			checkCbAll(f.cbList, false);
 			f.cbListAll.checked = false;
 			f.isCheckCbListAll.value = "F";
+			closeUpdateIssuesForm();
 		}
+
 	}
 
-	function delList() {
+	function updateIssueList() {
 		var f = document.frm;
 		var items = "";
 
@@ -299,13 +413,36 @@ MAIN CONTENT
 		}
 
 		if (items == "") {
-			alert("업데이트 할 목록을 선택하세요.");
+			alert("업데이트 할 이슈를 선택하세요.");
 			return false;
 		}
 
-		if (confirm("업데이트 하시겠습니까?")) {
-			f.action = "URL";
+		if (confirm("선택한 이슈를 설정한 값으로 업데이트 하시겠습니까?")) {
+			f.action = "/issues/directEdit/${uno}/${pno}";
 			f.submit();
 		}
+	}
+	
+	function openUpdateIssuesForm() {
+		var chk = document.getElementsByName("cbList");
+		var len = chk.length; 	// 체크박스의 전체 개수
+		var checkCnt = 0;		// 체크된 체크박스의 개수
+		for(var i = 0; i < len; i++) {
+			if(chk[i].checked == true) {
+				checkCnt++;
+			}
+		}
+		if (checkCnt != 0 && checkCnt > 0) {
+			$('#originalForm').attr('style', 'display: none;');
+			$('#updateIssuesForm').attr('style', 'display: block;');
+		} else {
+			$('#updateIssuesForm').attr('style', 'display: none;');
+			$('#originalForm').attr('style', 'display: block;');
+		}
+	}
+
+	function closeUpdateIssuesForm() {
+		$('#updateIssuesForm').attr('style', 'display: none;');
+		$('#originalForm').attr('style', 'display: block;');
 	}
 </script>

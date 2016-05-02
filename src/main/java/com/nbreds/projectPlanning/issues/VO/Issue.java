@@ -12,14 +12,17 @@ public class Issue {
 	private int pno;
 	private int uno;
 	private String iduedate;
+	private String iregdate;
 	
 	/** 03.27 table JOIN을 위한 필드 추가 **/
+	private String pname;
 	private String uname;
 	private String mtitle;
 	private int lno;
 	private String ltitle;
 	private String ldescription;
 	private String lbgcolor;
+	private int commentCnt;
 	
 	public int getIno() {
 		return ino;
@@ -105,6 +108,24 @@ public class Issue {
 	}
 	public void setIduedate(String iduedate) {
 		this.iduedate = iduedate;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
+	public String getIregdate() {
+		return iregdate;
+	}
+	public void setIregdate(String iregdate) {
+		this.iregdate = iregdate;
 	}
 	
 }

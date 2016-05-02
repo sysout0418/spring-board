@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
@@ -86,6 +87,12 @@ public interface IssueService {
 	
 	/** uno로 이슈 가져오는 기능 */
 	List<Issue> getIssuesByUno(Map<String, Object> param);
+	
+	/** ino 코멘트 갯수 카운트 */
+	int getCommentCnt(int ino);
+	
+	/** uno로 플젝 정보 가져오기 */
+	List<Issue> getProjectInfoByUno(Map<String, Object> param);
 
 	/** 들어온 param에 따라 이슈 검색하는 기능 */
 	List<Issue> searchIssuesByParam(Map<String, Object> param);
@@ -112,5 +119,9 @@ public interface IssueService {
 	void updateFile(Map<String, Object> param);
 
 	String getPnameByPno(int pno);
+	
+	void updateAssigneeByIno(Map<String, Object> param);
+	
+	void updateMilestoneByIno(Map<String, Object> param);
 
 }

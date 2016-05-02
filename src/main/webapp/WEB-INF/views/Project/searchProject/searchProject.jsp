@@ -11,6 +11,12 @@
 <jsp:useBean id="pageBean"
 	class="com.nbreds.projectPlanning.common.util.PageBean" scope="request" />
 <% String[] pdatas = (String[]) request.getAttribute("pdatas"); %>
+<style>
+.progress {
+   height: 10px;
+   margin-bottom: 3px;
+}
+</style>
 <!-- Begin page content -->
 <form name="search" id="search" method="POST">
 	<!-- **********************************************************************************************************************************************************

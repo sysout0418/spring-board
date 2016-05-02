@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.common.util.FileUtils;
@@ -193,6 +194,16 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
+	public int getCommentCnt(int ino) {
+		return issueDao.getCommentCnt(ino);
+	}
+	
+	@Override
+	public List<Issue> getProjectInfoByUno(Map<String, Object> param) {
+		return issueDao.getProjectInfoByUno(param);
+	}
+	
+	@Override
 	public List<Issue> searchIssuesByParam(Map<String, Object> param) {
 		return issueDao.searchIssuesByParam(param);
 	}
@@ -235,5 +246,15 @@ public class IssueServiceImpl implements IssueService {
 	@Override
 	public String getPnameByPno(int pno) {
 		return issueDao.getPnameByPno(pno);
+	}
+
+	@Override
+	public void updateAssigneeByIno(Map<String, Object> param) {
+		issueDao.updateAssigneeByIno(param);
+	}
+
+	@Override
+	public void updateMilestoneByIno(Map<String, Object> param) {
+		issueDao.updateMilestoneByIno(param);
 	}
 }

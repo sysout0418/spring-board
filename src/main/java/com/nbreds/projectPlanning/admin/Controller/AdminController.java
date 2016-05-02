@@ -256,7 +256,13 @@ public class AdminController {
 		param.put("uname", uname);
 		param.put("uphoneno", uphoneno);
 		param.put("udepartment", udepartment);
-		param.put("authority", authority);
+		if (authority.equals("일반 회원")) {
+			param.put("authority", "ROLE_USER");
+		} else if (authority.equals("프로젝트 매니저")) {
+			param.put("authority", "ROLE_MANAGER");
+		} else {
+			param.put("authority", "ROLE_ADMIN");
+		}
 		
 		adminService.updateUserInfo(param);
 		

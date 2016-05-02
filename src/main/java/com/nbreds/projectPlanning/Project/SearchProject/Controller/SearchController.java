@@ -77,9 +77,6 @@ public class SearchController {
 			logger.info("countAllMilestone: "+countAllMilestone);
 			logger.info("completeMilestonPercent: "+completeMilestonPercent);
 		}
-		for (int i = 0; i < completeIssuePercents.size(); i++) {
-			logger.info("completeIssuePercent: "+completeIssuePercents.get(i));
-		}
 //		for(int i = 0; i < list.size(); i++){
 //			String pdata = list.get(i).getPdata();
 //			

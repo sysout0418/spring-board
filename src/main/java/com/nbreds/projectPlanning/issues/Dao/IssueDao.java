@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
@@ -119,6 +120,14 @@ public class IssueDao {
 		return sqlSession.selectList("issues.getIssuesByUno", param);
 	}
 
+	public int getCommentCnt(int ino) {
+		return sqlSession.selectOne("issues.getCommentCnt", ino);
+	}
+	
+	public List<Issue> getProjectInfoByUno(Map<String, Object> param) {
+		return sqlSession.selectList("issues.getProjectInfoByUno", param);
+	}
+	
 	public List<Issue> searchIssuesByParam(Map<String, Object> param) {
 		return sqlSession.selectList("issues.searchIssuesByParam", param);
 	}
@@ -149,5 +158,13 @@ public class IssueDao {
 
 	public String getPnameByPno(int pno) {
 		return sqlSession.selectOne("issues.getPnameByPno", pno);
+	}
+	
+	public void updateAssigneeByIno(Map<String, Object> param) {
+		sqlSession.update("issues.updateAssigneeByIno", param);
+	}
+	
+	public void updateMilestoneByIno(Map<String, Object> param) {
+		sqlSession.update("issues.updateMilestoneByIno", param);
 	}
 }

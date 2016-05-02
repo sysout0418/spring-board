@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
@@ -58,7 +60,6 @@ public class IssueController {
 		logger.info("pno : " + pno);
 		logger.info("statement : " + stat);
 		List<Issue> issuesList = new ArrayList<Issue>();
-//		List<Label> labelList = new ArrayList<Label>();
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		List<User> userList = issuesService.getUserListByPno(pno);
@@ -68,27 +69,33 @@ public class IssueController {
 			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByPno(param);
-			/*for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}*/
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		} else if (stat.equals("closed")) {
 			param.put("pno", pno);
 			param.put("uno", uno);
 			param.put("istatement", "001");
 			issuesList = issuesService.getIssuesByPno(param);
-			/*for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}*/
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		} else {
 			param.put("pno", pno);
 			param.put("uno", uno);
 			issuesList = issuesService.getIssuesByPno(param);
-			/*for (int i = 0; i < issuesList.size(); i++) {
-				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-				issuesList.get(i).setLabels(labelList);
-			}*/
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		}
 		
 		String pname = issuesService.getPnameByPno(pno);
@@ -264,6 +271,59 @@ public class IssueController {
 		}
 		return "redirect:/" + issues.getUno() + "/" + issues.getPno() + "/issue/" + issues.getIno();
 	}
+	
+	// issue 리스트창에서 다이렉트로 issue 수정
+	@RequestMapping("/issues/directEdit/{uno}/{pno}")
+	public String directEditIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
+			String status, String userNo2, String mno2, String[] cbList) {
+		logger.info("status : " + status);
+		logger.info("userNo2 : " + userNo2);
+		logger.info("mno2 : " + mno2);
+		if (cbList.length > 0) {
+			for (int i = 0; i < cbList.length; i++) {
+				logger.info("cbList[i] : " + cbList[i]);
+			}
+		}
+		
+		if(!status.equals("") && cbList.length > 0) {
+			if (status.equals("Open")) {
+				for (int i = 0; i < cbList.length; i++) {
+					Map<String, Object> param = new HashMap<String, Object>();
+					param.put("ino", cbList[i]);
+					param.put("istatement", "000");
+					issuesService.reopenIssue(param);
+				}
+			} else if (status.equals("Closed")) {
+				for (int i = 0; i < cbList.length; i++) {
+					Map<String, Object> param = new HashMap<String, Object>();
+					param.put("ino", cbList[i]);
+					param.put("istatement", "001");
+					issuesService.closeIssue(param);
+				}
+			}
+		}
+		
+		if (!userNo2.equals("") && cbList.length > 0) {
+			for (int i = 0; i < cbList.length; i++) {
+				Map<String, Object> param = new HashMap<String, Object>();
+				param.put("ino", cbList[i]);
+				param.put("uno", userNo2);
+				issuesService.updateAssigneeByIno(param);
+			}
+		}
+		
+		if (!mno2.equals("") && cbList.length > 0) {
+			for (int i = 0; i < cbList.length; i++) {
+				Map<String, Object> param = new HashMap<String, Object>();
+				param.put("ino", cbList[i]);
+				param.put("mno", mno2);
+				issuesService.updateMilestoneByIno(param);
+			}
+		}
+		
+		
+		return "redirect:/" + uno + "/" + pno + "/issues/open";
+	}
 
 	// issue close
 	@RequestMapping("/issues/close/{uno}/{pno}/{ino}")
@@ -396,42 +456,64 @@ public class IssueController {
 	public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
 		List<Issue> issuesList = new ArrayList<Issue>();
-//		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> allMilestoneList = issuesService.getAllMilestone();
+		List<Issue> projectInfoByUno = new ArrayList<Issue>();
 		HashMap<String, Object> param = new HashMap<>();
+		String userName = "";
+		
 		if (stat.equals("open")) {
 			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByUno(param);
-//			for (int i = 0; i < issueList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
-//				issueList.get(i).setLabels(labelList);
-//			}
+			projectInfoByUno = issuesService.getProjectInfoByUno(param);
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		} else if (stat.equals("closed")) {
 			param.put("uno", uno);
 			param.put("istatement", "001");
 			issuesList = issuesService.getIssuesByUno(param);
-//			for (int i = 0; i < issueList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
-//				issueList.get(i).setLabels(labelList);
-//			}
+			projectInfoByUno = issuesService.getProjectInfoByUno(param);
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		} else {
 			param.put("uno", uno);
 			issuesList = issuesService.getIssuesByUno(param);
-//			for (int i = 0; i < issueList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issueList.get(i).getIno());
-//				issueList.get(i).setLabels(labelList);
-//			}
+			projectInfoByUno = issuesService.getProjectInfoByUno(param);
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		}
+		
+		if (userList.size() > 0) {
+			for (int i = 0; i < userList.size(); i++) {
+				if (uno.equals(String.valueOf(userList.get(i).getUno()))) {
+					userName = userList.get(i).getUname();
+				}
+			}
+		}
+		logger.info("userName : " + userName);
 		
 		model.addAttribute("stat", stat);
 		if (issuesList.isEmpty()) {
 			model.addAttribute("issuesList", "none");
 		} else {
+			model.addAttribute("projectInfo", projectInfoByUno);
 			model.addAttribute("issuesList", issuesList);
 		}
+		model.addAttribute("userName", userName);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", allMilestoneList);
@@ -443,12 +525,14 @@ public class IssueController {
 	public String searchIssueByUno(@PathVariable("statement") String stat,
 			@RequestParam(value = "uno", required = false) Integer uno,
 			@RequestParam(value = "mno", required = false) Integer mno,
-			@RequestParam(value = "lno", required = false) Integer lno, Model model) {
+			@RequestParam(value = "lno", required = false) Integer lno, Model model, HttpSession session) {
 		logger.info("uno : " + uno);
 		logger.info("mno : " + mno);
 		logger.info("lno : " + lno);
+		String userNo = String.valueOf(session.getAttribute("user_no"));
 		Map<String, Object> param = new HashMap<String, Object>();
 		List<Issue> issuesList = new ArrayList<Issue>();
+		List<Issue> projectInfoByUno = new ArrayList<Issue>();
 //		List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
@@ -457,39 +541,44 @@ public class IssueController {
 		String selectedMilestone = "";
 		String selectedLabelName = "";
 		if (stat.equals("open")) {
-			// param.put("pno", pno);
 			param.put("istatement", "000");
 			param.put("uno", uno);
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssuesByParam(param);
-//			for (int i = 0; i < issuesList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-//				issuesList.get(i).setLabels(labelList);
-//			}
+			projectInfoByUno = issuesService.getProjectInfoByUno(param);
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		}
 		if (stat.equals("closed")) {
-			// param.put("pno", pno);
 			param.put("istatement", "001");
 			param.put("uno", uno);
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssuesByParam(param);
-			System.out.println(issuesList.size());
-//			for (int i = 0; i < issuesList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-//				issuesList.get(i).setLabels(labelList);
-//			}
+			projectInfoByUno = issuesService.getProjectInfoByUno(param);
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		} else {
-			// param.put("pno", pno);
 			param.put("uno", uno);
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssuesByParam(param);
-//			for (int i = 0; i < issuesList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-//				issuesList.get(i).setLabels(labelList);
-//			}
+			projectInfoByUno = issuesService.getProjectInfoByUno(param);
+			if (!issuesList.isEmpty()) {
+				for (int i = 0; i < issuesList.size(); i++) {
+					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
+					issuesList.get(i).setCommentCnt(commentCnt);
+				}
+			}
 		}
 		
 		if (userList != null && userList.size() > 0) {
@@ -529,6 +618,7 @@ public class IssueController {
 		if (issuesList.isEmpty()) {
 			model.addAttribute("issuesList", "none");
 		} else {
+			model.addAttribute("projectInfo", projectInfoByUno);
 			model.addAttribute("issuesList", issuesList);
 		}
 		model.addAttribute("userList", userList);

@@ -146,6 +146,8 @@ MAIN CONTENT
 	</div>
 	</section>
 	</section>
+<jsp:include
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 $(function() {
 	$( "#iduedate" ).datepicker({
@@ -276,5 +278,3 @@ $(function(){
 	$('#trigger-upload').attr('alt', "1");
 }); */
 </script>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
