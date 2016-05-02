@@ -86,4 +86,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE pno=#{pno} AND mstatement=001
     ]]>  
     </select>
+    
+    <select id="getCountAllIssue" parameterType="int" resultType="int">
+    <![CDATA[
+	SELECT COUNT(*)
+	FROM Issues
+	WHERE pno=#{pno}
+    ]]>  
+    </select>
 </mapper>

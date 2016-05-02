@@ -29,4 +29,6 @@ public interface MyProjectService {
 	public int getCountAllMilestone(int pno);
 
 	public double getCountClosedMilestone(int pno);
+
+	public int getcountAllIssue(int pno);
 }

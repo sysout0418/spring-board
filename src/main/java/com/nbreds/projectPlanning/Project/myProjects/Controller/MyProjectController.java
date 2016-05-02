@@ -1,5 +1,7 @@
 package com.nbreds.projectPlanning.Project.myProjects.Controller;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.common.Controller.CommonController;
 import com.nbreds.projectPlanning.Project.myProjects.Service.MyProjectService;
 
@@ -32,13 +33,29 @@ public class MyProjectController {
 		HashMap<String, Object> project = myProjectService.getProjectByPno(pno);
 		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
 		
+		//필요 기술 한글화
+		String[] pdata = ((String) project.get("pdata")).split(",");
+		List<String> pdatas = new ArrayList<>();
+		for (String code : pdata) {
+			pdatas.add(commonController.getCodeName(code));
+		}
+		
+		String date = commonController.calculateTime((Date)project.get("pregdate"));
+		project.put("regDate", date);
+		
+		//마일스톤으로 프로젝트 완료 퍼센테이지 계산
 		int countAllMilestone = myProjectService.getCountAllMilestone(pno);
 		double completeMilestonPercent = myProjectService.getCountClosedMilestone(pno);
 		project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
 		
+		//요청 멤버 데이터 model추가
 		if(request.size() > 0)		model.addAttribute("request", request);
 		else model.addAttribute("request", "none");
+		
+		model.addAttribute("countAllMilestone", countAllMilestone);
+		model.addAttribute("countAllIssue", myProjectService.getcountAllIssue(pno));
 		model.addAttribute("project", project);
+		model.addAttribute("pdatas", pdatas);
 		
 		return "/Project/myProjects/selectedProject";
 	}

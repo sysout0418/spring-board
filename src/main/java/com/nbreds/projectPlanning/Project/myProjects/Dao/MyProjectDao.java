@@ -47,4 +47,7 @@ public class MyProjectDao {
 	public void setRownum() {
 		sqlSession.selectOne("project.my.setRownum");
 	}
+	public int getcountAllIssue(int pno) {
+		return sqlSession.selectOne("project.my.getCountAllIssue", pno);
+	}
 }

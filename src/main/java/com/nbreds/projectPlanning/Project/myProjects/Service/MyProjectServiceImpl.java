@@ -49,4 +49,8 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public double getCountClosedMilestone(int pno) {
 		return myProjectsDao.getCountClosedMilestone(pno);
 	}
+	@Override
+	public int getcountAllIssue(int pno) {
+		return myProjectsDao.getcountAllIssue(pno);
+	}
 }
