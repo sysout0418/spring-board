@@ -27,7 +27,14 @@ MAIN CONTENT
 		action="/issues/regist" commandName="Issues" enctype="multipart/form-data">
 		<input type="hidden" value="${uno}" name="uno" id="uno">
 		<input type="hidden" value="${pno}" name="pno" id="pno">
-		<input type="hidden" value="" id="mno" name="mno">
+		<c:choose>
+			<c:when test="${!empty mno and !empty mtitle}">
+				<input type="hidden" value="${mno}" id="mno" name="mno">
+			</c:when>
+			<c:otherwise>
+				<input type="hidden" value="" id="mno" name="mno">
+			</c:otherwise>
+		</c:choose>
 		<!-- <input type="hidden" value="" name="iweight" id="iweight"> -->
 		<input type="hidden" value="2" name="lno" id="lno">
 		<c:forEach var="user" items="${allUserList}">
@@ -75,9 +82,17 @@ MAIN CONTENT
 			<div class="form-group">
 				<label for="inputMilestone" class="col-lg-2 control-label">Milestone</label>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default btn-width"
-						style="text-align: left; margin-left: 15px;"><span id="selectedMilestone">Select
-						Milestone</span></a> <a href="#" class="btn btn-default dropdown-toggle"
+					<a href="#" class="btn btn-default btn-width" style="text-align: left; margin-left: 15px;">
+						<c:choose>
+							<c:when test="${!empty mno and !empty mtitle}">
+								<span id="selectedMilestone">${mtitle}</span>
+							</c:when>
+							<c:otherwise>
+								<span id="selectedMilestone">Select Milestone</span>
+							</c:otherwise>
+						</c:choose>
+					</a> 
+					<a href="#" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"><span class="caret"
 						style="height: 10px; margin-top: 10px;"></span></a>
 					<a href="/${uno}/${pno}/milestones/new" class="btn btn-default" id="assigntome" style="margin-left: 10px;">Create New Milestone</a>

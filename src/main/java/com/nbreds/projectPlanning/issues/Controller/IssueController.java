@@ -155,11 +155,19 @@ public class IssueController {
 
 	// issues 등록 폼으로
 	@RequestMapping("/{uno}/{pno}/issues/new")
-	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, Model model) {
+	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, HttpServletRequest request, Model model) {
 		List<Label> labels = issuesService.getAllLabel();
 		List<User> userList = issuesService.getUserListByPno(pno);
 		List<User> allUserList = issuesService.getAllUserNameAndNo();
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
+		String mno = request.getParameter("mno");
+		String mtitle = request.getParameter("mtitle");
+		if (mno != null && mtitle != null) {
+			logger.info("mno : " + mno);
+			logger.info("mtitle : " + mtitle);
+			model.addAttribute("mno", mno);
+			model.addAttribute("mtitle", mtitle);
+		}
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("labels", labels);

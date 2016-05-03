@@ -83,9 +83,8 @@ MAIN CONTENT
 											maxIntegerDigits="1" /> closed ${completeIssuePercent}%
 										complete
 										<div style="float: right;">
-											<a href="/${uno}/${pno}/issues/new" class="btn btn-default">New
-												Issue</a> <a href="/${uno}/${pno}/issues/open"
-												class="btn btn-default">Browse Issue</a>
+											<a href="#" class="btn btn-default" id="goNewIssueByMno">New Issue</a>
+											<a href="/${uno}/${pno}/issues/open/search?userNo=&mno=${milestone.mno}&lno=" class="btn btn-default">Browse Issue</a>
 										</div>
 									</td>
 								</tr>
@@ -190,5 +189,20 @@ MAIN CONTENT
 				});
 			}
 		}).disableSelection();
+	});
+	
+	// 동적 form으로 mno 넘기기
+	$('#goNewIssueByMno').click( function() {
+		var $form = $('<form></form>');
+		$form.attr('action', '/${uno}/${pno}/issues/new');
+		$form.attr('method', 'post');
+		//$form.attr('target', 'iFrm');
+		$form.appendTo('body');
+     
+		var mno = $('<input type="hidden" value="${milestone.mno}" name="mno" id="mno">');
+		var mtitle = $('<input type="hidden" value="${milestone.mtitle}" name="mtitle" id="mtitle">');
+ 
+		$form.append(mno).append(mtitle);
+		$form.submit();
 	});
 </script>
