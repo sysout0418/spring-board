@@ -99,7 +99,6 @@ public class ListController {
 			for (String code : pdata) {
 				pdatas.add(commonController.getCodeName(code));
 			}
-
 			model.addAttribute("pdatas", pdatas);
 		}
 		
