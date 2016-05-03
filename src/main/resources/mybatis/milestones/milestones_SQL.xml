@@ -88,12 +88,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getJoinMilestones" parameterType="hashmap" resultType="com.nbreds.projectPlanning.milestones.VO.Milestone">
     <![CDATA[
-  	SELECT M.mno, M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
+  	  SELECT M.mno, M.mtitle, M.mstatement, M.mduedate, U.uname, P.pname
 	FROM Milestones M
 	LEFT join Project P on M.pno = P.pno
 	LEFT join User U on P.uno = U.uno
 	LEFT JOIN ProjectMemberStat S ON P.pno = S.pno
-	WHERE M.uno=#{uno} OR (S.uno=#{uno} AND S.stat='001')
+	WHERE (M.uno=#{uno} OR (S.uno=#{uno} AND S.stat='001'))
 	]]>
 	<if test="mstatement != null">
 	AND M.mstatement=#{mstatement}

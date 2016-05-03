@@ -101,7 +101,6 @@ MAIN CONTENT
 								<input type="hidden" id="uno" value="${uno}" />
 							</tbody>
 						</table>
-						<table>
 							<div role="tabpanel">
 								<!-- Nav tabs -->
 								<div class="tabbable-panel">
@@ -156,7 +155,6 @@ MAIN CONTENT
 										</ul>
 								</div>
 								</div>
-						</table>
 					</div>
 				</div>
 			</div>

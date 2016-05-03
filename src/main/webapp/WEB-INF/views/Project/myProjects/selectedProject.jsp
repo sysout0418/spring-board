@@ -100,7 +100,7 @@ MAIN CONTENT
 								</div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
-										<h4 class="timeline-title">${activity.tableName} '${activity.title}' 등록</h4>
+										<h4 class="timeline-title">${activity.tableName} '${activity.title}'</h4>
 									</div>
 									<p>
 										<small class="text-muted"><i
@@ -122,7 +122,7 @@ MAIN CONTENT
 									</div>
 									<div class="timeline-panel">
 										<div class="timeline-heading">
-											<h4 class="timeline-title">Project '${project.pname}' 등록</h4>
+											<h4 class="timeline-title">Project '${project.pname}'</h4>
 											<p>
 												<small class="text-muted"><i
 													class="glyphicon glyphicon-time"></i> Created ${project.pregdate}</small>
