@@ -96,66 +96,41 @@ a.cbtn:hover {
 }
 </style>
 
-<!-- <button class="btn btn-success btn-lg" data-toggle="modal"
-		data-target="#myModal">Launch Modal</button> -->
-
 <!-- Modal -->
-<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">로그인 실패!</h4>
+				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">아이디 또는 비밀번호가 틀렸습니다.</div>
+			<div class="modal-body">ID 또는 PASSWORD가 틀렸습니다.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
-</div> -->
+</div>
 
 <!-- Modal2 -->
-<div class="layer">
-	<div class="bg"></div>
-	<div id="layer2" class="pop-layer">
-		<div class="pop-container">
-			<div class="pop-conts">
-				<!--content //-->
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
-				</div>
-				<div class="modal-body">ID 또는 PASSWORD가 틀렸습니다.</div>
-				<div class="modal-footer">
-					<a href="#" class="btn btn-info" id="closeBtn">Close</a>
-				</div>
-				<!--// content-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
+			</div>
+			<div class="modal-body">등록되지 않은 사용자 입니다.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
 </div>
-
-<div class="layer3">
-	<div class="bg2"></div>
-	<div id="layer4" class="pop-layer">
-		<div class="pop-container">
-			<div class="pop-conts">
-				<!--content //-->
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
-				</div>
-				<div class="modal-body">가입되지 않은 ID 입니다.</div>
-				<div class="modal-footer">
-					<a href="#" class="btn btn-info" id="closeBtn">Close</a>
-				</div>
-				<!--// content-->
-			</div>
-		</div>
-	</div>
-</div>
-
 
 <div id="login-page">
 	<div class="container">
@@ -165,79 +140,17 @@ a.cbtn:hover {
 				<c:when test="${param.error != null}">
 					<script type="text/javascript">
 						$(document).ready(function() {
-							console.log("들어오나?");
-							//$('#myModal').modal('show');
-							var el = 'layer2';
-							var temp = $('#' + el);
-							var bg = temp.prev().hasClass('bg');	//dimmed 레이어를 감지하기 위한 boolean 변수
-
-							if(bg){
-								$('.layer').fadeIn();	//'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
-							}else{
-								temp.fadeIn();
-							}
-
-							// 화면의 중앙에 레이어를 띄운다.
-							if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-							else temp.css('top', '0px');
-							if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-							else temp.css('left', '0px');
-
-							temp.find('#closeBtn').click(function(e){
-								if(bg){
-									$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-								}else{
-									temp.fadeOut();
-								}
-								e.preventDefault();
-							});
-							
-							$('.layer .bg').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
-								$('.layer').fadeOut();
-								e.preventDefault();
-							});
+							$('#myModal').modal('show');
 						});
 					</script>
 				</c:when>
 				<c:when test="${param.error2 != null}">
 					<script type="text/javascript">
 						$(document).ready(function() {
-							console.log("들어오나?");
-							//$('#myModal').modal('show');
-							var el = 'layer4';
-							var temp = $('#' + el);
-							var bg = temp.prev().hasClass('bg2');	//dimmed 레이어를 감지하기 위한 boolean 변수
-
-							if(bg){
-								$('.layer3').fadeIn();	//'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
-							}else{
-								temp.fadeIn();
-							}
-
-							// 화면의 중앙에 레이어를 띄운다.
-							if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
-							else temp.css('top', '0px');
-							if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
-							else temp.css('left', '0px');
-
-							temp.find('#closeBtn').click(function(e){
-								if(bg){
-									$('.layer3').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-								}else{
-									temp.fadeOut();
-								}
-								e.preventDefault();
-							});
-							
-							$('.layer3 .bg2').click(function(e){	//배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
-								$('.layer3').fadeOut();
-								e.preventDefault();
-							});
+							$('#myModal2').modal('show');
 						});
 					</script>
 				</c:when>
-				<c:otherwise>
-				</c:otherwise>
 			</c:choose>
 			<h2 class="form-login-heading">sign in now</h2>
 			<div class="login-wrap">
