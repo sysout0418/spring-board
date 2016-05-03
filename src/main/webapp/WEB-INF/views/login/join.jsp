@@ -80,9 +80,9 @@ MAIN CONTENT
 					<button class="btn btn-theme" type="submit" style="width: 100px;">
 						<i class="fa fa-lock"></i> SIGN UP
 					</button>
-					<button type="button" class="btn btn-theme04" onclick="history.back(-1);" style="width: 100px;">
+					<a href="/loginForm" class="btn btn-theme04" style="width: 100px;">
 						<i class="fa fa-share" aria-hidden="true"></i> BACK
-					</button>
+					</a>
 				</div>
 			</div>
 		</form:form>
