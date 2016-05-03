@@ -34,13 +34,13 @@ public class MyProjectController {
 		List<HashMap<String, Object>> request = myProjectService.getRequestMember(pno);
 		
 		//필요 기술 한글화
-		if(project.get("pdata").equals(null)){
+		if(project.get("pdata") != ""){
 			String[] pdata = ((String) project.get("pdata")).split(",");
 			List<String> pdatas = new ArrayList<>();
 			for (String code : pdata) {
 				pdatas.add(commonController.getCodeName(code));
 			}
-
+	
 			model.addAttribute("pdatas", pdatas);
 		}
 		

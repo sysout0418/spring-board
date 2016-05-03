@@ -16,7 +16,6 @@ public class Project {
 	private List<String> pdevelopment;
 	private List<String> pdesign;
 	private List<String> pplanning;
-//	private String pprogress;
 	private int pprogress;
 	private String ltitle;
 	private String lbgcolor;
@@ -70,30 +69,20 @@ public class Project {
 		return pdevelopment;
 	}
 	public void setPdevelopment(List<String> pdevelopment) {
-		for (String tmp : pdevelopment)	this.pdata+="004"+tmp+",";	
 		this.pdevelopment = pdevelopment;
 	}
 	public List<String> getPdesign() {
 		return pdesign;
 	}
 	public void setPdesign(List<String> pdesign) {
-		for (String tmp : pdesign)		this.pdata+="005"+tmp+",";	
 		this.pdesign = pdesign;
 	}
 	public List<String> getPplanning() {
 		return pplanning;
 	}
 	public void setPplanning(List<String> pplanning) {
-		for (String tmp : pplanning)		this.pdata+="006"+tmp+",";	
 		this.pplanning = pplanning;
 	}
-//	public String getPprogress() {
-//		return pprogress;
-//	}
-//	public void setPprogress(String pprogress) {
-//		this.pprogress = pprogress;
-//		this.pdata += pprogress+",";
-//	}
 	public String getUname() {
 		return uname;
 	}
