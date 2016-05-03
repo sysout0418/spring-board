@@ -99,7 +99,7 @@ MAIN CONTENT
 													style="cursor: pointer;">
 													<td>${project.rowNum}</td>
 													<td><a href="#">${project.pname}</a><br>
-													<small>Closing date ${project.pduedate}</small></td>
+													<small>Created ${project.pregdate}</small></td>
 													<td class="hidden-phone">
 														<div class="progress">
 															<div class="progress-bar progress-bar-success"

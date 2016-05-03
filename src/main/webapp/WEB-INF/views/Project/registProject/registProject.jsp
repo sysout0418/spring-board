@@ -143,19 +143,19 @@ a.cbtn:hover {
 										style="width: 200px; vertical-align: middle; text-align: center;"
 										class="active">개발</td>
 									<td colspan="2"><form:checkboxes path="pdevelopment"
-											items="${development}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+											items="${development}" itemValue="CODE" itemLabel="CODE_NAME"/></td>
 								</tr>
 								<tr>
 									<td class="active"
 										style="vertical-align: middle; text-align: center;">디자인/퍼블리싱</td>
 									<td colspan="2"><form:checkboxes path="pdesign"
-											items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+											items="${design}" itemValue="CODE" itemLabel="CODE_NAME"/></td>
 								</tr>
 								<tr>
 									<td class="active"
 										style="vertical-align: middle; text-align: center;">기획/컨설턴트</td>
 									<td colspan="2"><form:checkboxes path="pplanning"
-											items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
+											items="${planning}" itemValue="CODE" itemLabel="CODE_NAME"/></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="active"
