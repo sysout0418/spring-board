@@ -148,7 +148,6 @@ public class FileUtils {
 
 		int mno = milestone.getMno();
 		int uno = (int) request.getSession().getAttribute("user_no");
-		System.out.println("uno >> " +uno);
 
 		while (iterator.hasNext()) {
 			multipartFile = multipartHttpServletRequest.getFile(iterator.next());

@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SET @rownum2:=0
     ]]>  
     </select>
+    
 	<select id="get5Projects" resultType="hashmap">
     <![CDATA[
    	SELECT @rownum2:=@rownum2+1 as rownum2, P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
@@ -22,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE P.uno = U.uno
 	ORDER BY P.pregdate DESC
 	LIMIT 5
-    ]]>  
+    ]]>
     </select>
     
     <select id="get5Users" resultType="hashmap">

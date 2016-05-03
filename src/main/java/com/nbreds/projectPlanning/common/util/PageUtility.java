@@ -63,11 +63,6 @@ public class PageUtility {
 		if (lastpagecount > totalpagecount)
 			lastpagecount = totalpagecount + 1;
 
-		System.out.println("firstpagecount:" + firstpagecount);
-		System.out.println("lastpagecount:" + lastpagecount);
-		System.out.println("beforetenpage:" + beforetenpage);
-		System.out.println("nexttenpage:" + nexttenpage);
-
 		// 맨 첫페이지 link 처리
 		if (currentpagecount > pagePercount) // 현재 표시하는 페이지가 pagePercount보다 크면
 												// 첫페이지로 갈수 있으므로 첫페이지로 링크

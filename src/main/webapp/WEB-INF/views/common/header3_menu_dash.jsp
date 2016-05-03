@@ -10,7 +10,7 @@ MAIN SIDEBAR MENU
         <!-- sidebar menu start-->
        <ul class="sidebar-menu" id="nav-accordion">
        
-       	  <p class="centered"><a href="profile.html"><img src="<c:url value="/resources/img/ui-sam.jpg" />" class="img-circle" width="60"></a></p>
+       	  <p class="centered"><a href="#"><img src="<c:url value="/resources/img/ui-sam.jpg" />" class="img-circle" width="60"></a></p>
        	  <sec:authentication var="user" property="principal" />
        	  <h5 class="centered">${user.username}</h5>
            <li class="mt">
