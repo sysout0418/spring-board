@@ -142,7 +142,7 @@ a.cbtn:hover {
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">등록되지 않은 사용자 입니다.</div>
+			<div class="modal-body">ID 또는 PASSWORD가 틀렸습니다.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
