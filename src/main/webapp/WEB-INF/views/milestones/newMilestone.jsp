@@ -14,6 +14,10 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> New Milestones
 		</h3>
+		<div class="col-lg-12">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content-panel">
 		<form:form method="post" action="/milestones/regist"
 			commandName="milestone" enctype="multipart/form-data">
 			<table class="table">
@@ -45,6 +49,10 @@ MAIN CONTENT
 				</tr>
 			</table>
 		</form:form>
+		</div>
+		</div>
+		</div>
+		</div>
 	</section>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

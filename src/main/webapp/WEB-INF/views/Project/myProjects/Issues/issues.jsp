@@ -13,7 +13,7 @@ MAIN CONTENT
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
-			<i class="fa fa-angle-right"></i> ${pname}_Issues
+			<i class="fa fa-angle-right"></i> Project #${pno} / Issues
 		</h3>
 		<div class="col-lg-12">
 			<div class="row">
@@ -30,8 +30,10 @@ MAIN CONTENT
 											href="/${uno}/${pno}/issues/closed">Closed</a></li>
 										<li <c:if test="${stat=='all'}"> class="active"</c:if>><a
 											href="/${uno}/${pno}/issues/all">All</a></li>
+										<div style="text-align: right">
 										<li><a href="/${uno}/${pno}/issues/new"
 											class="btn btn-success">New Issues</a></li>
+										</div>
 									</ul>
 								</div>
 							</div>

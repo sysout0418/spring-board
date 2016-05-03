@@ -13,7 +13,7 @@ MAIN CONTENT
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
-			<i class="fa fa-angle-right"></i> ${pname}_Milestones
+			<i class="fa fa-angle-right"></i> Project #${pno} / Milestone
 		</h3>
 		<div class="col-lg-12">
 			<div class="row">
@@ -30,15 +30,23 @@ MAIN CONTENT
 											href="/${uno}/${pno}/milestones/closed">Closed</a></li>
 										<li <c:if test="${stat=='all'}"> class="active"</c:if>><a
 											href="/${uno}/${pno}/milestones/all">All</a></li>
+										<div style="text-align: right">
 										<li><a href="/${uno}/${pno}/milestones/new"
 											class="btn btn-success">New Milestone</a></li>
+										</div>
 									</ul>
 								</div>
 							</div>
 						</div>
-						<table class="table">
+						<table class="table table-hover">
+							<c:if test="${list == 'none'}">
+                        	<tr style="height: 100px"><td colspan="6" style="text-align: center; vertical-align: middle;">
+                        	No milestones to show
+                        	</td></tr>
+                        	</c:if>
+                        	<c:if test="${list != 'none'}">
 							<c:forEach var="milestone" items="${list}">
-								<tr>
+								<tr onclick="location.href='/${uno}/${pno}/milestone/${milestone.mno}'" style="cursor: pointer;">
 									<td
 										<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 										<a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br />
@@ -65,6 +73,7 @@ MAIN CONTENT
 									</td>
 								</tr>
 							</c:forEach>
+							</c:if>
 						</table>
 					</div>
 				</div>

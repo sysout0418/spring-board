@@ -33,7 +33,7 @@ MAIN CONTENT
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
-			<i class="fa fa-angle-right"></i> Milestone #${milestone.mno} / ${milestone.mtitle}
+			<i class="fa fa-angle-right"></i> Milestone #${milestone.mno}_${milestone.mtitle}
 		</h3>
 		<div class="col-lg-12">
 			<div class="row">

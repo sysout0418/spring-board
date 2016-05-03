@@ -91,7 +91,8 @@ public class MilestonesController {
 		
 		model.addAttribute("stat", stat);
 		model.addAttribute("pname", pname);
-		model.addAttribute("list", list);
+		if(list.size() > 0)	model.addAttribute("list", list);
+		else model.addAttribute("list", "none");
 
 		return "/Project/myProjects/Milestones/milestones";
 	}
@@ -130,13 +131,7 @@ public class MilestonesController {
 		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) * 100); // 완료 percentage
 
 		List<Issue> issues = milestonesService.getIssuesBymno(mno);
-		HashSet<String> uname = new HashSet<>();
-		for (Issue issue : issues) {
-			if (issue.getUno() != 0) {
-				String param = String.valueOf(issue.getUno());
-				uname.add(milestonesService.getUnameByUno(param));
-			}
-		}
+		
 		// mno로 파일 리스트 불러오기
 		List<Files> fileList = milestonesService.getFileListByMno(mno);
 
@@ -145,8 +140,6 @@ public class MilestonesController {
 		model.addAttribute("countClosedIssues", countClosedIssues);
 		model.addAttribute("completeIssuePercent", completeIssuePercent);
 		model.addAttribute("issues", issues);
-		model.addAttribute("unameSize", uname.size());
-		model.addAttribute("uname", uname);
 		model.addAttribute("milestone", milestone);
 		model.addAttribute("fileList", fileList);
 
