@@ -42,7 +42,6 @@ MAIN CONTENT
 				<div class="col-md-12">
 					<div class="content-panel">
 						<table class="table">
-							<tbody>
 								<tr>
 									<td><c:if test="${milestone.mstatement=='000'}">
 											<span class="label label-success">Open</span>
@@ -100,62 +99,67 @@ MAIN CONTENT
 									</td>
 								</tr>
 								<input type="hidden" id="uno" value="${uno}" />
-							</tbody>
 						</table>
+					</div>
+					<div class="content-panel">
+						<table class="table">
 							<div role="tabpanel">
 								<!-- Nav tabs -->
 								<div class="tabbable-panel">
-								<div class="tabbable-line">
-									<ul class="nav nav-tabs">
-									<li class="active"><a href="#issues"
-										aria-controls="home" role="tab" data-toggle="tab">Issues <span
-											class="badge">${countIssues}</span>
-									</a></li>
+									<div class="tabbable-line">
+										<ul class="nav nav-tabs">
+											<li class="active"><a href="#issues"
+												aria-controls="home" role="tab" data-toggle="tab">Issues
+													<span class="badge">${countIssues}</span>
+											</a></li>
+										</ul>
+									</div>
+
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="issues">
+											<ul id="unstarted1" class="connectedSortable">
+												<li class="ui-state-default ui-state-disabled">Unstarted
+													Issues (open and unassigned)</li>
+												<li class="ui-state-default ui-state-disabled">Drag and
+													drop available</li>
+												<c:forEach var="issue" items="${issues}">
+													<c:if
+														test="${issue.istatement == '000' && issue.uno == ''}">
+														<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
+													</c:if>
+												</c:forEach>
+											</ul>
+
+											<ul id="unstarted2" class="connectedSortable">
+												<li class="ui-state-default ui-state-disabled">Unstarted
+													Issues (open and assigned)</li>
+												<li class="ui-state-default ui-state-disabled">Drag and
+													drop available</li>
+												<c:forEach var="issue" items="${issues}">
+													<c:if
+														test="${issue.istatement == '000' && issue.uno != ''}">
+														<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
+													</c:if>
+												</c:forEach>
+											</ul>
+
+											<ul id="completed" class="connectedSortable">
+												<li class="ui-state-default ui-state-disabled">Completed
+													Issues (closed)</li>
+												<li class="ui-state-default ui-state-disabled">Drag and
+													drop available</li>
+												<c:forEach var="issue" items="${issues}">
+													<c:if test="${issue.istatement == '001'}">
+														<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
+													</c:if>
+												</c:forEach>
+											</ul>
 										</div>
-									</ul>
+									</div>
 								</div>
 							</div>
-
-								<!-- Tab panes -->
-								<div class="tab-content">
-									<div role="tabpanel" class="tab-pane active" id="issues">
-										<ul id="unstarted1" class="connectedSortable">
-											<li class="ui-state-default ui-state-disabled">Unstarted
-												Issues (open and unassigned)</li>
-											<li class="ui-state-default ui-state-disabled">Drag and
-												drop available</li>
-											<c:forEach var="issue" items="${issues}">
-												<c:if test="${issue.istatement == '000' && issue.uno == ''}">
-													<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
-												</c:if>
-											</c:forEach>
-										</ul>
-
-										<ul id="unstarted2" class="connectedSortable">
-											<li class="ui-state-default ui-state-disabled">Unstarted
-												Issues (open and assigned)</li>
-											<li class="ui-state-default ui-state-disabled">Drag and
-												drop available</li>
-											<c:forEach var="issue" items="${issues}">
-												<c:if test="${issue.istatement == '000' && issue.uno != ''}">
-													<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
-												</c:if>
-											</c:forEach>
-										</ul>
-
-										<ul id="completed" class="connectedSortable">
-											<li class="ui-state-default ui-state-disabled">Completed
-												Issues (closed)</li>
-											<li class="ui-state-default ui-state-disabled">Drag and
-												drop available</li>
-											<c:forEach var="issue" items="${issues}">
-												<c:if test="${issue.istatement == '001'}">
-													<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
-												</c:if>
-											</c:forEach>
-										</ul>
-								</div>
-								</div>
+						</table>
 					</div>
 				</div>
 			</div>
