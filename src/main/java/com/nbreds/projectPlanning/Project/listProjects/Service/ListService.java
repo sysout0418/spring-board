@@ -47,5 +47,9 @@ public interface ListService {
 	public double getCountClosedMilestone(int pno);
 
 	public List<HashMap<String, Object>> getRequestMember(int pno);
+
+	public List<HashMap<String, Object>> getActivityByPno(int pno);
+
+	public int getcountAllIssue(int pno);
 	
 }

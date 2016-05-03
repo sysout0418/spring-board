@@ -153,4 +153,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE S.uno = U.uno AND S.stat=C.CODE AND C.CODE_TYPE=010 AND S.pno=#{pno}
     ]]>  
     </select>
+    
+    <select id="getCountAllIssue" parameterType="int" resultType="int">
+    <![CDATA[
+	SELECT COUNT(*)
+	FROM Issues
+	WHERE pno=#{pno}
+    ]]>  
+    </select>
+    
+   	<select id="getActivityByPno" parameterType="int" resultType="hashmap">
+    <![CDATA[
+	SELECT 'Milestone' AS tableName, M.mtitle AS title, U.uname, M.mregdate AS regdate
+	FROM Milestones M, User U
+	WHERE M.pno=#{pno} AND M.uno = U.uno
+	UNION ALL
+	SELECT 'Issue' AS tableName, I.ititle AS title, U.uname, I.iregdate AS regdate
+	FROM Issues I, User U
+	WHERE I.pno=#{pno} AND I.uno = U.uno
+	ORDER BY regdate DESC
+    ]]>  
+    </select>
 </mapper>

@@ -92,16 +92,31 @@ public class ListController {
 		HashMap<String, Object> project = listService.getProjectByPno(pno);
 		List<HashMap<String, Object>> request = listService.getRequestMember(pno);
 		
+		//필요 기술 한글화
+		String[] pdata = ((String) project.get("pdata")).split(",");
+		List<String> pdatas = new ArrayList<>();
+		for (String code : pdata) {
+			pdatas.add(commonController.getCodeName(code));
+		}
+		
+		//마일스톤으로 프로젝트 완료 퍼센테이지 계산
 		int countAllMilestone = listService.getCountAllMilestone(pno);
 		double completeMilestonPercent = listService.getCountClosedMilestone(pno);
 		project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
 		
+		//요청 멤버 데이터 model추가
 		if(request.size() > 0)		model.addAttribute("request", request);
 		else model.addAttribute("request", "none");
 		
-		model.addAttribute("project", project);
+		//Activity불러오기
+		List<HashMap<String, Object>> activities = listService.getActivityByPno(pno);
+		model.addAttribute("activity", activities);
 		
-		model.addAttribute("uno", session.getAttribute("user_no"));
+		model.addAttribute("countAllMilestone", countAllMilestone);
+		model.addAttribute("countAllIssue", listService.getcountAllIssue(pno));
+		model.addAttribute("project", project);
+		model.addAttribute("pdatas", pdatas);
+		
 		return "Project/listProjects/detailProject";
 	}
 	

@@ -117,4 +117,14 @@ public class ListServiceImpl implements ListService {
 	public List<HashMap<String, Object>> getRequestMember(int pno) {
 		return listDao.getRequestMember(pno);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> getActivityByPno(int pno) {
+		return listDao.getActivityByPno(pno);
+	}
+
+	@Override
+	public int getcountAllIssue(int pno) {
+		return listDao.getcountAllIssue(pno);
+	}
 }

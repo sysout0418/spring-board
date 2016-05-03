@@ -86,4 +86,12 @@ public class ListDao {
 	public List<HashMap<String, Object>> getRequestMember(int pno) {
 		return sqlSession.selectList("project.list.getRequestMember", pno);
 	}
+
+	public List<HashMap<String, Object>> getActivityByPno(int pno) {
+		return sqlSession.selectList("project.list.getActivityByPno", pno);
+	}
+
+	public int getcountAllIssue(int pno) {
+		return sqlSession.selectOne("project.list.getCountAllIssue", pno);
+	}
 }
