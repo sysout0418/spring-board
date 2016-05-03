@@ -351,4 +351,5 @@ function selectChkRow() {
 	}
 	$('#requestUserNoList').val(rowid);
 	$('#requestUserNameList').val(rowName);
+}
 </script>
