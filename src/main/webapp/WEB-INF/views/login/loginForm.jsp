@@ -97,7 +97,7 @@ a.cbtn:hover {
 </style>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -106,7 +106,7 @@ a.cbtn:hover {
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">ID 또는 PASSWORD가 틀렸습니다.</div>
+			<div class="modal-body">이미 탈퇴한 회원입니다. 관리자에게 문의하세요.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
@@ -116,6 +116,42 @@ a.cbtn:hover {
 
 <!-- Modal2 -->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
+			</div>
+			<div class="modal-body">가입 승인되지 않은 ID 입니다. 관리자에게 문의하세요.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
+			</div>
+			<div class="modal-body">등록되지 않은 사용자 입니다.</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -137,17 +173,35 @@ a.cbtn:hover {
 		<c:url value="/login" var="login" />
 		<form:form cssClass="form-login" action="${login}" method="post">
 			<c:choose>
-				<c:when test="${param.error != null}">
+				<c:when test="${param.error1 != null}">
 					<script type="text/javascript">
+						// 가입 승인 안된 경우
 						$(document).ready(function() {
-							$('#myModal').modal('show');
+							$('#myModal1').modal('show');
 						});
 					</script>
 				</c:when>
 				<c:when test="${param.error2 != null}">
 					<script type="text/javascript">
+						// 탈퇴한 유저인 경우
 						$(document).ready(function() {
 							$('#myModal2').modal('show');
+						});
+					</script>
+				</c:when>
+				<c:when test="${param.error3 != null}">
+					<script type="text/javascript">
+						// 암호 틀린 경우
+						$(document).ready(function() {
+							$('#myModal3').modal('show');
+						});
+					</script>
+				</c:when>
+				<c:when test="${param.error4 != null}">
+					<script type="text/javascript">
+						// 아이디 존재하지 않는 경우
+						$(document).ready(function() {
+							$('#myModal4').modal('show');
 						});
 					</script>
 				</c:when>

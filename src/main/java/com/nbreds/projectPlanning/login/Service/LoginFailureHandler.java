@@ -28,10 +28,20 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		Map<String, Object> userInfo = userService.getUserInfo();
 		if (userInfo != null) {
 			logger.info("아이디는 존재하는 경우");
-			response.sendRedirect("/loginForm?error");
+			int enabled = (int) userInfo.get("enabled");
+			String expired = (String) userInfo.get("expired");
+			logger.info("enabled: " + enabled);
+			logger.info("expired: " + expired);
+			if (enabled == 0 && expired.equals("Y")) {
+				response.sendRedirect("/loginForm?error1");
+			} else if (enabled == 0 && expired.equals("N")) {
+				response.sendRedirect("/loginForm?error2");
+			} else {
+				response.sendRedirect("/loginForm?error3");
+			}
 		} else {
-			logger.info("아이디도 존재하지 않는 경우");
-			response.sendRedirect("/loginForm?error2");
+			logger.info("아이디가 존재하지 않는 경우");
+			response.sendRedirect("/loginForm?error4");
 		}
 	}
 
