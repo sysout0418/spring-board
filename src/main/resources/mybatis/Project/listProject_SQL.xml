@@ -47,6 +47,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </delete>
     
+    <select id="getUpdateProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
+    <![CDATA[
+	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno, lno
+	FROM Project
+	WHERE pno= #{pno}
+    ]]>  
+    </select>
+    
     <update id="updateProject" parameterType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
     UPDATE Project SET
@@ -61,9 +69,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         
     <select id="getUserForNo" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
     <![CDATA[
-    select uno, uname, uphoneno, udepartment, uemail
-    from User
-    where uno=#{uno}
+    select uname, uphoneno, C.CODE_NAME AS udepartment, uemail
+    from User U, CodeTable C
+    where uno=#{uno} AND C.CODE_TYPE='002' AND C.CODE=U.udepartment
     ]]>  
     </select>
     

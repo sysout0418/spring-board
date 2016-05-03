@@ -94,4 +94,8 @@ public class ListDao {
 	public int getcountAllIssue(int pno) {
 		return sqlSession.selectOne("project.list.getCountAllIssue", pno);
 	}
+
+	public Project getUpdateProjectByPno(int pno) {
+		return sqlSession.selectOne("project.list.getUpdateProjectByPno", pno);
+	}
 }

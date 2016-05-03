@@ -54,7 +54,7 @@ MAIN CONTENT
                              	<td>${project.uname}</td>
                              	<td>
 	                               	<a href="/${project.uno}/${project.pno}" class="btn btn-success btn-xs" role="button"><i class="fa fa-check"></i></a>
-                                 	<a href="/update?pno=${project.pno}" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
+                                 	<a href="/update/${project.pno}" class="btn btn-primary btn-xs" role="button"><i class="fa fa-pencil"></i></a>
                                  	<a href="/DeleteProject?pno=${project.pno}" class="btn btn-danger btn-xs" role="button"><i class="fa fa-trash-o "></i></a>
                             	</td>
                           </tr>

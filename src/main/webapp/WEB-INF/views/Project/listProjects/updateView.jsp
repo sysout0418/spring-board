@@ -123,8 +123,7 @@ MAIN CONTENT
 		<p>
 			<strong>프로젝트 키워드</strong>
 		</p>
-		<form:form method="POST" action="update" commandName="project">
-			<%-- <input type="hidden" id="pmember" name="pmember" value="${project.pmember }"> --%>
+		<form:form method="POST" action="/update" commandName="project">
 			<% 
 			String userNos = "";
 			String userNames = "";
@@ -146,7 +145,7 @@ MAIN CONTENT
 			<table class="table">
 				<tr>
 					<td colspan="2" style="width: 500px">프로젝트 명</td>
-					<td style="width: 300px" colspan="2"><form:input path="pname"
+					<td style="width: 300px" colspan="2"><form:input path="pname" 
 							class="form-control" required="required" /></td>
 				</tr>
 				<tr>
@@ -186,7 +185,7 @@ MAIN CONTENT
 				<tr>
 					<td colspan="2">모집마감일자</td>
 					<td><form:input path="pduedate" id="datepicker"
-							required="required" /></td>
+											name="datepicker" required="required" /></td>
 				</tr>
 				<tr>
 					<td colspan="2">프로젝트 요청</td>
@@ -263,6 +262,7 @@ $(function() {
 	}
 	
 });
+
 
 function layer_open(el){
 
@@ -351,69 +351,4 @@ function selectChkRow() {
 	}
 	$('#requestUserNoList').val(rowid);
 	$('#requestUserNameList').val(rowName);
-	//alert(rowName);
-	//alert(rowid);
-}
-
-<%-- $(function () {
-	var pmember = $("#pmember").val().substring(0, $("#pmember").val().length - 1).split(",");
-	var userNames = "";
-	var splitedUserNames = {};
-	if (pmember.length > 0)	{
-	<% for (int i = 0; i < userInfoList.size(); i++) { %>
-		for (var j = 0; j < pmember.length; j++) {
-			if (pmember[j] != null) {
-				if (pmember[j] == <%= userInfoList.get(i).getUno() %>) {								
-					userNames += "<%= userInfoList.get(i).getUname() + "," %>"
-				}
-			}
-		}
-	<% } %>
-	}
-	splitedUserNames = userNames.substring(0, userNames.length - 1).split(",");
-	console.log(pmember);
-	console.log(userNames);
-	console.log(splitedUserNames);
-	$(".text-tags").empty();
-	if (!userNames == "") {
-		for (var i = 0; i < splitedUserNames.length; i++) {
-			$(".text-tags").append('<div class="text-tag"><div class="text-button"><span class="text-label">' 
-					+ splitedUserNames[i] + '</span><a class="text-remove"></a><br><br><br><br><br></div></div>');
-		}
-	}
-}); --%>
-
-/* $('#textarea')
-      .textext({
-          plugins : 'autocomplete filter tags ajax',
-          ajax : {
-              url : '/nameList',
-              dataType : 'json',
-              cacheResults : true
-          }
-      }); */
-  
-/* $(function () {
-	$('#submit').click(handler);
-	$("form").validate();
-}); */
-  
-/* $(function () {
-	$(".text-remove").click(handler);
-}); */
-  
-<%-- function handler() {
-	var uno = "";
-	$(".text-button > .text-label").each(function() {
-		var userName = $(this).text();
-		if (userName != null && userName != "") {
-			<% for (int i = 0; i < userInfoList.size(); i++) { %>
-				if (userName == "<%= userInfoList.get(i).getUname() %>") {								
-					uno += "<%= userInfoList.get(i).getUno() + "," %>";
-				}
-			<% } %>
-		}
-	});
-	$("#pmember").val(uno);
-}	 --%>
 </script>
