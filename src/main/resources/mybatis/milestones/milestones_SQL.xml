@@ -210,4 +210,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE fno = #{fno}
     ]]>
 	</update>
+	
+	<!-- 마일스톤 카운트 -->
+	<select id="getMilestoneCnt" parameterType="Map" resultType="int">
+	<![CDATA[
+	SELECT COUNT(mno)
+	FROM Milestones
+	WHERE pno = #{pno} AND mstatement = #{mstatement}
+	]]>
+	</select>
 </mapper>

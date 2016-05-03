@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -69,6 +70,25 @@ public class MilestonesController {
 			@PathVariable("statement") String stat, Model model) {
 		List<Milestone> list;
 		HashMap<String, Object> param = new HashMap<>();
+		
+		int milestoneOpenCnt = 0;
+		int milestoneClosedCnt = 0;
+		for (int i = 0; i < 2; i++) {
+			Map<String, Object> param2 = new HashMap<String, Object>();
+			param2.put("pno", pno);
+			if (i == 0) {
+				param2.put("mstatement", "000");
+				milestoneOpenCnt = milestonesService.getMilestoneCnt(param2);
+				logger.info("milestoneOpenCnt : " + milestoneOpenCnt);
+			} else {
+				param2.put("mstatement", "001");
+				milestoneClosedCnt = milestonesService.getMilestoneCnt(param2);
+				logger.info("milestoneClosedCnt : " + milestoneClosedCnt);
+			}
+		}
+		int milestoneAllCnt = milestoneOpenCnt + milestoneClosedCnt;
+		logger.info("issueAllCnt : " + milestoneAllCnt);
+		
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("mstatement", "000");
@@ -91,6 +111,9 @@ public class MilestonesController {
 		
 		model.addAttribute("stat", stat);
 		model.addAttribute("pname", pname);
+		model.addAttribute("milestoneOpenCnt", milestoneOpenCnt);
+		model.addAttribute("milestoneClosedCnt", milestoneClosedCnt);
+		model.addAttribute("milestoneAllCnt", milestoneAllCnt);
 		if(list.size() > 0)	model.addAttribute("list", list);
 		else model.addAttribute("list", "none");
 

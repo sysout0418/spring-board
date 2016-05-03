@@ -25,11 +25,11 @@ MAIN CONTENT
 								<div class="tabbable-line">
 									<ul class="nav nav-tabs">
 										<li <c:if test="${stat=='open'}"> class="active"</c:if>><a
-											href="/${uno}/${pno}/issues/open">Open</a></li>
+											href="/${uno}/${pno}/issues/open">Open <span class="badge">${issueOpenCnt}</span></a></li>
 										<li <c:if test="${stat=='closed'}"> class="active"</c:if>><a
-											href="/${uno}/${pno}/issues/closed">Closed</a></li>
+											href="/${uno}/${pno}/issues/closed">Closed <span class="badge">${issueClosedCnt}</span></a></li>
 										<li <c:if test="${stat=='all'}"> class="active"</c:if>><a
-											href="/${uno}/${pno}/issues/all">All</a></li>
+											href="/${uno}/${pno}/issues/all">All <span class="badge">${issueAllCnt}</span></a></li>
 										<div style="text-align: right">
 										<li><a href="/${uno}/${pno}/issues/new"
 											class="btn btn-success">New Issues</a></li>

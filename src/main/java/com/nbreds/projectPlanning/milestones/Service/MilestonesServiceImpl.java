@@ -160,4 +160,9 @@ public class MilestonesServiceImpl implements MilestonesService{
 		milestonesdao.updateFile(param);
 	}
 
+	@Override
+	public int getMilestoneCnt(Map<String, Object> param) {
+		return milestonesdao.getMilestoneCnt(param);
+	}
+
 }

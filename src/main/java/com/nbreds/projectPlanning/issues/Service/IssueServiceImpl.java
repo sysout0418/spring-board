@@ -255,4 +255,9 @@ public class IssueServiceImpl implements IssueService {
 	public void updateMilestoneByIno(Map<String, Object> param) {
 		issueDao.updateMilestoneByIno(param);
 	}
+
+	@Override
+	public int getIssueCnt(Map<String, Object> param) {
+		return issueDao.getIssueCnt(param);
+	}
 }
