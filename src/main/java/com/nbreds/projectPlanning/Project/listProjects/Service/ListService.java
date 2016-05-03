@@ -51,5 +51,7 @@ public interface ListService {
 	public List<HashMap<String, Object>> getActivityByPno(int pno);
 
 	public int getcountAllIssue(int pno);
+
+	public Project getUpdateProjectByPno(int pno);
 	
 }

@@ -169,7 +169,7 @@ MAIN CONTENT
 							style="background-color: ${project.lbgcolor};">${project.ltitle}</span><br/><br/>
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
 							<a id="add-regular" class="btn btn-default btn-sm"
-								href="/update?pno=${project.pno}">EDIT</a>
+								href="/update/${project.pno}">EDIT</a>
 							<a id="add-regular" class="btn btn-default btn-sm"
 								href="/DeleteProject?pno=${project.pno}">DELETE</a>
 						</sec:authorize>

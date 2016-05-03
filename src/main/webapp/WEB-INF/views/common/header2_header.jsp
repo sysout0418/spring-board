@@ -11,7 +11,7 @@ TOP BAR CONTENT & NOTIFICATIONS
 				data-original-title="Toggle Navigation"></div>
 		</div>
 		<!--logo start-->
-		<a href="/" class="logo"><b>DASHBOARD</b></a>
+		<a href="/" class="logo"><b>BIDDING</b></a>
 		<!--logo end-->
 		<div class="nav notify-row" id="top_menu">
 			<!--  notification start -->

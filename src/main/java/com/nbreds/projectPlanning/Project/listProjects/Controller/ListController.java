@@ -93,7 +93,7 @@ public class ListController {
 		List<HashMap<String, Object>> request = listService.getRequestMember(pno);
 		
 		//필요 기술 한글화
-		if(project.get("pdata").equals(null)){
+		if(project.get("pdata") != ""){
 			String[] pdata = ((String) project.get("pdata")).split(",");
 			List<String> pdatas = new ArrayList<>();
 			for (String code : pdata) {
@@ -127,34 +127,32 @@ public class ListController {
 	public String  DeleteProject(int pno) {
 		listService.removeProject(pno);
 		
-		return "redirect:/list";
+		return "redirect:/";
 	}
 	
 	//프로젝트 수정페이지
-	@RequestMapping(value = "update", method = RequestMethod.GET)
-	public String  UpdateView(int pno, Model model, HttpServletRequest request, @ModelAttribute("project") HashMap<String, Object> project) {
-		project = listService.getProjectByPno(pno);
+	@RequestMapping(value = "update/{pno}", method = RequestMethod.GET)
+	public String  UpdateView(@PathVariable("pno") int pno, Model model, HttpServletRequest request, @ModelAttribute("project") Project project) {
+		project = listService.getUpdateProjectByPno(pno);
 		List<User> allUserList = listService.getAllUser();
 		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserList(pno);
-		List<String> skills = (List<String>)commonController.getCodeForCodeType((String)project.get("pdata"), "skills");
 		
 		List<String> dev = new ArrayList<>();
 		List<String> design = new ArrayList<>();
 		List<String> plan = new ArrayList<>();
-		
-		for(int i=0; i<skills.size(); i++){
-			if(skills.get(i).substring(0, 3).equals("004"))	dev.add(skills.get(i).substring(3, 6));
-			if(skills.get(i).substring(0, 3).equals("005"))	design.add(skills.get(i).substring(3, 6));
-			if(skills.get(i).substring(0, 3).equals("006"))	plan.add(skills.get(i).substring(3, 6));
+		if(project.getPdata() != ""){
+			String[] pdata = project.getPdata().split(",");
+			for (String tmp : pdata) {
+				if(tmp.substring(0, 3).equals("004"))	dev.add(tmp.substring(3, 6));
+				if(tmp.substring(0, 3).equals("005"))	design.add(tmp.substring(3, 6));
+				if(tmp.substring(0, 3).equals("006"))	plan.add(tmp.substring(3, 6));
+			}
+			project.setPdevelopment(dev);
+			project.setPdesign(design);
+			project.setPplanning(plan);
 		}
 		
-		project.put("pdevelopment", dev);
-		project.put("pdesign", dev);
-		project.put("pplanning", dev);
-		
-		
-		int uno = (int) project.get("uno");
-		User user = listService.getUserForNo(uno);
+		User user = listService.getUserForNo(project.getUno());
 		if (model != null) {
 			model.addAttribute("project", project);
 			model.addAttribute("user",user);
@@ -167,13 +165,19 @@ public class ListController {
 	}
 	
 	//프로젝트 수정
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result) {
-		logger.info("pdata : "+project.getPdata());
 		String requestUserNoList = request.getParameter("requestUserNoList");
+		
+		//pdata입력
+		String pdata = "";
+		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
+		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
+		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
+		project.setPdata(pdata);
 		listService.updateProject(project, requestUserNoList);
 		
-		return "redirect:/DetailProject/"+project.getPno();
+		return "redirect:/"+project.getUno()+"/"+project.getPno();
 	}
 		
 	@ModelAttribute("development")

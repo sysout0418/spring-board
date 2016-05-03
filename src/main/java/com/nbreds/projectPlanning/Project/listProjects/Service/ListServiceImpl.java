@@ -127,4 +127,9 @@ public class ListServiceImpl implements ListService {
 	public int getcountAllIssue(int pno) {
 		return listDao.getcountAllIssue(pno);
 	}
+
+	@Override
+	public Project getUpdateProjectByPno(int pno) {
+		return listDao.getUpdateProjectByPno(pno);
+	}
 }

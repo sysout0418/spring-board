@@ -42,10 +42,16 @@ public class RegistController {
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String RegistProcess(@ModelAttribute("project") Project project, BindingResult result,
 			HttpServletRequest request, HttpSession session) {
+		String pdata = "";
+		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
+		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
+		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
+		project.setPdata(pdata);
+		
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
-		// project.setPprogress("011000");
 		String requestedUserNoList = request.getParameter("requestUserNoList");
 		registService.savePrjAndPrjMS(project, requestedUserNoList);
+		
 		return "redirect:/list";
 	}
 
