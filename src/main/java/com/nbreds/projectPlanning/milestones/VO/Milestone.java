@@ -8,6 +8,7 @@ public class Milestone {
 	private String mregdate;
 	private String mstatement;
 	private int pno;
+	private int uno;
 	
 	private int countIssues;
 	private int completeIssuePercent;
@@ -56,6 +57,12 @@ public class Milestone {
 	}
 	public void setPno(int pno) {
 		this.pno = pno;
+	}
+	public int getUno() {
+		return uno;
+	}
+	public void setUno(int uno) {
+		this.uno = uno;
 	}
 	
 	public int getCountIssues() {

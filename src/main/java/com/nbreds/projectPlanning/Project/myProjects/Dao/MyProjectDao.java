@@ -50,4 +50,7 @@ public class MyProjectDao {
 	public int getcountAllIssue(int pno) {
 		return sqlSession.selectOne("project.my.getCountAllIssue", pno);
 	}
+	public List<HashMap<String, Object>> getActivityByPno(int pno) {
+		return sqlSession.selectList("project.my.getActivityByPno", pno);
+	}
 }

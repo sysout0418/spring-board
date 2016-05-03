@@ -31,4 +31,6 @@ public interface MyProjectService {
 	public double getCountClosedMilestone(int pno);
 
 	public int getcountAllIssue(int pno);
+
+	public List<HashMap<String, Object>> getActivityByPno(int pno);
 }

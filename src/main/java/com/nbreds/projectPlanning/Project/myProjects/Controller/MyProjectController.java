@@ -40,9 +40,6 @@ public class MyProjectController {
 			pdatas.add(commonController.getCodeName(code));
 		}
 		
-		String date = commonController.calculateTime((Date)project.get("pregdate"));
-		project.put("regDate", date);
-		
 		//마일스톤으로 프로젝트 완료 퍼센테이지 계산
 		int countAllMilestone = myProjectService.getCountAllMilestone(pno);
 		double completeMilestonPercent = myProjectService.getCountClosedMilestone(pno);
@@ -51,6 +48,10 @@ public class MyProjectController {
 		//요청 멤버 데이터 model추가
 		if(request.size() > 0)		model.addAttribute("request", request);
 		else model.addAttribute("request", "none");
+		
+		//Activity불러오기
+		List<HashMap<String, Object>> activities = myProjectService.getActivityByPno(pno);
+		model.addAttribute("activity", activities);
 		
 		model.addAttribute("countAllMilestone", countAllMilestone);
 		model.addAttribute("countAllIssue", myProjectService.getcountAllIssue(pno));

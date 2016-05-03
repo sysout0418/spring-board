@@ -19,12 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  ,mduedate
 	  ,mregdate
 	  ,pno
+	  ,uno
 	) VALUES (
 	  #{mtitle}
 	  ,#{mdescription}
 	  ,#{mduedate}
 	  ,NOW()
 	  ,#{pno}
+	  ,#{uno}
 	)
     ]]>  
     </insert>

@@ -195,7 +195,7 @@ MAIN CONTENT
 		<div class="row">
 			<div class="col-lg-9 main-chart">
 				<h3>
-					<i class="fa fa-angle-right"></i> Project #${pno} /${project.pname}
+					<i class="fa fa-angle-right"></i> Project #${pno} / ${project.pname}
 				</h3>
 				<div class="row">
 					<div class="col-md-4 col-sm-4 mb">
@@ -269,147 +269,44 @@ MAIN CONTENT
 								<i class="fa fa-angle-right"></i> Recent Activity
 							</h4>
 							<hr>
-							<ul class="timeline">
-								<li>
-									<div class="timeline-badge">
-										<i class="glyphicon glyphicon-check"></i>
+							<ul class="timeline"><c:set var="i" value="0"/>
+							<c:forEach var="activity" items="${activity}">
+							<li<c:if test='${i==0}'> class='timeline-inverted'</c:if>>
+								<div class="timeline-badge warning">
+									<i class="glyphicon glyphicon-ok"></i>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">${activity.tableName} '${activity.title}' 등록</h4>
 									</div>
-									<div class="timeline-panel">
-										<div class="timeline-heading">
-											<h4 class="timeline-title">Mussum ipsum cacilds</h4>
-											<p>
-												<small class="text-muted"><i
-													class="glyphicon glyphicon-time"></i> Created ${project.regDate}</small>
-											</p>
-										</div>
-										<div class="timeline-body">
-											<p>Mussum ipsum cacilds, vidis litro abertis. Consetis
-												adipiscings elitis. Pra lá , depois divoltis porris,
-												paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
-												girarzis, nisi eros vermeio, in elementis mé pra quem é
-												amistosis quis leo. Manduma pindureta quium dia nois paga.
-												Sapien in monti palavris qui num significa nadis i pareci
-												latim. Interessantiss quisso pudia ce receita de bolis, mais
-												bolis eu num gostis.</p>
-										</div>
+									<p>
+										<small class="text-muted"><i
+											class="glyphicon glyphicon-time"></i> Created ${activity.regdate}</small>
+									</p>
+									<div class="timeline-body">
+										<p>${activity.uname}님이 ${activity.title}을(를) 등록하셨습니다.</p>
 									</div>
-								</li>
-								<li class="timeline-inverted">
-									<div class="timeline-badge warning">
-										<i class="glyphicon glyphicon-credit-card"></i>
-									</div>
-									<div class="timeline-panel">
-										<div class="timeline-heading">
-											<h4 class="timeline-title">Mussum ipsum cacilds</h4>
-										</div>
-										<div class="timeline-body">
-											<p>Mussum ipsum cacilds, vidis litro abertis. Consetis
-												adipiscings elitis. Pra lá , depois divoltis porris,
-												paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
-												girarzis, nisi eros vermeio, in elementis mé pra quem é
-												amistosis quis leo. Manduma pindureta quium dia nois paga.
-												Sapien in monti palavris qui num significa nadis i pareci
-												latim. Interessantiss quisso pudia ce receita de bolis, mais
-												bolis eu num gostis.</p>
-											<p>Suco de cevadiss, é um leite divinis, qui tem lupuliz,
-												matis, aguis e fermentis. Interagi no mé, cursus quis,
-												vehicula ac nisi. Aenean vel dui dui. Nullam leo erat,
-												aliquet quis tempus a, posuere ut mi. Ut scelerisque neque
-												et turpis posuere pulvinar pellentesque nibh ullamcorper.
-												Pharetra in mattis molestie, volutpat elementum justo.
-												Aenean ut ante turpis. Pellentesque laoreet mé vel lectus
-												scelerisque interdum cursus velit auctor. Lorem ipsum dolor
-												sit amet, consectetur adipiscing elit. Etiam ac mauris
-												lectus, non scelerisque augue. Aenean justo massa.</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="timeline-badge danger">
-										<i class="glyphicon glyphicon-credit-card"></i>
-									</div>
-									<div class="timeline-panel">
-										<div class="timeline-heading">
-											<h4 class="timeline-title">Mussum ipsum cacilds</h4>
-										</div>
-										<div class="timeline-body">
-											<p>Mussum ipsum cacilds, vidis litro abertis. Consetis
-												adipiscings elitis. Pra lá , depois divoltis porris,
-												paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
-												girarzis, nisi eros vermeio, in elementis mé pra quem é
-												amistosis quis leo. Manduma pindureta quium dia nois paga.
-												Sapien in monti palavris qui num significa nadis i pareci
-												latim. Interessantiss quisso pudia ce receita de bolis, mais
-												bolis eu num gostis.</p>
-										</div>
-									</div>
-								</li>
-								<li class="timeline-inverted">
-									<div class="timeline-panel">
-										<div class="timeline-heading">
-											<h4 class="timeline-title">Mussum ipsum cacilds</h4>
-										</div>
-										<div class="timeline-body">
-											<p>Mussum ipsum cacilds, vidis litro abertis. Consetis
-												adipiscings elitis. Pra lá , depois divoltis porris,
-												paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
-												girarzis, nisi eros vermeio, in elementis mé pra quem é
-												amistosis quis leo. Manduma pindureta quium dia nois paga.
-												Sapien in monti palavris qui num significa nadis i pareci
-												latim. Interessantiss quisso pudia ce receita de bolis, mais
-												bolis eu num gostis.</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="timeline-badge info">
-										<i class="glyphicon glyphicon-floppy-disk"></i>
-									</div>
-									<div class="timeline-panel">
-										<div class="timeline-heading">
-											<h4 class="timeline-title">Mussum ipsum cacilds</h4>
-										</div>
-										<div class="timeline-body">
-											<p>Mussum ipsum cacilds, vidis litro abertis. Consetis
-												adipiscings elitis. Pra lá , depois divoltis porris,
-												paradis. Paisis, filhis, espiritis santis. Mé faiz elementum
-												girarzis, nisi eros vermeio, in elementis mé pra quem é
-												amistosis quis leo. Manduma pindureta quium dia nois paga.
-												Sapien in monti palavris qui num significa nadis i pareci
-												latim. Interessantiss quisso pudia ce receita de bolis, mais
-												bolis eu num gostis.</p>
-											<hr>
-											<div class="btn-group">
-												<button type="button"
-													class="btn btn-primary btn-sm dropdown-toggle"
-													data-toggle="dropdown">
-													<i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li><a href="#">Action</a></li>
-													<li><a href="#">Another action</a></li>
-													<li><a href="#">Something else here</a></li>
-													<li class="divider"></li>
-													<li><a href="#">Separated link</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</li>
+								</div>
+							</li>
+							<c:choose>
+								<c:when test="${i==0}"><c:set var="i" value="1"/></c:when>
+								<c:when test="${i==1}"><c:set var="i" value="0"/></c:when>
+							</c:choose>
+							</c:forEach>
 								<li class="timeline-inverted">
 									<div class="timeline-badge success">
-										<i class="glyphicon glyphicon-thumbs-up"></i>
+										<i class="glyphicon glyphicon-home"></i>
 									</div>
 									<div class="timeline-panel">
 										<div class="timeline-heading">
-											<h4 class="timeline-title">Project '${project.pname}' 생성</h4>
+											<h4 class="timeline-title">Project '${project.pname}' 등록</h4>
 											<p>
 												<small class="text-muted"><i
-													class="glyphicon glyphicon-time"></i> Created ${project.regDate}</small>
+													class="glyphicon glyphicon-time"></i> Created ${project.pregdate}</small>
 											</p>
 										</div>
 										<div class="timeline-body">
-											<p>${project.uname}님이 ${project.pname}을(를) 생성했습니다.</p>
+											<p>${project.uname}님이 ${project.pname}을(를) 등록했습니다..</p>
 										</div>
 									</div>
 								</li>
@@ -446,7 +343,7 @@ MAIN CONTENT
 							<br />
 						</p>
 						<span class="label label-default"
-							style="background-color: ${project.lbgcolor};">${project.ltitle}</span><br/>
+							style="background-color: ${project.lbgcolor};">${project.ltitle}</span><br/><br/>
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
 							<a id="add-regular" class="btn btn-default btn-sm"
 								href="/update?pno=${project.pno}">EDIT</a>

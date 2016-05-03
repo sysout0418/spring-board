@@ -53,4 +53,8 @@ public class MyProjectServiceImpl implements MyProjectService {
 	public int getcountAllIssue(int pno) {
 		return myProjectsDao.getcountAllIssue(pno);
 	}
+	@Override
+	public List<HashMap<String, Object>> getActivityByPno(int pno) {
+		return myProjectsDao.getActivityByPno(pno);
+	}
 }

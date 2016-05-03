@@ -174,11 +174,12 @@ public class MilestonesController {
 
 	@RequestMapping("/milestones/regist")
 	public String regist(int uno, int pno, @ModelAttribute("milestones") Milestone milestone, BindingResult result,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		logger.info("title : " + milestone.getMtitle());
 		logger.info("description : " + milestone.getMdescription());
 		logger.info("duedate : " + milestone.getMduedate());
 		logger.info("pno : " + milestone.getPno());
+		milestone.setUno((int)session.getAttribute("user_no"));
 		milestonesService.saveMilestone(milestone, request);
 
 		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
@@ -195,6 +196,7 @@ public class MilestonesController {
 				logger.info("-------------- file end --------------\n");
 			}
 		}
+		
 		return "redirect:/" + uno + "/" + pno + "/milestones/open";
 	}
 
