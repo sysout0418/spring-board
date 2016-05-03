@@ -93,10 +93,14 @@ public class ListController {
 		List<HashMap<String, Object>> request = listService.getRequestMember(pno);
 		
 		//필요 기술 한글화
-		String[] pdata = ((String) project.get("pdata")).split(",");
-		List<String> pdatas = new ArrayList<>();
-		for (String code : pdata) {
-			pdatas.add(commonController.getCodeName(code));
+		if(project.get("pdata").equals(null)){
+			String[] pdata = ((String) project.get("pdata")).split(",");
+			List<String> pdatas = new ArrayList<>();
+			for (String code : pdata) {
+				pdatas.add(commonController.getCodeName(code));
+			}
+
+			model.addAttribute("pdatas", pdatas);
 		}
 		
 		//마일스톤으로 프로젝트 완료 퍼센테이지 계산
@@ -115,7 +119,6 @@ public class ListController {
 		model.addAttribute("countAllMilestone", countAllMilestone);
 		model.addAttribute("countAllIssue", listService.getcountAllIssue(pno));
 		model.addAttribute("project", project);
-		model.addAttribute("pdatas", pdatas);
 		
 		return "Project/listProjects/detailProject";
 	}

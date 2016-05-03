@@ -33,7 +33,7 @@ MAIN CONTENT
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
-			<i class="fa fa-angle-right"></i> My Projects
+			<i class="fa fa-angle-right"></i> Milestone #${milestone.mno} / ${milestone.mtitle}
 		</h3>
 		<div class="col-lg-12">
 			<div class="row">
@@ -59,7 +59,7 @@ MAIN CONTENT
 								<td>Due date</td>
 							</tr>
 							<tr>
-								<td><a
+								<td onclick="location.href='/${uno}/${milestone.pno}/milestone/${milestone.mno}'" style="cursor: pointer;"><a
 									href="/${uno}/${milestone.pno}/milestone/${milestone.mno}">${milestone.uname}
 										/ ${milestone.pname}</a></td>
 								<td>${countOpenIssues}</td>
@@ -88,50 +88,6 @@ MAIN CONTENT
 								</td>
 							</tr>
 						</table>
-						<div role="tabpanel">
-							<!-- Nav tabs -->
-							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active"><a href="#issues"
-									aria-controls="home" role="tab" data-toggle="tab">Issues <span
-										class="badge">${countIssues}</span></a></li>
-								<li role="presentation"><a href="#participants"
-									aria-controls="home" role="tab" data-toggle="tab">Participants
-										<span class="badge">${unameSize}</span>
-								</a></li>
-							</ul>
-
-							<!-- Tab panes -->
-							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="issues">
-									<ul id="sortable1" class="connectedSortable">
-										<li style="background-color: #f7f8fa">Open</li>
-										<c:forEach var="issue" items="${issues}">
-											<c:if test="${issue.istatement == '000'}">
-												<li class="ui-state-default">${issue.ititle}</li>
-											</c:if>
-										</c:forEach>
-									</ul>
-
-									<ul id="sortable2" class="connectedSortable">
-										<li style="background-color: #f7f8fa">Closed</li>
-										<c:forEach var="issue" items="${issues}">
-											<c:if test="${issue.istatement == '001'}">
-												<li class="ui-state-default">${issue.ititle}</li>
-											</c:if>
-										</c:forEach>
-									</ul>
-								</div>
-								<div role="tabpanel" class="tab-pane" id="participants">
-									<table class="table">
-										<c:forEach var="uname" items="${uname}">
-											<tr>
-												<td>${uname}</td>
-											</tr>
-										</c:forEach>
-									</table>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

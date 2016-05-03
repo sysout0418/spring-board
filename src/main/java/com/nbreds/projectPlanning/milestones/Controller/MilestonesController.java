@@ -109,21 +109,11 @@ public class MilestonesController {
 		int completeIssuePercent = (int) Math.round((countClosedIssues / countIssues) * 100); // 완료
 																								// percentage
 
-		List<Issue> issues = milestonesService.getIssuesBymno(mno);
-		HashSet<String> uname = new HashSet<>();
-		for (Issue issue : issues) {
-			String param = String.valueOf(issue.getUno());
-			uname.add(milestonesService.getUnameByUno(param));
-		}
-
 		model.addAttribute("uno", uno);
 		model.addAttribute("countIssues", countIssues);
 		model.addAttribute("countOpenIssues", countOpenIssues);
 		model.addAttribute("countClosedIssues", countClosedIssues);
 		model.addAttribute("completeIssuePercent", completeIssuePercent);
-		model.addAttribute("issues", issues);
-		model.addAttribute("unameSize", uname.size());
-		model.addAttribute("uname", uname);
 		model.addAttribute("milestone", milestone);
 
 		return "/milestones/detailMilestone_dash";
