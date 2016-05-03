@@ -35,7 +35,7 @@
 
 <script
 	src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/chart-master/Chart.js" />"></script>
-
+	
 <!--  jquery -ui -->
 <link
 	href="<c:url value="/resources/css/jquery-ui/jquery-ui.min.css" />"

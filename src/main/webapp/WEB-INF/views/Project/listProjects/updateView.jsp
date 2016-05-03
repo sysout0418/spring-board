@@ -299,7 +299,6 @@ function layer_open(el){
 
 $('#okBtn').click(function(e){
 	$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-	console.log("안녕?");
 	selectChkRow();
 	if ($('#requestUserList').val() != '' && $('#requestUserNameList').val() != '') {
 		$('.selectedUserList').empty();

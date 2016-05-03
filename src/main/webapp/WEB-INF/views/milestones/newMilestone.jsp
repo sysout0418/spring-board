@@ -20,16 +20,16 @@ MAIN CONTENT
 				<tr>
 					<td>Title</td>
 					<td><form:input path="mtitle" cssClass="form-control"
-							maxlength="50" /></td>
+							maxlength="50" required="required"/></td>
 					<td rowspan="2">Due Date</td>
 					<td rowspan="2"><div id="datepicker">
-							<form:hidden path="mduedate" id="date" />
+							<form:hidden path="mduedate" id="date" required="required"/>
 						</div></td>
 				</tr>
 				<tr>
 					<td style="border-color: #fff">Description</td>
 					<td style="border-color: #fff"><form:textarea
-							path="mdescription" rows="8" cssClass="form-control" /> <!-- File Upload -->
+							path="mdescription" rows="8" cssClass="form-control" required="required"/> <!-- File Upload -->
 						<label class="control-label">Select File</label> <input
 						id="input-1a" type="file" name="file" class="file"
 						data-show-preview="false" data-show-upload="false"> <!-- // File Upload -->

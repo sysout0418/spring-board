@@ -48,22 +48,27 @@ MAIN CONTENT
 							name="idescription" required="required">${issues.idescription}</textarea>
 						<span class="help-block">help 설명</span>
 						<section id="filecontent">
-							<c:forEach var="file" items="${fileList}" varStatus="var">
-								<p>
-									<input type="hidden" id="fno" name="fno" value="${file.fno}">
-									<a href="#this" id="name_${file.fno}" name="name_${file.fno}">${file.originalName}</a>
-									<input type="file" id="file_${file.fno}"
-										name="file_${file.fno}"> (${file.fileSize}kb) <a
-										href="#this" class="btn" id="delete_${file.fno}"
-										name="delete_${file.fno}">삭제</a>
-								</p>
-							</c:forEach>
+							<c:choose>
+								<c:when test="${!empty fileList}">
+									<c:forEach var="file" items="${fileList}" varStatus="var">
+										<p>
+											<input type="hidden" id="fno" name="fno" value="${file.fno}">
+											<a href="#this" id="name_${file.fno}" name="name_${file.fno}">${file.originalName}</a>
+											(${file.fileSize}kb) <a href="#this" class="btn"
+												id="delete_${file.fno}" name="delete_${file.fno}">삭제</a>
+											<input type="file" id="file_${file.fno}" name="file_${file.fno}">
+										</p>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<span class="help-block">파일 첨부는 최대 1개 입니다.</span>
+									<!-- File Upload -->
+									<label class="control-label">Select File</label>
+									<input id="input-1a" type="file" name="file" class="file" data-show-preview="false" data-show-upload="false">
+									<!-- // File Upload -->
+								</c:otherwise>
+							</c:choose>
 						</section>
-						<div>
-							<c:if test="${empty fileList}">
-								<input type="button" id="addfile" value="파일추가"/>
-							</c:if>
-						</div>
 					</div>
 				</div>
 
@@ -274,7 +279,7 @@ $('.dropdown-menu > .labelNo > a').bind('click', function() {
 }); */
 
 // file upload를 위한 function
-var count = 0;
+/* var count = 0;
 $(function(){
 	$('#addfile').click(function(event){
 		if (count < 1) {
@@ -289,7 +294,7 @@ $(function(){
 			alert("파일 업로드는 최대 1개 입니다..");
 		}
 	});
-});
+}); */
 
 /* function removeForm(count){
 	$("#fileNum").val(Number($("#fileNum").val())-1);

@@ -261,7 +261,6 @@ function layer_open(el){
 
 $('#okBtn').click(function(e){
 	$('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
-	console.log("안녕?");
 	selectChkRow();
 	if ($('#requestUserList').val() != '' && $('#requestUserNameList').val() != '') {
 		$('.selectedUserList').empty();
@@ -269,6 +268,8 @@ $('#okBtn').click(function(e){
 		for (var i = 0; i < userName.length; i++) {
 			$('.selectedUserList').append('<span class="btn btn-warning btn-xs">'+ userName[i] +'</span>&nbsp;');
 		}
+	} else {
+		$('.selectedUserList').empty();
 	}
 	e.preventDefault();
 });

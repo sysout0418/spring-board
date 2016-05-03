@@ -28,16 +28,28 @@ MAIN CONTENT
 				<tr>
 					<td style="border-color: #fff">Description</td>
 					<td style="border-color: #fff"><form:textarea
-							path="mdescription" rows="8" cssClass="form-control" /> <c:forEach
-							var="file" items="${fileList}" varStatus="var">
-							<p>
-								<input type="hidden" id="fno" name="fno" value="${file.fno}">
-								<a href="#this" id="name_${file.fno}" name="name_${file.fno}">${file.originalName}</a>
-								<input type="file" id="file_${file.fno}" name="file_${file.fno}">
-								(${file.fileSize}kb) <a href="#this" class="btn"
-									id="delete_${file.fno}" name="delete_${file.fno}">삭제</a>
-							</p>
-						</c:forEach></td>
+							path="mdescription" rows="8" cssClass="form-control" /> 
+						<c:choose>
+							<c:when test="${!empty fileList}">
+								<c:forEach var="file" items="${fileList}" varStatus="var">
+									<p>
+										<input type="hidden" id="fno" name="fno" value="${file.fno}">
+										<a href="#this" id="name_${file.fno}" name="name_${file.fno}">${file.originalName}</a>
+										(${file.fileSize}kb) <a href="#this" class="btn"
+											id="delete_${file.fno}" name="delete_${file.fno}">삭제</a>
+										<input type="file" id="file_${file.fno}" name="file_${file.fno}">
+									</p>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<span class="help-block">파일 첨부는 최대 1개 입니다.</span>
+								<!-- File Upload -->
+								<label class="control-label">Select File</label>
+								<input id="input-1a" type="file" name="file" class="file" data-show-preview="false" data-show-upload="false">
+								<!-- // File Upload -->
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="4" style="background-color: #faf9f9"><input
