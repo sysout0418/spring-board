@@ -162,7 +162,7 @@ MAIN CONTENT
 													<input type="hidden" name="issueState"
 														value="${issues.istatement }">
 													<li class="list-group-item"
-														onclick="location.href='/${issues.uno}/${issues.pno}/issue/${issues.ino}'"
+														onclick="location.href='/${user_no}/${issues.pno}/issue/${issues.ino}'"
 														style="cursor: pointer;"><span class="badge"><i
 															class="fa fa-comment" aria-hidden="true"></i>
 															${issues.commentCnt}</span> <span

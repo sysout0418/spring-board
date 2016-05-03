@@ -27,7 +27,7 @@ MAIN CONTENT
 			<input type="hidden" value="${issues.lno}" name="lno" id="lno">
 			<input type="hidden" value="${issues.mno}" name="mno" id="mno">
 			<c:forEach var="user" items="${allUserList}">
-				<c:if test="${user.uno == issues.uno}">
+				<c:if test="${user.uno == user_no}">
 					<input type="hidden" value="${user.uname}" name="myname" id="myname" alt="${user.uno}">
 				</c:if>
 			</c:forEach>

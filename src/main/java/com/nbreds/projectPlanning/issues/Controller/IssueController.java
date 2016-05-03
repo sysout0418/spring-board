@@ -26,14 +26,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
-import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
@@ -176,26 +173,30 @@ public class IssueController {
 	// issue 등록 요청
 	@RequestMapping("/issues/regist")
 	public String registIssue(int uno, int pno, @ModelAttribute("Issues") Issue issues, BindingResult result,
-			HttpServletRequest request) {
+			HttpServletRequest request, HttpSession session) {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 		logger.info("pno : " + issues.getPno());
 		logger.info("lno : " + issues.getLno());
+		
+		int loginUserNo = (int) session.getAttribute("user_no");
+		logger.info("loginUserNo : " + loginUserNo);
 //		String[] lnos = String.valueOf(issues.getLno()).split(",");
 //		logger.info("lno[0] : " + lnos[0]);
 		issuesService.saveIssues(issues, request);
-		int lastInsertIno = issuesService.getLastIno();
-		logger.info("ino : " + String.valueOf(lastInsertIno));
-		IssueLabel issueLabel = new IssueLabel();
-		issueLabel.setIno(lastInsertIno);
-		if (issues.getLno() != 0) {
-			issueLabel.setLno(issues.getLno());
-			issuesService.saveIssueLabel(issueLabel);
+		
+//		int lastInsertIno = issuesService.getLastIno();
+//		logger.info("ino : " + String.valueOf(lastInsertIno));
+//		IssueLabel issueLabel = new IssueLabel();
+//		issueLabel.setIno(lastInsertIno);
+//		if (issues.getLno() != 0) {
+//			issueLabel.setLno(issues.getLno());
+//			issuesService.saveIssueLabel(issueLabel);
 //			for (int i = 0; i < lnos.length; i++) {
 //				issueLabel.setLno(Integer.parseInt(lnos[i]));
 //				issuesService.saveIssueLabel(issueLabel);
 //			}
-		}
+//		}
 		
 		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
@@ -212,7 +213,7 @@ public class IssueController {
 	        }
 	    }
 
-		return "redirect:/" + uno + "/" + pno + "/issues/open";
+		return "redirect:/" + loginUserNo + "/" + pno + "/issues/open";
 	}
 	
 	// issue 수정 페이지
@@ -246,30 +247,34 @@ public class IssueController {
 	// issue 수정
 	@RequestMapping(value = "/issues/edit", method = RequestMethod.POST)
 	public String editIssue(@ModelAttribute("Issues") Issue issues, 
-			HttpServletRequest request, BindingResult result) {
+			HttpServletRequest request, HttpSession session, BindingResult result) {
 		logger.info("---------------updating page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
 		logger.info("lnos : " + issues.getLno());
 		logger.info("uno : " + issues.getUno());
+		int loginUserNo = (int) session.getAttribute("user_no");
+		
+		issuesService.updateIssueByIno(issues, request);
+		
 //		String[] lnos = String.valueOf(issues.getLno()).split(",");
-		if (issues.getLno() != 0) {
-			issuesService.removeIssueLabelForUpdate(issues);
-			IssueLabel issueLabel = new IssueLabel();
-			issueLabel.setLno(issues.getLno());
-			issueLabel.setIno(issues.getIno());
-			issuesService.saveIssueLabel(issueLabel);
+//		if (issues.getLno() != 0) {
+//			issuesService.removeIssueLabelForUpdate(issues);
+//			IssueLabel issueLabel = new IssueLabel();
+//			issueLabel.setLno(issues.getLno());
+//			issueLabel.setIno(issues.getIno());
+//			issuesService.saveIssueLabel(issueLabel);
 //			for (int i = 0; i < lnos.length; i++) {
 //				issueLabel.setLno(Integer.parseInt(lnos[i]));
 //				issueLabel.setIno(issues.getIno());
 //				issuesService.saveIssueLabel(issueLabel);
 //			}
-			issuesService.updateIssueByIno(issues, request);
-		} else {
-			issuesService.removeIssueLabelForUpdate(issues);
-			issuesService.updateIssueByIno(issues, request);
-		}
-		return "redirect:/" + issues.getUno() + "/" + issues.getPno() + "/issue/" + issues.getIno();
+//			issuesService.updateIssueByIno(issues, request);
+//		} else {
+//			issuesService.removeIssueLabelForUpdate(issues);
+//			issuesService.updateIssueByIno(issues, request);
+//		}
+		return "redirect:/" + loginUserNo + "/" + issues.getPno() + "/issue/" + issues.getIno();
 	}
 	
 	// issue 리스트창에서 다이렉트로 issue 수정

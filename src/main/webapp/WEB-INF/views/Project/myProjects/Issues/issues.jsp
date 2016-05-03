@@ -210,14 +210,14 @@ MAIN CONTENT
 												<li class="list-group-item"><span class="badge"><i
 														class="fa fa-comment" aria-hidden="true"></i>
 														${issues.commentCnt}</span> <input type="checkbox" name="cbList"
-													value="${issues.ino }" onclick="openUpdateIssuesForm()">
-													<a href="/${issues.uno}/${issues.pno}/issue/${issues.ino}">
+													value="${issues.ino}" onclick="openUpdateIssuesForm()">
+													<a href="/${user_no}/${issues.pno}/issue/${issues.ino}">
 														<span style="font-weight: bold; color: black;">${issues.ititle}</span>
 												</a> / <span class="label color-label has_tooltip"
 													style="background-color:
 															${issues.lbgcolor}; color: #FFFFFF"
 													title="" data-container="body" data-original-title="">${issues.ltitle}</span><br>
-													${issues.iregdate} by ${issues.uname} / <i
+													${issues.iregdate} / Assignee ${issues.uname} / <i
 													class="fa fa-clock-o" aria-hidden="true"></i> <a
 													href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>
 												</li>
@@ -303,7 +303,7 @@ MAIN CONTENT
 		var userNo = $(this).attr("alt");
 		console.log(userNo);
 		console.log(userName);
-		$("#userNo1").val(userNo);
+		$("#userNo").val(userNo);
 		$("#selectedAssign").text(userName);
 	});
 	$('.dropdown-menu > .milestoneNo > a').bind('click', function() {

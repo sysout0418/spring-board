@@ -28,7 +28,7 @@ MAIN CONTENT
 	<c:if test="${issues.istatement=='001'}">
 	<a href="/issues/reopen/${uno}/${pno}/${ino}" class="btn btn-danger">Reopen Issue</a>
 	</c:if>
-	<a href="/issues/edit/${uno}/${pno}/${ino}" class="btn btn-default">Edit</a>
+	<a href="/issues/edit/${user_no}/${pno}/${ino}" class="btn btn-default">Edit</a>
 	</div>
 </td>
 <style type="text/css">

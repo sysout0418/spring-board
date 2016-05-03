@@ -9,10 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
-import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.issues.VO.Label;
@@ -79,8 +77,8 @@ public interface IssueService {
 	/** ino에 붙어있는 모든 label 가져오는 기능 */
 	List<Label> getLabelsByIno(int ino);
 	
-	/** IssueLabel 테이블에 ino, lno 등록하는 기능 */
-	void saveIssueLabel(IssueLabel issueLabel);
+//	/** IssueLabel 테이블에 ino, lno 등록하는 기능 */
+//	void saveIssueLabel(IssueLabel issueLabel);
 	
 	/** 업데이트를 위해서 IssueLabel 테이블 데이터 한번 지우는 기능 */
 	void removeIssueLabelForUpdate(Issue issues);

@@ -9,10 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
-import com.nbreds.projectPlanning.issueLabel.VO.IssueLabel;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.issues.VO.Label;
@@ -108,9 +106,9 @@ public class IssueDao {
 		return sqlSession.selectList("issues.getLabelsByIno", ino);
 	}
 	
-	public void saveIssueLabel(IssueLabel issueLabel) {
-		sqlSession.insert("issues.saveIssueLabel", issueLabel);
-	}
+//	public void saveIssueLabel(IssueLabel issueLabel) {
+//		sqlSession.insert("issues.saveIssueLabel", issueLabel);
+//	}
 	
 	public void removeIssueLabelForUpdate(Issue issues) {
 		sqlSession.delete("issues.removeIssueLabelForUpdate", issues);
