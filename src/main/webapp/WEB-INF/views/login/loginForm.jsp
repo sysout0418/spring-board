@@ -155,9 +155,9 @@ a.cbtn:hover {
 			<h2 class="form-login-heading">sign in now</h2>
 			<div class="login-wrap">
 				<input type="text" id="uemail" name="uemail" class="form-control"
-					placeholder="Email Address" required autofocus> <br> <input
-					type="password" id="upassword" name="upassword"
-					class="form-control" placeholder="Password"> <label
+					placeholder="Email Address" required="required" autofocus> <br> 
+					<input type="password" id="upassword" name="upassword"
+					class="form-control" placeholder="Password" required="required"> <label
 					class="checkbox"> <span class="pull-right"> <a
 						data-toggle="modal" href="login.html#myModal"> Forgot
 							Password?</a>
