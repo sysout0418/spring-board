@@ -493,7 +493,6 @@ a.cbtn:hover {
 		var checkLast = ''; // 체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
 		var rowid = ''; // 체크된 체크박스의 모든 value 값을 담는다
 		var rowName = ''; // 체크된 체크박스의 모든 text 값을 담는다
-		var cnt = 0;
 
 		for (var i = 0; i < len; i++) {
 			if (chk[i].checked == true) {
@@ -516,8 +515,8 @@ a.cbtn:hover {
 					rowid += checkRow + ","; //value,의 형태 (뒤에 ,(콤마)가 붙게)
 					rowName += checkText + ",";
 				}
+				
 			}
-			cnt++;
 			checkRow = ''; // checkRow초기화.
 			checkText = ''; // checkText초기화.
 		}
