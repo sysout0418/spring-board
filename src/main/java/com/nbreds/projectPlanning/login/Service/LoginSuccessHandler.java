@@ -35,7 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		if (userInfo != null) {
 			String uno = userInfo.get("uno").toString();
 			String theFirstLetterOfEmail = userInfo.get("username").toString().substring(0, 1).toUpperCase();
-			String profileBgColor = userInfo.get("profileBgColor").toString();
+			String profileBgColor = userInfo.get("bgColor").toString();
 			HttpSession session = req.getSession();
 			session.setAttribute("user_no", Integer.parseInt(uno));
 			session.setAttribute("theFirstLetterOfEmail", theFirstLetterOfEmail);

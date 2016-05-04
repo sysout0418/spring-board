@@ -505,6 +505,13 @@ a.cbtn:hover {
 			if (chk[i].checked == true) { //체크가 되어있는 값 구분
 				checkRow = chk[i].value;
 				checkText = chk[i].alt;
+				
+				for (var j = 0; j < len; j++) {
+					if (checkRow == chk[j].value) {
+						
+					}
+				}
+				
 				if (checkCnt == 1) { //체크된 체크박스의 개수가 한 개 일때,
 					rowid += checkRow; // value의 형태 (뒤에 ,(콤마)가 붙지않게)
 					rowName += checkText;

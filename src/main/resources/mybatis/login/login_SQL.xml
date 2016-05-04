@@ -65,12 +65,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ,uemail as username
     ,upassword as password
     ,expired
-    ,profileBgColor
+    ,u.profileBgColor
+    ,CODE_NAME AS bgColor
     ,authority
     ,enabled
     FROM User u
     JOIN Authority a
-    on u.uno = a.uno
+    ON u.uno = a.uno
+    JOIN CodeTable c
+    ON u.profileBgColor = c.CODE AND c.CODE_TYPE = '007'
     WHERE uemail = #{uemail}
     ]]>  
     </select>
