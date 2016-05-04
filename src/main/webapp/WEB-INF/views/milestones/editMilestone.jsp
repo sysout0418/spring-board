@@ -14,6 +14,10 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Edit Milestone
 		</h3>
+		<div class="col-lg-12">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content-panel">
 		<form:form method="post" action="/milestones/edit"
 			commandName="milestones" enctype="multipart/form-data">
 			<table class="table">
@@ -34,7 +38,7 @@ MAIN CONTENT
 								<c:forEach var="file" items="${fileList}" varStatus="var">
 									<p>
 										<input type="hidden" id="fno" name="fno" value="${file.fno}">
-										<a href="#this" id="name_${file.fno}" name="name_${file.fno}">${file.originalName}</a>
+										<a href="#this" id="name_${file.fno}" name="name_${file.fno}"><i class="fa fa-paperclip" aria-hidden="true"></i>${file.originalName}</a>
 										(${file.fileSize}kb) <a href="#this" class="btn"
 											id="delete_${file.fno}" name="delete_${file.fno}">삭제</a>
 										<input type="file" id="file_${file.fno}" name="file_${file.fno}">
@@ -62,6 +66,10 @@ MAIN CONTENT
 				</tr>
 			</table>
 		</form:form>
+		</div>
+		</div>
+		</div>
+		</div>
 	</section>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />

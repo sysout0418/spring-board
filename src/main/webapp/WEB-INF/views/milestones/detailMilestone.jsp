@@ -70,7 +70,7 @@ MAIN CONTENT
 										var="file" items="${fileList}">
 										<input type="hidden" id="fno" value="${file.fno }">
 										<a href="/issue/downloadFile/${file.fno}"
-											style="color: #4d94c4">${file.originalName }</a> 
+											style="color: #4d94c4"><i class="fa fa-paperclip" aria-hidden="true"></i>${file.originalName }</a> 
 						(${file.fileSize}kb)
 					</c:forEach>
 								</td>

@@ -688,4 +688,12 @@ public class IssueController {
 		issuesService.updateComment(param);
 		writer.write("end");
 	}
+	
+	//이슈삭제
+	@RequestMapping("/issues/remove/{uno}/{pno}/{ino}")
+	public String removeIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
+		issuesService.removeIssues(ino);
+		
+		return "redirect:/" + uno + "/" + pno + "/issues/open";
+	}
 }

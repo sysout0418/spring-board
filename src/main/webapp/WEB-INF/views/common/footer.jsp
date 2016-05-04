@@ -25,15 +25,5 @@
     
 <!--script for this page-->
 <script src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js"/>"></script>	
-  
-<script>
-  //custom select box
-
- /*  $(function(){
-      $('select.styled').customSelect();
-  }); */
-
-</script>
-
 </body>
 </html>
