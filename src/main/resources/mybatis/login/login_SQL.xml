@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>  
     </select>
     
-    <select id="getUserAuthority" resultType="map">
+    <select id="getUserAuthority" parameterType="String" resultType="map">
     <![CDATA[
     SELECT
     u.uno as uno

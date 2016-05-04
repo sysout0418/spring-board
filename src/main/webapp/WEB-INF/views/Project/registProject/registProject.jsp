@@ -183,7 +183,7 @@ a.cbtn:hover {
 											-->
 											<!-- Button trigger modal -->
 											<a href="#" class="btn btn-primary btn-xs"
-												data-toggle="modal" data-target="#myModal"> 추가</a>
+												data-toggle="modal" data-target="#myModal" onclick="checkDuplication()"> 추가</a>
 											<div class="selectedUserList"></div>
 										</div> <%-- 
 										<div class="layer">
@@ -491,7 +491,7 @@ a.cbtn:hover {
 		var checkText = ''; // 체크된 체크박스의 text를 담기위한 변수
 		var checkCnt = 0; // 체크된 체크박스의 개수
 		var checkLast = ''; // 체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
-		var rowid = ''; // 체크된 체크박스의 모든 value 값을 담는다
+		var rowId = ''; // 체크된 체크박스의 모든 value 값을 담는다
 		var rowName = ''; // 체크된 체크박스의 모든 text 값을 담는다
 
 		for (var i = 0; i < len; i++) {
@@ -507,13 +507,13 @@ a.cbtn:hover {
 				checkText = chk[i].alt;
 				
 				if (checkCnt == 1) { //체크된 체크박스의 개수가 한 개 일때,
-					rowid += checkRow; // value의 형태 (뒤에 ,(콤마)가 붙지않게)
+					rowId += checkRow; // value의 형태 (뒤에 ,(콤마)가 붙지않게)
 					rowName += checkText;
 				} else if (i == checkLast) { //체크된 체크박스 중 마지막 체크박스일 때,
-					rowid += checkRow; //value의 형태 (뒤에 ,(콤마)가 붙지않게)
+					rowId += checkRow; //value의 형태 (뒤에 ,(콤마)가 붙지않게)
 					rowName += checkText;
 				} else {
-					rowid += checkRow + ","; //value,의 형태 (뒤에 ,(콤마)가 붙게)
+					rowId += checkRow + ","; //value,의 형태 (뒤에 ,(콤마)가 붙게)
 					rowName += checkText + ",";
 				}
 				
@@ -522,19 +522,55 @@ a.cbtn:hover {
 			checkText = ''; // checkText초기화.
 		}
 		
-		var userNames = rowid.split(",");
-		for (var i = 0; i < userNames.length; i++) {
-			var userName = userNames[i];
-			for (var j = 0; j < userNames.length; j++) {
-				if (userName == userNames[j]) {
-					
-				}
-			}
+		var rowIds = rowId.split(",");
+		var rowNames = rowName.split(",");
+		
+		var uniqueRowId = rowIds.reduce(function(a, b) {
+			if (a.indexOf(b) < 0 ) a.push(b);
+			return a;
+		}, []);
+		
+		var uniqueRowName = rowNames.reduce(function(a, b) {
+			if (a.indexOf(b) < 0 ) a.push(b);
+			return a;
+		}, []);
+		
+		console.log(uniqueRowId);
+		console.log(uniqueRowName);
+		
+		rowId = '';
+		rowName = '';
+		for (var i = 0; i < uniqueRowId.length; i++) {
+			rowId += uniqueRowId[i] + ",";
+			rowName += uniqueRowName[i] + ",";
 		}
 		
-		$('#requestUserNoList').val(rowid);
-		$('#requestUserNameList').val(rowName);
+		console.log(rowId.substring(0, rowId.length - 1));
+		console.log(rowName.substring(0, rowName.length - 1));
+		$('#requestUserNoList').val(rowId.substring(0, rowId.length - 1));
+		$('#requestUserNameList').val(rowName.substring(0, rowName.length - 1));
 		//alert(rowName);
-		//alert(rowid);
+		//alert(rowId);
+	}
+	
+	function checkDuplication() {
+		var chk = document.getElementsByName("userName"); // 체크박스객체를 담는다
+		var len = chk.length; // 체크박스의 전체 개수
+		var checkRow = ''; // 체크된 체크박스의 value를 담기위한 변수
+		var checkCnt = 0; // 체크된 체크박스의 개수
+		var checkLast = ''; // 체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
+		
+		for (var i = 0; i < len; i++) {
+			if (chk[i].checked == true) {
+				checkRow = chk[i].value;
+				
+				checkCnt++; //체크된 체크박스의 개수
+				checkLast = i; //체크된 체크박스의 인덱스
+			}
+			
+			
+		}
+		
+		
 	}
 </script>
