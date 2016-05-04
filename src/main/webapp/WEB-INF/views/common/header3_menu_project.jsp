@@ -10,7 +10,6 @@ MAIN SIDEBAR MENU
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu" id="nav-accordion">
-
 			<p class="centered">
 				<a href="#">
 					<%-- <img src="<c:url value="/resources/img/ui-sam.jpg" />" class="img-circle" width="60"> --%>
