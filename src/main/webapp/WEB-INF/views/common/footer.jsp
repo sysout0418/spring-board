@@ -25,15 +25,6 @@
     
 <!--script for this page-->
 <script src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js"/>"></script>	
-  
-<script>
-  //custom select box
-
- /*  $(function(){
-      $('select.styled').customSelect();
-  }); */
-
-</script>
 
 <script type="text/javascript">
 	var canvas = document.getElementById("cv");	//canvas의 DOM 객체를 얻는다
@@ -55,6 +46,5 @@
 	context2.fillText(msg, canvas2.width/2, canvas2.height/2); // 텍스트 채우기
 	
 </script>
-
 </body>
 </html>

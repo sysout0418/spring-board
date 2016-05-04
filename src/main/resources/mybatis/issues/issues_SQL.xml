@@ -252,12 +252,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 
-<!-- 	<delete id="removeIssues" parameterType="int">
+	<delete id="removeIssues" parameterType="int">
     <![CDATA[
     DELETE FROM Issues 
 	WHERE ino = #{ino}
     ]]>
-	</delete> -->
+	</delete>
 
 	<update id="closeIssue" parameterType="Map">
     <![CDATA[

@@ -73,7 +73,7 @@ MAIN CONTENT
 										maxIntegerDigits="1" /> closed ${completeIssuePercent}%
 									complete
 									<div style="float: right;">
-										<a href="/${uno}/${milestone.pno}/issues/open"
+										<a href="${uno}/${milestone.pno}/issues/open"
 											class="btn btn-default">Browse Issue</a>
 									</div>
 								</td>

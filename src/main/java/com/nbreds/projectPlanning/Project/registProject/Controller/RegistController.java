@@ -34,8 +34,7 @@ public class RegistController {
 		HashMap<String, Object> user = registService.getUserForNo(uno);
 		model.addAttribute("user", user);
 		model.addAttribute("allUserList", registService.getAllUser());
-
-		System.out.println(user);
+		
 		return "Project/registProject/registProject";
 	}
 
@@ -52,7 +51,7 @@ public class RegistController {
 		String requestedUserNoList = request.getParameter("requestUserNoList");
 		registService.savePrjAndPrjMS(project, requestedUserNoList);
 		
-		return "redirect:/list";
+		return "redirect:/";
 	}
 
 	@ModelAttribute("development")

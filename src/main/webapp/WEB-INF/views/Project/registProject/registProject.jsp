@@ -203,9 +203,6 @@ a.cbtn:hover {
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="3"></td>
-								</tr>
 							</table>
 							<input class="btn btn-success" type="submit" id="submit"
 								value="Create Project">

@@ -139,8 +139,7 @@ MAIN CONTENT
 												</c:forEach>
 											</ul>
 										</div>
-										<a href="#" id="searchBtn" class="btn btn-warning">SEARCH
-											ISSUES</a>
+										<a href="#" id="searchBtn" class="btn btn-warning">Search Issues</a>
 									</div>
 								</div>
 
@@ -189,8 +188,7 @@ MAIN CONTENT
 												</c:forEach>
 											</ul>
 										</div>
-										<a href="#" onclick="updateIssueList()" class="btn btn-success">UPDATE
-											ISSUES</a>
+										<a href="#" onclick="updateIssueList()" class="btn btn-success">Update Issues</a>
 									</div>
 								</div>
 
@@ -209,13 +207,12 @@ MAIN CONTENT
 												varStatus="status">
 												<input type="hidden" name="issueState"
 													value="${issues.istatement }">
-												<li class="list-group-item"><span class="badge"><i
+												<li class="list-group-item" onclick="location.href='/${user_no}/${issues.pno}/issue/${issues.ino}'" style="cursor: pointer;"><span class="badge"><i
 														class="fa fa-comment" aria-hidden="true"></i>
 														${issues.commentCnt}</span> <input type="checkbox" name="cbList"
 													value="${issues.ino}" onclick="openUpdateIssuesForm()">
-													<a href="/${user_no}/${issues.pno}/issue/${issues.ino}">
 														<span style="font-weight: bold; color: black;">${issues.ititle}</span>
-												</a> / <span class="label color-label has_tooltip"
+												 / <span class="label color-label has_tooltip"
 													style="background-color:
 															${issues.lbgcolor}; color: #FFFFFF"
 													title="" data-container="body" data-original-title="">${issues.ltitle}</span><br>
@@ -227,67 +224,6 @@ MAIN CONTENT
 										</ul>
 									</c:otherwise>
 								</c:choose>
-
-								<%-- <table class="table">
-									<tr class="active">
-										<td><div class="checkboxAll">
-												<label> <input type="checkbox" name="cbListAll"
-													onclick="checkCbListAll()">
-												</label>
-											</div></td>
-										<td>Issue Title</td>
-										<td>Milestone Title</td>
-										<td>Weight</td>
-										<td>Due Date</td>
-									</tr>
-									<c:choose>
-										<c:when test="${issuesList == 'none'}">
-											<tr style="height: 100px">
-												<td colspan="6"
-													style="text-align: center; vertical-align: middle;">
-													No Issues to show</td>
-											</tr>
-										</c:when>
-										<c:otherwise>
-											<c:forEach var="issues" items="${issuesList}"
-												varStatus="status">
-												<input type="hidden" name="issueState"
-													value="${issues.istatement }">
-												<tr
-													onclick="location.href='/${issues.uno}/${issues.pno}/issue/${issues.ino}'"
-													style="cursor: pointer;">
-													<td><div class="checkbox">
-															<label> <input type="checkbox" name="cbList"
-																value="${issues.ino }">
-															</label>
-														</div></td>
-													<td><a href="#">${issues.ititle}</a><br>
-														${issues.idescription }</td>
-													<c:choose>
-														<c:when test="${!empty issues.mtitle}">
-															<td><a
-																href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a></td>
-														</c:when>
-														<c:otherwise>
-															<td>No Milestone</td>
-														</c:otherwise>
-													</c:choose>
-
-													<td><span class="label color-label has_tooltip"
-														style="background-color:
-														${issues.lbgcolor}; color: #FFFFFF"
-														title="" data-container="body" data-original-title="">${issues.ltitle}</span>
-													</td>
-
-													<td>${issues.iduedate}</td>
-												</tr>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-									<tr>
-										<td colspan="5"></td>
-									</tr>
-								</table> --%>
 							</form>
 						</div>
 					</div>
