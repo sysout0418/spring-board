@@ -140,17 +140,16 @@ MAIN CONTENT
 *********************************************************************************************************************************************************** -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
-		<h3>
-			<i class="fa fa-angle-right"></i> Detail Issue
-		</h3>
-		<div class="col-lg-12">
+		<div class="col-lg-9">
 			<div class="row">
 				<div class="col-md-12">
+					<h3>
+						<i class="fa fa-angle-right"></i> Project #${pno} / Issue #${ino} / ${issues.ititle}
+					</h3>
 					<div class="content-panel">
 						<table class="table">
 							<tr>
-								<td style="width: 900px"><c:if
-										test="${issues.istatement=='000'}">
+								<td><c:if test="${issues.istatement=='000'}">
 										<span class="label label-success">Open</span>
 									</c:if> <c:if test="${issues.istatement=='001'}">
 										<span class="label label-danger">Closed</span>
@@ -174,21 +173,6 @@ MAIN CONTENT
 	color: #54565b;
 }
 </style>
-								<td rowspan="4" class="active"><span class="text1">Assignee</span><br />
-									${issues.uname} <br />
-									<hr> <span class="text1">Milestone</span><br />${issues.mtitle}
-									<br />
-									<hr> <%-- <span class="text1">Weight</span><br/>${issues.iweight} <br/> --%>
-									<span class="text1">Weight</span><br /> <%-- <c:forEach var="labels" items="${issues.labels}"> --%>
-									<span class="label color-label has_tooltip"
-									style="background-color:${issues.lbgcolor}; 
-		color: #FFFFFF; 
-		font-size: 15px;
-		font-weight: normal;
-		padding:5px;
-		border-radius: 5px;"
-									title="" data-container="body" data-original-title="">${issues.ltitle}</span>
-									<%-- </c:forEach> --%></td>
 							</tr>
 							<tr>
 								<td>
@@ -215,43 +199,225 @@ MAIN CONTENT
 							</tr>
 							<tr>
 								<td>
-								<div class="post">
-										<div class="post-footer">
-											<ul class="comments-list">
-												<li class="comment"><a class="pull-left" href="#">
-														<img class="avatar"
-														src="http://bootdey.com/img/Content/user_1.jpg"
-														alt="avatar">
-												</a>
-													<div class="comment-body">
-														<div class="comment-heading">
-															<h4 class="user">Gavino Free</h4>
-															<h5 class="time">5 minutes ago</h5>
-														</div>
-														<p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
-													</div></li>
-													<li class="comment">
-														<div class="comment-body pull-right">
-															<a href="#">
-																<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
-															</a>
-															<div class="comment-heading">
-																<h4 class="user">Gavino Free</h4>
-																<h5 class="time">5 minutes ago</h5>
-															</div>
-															<p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
-														</div>
-													</li>
-											</ul>
-										</div>
+									<div class="list-group">
+										
 									</div>
-								<div class="list-group"></div>
-									</td>
+								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="col-lg-3 ds">
+			<!--COMPLETED ACTIONS DONUTS CHART-->
+			<h3>NOTIFICATIONS</h3>
+
+			<!-- First Action -->
+			<div class="desc">
+				<div class="thumb">
+					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+				</div>
+				<div class="details">
+					<p>
+						<muted>2 Minutes Ago</muted>
+						<br> <a href="#">James Brown</a> subscribed to your
+						newsletter.<br>
+					</p>
+				</div>
+			</div>
+			<!-- Second Action -->
+			<div class="desc">
+				<div class="thumb">
+					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+				</div>
+				<div class="details">
+					<p>
+						<muted>3 Hours Ago</muted>
+						<br> <a href="#">Diana Kennedy</a> purchased a year
+						subscription.<br>
+					</p>
+				</div>
+			</div>
+			<!-- Third Action -->
+			<div class="desc">
+				<div class="thumb">
+					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+				</div>
+				<div class="details">
+					<p>
+						<muted>7 Hours Ago</muted>
+						<br> <a href="#">Brandon Page</a> purchased a year
+						subscription.<br>
+					</p>
+				</div>
+			</div>
+			<!-- Fourth Action -->
+			<div class="desc">
+				<div class="thumb">
+					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+				</div>
+				<div class="details">
+					<p>
+						<muted>11 Hours Ago</muted>
+						<br> <a href="#">Mark Twain</a> commented your post.<br>
+					</p>
+				</div>
+			</div>
+			<!-- Fifth Action -->
+			<div class="desc">
+				<div class="thumb">
+					<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+				</div>
+				<div class="details">
+					<p>
+						<muted>18 Hours Ago</muted>
+						<br> <a href="#">Daniel Pratt</a> purchased a wallet in your
+						store.<br>
+					</p>
+				</div>
+			</div>
+
+			<!-- CALENDAR-->
+			<div id="calendar" class="mb">
+				<div class="panel green-panel no-margin">
+					<div class="panel-body">
+						<div id="date-popover" class="popover top"
+							style="cursor: pointer; margin-left: 33%; margin-top: -50px; width: 175px; display: none;"
+							data-original-title="" title="">
+							<div class="arrow"></div>
+							<h3 class="popover-title" style="disadding: none;"></h3>
+							<div id="date-popover-content" class="popover-content"></div>
+						</div>
+						<div id="zabuto_calendar_ojb">
+							<div class="zabuto_calendar" id="zabuto_calendar_ojb">
+								<table class="table">
+									<tbody>
+										<tr class="calendar-month-header">
+											<th><div class="calendar-month-navigation"
+													id="zabuto_calendar_ojb_nav-prev">
+													<span><span
+														class="fa fa-chevron-left text-transparent"></span></span>
+												</div></th>
+											<th colspan="5"><span>May 2016</span></th>
+											<th><div class="calendar-month-navigation"
+													id="zabuto_calendar_ojb_nav-next">
+													<span><span
+														class="fa fa-chevron-right text-transparent"></span></span>
+												</div></th>
+										</tr>
+										<tr class="calendar-dow-header">
+											<th>Mon</th>
+											<th>Tue</th>
+											<th>Wed</th>
+											<th>Thu</th>
+											<th>Fri</th>
+											<th>Sat</th>
+											<th>Sun</th>
+										</tr>
+										<tr class="calendar-dow">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td id="zabuto_calendar_ojb_2016-05-01" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-01_day" class="day">1</div></td>
+										</tr>
+										<tr class="calendar-dow">
+											<td id="zabuto_calendar_ojb_2016-05-02" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-02_day" class="day">2</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-03" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-03_day" class="day">3</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-04" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-04_day" class="day">4</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-05" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-05_day" class="day">5</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-06" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-06_day" class="day">6</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-07" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-07_day" class="day">7</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-08" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-08_day" class="day">8</div></td>
+										</tr>
+										<tr class="calendar-dow">
+											<td id="zabuto_calendar_ojb_2016-05-09" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-09_day" class="day">9</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-10" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-10_day" class="day">10</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-11" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-11_day" class="day">11</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-12" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-12_day" class="day">12</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-13" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-13_day" class="day">13</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-14" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-14_day" class="day">14</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-15" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-15_day" class="day">15</div></td>
+										</tr>
+										<tr class="calendar-dow">
+											<td id="zabuto_calendar_ojb_2016-05-16" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-16_day" class="day">16</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-17" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-17_day" class="day">17</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-18" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-18_day" class="day">18</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-19" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-19_day" class="day">19</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-20" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-20_day" class="day">20</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-21" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-21_day" class="day">21</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-22" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-22_day" class="day">22</div></td>
+										</tr>
+										<tr class="calendar-dow">
+											<td id="zabuto_calendar_ojb_2016-05-23" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-23_day" class="day">23</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-24" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-24_day" class="day">24</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-25" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-25_day" class="day">25</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-26" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-26_day" class="day">26</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-27" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-27_day" class="day">27</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-28" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-28_day" class="day">28</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-29" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-29_day" class="day">29</div></td>
+										</tr>
+										<tr class="calendar-dow">
+											<td id="zabuto_calendar_ojb_2016-05-30" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-30_day" class="day">30</div></td>
+											<td id="zabuto_calendar_ojb_2016-05-31" class="dow-clickable"><div
+													id="zabuto_calendar_ojb_2016-05-31_day" class="day">31</div></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="legend" id="zabuto_calendar_ojb_legend">
+									<span class="legend-text"><span
+										class="badge badge-event">00</span> Special event</span><span
+										class="legend-block"><ul class="legend">
+											<li class="event"></li>
+											<span>Regular event</span>
+										</ul></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- / calendar -->
+
+		</div>
 	</section>
 </section>
 <jsp:include
@@ -291,12 +457,12 @@ MAIN CONTENT
 	$(document)
 			.on(
 					"click",
-					"table#commentTable a",
+					"div#stat a",
 					function() {
 						if ($(this).attr("name") == "pDel") {
 							if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-								var cno = $(this).prev().prev().prev().prev()
-										.val();
+								var cno = $('#stat').$('#cno').val();
+								console.log(cno);
 								$.post('/remove/comment', {
 									"cno" : cno
 								}, function(data) {
@@ -311,17 +477,17 @@ MAIN CONTENT
 							var parentElement = $(this).parent().parent();
 
 							// 기존 입력 되있던 댓글내용과 cno 추출
-							var text = $(this).next().next().text();
+							var text = $('#content').val();
+							console.log("text :"+text);
 							var cno = $(this).prev().prev().prev().val();
 
 							// 부모의 하단에 댓글편집 창을 삽입
 							var commentEditor = "<input type='hidden' name='cno' id='cno' value='" + cno + "'>"
-									+ "<textarea class='form-control' rows='3' id='content2' name='content2'>"
+									+ "<p><textarea class='form-control' rows='3' id='content2' name='content2'>"
 									+ text
-									+ "</textarea>"
-									+ "<input type='button' class='btn btn-info' id='cUpdateBtn' value='SAVE COMMENT'>"
-									+ "<input type='button' class='btn btn-default' id='cCancelBtn' value='CENCEL'>";
-
+									+ "</textarea></p>"
+									+ "<p>&nbsp;<a class='btn btn-warning btn-xs' id='cUpdateBtn'><i class='fa fa-pencil'></i> Update</a>&nbsp;"
+									+ "<a class='btn btn-default btn-xs' id='cCancelBtn'><i class='fa fa-trash-o'></i> Cancel</a></p>";
 							parentElement.after(commentEditor);
 
 							// 기존 댓글의 폼을 없앤다.
@@ -340,9 +506,9 @@ MAIN CONTENT
 								.on(
 										'click',
 										function() {
+											console.log("asda");
 											var content2 = $(this).prev().val();
-											var cno = $(this).prev().prev()
-													.val();
+											var cno = $('#cno').val();
 											$
 													.post(
 															'/update/comment',

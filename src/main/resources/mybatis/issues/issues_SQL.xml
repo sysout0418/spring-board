@@ -467,6 +467,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN User u
 		ON c.uno = u.uno
 		WHERE ino = #{ino}
+		ORDER BY regdate DESC
 	]]>
 	</select>
 	

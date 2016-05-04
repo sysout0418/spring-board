@@ -34,7 +34,7 @@ MAIN CONTENT
 	<section class="wrapper site-min-height">
 		<h3>
 			<i class="fa fa-angle-right"></i> Project #${pno} / Milestone
-			#${milestone.mno}_${milestone.mtitle}
+			#${milestone.mno} / ${milestone.mtitle}
 		</h3>
 		<div class="col-lg-12">
 			<div class="row">

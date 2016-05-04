@@ -136,9 +136,7 @@ public class IssueController {
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
 		Issue issues = issuesService.getIssuesByIno(ino);
-//		List<Label> labelList = issuesService.getLabelsByIno(ino);
-//		issues.setLabels(labelList);
-
+		
 		// ino로 파일 리스트 불러오기
 		List<Files> fileList = issuesService.getFileListByIno(ino);
 
@@ -209,22 +207,8 @@ public class IssueController {
 		
 		int loginUserNo = (int) session.getAttribute("user_no");
 		logger.info("loginUserNo : " + loginUserNo);
-//		String[] lnos = String.valueOf(issues.getLno()).split(",");
-//		logger.info("lno[0] : " + lnos[0]);
-		issuesService.saveIssues(issues, request);
 		
-//		int lastInsertIno = issuesService.getLastIno();
-//		logger.info("ino : " + String.valueOf(lastInsertIno));
-//		IssueLabel issueLabel = new IssueLabel();
-//		issueLabel.setIno(lastInsertIno);
-//		if (issues.getLno() != 0) {
-//			issueLabel.setLno(issues.getLno());
-//			issuesService.saveIssueLabel(issueLabel);
-//			for (int i = 0; i < lnos.length; i++) {
-//				issueLabel.setLno(Integer.parseInt(lnos[i]));
-//				issuesService.saveIssueLabel(issueLabel);
-//			}
-//		}
+		issuesService.saveIssues(issues, request);
 		
 		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
@@ -285,23 +269,6 @@ public class IssueController {
 		
 		issuesService.updateIssueByIno(issues, request);
 		
-//		String[] lnos = String.valueOf(issues.getLno()).split(",");
-//		if (issues.getLno() != 0) {
-//			issuesService.removeIssueLabelForUpdate(issues);
-//			IssueLabel issueLabel = new IssueLabel();
-//			issueLabel.setLno(issues.getLno());
-//			issueLabel.setIno(issues.getIno());
-//			issuesService.saveIssueLabel(issueLabel);
-//			for (int i = 0; i < lnos.length; i++) {
-//				issueLabel.setLno(Integer.parseInt(lnos[i]));
-//				issueLabel.setIno(issues.getIno());
-//				issuesService.saveIssueLabel(issueLabel);
-//			}
-//			issuesService.updateIssueByIno(issues, request);
-//		} else {
-//			issuesService.removeIssueLabelForUpdate(issues);
-//			issuesService.updateIssueByIno(issues, request);
-//		}
 		return "redirect:/" + loginUserNo + "/" + issues.getPno() + "/issue/" + issues.getIno();
 	}
 	
@@ -669,6 +636,7 @@ public class IssueController {
 	public String getCommentList(@PathVariable("ino") int ino, Model model) {
 		List<Comment> commentList = issuesService.getCommentByIno(ino);
 		model.addAttribute("commentList", commentList);
+		
 		return "/issues/commentIssue";
 	}
 
@@ -684,7 +652,6 @@ public class IssueController {
 		param.put("content", content);
 		issuesService.saveComment(param);
 		writer.write("end");
-		// return "redirect:/" + uno + "/" + pno + "/issue/" + ino;
 	}
 
 	// 코멘트 삭제
