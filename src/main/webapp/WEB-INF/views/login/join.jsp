@@ -63,6 +63,7 @@ MAIN CONTENT
 <div id="login-page">
 	<div class="container">
 		<form:form cssClass="form-login" method="post" action="/join" commandName="UserInfo">
+			<input type=hidden name="profileBgColor" id="profileBgColor" value="">
 			<h2 class="form-login-heading">sign up</h2>
 			<div class="login-wrap">
 				<input type="email" id="uemail" name="uemail" class="form-control"
@@ -77,7 +78,7 @@ MAIN CONTENT
 				<br>
 				<!-- <button type="button" class="btn btn-theme" type="submit"><i class="fa fa-lock"></i> SIGN UP</button> -->
 				<div class="login-social-link centered">
-					<button class="btn btn-theme" type="submit" style="width: 100px;">
+					<button class="btn btn-theme" type="submit" id="joinUs" style="width: 100px;">
 						<i class="fa fa-lock"></i> SIGN UP
 					</button>
 					<a href="/loginForm" class="btn btn-theme04" style="width: 100px;">
@@ -148,6 +149,19 @@ MAIN CONTENT
 				}
 			});
 		}
+	}
+	
+	$('#joinUs').click(function() {
+		$('#profileBgColor').val(getRandomColor());
+	});
+	
+	function getRandomColor() {
+		var letters = '0123456789ABCDEF'.split('');
+		var color = '#';
+		for (var i = 0; i < 6; i++ ) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
 	}
 </script>
 </body>
