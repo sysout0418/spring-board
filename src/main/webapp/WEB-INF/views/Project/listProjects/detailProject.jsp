@@ -200,175 +200,27 @@ MAIN CONTENT
 						</div>
 					</c:forEach>
 				</c:if>
-				<div id="calendar" class="mb">
-					<div class="panel green-panel no-margin">
-						<div class="panel-body">
-							<div id="date-popover" class="popover top"
-								style="cursor: pointer; margin-left: 33%; margin-top: -50px; width: 175px; display: none;"
-								data-original-title="" title="">
-								<div class="arrow"></div>
-								<h3 class="popover-title" style="disadding: none;"></h3>
-								<div id="date-popover-content" class="popover-content"></div>
-							</div>
-							<div id="zabuto_calendar_1rkp">
-								<div class="zabuto_calendar" id="zabuto_calendar_1rkp">
-									<table class="table">
-										<tbody>
-											<tr class="calendar-month-header">
-												<th><div class="calendar-month-navigation"
-														id="zabuto_calendar_1rkp_nav-prev">
-														<span><span
-															class="fa fa-chevron-left text-transparent"></span></span>
-													</div></th>
-												<th colspan="5"><span>May 2016</span></th>
-												<th><div class="calendar-month-navigation"
-														id="zabuto_calendar_1rkp_nav-next">
-														<span><span
-															class="fa fa-chevron-right text-transparent"></span></span>
-													</div></th>
-											</tr>
-											<tr class="calendar-dow-header">
-												<th>Mon</th>
-												<th>Tue</th>
-												<th>Wed</th>
-												<th>Thu</th>
-												<th>Fri</th>
-												<th>Sat</th>
-												<th>Sun</th>
-											</tr>
-											<tr class="calendar-dow">
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td id="zabuto_calendar_1rkp_2016-05-01"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-01_day" class="day">1</div></td>
-											</tr>
-											<tr class="calendar-dow">
-												<td id="zabuto_calendar_1rkp_2016-05-02"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-02_day" class="day">2</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-03"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-03_day" class="day">3</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-04"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-04_day" class="day">4</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-05"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-05_day" class="day">5</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-06"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-06_day" class="day">6</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-07"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-07_day" class="day">7</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-08"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-08_day" class="day">8</div></td>
-											</tr>
-											<tr class="calendar-dow">
-												<td id="zabuto_calendar_1rkp_2016-05-09"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-09_day" class="day">9</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-10"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-10_day" class="day">10</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-11"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-11_day" class="day">11</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-12"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-12_day" class="day">12</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-13"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-13_day" class="day">13</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-14"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-14_day" class="day">14</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-15"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-15_day" class="day">15</div></td>
-											</tr>
-											<tr class="calendar-dow">
-												<td id="zabuto_calendar_1rkp_2016-05-16"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-16_day" class="day">16</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-17"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-17_day" class="day">17</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-18"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-18_day" class="day">18</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-19"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-19_day" class="day">19</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-20"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-20_day" class="day">20</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-21"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-21_day" class="day">21</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-22"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-22_day" class="day">22</div></td>
-											</tr>
-											<tr class="calendar-dow">
-												<td id="zabuto_calendar_1rkp_2016-05-23"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-23_day" class="day">23</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-24"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-24_day" class="day">24</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-25"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-25_day" class="day">25</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-26"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-26_day" class="day">26</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-27"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-27_day" class="day">27</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-28"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-28_day" class="day">28</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-29"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-29_day" class="day">29</div></td>
-											</tr>
-											<tr class="calendar-dow">
-												<td id="zabuto_calendar_1rkp_2016-05-30"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-30_day" class="day">30</div></td>
-												<td id="zabuto_calendar_1rkp_2016-05-31"
-													class="dow-clickable"><div
-														id="zabuto_calendar_1rkp_2016-05-31_day" class="day">31</div></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-										</tbody>
-									</table>
-									<div class="legend" id="zabuto_calendar_1rkp_legend">
-										<span class="legend-text"><span
-											class="badge badge-event">00</span> Special event</span><span
-											class="legend-block"><ul class="legend">
-												<li class="event"></li>
-												<span>Regular event</span>
-											</ul></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<script type="application/javascript">
-					
+				<!-- CALENDAR-->
+                        <div id="calendar" class="mb">
+                            <div class="panel green-panel no-margin">
+                                <div class="panel-body">
+                                    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                                        <div class="arrow"></div>
+                                        <h3 class="popover-title" style="disadding: none;"></h3>
+                                        <div id="date-popover-content" class="popover-content"></div>
+                                    </div>
+                                    <div id="my-calendar"></div>
+                                </div>
+                            </div>
+                        </div><!-- / calendar -->
+			</div>
+		</div>
+	</section>
+</section>
+<!--main content end-->
+<jsp:include
+	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+	<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
@@ -382,15 +234,7 @@ MAIN CONTENT
                 },
                 action_nav: function () {
                     return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
-                },
-                legend: [
-                    {type: "text", label: "Special event", badge: "00"},
-                    {type: "block", label: "Regular event", }
-                ]
+                }
             });
         });
         
@@ -401,12 +245,4 @@ MAIN CONTENT
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
-    
-				</script>
-			</div>
-		</div>
-	</section>
-</section>
-<!--main content end-->
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+    </script>
