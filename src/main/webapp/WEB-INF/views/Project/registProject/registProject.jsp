@@ -557,15 +557,15 @@ a.cbtn:hover {
 		var chk = document.getElementsByName("userName"); // 체크박스객체를 담는다
 		var len = chk.length; // 체크박스의 전체 개수
 		var checkRow = ''; // 체크된 체크박스의 value를 담기위한 변수
-		var checkCnt = 0; // 체크된 체크박스의 개수
-		var checkLast = ''; // 체크된 체크박스 중 마지막 체크박스의 인덱스를 담기위한 변수
 		
 		for (var i = 0; i < len; i++) {
 			if (chk[i].checked == true) {
 				checkRow = chk[i].value;
-				
-				checkCnt++; //체크된 체크박스의 개수
-				checkLast = i; //체크된 체크박스의 인덱스
+				for (var j = 0; j < len; j++) {
+					if (checkRow == chk[j].value) {
+						chk[j].checked = true;
+					}
+				}
 			}
 			
 			
