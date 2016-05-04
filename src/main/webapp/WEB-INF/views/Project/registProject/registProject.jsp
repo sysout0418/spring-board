@@ -506,12 +506,6 @@ a.cbtn:hover {
 				checkRow = chk[i].value;
 				checkText = chk[i].alt;
 				
-				for (var j = 0; j < len; j++) {
-					if (checkRow == chk[j].value) {
-						
-					}
-				}
-				
 				if (checkCnt == 1) { //체크된 체크박스의 개수가 한 개 일때,
 					rowid += checkRow; // value의 형태 (뒤에 ,(콤마)가 붙지않게)
 					rowName += checkText;
@@ -527,6 +521,17 @@ a.cbtn:hover {
 			checkRow = ''; // checkRow초기화.
 			checkText = ''; // checkText초기화.
 		}
+		
+		var userNames = rowid.split(",");
+		for (var i = 0; i < userNames.length; i++) {
+			var userName = userNames[i];
+			for (var j = 0; j < userNames.length; j++) {
+				if (userName == userNames[j]) {
+					
+				}
+			}
+		}
+		
 		$('#requestUserNoList').val(rowid);
 		$('#requestUserNameList').val(rowName);
 		//alert(rowName);
