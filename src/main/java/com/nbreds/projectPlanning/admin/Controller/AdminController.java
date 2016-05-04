@@ -85,8 +85,10 @@ public class AdminController {
 		List<CodeTable> departmentCodeList = getDepartmentList();
 		for (int i = 0; i < allUserList.size(); i++) {
 			for (int j = 0; j < departmentCodeList.size(); j++) {
-				if (allUserList.get(i).getUdepartment().equals(departmentCodeList.get(j).getCODE())) {
-					allUserList.get(i).setUdepartmentName(departmentCodeList.get(j).getCODE_NAME());
+				if (allUserList.get(i).getUdepartment() != null) {
+					if (allUserList.get(i).getUdepartment().equals(departmentCodeList.get(j).getCODE())) {
+						allUserList.get(i).setUdepartmentName(departmentCodeList.get(j).getCODE_NAME());
+					}
 				}
 			}
 		}

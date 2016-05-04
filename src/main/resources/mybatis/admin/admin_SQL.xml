@@ -214,7 +214,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getUserInfoByUno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
-	<![CDATA[	
+	<![CDATA[
 	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail, upassword, uregdate, expired, authority, enabled
 	FROM User u
 	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME

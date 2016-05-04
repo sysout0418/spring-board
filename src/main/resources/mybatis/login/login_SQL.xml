@@ -9,17 +9,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 INSERT INTO User (
 		  uname
 		  ,uphoneno
-		  ,udepartment
 		  ,uemail
 		  ,upassword
 		  ,uregdate
+		  ,profileBgColor
 		) VALUES (
 		  #{uname}
 		  ,#{uphoneno}
-		  ,#{udepartment}
 		  ,#{uemail}
 		  ,#{upassword}
 		  ,NOW()
+		  ,#{profileBgColor}
 		);
     ]]>  
     </insert>

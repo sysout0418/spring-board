@@ -37,7 +37,7 @@
 	var canvas2 = document.getElementById("cv2");	//canvas의 DOM 객체를 얻는다
 	var context2 = canvas2.getContext("2d"); //DOM 객체로부터 2D 컨텍스트를 얻는다
 	var msg = "${theFirstLetterOfEmail}"; // 텍스트
-	context2.font = "bold 45px sans-serif"; // 폰트 크기 및 글자체
+	context2.font = "35px sans-serif"; // 폰트 크기 및 글자체
 	context2.textAlign = "center";
 	context2.textBaseline = "middle";
 	//context2.strokeStyle = "white";
