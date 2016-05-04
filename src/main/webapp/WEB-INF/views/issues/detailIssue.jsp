@@ -134,6 +134,9 @@
 .post .post-footer .comments-list .comment>.comments-list {
 	margin-left: 50px;
 }
+.text1 {
+	color: #54565b;
+}
 </style>
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
@@ -168,11 +171,6 @@ MAIN CONTENT
 										<a href="/issues/remove/${uno}/${pno}/${ino}"
 											class="btn btn-danger">Remove</a>
 									</div></td>
-								<style type="text/css">
-.text1 {
-	color: #54565b;
-}
-</style>
 							</tr>
 							<tr>
 								<td>
@@ -453,74 +451,58 @@ MAIN CONTENT
 		});
 	}
 
-	// 선택한 name 요소에 따라 댓글 삭제 or 기존 댓글 폼 없애고 수정폼 만들기
-	$(document)
-			.on(
-					"click",
-					"div#stat a",
-					function() {
-						if ($(this).attr("name") == "pDel") {
-							if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-								var cno = $('#stat').$('#cno').val();
-								console.log(cno);
-								$.post('/remove/comment', {
-									"cno" : cno
-								}, function(data) {
-									$('.list-group').load(
-											"/getCommentList/${issues.ino}");
-								});
-							} else {// 취소
-								return;
-							}
-						} else if ($(this).attr("name") == "pEdit") {
-							// 자기 부모의 tr을 알아낸다.
-							var parentElement = $(this).parent().parent();
+	$(document).on('click', '.post-description > #stat > a', function() {
+		if ($(this).attr("name") == "pDel") {
+			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
+				var cno = $(this).next().val();
+				$.post('/remove/comment', {
+					"cno" : cno
+				}, function(data) {
+					$('.list-group').load("/getCommentList/${issues.ino}");
+				});
+			} else {// 취소
+				return;
+			}
+		} else if ($(this).attr("name") == "pEdit") {
+			// 자기 부모의 tr을 알아낸다.
+			var parentElement = $(this).parent().parent(); // <div class="post-description"> ... </div>
+			
+			// 기존 입력 되있던 댓글내용과 cno 추출
+			var text = $(this).parent().prev().text();
+			console.log(text);
+			var cno = $(this).next().next().val();
+			console.log(cno);
+			
+			// 부모의 하단에 댓글편집 창을 삽입
+			var commentEditor = "<input type='hidden' name='cno' id='cno' value='" + cno + "'>"
+					+ "<textarea class='form-control' rows='3' id='content2' name='content2'>"
+					+ text
+					+ "</textarea><br>"
+					+ "&nbsp;<a class='btn btn-warning btn-xs' id='cUpdateBtn'><i class='fa fa-pencil'></i> Update</a>&nbsp;"
+					+ "<a class='btn btn-default btn-xs' id='cCancelBtn'><i class='fa fa-trash-o'></i> Cancel</a>";
+			parentElement.after(commentEditor);
 
-							// 기존 입력 되있던 댓글내용과 cno 추출
-							var text = $('#content').val();
-							console.log("text :"+text);
-							var cno = $(this).prev().prev().prev().val();
-
-							// 부모의 하단에 댓글편집 창을 삽입
-							var commentEditor = "<input type='hidden' name='cno' id='cno' value='" + cno + "'>"
-									+ "<p><textarea class='form-control' rows='3' id='content2' name='content2'>"
-									+ text
-									+ "</textarea></p>"
-									+ "<p>&nbsp;<a class='btn btn-warning btn-xs' id='cUpdateBtn'><i class='fa fa-pencil'></i> Update</a>&nbsp;"
-									+ "<a class='btn btn-default btn-xs' id='cCancelBtn'><i class='fa fa-trash-o'></i> Cancel</a></p>";
-							parentElement.after(commentEditor);
-
-							// 기존 댓글의 폼을 없앤다.
-							parentElement.remove();
-						}
-
-						// 댓글 수정폼 없애기
-						$("#cCancelBtn").click(
-								function() {
-									$('.list-group').load(
-											"/getCommentList/${issues.ino}");
-								});
-
-						// 댓글 수정
-						$("#cUpdateBtn")
-								.on(
-										'click',
-										function() {
-											console.log("asda");
-											var content2 = $(this).prev().val();
-											var cno = $('#cno').val();
-											$
-													.post(
-															'/update/comment',
-															{
-																"cno" : cno,
-																"content2" : content2
-															},
-															function(data) {
-																$('.list-group')
-																		.load(
-																				"/getCommentList/${issues.ino}");
-															});
-										});
-					});
+			// 기존 댓글의 폼을 없앤다.
+			parentElement.remove();
+		}
+		
+		// 댓글 수정폼 없애기
+		$("#cCancelBtn").click(function() {
+			$('.list-group').load("/getCommentList/${issues.ino}");
+		});
+		
+		// 댓글 수정
+		$("#cUpdateBtn").on('click', function() {
+			var content2 = $(this).prev().prev().val();
+			var cno = $(this).prev().prev().prev().val();
+			$.post('/update/comment', {
+				"cno" : cno,
+				"content2" : content2
+			},
+			function(data) {
+				$('.list-group').load("/getCommentList/${issues.ino}");
+			});
+		});
+	});
+	
 </script>

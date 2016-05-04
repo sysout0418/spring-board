@@ -31,7 +31,7 @@ MAIN CONTENT
 										<li <c:if test="${stat=='all'}"> class="active"</c:if>><a
 											href="/${uno}/${pno}/milestones/all">All <span class="badge">${milestoneAllCnt}</span></a></li>
 										<div style="text-align: right">
-										<li><a href="/${uno}/${pno}/milestones/new"
+											<li><a href="/${uno}/${pno}/milestones/new"
 											class="btn btn-success">New Milestone</a></li>
 										</div>
 									</ul>
