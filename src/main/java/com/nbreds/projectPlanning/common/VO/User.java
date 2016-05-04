@@ -14,6 +14,7 @@ public class User {
 	private String authority;
 	private int enabled;
 	private String expired; 
+	private String profileBgColor;
 	
 	public String getUname() {
 		return uname;
@@ -80,6 +81,12 @@ public class User {
 	}
 	public void setExpired(String expired) {
 		this.expired = expired;
+	}
+	public String getProfileBgColor() {
+		return profileBgColor;
+	}
+	public void setProfileBgColor(String profileBgColor) {
+		this.profileBgColor = profileBgColor;
 	}
 	@Override
 	public String toString() {

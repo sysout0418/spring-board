@@ -61,6 +61,23 @@ public class IssueController {
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		List<User> userList = issuesService.getUserListByPno(pno);
 		Map<String, Object> param = new HashMap<String, Object>();
+		int issueOpenCnt = 0;
+		int issueClosedCnt = 0;
+		for (int i = 0; i < 2; i++) {
+			Map<String, Object> param2 = new HashMap<String, Object>();
+			param2.put("pno", pno);
+			if (i == 0) {
+				param2.put("istatement", "000");
+				issueOpenCnt = issuesService.getIssueCnt(param2);
+				logger.info("issueOepnCnt : " + issueOpenCnt);
+			} else {
+				param2.put("istatement", "001");
+				issueClosedCnt = issuesService.getIssueCnt(param2);
+				logger.info("issueClosedCnt : " + issueClosedCnt);
+			}
+		}
+		int issueAllCnt = issueOpenCnt + issueClosedCnt;
+		logger.info("issueAllCnt : " + issueAllCnt);
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("uno", uno);
@@ -107,6 +124,9 @@ public class IssueController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", milestoneList);
+		model.addAttribute("issueOpenCnt", issueOpenCnt);
+		model.addAttribute("issueClosedCnt", issueClosedCnt);
+		model.addAttribute("issueAllCnt", issueAllCnt);
 
 		return "/Project/myProjects/Issues/issues";
 	}

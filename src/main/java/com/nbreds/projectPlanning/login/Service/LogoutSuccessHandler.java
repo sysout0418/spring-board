@@ -20,7 +20,8 @@ public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 		logger.info("logoutsuccess");
 		HttpSession session = req.getSession();
 		session.removeAttribute("user_no");
-		
+		session.removeAttribute("theFirstLetterOfEmail");
+		session.removeAttribute("profileBgColor");
 		res.sendRedirect("/loginForm");
 	}
 }

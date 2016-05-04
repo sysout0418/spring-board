@@ -103,4 +103,9 @@ public class MilestonesDao {
 		sqlSession.update("milestones.updateFile", param);
 	}
 	
+	// 마일스톤 카운트
+	public int getMilestoneCnt(Map<String, Object> param) {
+		return sqlSession.selectOne("milestones.getMilestoneCnt", param);
+	}
+	
 }

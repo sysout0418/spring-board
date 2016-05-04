@@ -25,11 +25,11 @@ MAIN CONTENT
 								<div class="tabbable-line">
 									<ul class="nav nav-tabs">
 										<li <c:if test="${stat=='open'}"> class="active"</c:if>><a
-											href="/${uno}/${pno}/milestones/open">Open</a></li>
+											href="/${uno}/${pno}/milestones/open">Open <span class="badge">${milestoneOpenCnt}</span></a></li>
 										<li <c:if test="${stat=='closed'}"> class="active"</c:if>><a
-											href="/${uno}/${pno}/milestones/closed">Closed</a></li>
+											href="/${uno}/${pno}/milestones/closed">Closed <span class="badge">${milestoneClosedCnt}</span></a></li>
 										<li <c:if test="${stat=='all'}"> class="active"</c:if>><a
-											href="/${uno}/${pno}/milestones/all">All</a></li>
+											href="/${uno}/${pno}/milestones/all">All <span class="badge">${milestoneAllCnt}</span></a></li>
 										<div style="text-align: right">
 										<li><a href="/${uno}/${pno}/milestones/new"
 											class="btn btn-success">New Milestone</a></li>

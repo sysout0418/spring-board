@@ -524,4 +524,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE ino = #{ino}
     ]]>
 	</update>
+	
+	<select id="getIssueCnt" parameterType="Map" resultType="int">
+	<![CDATA[
+	SELECT COUNT(ino)
+	FROM Issues
+	WHERE pno = #{pno} AND istatement = #{istatement}
+	]]>
+	</select>
 </mapper>

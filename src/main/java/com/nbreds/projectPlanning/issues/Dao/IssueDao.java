@@ -3,6 +3,7 @@ package com.nbreds.projectPlanning.issues.Dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,5 +165,9 @@ public class IssueDao {
 	
 	public void updateMilestoneByIno(Map<String, Object> param) {
 		sqlSession.update("issues.updateMilestoneByIno", param);
+	}
+	
+	public int getIssueCnt(Map<String, Object> param) {
+		return sqlSession.selectOne("issues.getIssueCnt", param);
 	}
 }
