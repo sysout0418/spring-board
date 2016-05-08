@@ -13,79 +13,6 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
-<style type="text/css">
-.layer {
-	display: none;
-	position: fixed;
-	_position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
-}
-
-.layer .bg {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #000;
-	opacity: .5;
-	filter: alpha(opacity = 50);
-}
-
-.layer .pop-layer {
-	display: block;
-}
-
-.pop-layer {
-	display: none;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 410px;
-	height: auto;
-	background-color: #fff;
-	border: 5px solid #3571B5;
-	z-index: 10;
-}
-
-.pop-layer .pop-container {
-	padding: 20px 25px;
-}
-
-.pop-layer p.ctxt {
-	color: #666;
-	line-height: 25px;
-}
-
-.pop-layer .btn-r {
-	width: 100%;
-	margin: 10px 0 20px;
-	padding-top: 10px;
-	border-top: 1px solid #DDD;
-	text-align: right;
-}
-
-a.cbtn {
-	display: inline-block;
-	height: 25px;
-	padding: 0 14px 0;
-	border: 1px solid #304a8a;
-	background-color: #3f5a9d;
-	font-size: 13px;
-	color: #fff;
-	line-height: 25px;
-}
-
-a.cbtn:hover {
-	border: 1px solid #091940;
-	background-color: #1f326a;
-	color: #fff;
-}
-</style>
 <!-- Begin page content -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -183,7 +110,7 @@ a.cbtn:hover {
 											-->
 											<!-- Button trigger modal -->
 											<a href="#" class="btn btn-primary btn-xs"
-												data-toggle="modal" data-target="#myModal" onclick="checkDuplication()"> 추가</a>
+												data-toggle="modal" data-target="#myModal"> 추가</a>
 											<div class="selectedUserList"></div>
 										</div> <%-- 
 										<div class="layer">
@@ -241,24 +168,33 @@ a.cbtn:hover {
 															<li class=""><a href="#j" data-toggle="tab"
 																aria-expanded="false">UI/UX팀</a></li>
 														</ul>
+														<c:set var="doneLoop" value="false"/>
 														<div id="myTabContent" class="tab-content">
+															<!-- 유저 리스트 -->
 															<div class="tab-pane fade active in" id="a">
 																<c:forEach var="user" items="${allUserList}">
 																	<div class="checkbox">
 																		<label> <input type="checkbox" name="userName"
-																			value="${user.uno}" alt="${user.uname}">${user.uname}
+																			value="${user.uno}" alt="${user.uname}"
+																			<c:if test="${user.isChecked}">
+																				checked="checked"
+																			</c:if>
+																			>${user.uname}
 																		</label>
 																	</div>
 																</c:forEach>
 															</div>
-															<div class="tab-pane fade active in" id="b">
+															<div class="tab-pane fade" id="b">
 																<c:forEach var="user" items="${allUserList}">
 																	<c:choose>
 																		<c:when test="${user.udepartment == 000}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -270,9 +206,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 001}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -284,9 +223,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 002}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -298,9 +240,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 003}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -312,9 +257,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 004}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -326,9 +274,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 005}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -340,9 +291,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 006}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -354,9 +308,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 007}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -368,9 +325,12 @@ a.cbtn:hover {
 																	<c:choose>
 																		<c:when test="${user.udepartment == 008}">
 																			<div class="checkbox">
-																				<label> <input type="checkbox"
-																					name="userName" value="${user.uno}"
-																					alt="${user.uname}">${user.uname}
+																				<label> <input type="checkbox" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																						checked="checked"
+																					</c:if>
+																					>${user.uname}
 																				</label>
 																			</div>
 																		</c:when>
@@ -378,7 +338,6 @@ a.cbtn:hover {
 																</c:forEach>
 															</div>
 														</div>
-
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default"
@@ -404,13 +363,121 @@ a.cbtn:hover {
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
+	$(document).on('click', 'input[name="userName"]', function() {
+		console.log("클릭되나?");
+		console.log($(this).val());
+		
+		var chk = document.getElementsByName("userName"); // 체크박스 객체를 담는다
+		var rowId = ''; // 체크된 체크박스의 모든 value 값을 담는다
+		
+		
+		for (var i = 0; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				rowId += chk[i].value + ",";
+			}
+		}
+		console.log(rowId.substring(0, rowId.length - 1).split(","));
+		
+		$.ajax({
+            url : "/regist",
+            type: "get",
+            data : { "rowId" : rowId },
+            success : function(data){
+            	getUserList();
+            }
+        });
+		
+	});
+	
 	$(function() {
 		$("#datepicker").datepicker({
 			altFormat : "mm/dd/yy",
 			minDate : 0
 		});
+		
+		
+		/* $('input:checkbox[name="userName"]').click(function() {
+			$('input:checkbox[name="userName"]').each(function() {
+				console.log(this.value);
+				if ($(this).is(':checked')) {
+					
+					console.log("몇번 들어오니");
+				}
+			});
+		}); */
+		
+		/* 
+		$('input[name=userName]').bind('click', function() {
+			console.log($(this).val());
+			var chk = document.getElementsByName("userName"); // 체크박스객체를 담는다
+			var checkRow = ''; // 체크된 체크박스의 value를 담기위한 변수
+			var checkRow2 = [];
+			
+			for (var i = 0; i < chk.length; i++) {
+				if (chk[i].checked == true) {
+					checkRow += chk[i].value + ",";
+				}
+			}
+			console.log(checkRow);
+			
+			checkRow2 = checkRow.substring(0, checkRow.length - 1).split(",");
+			console.log(checkRow2);
+			
+			if (checkRow2.length > 0) {
+				$(this).prop('checked', false);
+				for (var i = 0; i < checkRow2.length; i++) {
+					for (var j = 0; j < chk.length; j++) {
+						chk[j].checked = false;
+						if (chk[j].value == checkRow2[i]) {
+							chk[j].checked = true;
+						}
+					}
+				}
+			}
+			
+			if ($(this).is(':checked')) {
+				$(this).prop('checked', false);
+			} else {
+				$(this).prop('checked', true);
+			}
+			
+			for (var i = 0; i < chk.length; i++) {
+				if ($(this).is(':checked')) {
+					console.log("ㅎㅇ");
+					if (chk[i].value == $(this).val()) {
+						$(this).prop('checked', false);
+						chk[i].checked = false;
+					}
+				} else {
+					console.log("ㅎㅇ2");
+					if (chk[i].value == $(this).val()) {
+						$(this).prop('checked', true);
+						chk[i].checked = true;
+					}
+				}
+			}
+			
+			console.log(checkRow.substring(0, checkRow.length - 1).split(","));
+			
+			for (var i = 0; i < checkRow2.length; i++) {
+				for (var j = 0; j < chk.length; j++) {
+					if (chk[j].checked == false) {
+						console.log("chk[j].value : " + chk[j].value);
+						console.log("checkRow2[i] : " + checkRow2[i]);
+						if (chk[j].value == checkRow2[i]) {
+							chk[j].checked = true;
+						}
+					} else {
+						chk[j].checked = false;
+					}
+				}
+			} 
+			
+			
+		}); 
+		*/
 	});
-
+	
 	/* 
 	function layer_open(el) {
 
@@ -553,7 +620,61 @@ a.cbtn:hover {
 		//alert(rowId);
 	}
 	
-	function checkDuplication() {
+	function getUserList() {
+		$('#myTabContent').empty();
+		var html = '';
+		html += '<div class="tab-pane fade active in" id="a"><c:forEach var="user" items="${allUserList}">';
+		html += '<div class="checkbox"><label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="b"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 000}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="c"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 001}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="d"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 002}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="e"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 003}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="f"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 004}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="g"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 005}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="h"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 006}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="i"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 007}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		html += '<div class="tab-pane fade" id="j"><c:forEach var="user" items="${allUserList}">';
+		html += '<c:choose><c:when test="${user.udepartment == 008}"><div class="checkbox">';
+		html += '<label> <input type="checkbox" name="userName" value="${user.uno}" alt="${user.uname}" ';
+		html += '<c:if test="${user.isChecked}">checked="checked"</c:if>>${user.uname}</label></div></c:when></c:choose></c:forEach></div>';
+		
+		$('#myTabContent').append(html);
+	}
+	/* function checkDuplication() {
 		var chk = document.getElementsByName("userName"); // 체크박스객체를 담는다
 		var len = chk.length; // 체크박스의 전체 개수
 		var checkRow = ''; // 체크된 체크박스의 value를 담기위한 변수
@@ -566,11 +687,18 @@ a.cbtn:hover {
 						chk[j].checked = true;
 					}
 				}
+			} else if (chk[i].checked == false) {
+				checkRow = chk[i].value;
+				for (var j = 0; j < len; j++) {
+					if (checkRow == chk[j].value) {
+						chk[j].checked = false;
+					}
+				}
 			}
 			
 			
 		}
 		
 		
-	}
+	} */
 </script>

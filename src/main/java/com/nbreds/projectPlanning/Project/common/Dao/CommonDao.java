@@ -28,4 +28,5 @@ public class CommonDao {
 	public CodeTable getCodeName(HashMap<String, String> param) {
 		return sqlSession.selectOne("project.common.getCodeName", param);
 	}
+	
 }

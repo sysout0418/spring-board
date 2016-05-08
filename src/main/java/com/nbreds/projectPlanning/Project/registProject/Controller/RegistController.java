@@ -1,5 +1,7 @@
 package com.nbreds.projectPlanning.Project.registProject.Controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.common.VO.User;
 
 @Controller
 public class RegistController {
@@ -28,12 +31,38 @@ public class RegistController {
 	RegistService registService;
 
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
-	public String Regist(Project project, HttpSession session, Model model) {
+	public String Regist(Project project, HttpSession session, Model model, HttpServletRequest request) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
-
 		HashMap<String, Object> user = registService.getUserForNo(uno);
+		List<User> allUserList = registService.getAllUser();
+		String rowId = request.getParameter("rowId");
+		
+		if (rowId != null) {
+			String[] rowIds = rowId.substring(0, rowId.length() - 1).split(",");
+			List<String> rowIdList = new ArrayList<String>(Arrays.asList(rowIds));
+			if (rowIds != null && !rowIds[0].equals("")) {
+				for (int i = 0; i < rowIds.length; i++) {
+					logger.info("rowId[" + i + "] : " + rowIds[i]);
+				}
+			}
+			if (rowIdList.isEmpty()) {
+				for (int i = 0; i < allUserList.size(); i++) {
+					allUserList.get(i).setChecked(false);
+				}
+			} else {
+				for (int i = 0; i < allUserList.size(); i++) {
+					for (int j = 0; j < rowIdList.size(); j++) {
+						if (allUserList.get(i).getUno() == Integer.parseInt(rowIdList.get(j))) {
+							System.out.println("여기 들어옵니까");
+							allUserList.get(i).setChecked(true);
+						}
+					}
+				}
+			}
+		}
+		
 		model.addAttribute("user", user);
-		model.addAttribute("allUserList", registService.getAllUser());
+		model.addAttribute("allUserList", allUserList);
 		
 		return "Project/registProject/registProject";
 	}

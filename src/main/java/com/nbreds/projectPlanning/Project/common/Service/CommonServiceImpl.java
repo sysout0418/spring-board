@@ -28,4 +28,5 @@ public class CommonServiceImpl implements CommonService{
 	public CodeTable getCodeName(HashMap<String, String> param) {
 		return commonDao.getCodeName(param);
 	}
+
 }

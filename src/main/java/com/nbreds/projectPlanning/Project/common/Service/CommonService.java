@@ -15,4 +15,5 @@ public interface CommonService {
 	public List<User> getAllUserNameAndNo();
 	
 	public CodeTable getCodeName(HashMap<String, String> param);
+	
 }

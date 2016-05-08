@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,#{uemail}
 		  ,#{upassword}
 		  ,NOW()
-		  ,(SELECT CODE_NAME 
+		  ,(SELECT CODE
 		  	FROM CodeTable 
 		  	WHERE CODE_TYPE = '007' 
 		  	ORDER BY rand() LIMIT 1)

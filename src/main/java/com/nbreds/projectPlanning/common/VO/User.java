@@ -15,6 +15,7 @@ public class User {
 	private int enabled;
 	private String expired; 
 	private String profileBgColor;
+	private boolean isChecked;
 	
 	public String getUname() {
 		return uname;
@@ -87,6 +88,12 @@ public class User {
 	}
 	public void setProfileBgColor(String profileBgColor) {
 		this.profileBgColor = profileBgColor;
+	}
+	public boolean getIsChecked() {
+		return isChecked;
+	}
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
 	@Override
 	public String toString() {
