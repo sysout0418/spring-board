@@ -61,8 +61,13 @@ public class RegistController {
 	
 	@RequestMapping("/getUserList")
 	public String getUserList(Model model, @RequestParam(value="checkArray[]") List<String> arrayParams,
-			@RequestParam(value="index") int index) {
+			@RequestParam(value="index") int index, HttpServletRequest request) {
 		logger.info("index : " + index);
+		HttpSession session = request.getSession();
+		session.removeAttribute("index");
+		session.setAttribute("index", index);
+		int sessionIndex = Integer.parseInt(session.getAttribute("index").toString());
+
 		List<User> allUserList = registService.getAllUser();
 		if (arrayParams != null && !arrayParams.get(0).equals("")) {
 			// 넘어온 체크박스값 로그 찍어보자
@@ -91,7 +96,7 @@ public class RegistController {
 			}
 		}
 		model.addAttribute("allUserList", allUserList);
-		model.addAttribute("index", index);
+		model.addAttribute("index", sessionIndex);
 		
 		return "Project/registProject/userList";
 	}

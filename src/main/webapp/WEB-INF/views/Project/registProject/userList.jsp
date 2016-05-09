@@ -24,7 +24,11 @@
 </ul> --%>
 
 <c:set var="doneLoop" value="false"/>
-<div class="tab-pane fade <c:if test="${index == 0}">active in</c:if>" id="a">
+<div class="tab-pane fade 
+	<c:choose>
+		<c:when test="${index == 0}">active in</c:when>
+		<c:when test="${empty index}">active in</c:when>
+	</c:choose>" id="a">
 	<c:forEach var="user" items="${allUserList}">
 		<div class="checkbox">
 			<label> <input type="checkbox" name="userName"
