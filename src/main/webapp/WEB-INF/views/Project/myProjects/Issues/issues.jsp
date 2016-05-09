@@ -73,7 +73,7 @@ MAIN CONTENT
 								
 								<input type="checkbox" name="cbListAll"
 									onclick="checkCbListAll()"
-									style="position: absolute; top: 100px; left: 32px;">
+									style="position: absolute; top: 115px; left: 57px;">
 								<div class="tab-content well" id="originalForm"
 									style="display: block;">
 									<div style="margin-left: 20px;">

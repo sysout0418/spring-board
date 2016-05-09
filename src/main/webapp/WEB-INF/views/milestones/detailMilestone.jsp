@@ -39,7 +39,7 @@ MAIN CONTENT
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="content-panel">
+					<div class="content-panel" style="border-radius: 18px 18px 0px 0px; padding: 25px;">
 						<table class="table">
 							<tr>
 								<td><c:if test="${milestone.mstatement=='000'}">
@@ -100,7 +100,7 @@ MAIN CONTENT
 							<input type="hidden" id="uno" value="${uno}" />
 						</table>
 					</div>
-					<div class="content-panel">
+					<div class="content-panel" style="border-radius: 0px 0px 18px 18px; padding: 25px;">
 						<table class="table">
 							<tr><td><h4>Issues</h4></td></tr>
 							<tr><td>

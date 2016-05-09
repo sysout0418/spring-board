@@ -114,13 +114,13 @@ public class IssueController {
 		
 		String pname = issuesService.getPnameByPno(pno);
 		
-		model.addAttribute("pname", pname);
-		model.addAttribute("stat", stat);
 		if (issuesList.isEmpty()) {
 			model.addAttribute("issuesList", "none");
 		} else {
 			model.addAttribute("issuesList", issuesList);
 		}
+		model.addAttribute("pname", pname);
+		model.addAttribute("stat", stat);
 		model.addAttribute("userList", userList);
 		model.addAttribute("allLabelList", allLabelList);
 		model.addAttribute("milestoneList", milestoneList);
@@ -186,12 +186,21 @@ public class IssueController {
 			model.addAttribute("mno", mno);
 			model.addAttribute("mtitle", mtitle);
 		}
+		
+		if (userList.isEmpty()) {
+			model.addAttribute("userList", "none");
+		} else {
+			model.addAttribute("userList", userList);
+		}
+		if (milestoneList.isEmpty()) {
+			model.addAttribute("milestoneList", "none");
+		} else {
+			model.addAttribute("milestoneList", milestoneList);
+		}
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("labels", labels);
-		model.addAttribute("userList", userList);
 		model.addAttribute("allUserList", allUserList);
-		model.addAttribute("milestoneList", milestoneList);
 
 		return "/issues/newIssue";
 	}
@@ -244,13 +253,21 @@ public class IssueController {
 		logger.info("title : " + issues.getItitle());
 		logger.info("description : " + issues.getIdescription());
 
+		if (userList.isEmpty()) {
+			model.addAttribute("userList", "none");
+		} else {
+			model.addAttribute("userList", userList);
+		}
+		if (milestoneList.isEmpty()) {
+			model.addAttribute("milestoneList", "none");
+		} else {
+			model.addAttribute("milestoneList", milestoneList);
+		}
 		model.addAttribute("uno", uno);
 		model.addAttribute("pno", pno);
 		model.addAttribute("issues", issues);
-		model.addAttribute("userList", userList);
 		model.addAttribute("allUserList", allUserList);
 		model.addAttribute("labelList", labelList);
-		model.addAttribute("milestoneList", milestoneList);
 		model.addAttribute("fileList", fileList);
 
 		return "/issues/editIssue";

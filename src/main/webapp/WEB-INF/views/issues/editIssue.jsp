@@ -92,7 +92,14 @@ MAIN CONTENT
 						<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
 						<ul class="dropdown-menu">
 							<c:forEach var="users" items="${userList}">
-								<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
+								<c:choose>
+									<c:when test="${users == 'none'}">
+										<li><a href="#">No user participating in this project</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</ul>
 					</div>
@@ -117,8 +124,14 @@ MAIN CONTENT
 						<a href="/${uno}/${pno}/milestones/new" class="btn btn-default" id="assigntome" style="margin-left: 10px;">Create New Milestone</a>
 						<ul class="dropdown-menu">
 							<c:forEach var="milestone" items="${milestoneList}">
-								<li class="milestoneNo"><a href="#"
-									alt="${milestone.mno}">${milestone.mtitle}</a></li>
+								<c:choose>
+									<c:when test="${milestone == 'none'}">
+										<li><a href="#">No milestone to show</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="milestoneNo"><a href="#" alt="${milestone.mno}">${milestone.mtitle}</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						</ul>
 					</div>
