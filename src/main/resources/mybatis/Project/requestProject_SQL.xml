@@ -62,13 +62,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getMessagesByUno" parameterType="String" resultType="hashmap">
     <![CDATA[
-	   	SELECT P.pname, S.regDate, U.uname
-		FROM ProjectMemberStat S
-		JOIN Project P ON S.pno = P.pno
-		JOIN User U ON P.uno = U.uno
-		WHERE S.uno=#{uno} AND stat=000
-		ORDER BY S.regDate DESC
-		LIMIT 4
+	SELECT P.pname, S.regDate, U.uname, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, C.CODE_NAME AS profileBgColor
+	FROM ProjectMemberStat S
+	JOIN Project P ON S.pno = P.pno
+	JOIN User U ON P.uno = U.uno
+    JOIN CodeTable C ON C.CODE_TYPE='007' AND C.CODE=U.profileBgColor
+	WHERE S.uno=#{uno} AND stat=000
+	ORDER BY S.regDate DESC
+	LIMIT 4
     ]]>  
     </select>
     

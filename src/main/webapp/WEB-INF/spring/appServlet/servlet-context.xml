@@ -22,7 +22,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	<context:component-scan base-package="com.nbreds" />
+	<context:component-scan base-package="com.nbreds.projectPlanning" />
 	
 	<!-- jackson -->
 	<beans:bean id="jacksonMessageConverter"

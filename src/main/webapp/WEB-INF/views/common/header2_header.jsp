@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <section id="container" class>
 	<!-- **********************************************************************************************************************************************************
 TOP BAR CONTENT & NOTIFICATIONS
@@ -67,12 +68,27 @@ TOP BAR CONTENT & NOTIFICATIONS
 						<c:forEach var="message" items="${message}">
 						<li>
 							<a href="/requestProject/requested">
-								<span class="photo"><img alt="avatar" src="<c:url value="/resources/img/ui-sam.jpg" />"></span>
+									<div style="background-color: ${message.profileBgColor}; width:40px; height:40px; line-height:40px; display:inline-block; float: left; text-align:center;">
+										<span style="font-size: 12px; color: #E8E8E8;">${message.theFirstLetterOfEmail}</span>
+									</div>
+									<div style="float:left; height: 3px; width:3px"></div>
+									<div style="float: left;">
 								<span class="subject">
 									<span class="from">${message.uname}</span>
 									<span class="time">${message.regDate}</span>
 								</span>
-								<span class="message">${message.pname}에 참여를 요청하셨습니다.</span>
+								<span class="message">
+								 <c:choose>
+						           <c:when test="${fn:length(message.pname) > 2}">
+						            <c:out value="${fn:substring(message.pname,0,2)}"/>....
+						           </c:when>
+						           <c:otherwise>
+						            <c:out value="${message.pname}"/>
+						           </c:otherwise> 
+						          </c:choose>
+						          에 참여를 요청하셨습니다.
+								</span>
+								</div>
 							</a></li>
 						</c:forEach>
 						</c:if>
