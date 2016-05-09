@@ -73,16 +73,17 @@ MAIN CONTENT
 							<div class="white-header">
 								<h5>PROJECT MANAGER</h5>
 							</div>
-							<p>
-								<img src="<c:url value="/resources/img/ui-sam.jpg" />"
-									class="img-circle" width="80">
-							</p>
-							<p>
-								<b>${project.uname}</b>
-							</p>
-							<p>
+							<div class="user-img">
+								<div class="img-circle" style="background-color: ${project.profileBgColor}; width:80px; height:80px; line-height:80px;">
+									<span style="font-size: 15px; color: #E8E8E8;">${project.theFirstLetterOfEmail}</span>
+								</div>
+							</div>
+							<div>
+							<div style="height:10px"></div>
+								<b>${project.uname}</b><br/>
+								<div style="height:5px"></div>
 								<b>${project.udepartment}</b>
-							</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -180,9 +181,11 @@ MAIN CONTENT
 					<c:forEach var="list" items="${request}">
 						<div class="desc">
 							<div class="thumb">
-								<img class="img-circle"
-									src="<c:url value="/resources/img/ui-sam.jpg" />" width="35px"
-									height="35px" align="">
+								<div class="user-img">
+								<div class="img-circle" style="background-color: ${list.profileBgColor}; width:35px; height:35px; line-height:35px;">
+									<span style="font-size: 12px; color: #E8E8E8;">${list.theFirstLetterOfEmail}</span>
+								</div>
+							</div>
 							</div>
 							<div class="details">
 								<p>

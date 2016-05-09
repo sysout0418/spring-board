@@ -186,9 +186,11 @@ MAIN CONTENT
 					<c:forEach var="list" items="${request}">
 						<div class="desc">
 							<div class="thumb">
-								<img class="img-circle"
-									src="<c:url value="/resources/img/ui-sam.jpg" />" width="35px"
-									height="35px" align="">
+							<div class="user-img">
+								<div class="img-circle" style="background-color: ${list.profileBgColor}; width:35px; height:35px; line-height:35px;">
+									<span style="font-size: 12px; color: #E8E8E8;">${list.theFirstLetterOfEmail}</span>
+								</div>
+							</div>
 							</div>
 							<div class="details">
 								<p>
