@@ -1,5 +1,5 @@
 /*---LEFT BAR ACCORDION----*/
-$(function() {
+/*$(function() {
     $('#nav-accordion').dcAccordion({
         eventType: 'click',
         autoClose: true,
@@ -11,7 +11,7 @@ $(function() {
 //        cookie: 'dcjq-accordion-1',
         classExpand: 'dcjq-current-parent'
     });
-});
+});*/
 
 var Script = function () {
 
@@ -71,9 +71,9 @@ var Script = function () {
     });
 
 // custom scrollbar
-    $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+    // $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
 
-    $("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
+    // $("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
 
 // widget tools
 

@@ -22,9 +22,6 @@
     
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/gritter/js/jquery.gritter.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/gritter-conf.js" />"></script>
-<script type="text/javascript" class="include" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.dcjqaccordion.2.7.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.scrollTo.min.js" />"></script>
-<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.nicescroll.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/common-scripts.js" />"></script>
 
 </body>
