@@ -10,13 +10,11 @@ MAIN SIDEBAR MENU
 	<div id="sidebar" class="nav-collapse ">
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu" id="nav-accordion">
-			<p class="centered">
-				<a href="#">
-					<%-- <img src="<c:url value="/resources/img/ui-sam.jpg" />" class="img-circle" width="60"> --%>
-					<canvas id="cv" width="60" height="60"></canvas>
-					<canvas id="cv2" width="60" height="60" style="position: absolute; left: 75px;"></canvas>
-				</a>
-			</p>
+			<div class="user-img">
+				<div class="img-circle" style="background-color: ${profileBgColor}; width:60px; height:60px; line-height:60px;">
+					<span style="font-size: 15px; color: #E8E8E8;">${theFirstLetterOfEmail}</span>
+				</div>
+			</div>
 			<sec:authentication var="user" property="principal" />
 			<h5 class="centered">${user.username}</h5>
 			<li class="mt">
