@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -78,6 +80,21 @@ public class IssueController {
 		}
 		int issueAllCnt = issueOpenCnt + issueClosedCnt;
 		logger.info("issueAllCnt : " + issueAllCnt);
+		
+		// 현재 날짜 구하기
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		Date d = new Date();
+		Date today = null;
+		Date iRegDate = null;
+		String date = format.format(d);
+		try {
+			today = format.parse(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("today : " + date);
+		
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("uno", uno);
@@ -85,6 +102,18 @@ public class IssueController {
 			issuesList = issuesService.getIssuesByPno(param);
 			if (!issuesList.isEmpty()) {
 				for (int i = 0; i < issuesList.size(); i++) {
+					String iRegdateToString = issuesList.get(i).getIduedate();
+					try {
+						iRegDate = format.parse(iRegdateToString);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					long difference = iRegDate.getTime() - today.getTime();
+					long timeDifference = difference / (24 * 60 * 60 * 1000);
+					logger.info("iRegdateToString : " + iRegdateToString);
+					logger.info("timeDifference : " + timeDifference);
+					
+					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
