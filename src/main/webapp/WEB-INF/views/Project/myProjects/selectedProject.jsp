@@ -159,13 +159,15 @@ MAIN CONTENT
 						<p>
 							<b>담당자</b><br /> ${project.uname}<br />
 						</p>
+						<c:if test="${pdatas != null}">
 						<p>
 							<b>필요 기술</b><br />
 							<c:forEach var="code" items="${pdatas}">
-				${code} /
-				</c:forEach>
+							${code} /
+							</c:forEach>
 							<br />
 						</p>
+						</c:if>
 						<span class="label label-default"
 							style="background-color: ${project.lbgcolor};">${project.ltitle}</span><br/><br/>
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
