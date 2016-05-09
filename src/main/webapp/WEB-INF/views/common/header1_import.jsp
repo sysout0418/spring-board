@@ -10,7 +10,7 @@
 <meta name="keyword"
 	content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-<title>DashBoard</title>
+<title>BIDDING</title>
 
 <!-- Bootstrap core CSS -->
 <link
@@ -51,9 +51,9 @@ rel="stylesheet" type="text/css" />
      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <![endif]-->
-   
+
 <!-- 
-content-panel에 라운드 주기
+content-panel에 라운드 주기 일단 보류
 <style>
 .content-panel {
 	border-radius: 18px;
@@ -61,6 +61,19 @@ content-panel에 라운드 주기
 }
 </style> 
 -->
+
+<style type="text/css">
+html { 
+	overflow-y:scroll; 
+}
+.user-img{
+	text-align: center;
+}
+.img-circle{
+	display:inline-block;
+	height:60px; line-height:60px;
+}
+</style>
 </head>
 
 <body>

@@ -72,15 +72,17 @@ MAIN CONTENT
 							<div class="white-header">
 								<h5>PROJECT MANAGER</h5>
 							</div>
-							<p>
-								<img class="img-circle" width="80" height="80" style="background-color: #000; border: 0px; vertical-align: middle;" alt="ssss">
-							</p>
-							<p>
-								<b>${project.uname}</b>
-							</p>
-							<p>
+							<div class="user-img">
+								<div class="img-circle" style="background-color: ${project.profileBgColor}; width:80px; height:80px; line-height:80px;">
+									<span style="font-size: 15px; color: #E8E8E8;">${project.theFirstLetterOfEmail}</span>
+								</div>
+							</div>
+							<div>
+							<div style="height:10px"></div>
+								<b>${project.uname}</b><br/>
+								<div style="height:5px"></div>
 								<b>${project.udepartment}</b>
-							</p>
+							</div>
 						</div>
 					</div>
 				</div>
