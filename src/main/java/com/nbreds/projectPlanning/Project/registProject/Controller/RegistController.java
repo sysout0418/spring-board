@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
@@ -31,35 +32,10 @@ public class RegistController {
 	RegistService registService;
 
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
-	public String Regist(Project project, HttpSession session, Model model, HttpServletRequest request) {
+	public String Regist(Project project, HttpSession session, Model model) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
 		HashMap<String, Object> user = registService.getUserForNo(uno);
 		List<User> allUserList = registService.getAllUser();
-		String rowId = request.getParameter("rowId");
-		
-		if (rowId != null) {
-			String[] rowIds = rowId.substring(0, rowId.length() - 1).split(",");
-			List<String> rowIdList = new ArrayList<String>(Arrays.asList(rowIds));
-			if (rowIds != null && !rowIds[0].equals("")) {
-				for (int i = 0; i < rowIds.length; i++) {
-					logger.info("rowId[" + i + "] : " + rowIds[i]);
-				}
-			}
-			if (rowIdList.isEmpty()) {
-				for (int i = 0; i < allUserList.size(); i++) {
-					allUserList.get(i).setChecked(false);
-				}
-			} else {
-				for (int i = 0; i < allUserList.size(); i++) {
-					for (int j = 0; j < rowIdList.size(); j++) {
-						if (allUserList.get(i).getUno() == Integer.parseInt(rowIdList.get(j))) {
-							System.out.println("여기 들어옵니까");
-							allUserList.get(i).setChecked(true);
-						}
-					}
-				}
-			}
-		}
 		
 		model.addAttribute("user", user);
 		model.addAttribute("allUserList", allUserList);
@@ -81,6 +57,43 @@ public class RegistController {
 		registService.savePrjAndPrjMS(project, requestedUserNoList);
 		
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/getUserList")
+	public String getUserList(Model model, @RequestParam(value="checkArray[]") List<String> arrayParams,
+			@RequestParam(value="index") int index) {
+		logger.info("index : " + index);
+		List<User> allUserList = registService.getAllUser();
+		if (arrayParams != null && !arrayParams.get(0).equals("")) {
+			// 넘어온 체크박스값 로그 찍어보자
+			for (int i = 0; i < arrayParams.size(); i++) {
+				logger.info("arrayParams[" + i + "] : " + arrayParams.get(i));
+			}
+			
+			// 체크박스 체크 여부가 true인 객체만 찾아서 true로 바꾸기
+			for (int i = 0; i < allUserList.size(); i++) {
+				allUserList.get(i).setChecked(false);
+				for (int j = 0; j < arrayParams.size(); j++) {
+					if (allUserList.get(i).getUno() == Integer.parseInt(arrayParams.get(j))) {
+						allUserList.get(i).setChecked(true);
+					}
+				}
+			}
+			
+			// 체크박스 값이 잘 변경 됐는지 로그 찍어보자
+			for (int i = 0; i < allUserList.size(); i++) {
+				logger.info("allUserList.get(" + i + ").getIsChecked() : " + allUserList.get(i).getIsChecked());
+			}
+		} else {
+			// 넘어온 체크박스값 없으면 모든 객체 체크박스값도 false로
+			for (int i = 0; i < allUserList.size(); i++) {
+				allUserList.get(i).setChecked(false);
+			}
+		}
+		model.addAttribute("allUserList", allUserList);
+		model.addAttribute("index", index);
+		
+		return "Project/registProject/userList";
 	}
 
 	@ModelAttribute("development")
