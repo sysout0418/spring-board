@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
@@ -69,38 +70,5 @@ public class HomeController {
 		
 		return list;
 	}
-	
-	/*
-	@RequestMapping("/getUserList")
-	public String getUserList(Model model, HttpServletRequest request) {
-		String rowId = request.getParameter("rowId");
-		List<User> allUserList = commonService.getAllUserNameAndNo();
-		if (rowId != null) {
-			String[] rowIds = rowId.substring(0, rowId.length() - 1).split(",");
-			List<String> rowIdList = new ArrayList<String>(Arrays.asList(rowIds));
-			if (rowIds != null && !rowIds[0].equals("")) {
-				for (int i = 0; i < rowIds.length; i++) {
-					logger.info("rowId[" + i + "] : " + rowIds[i]);
-				}
-			}
-			if (rowIdList.isEmpty()) {
-				for (int i = 0; i < allUserList.size(); i++) {
-					allUserList.get(i).setChecked(false);
-				}
-			} else {
-				for (int i = 0; i < allUserList.size(); i++) {
-					for (int j = 0; j < rowIdList.size(); j++) {
-						if (allUserList.get(i).getUno() == Integer.parseInt(rowIdList.get(j))) {
-							allUserList.get(i).setChecked(true);
-						}
-					}
-				}
-			}
-		}
-		model.addAttribute("allUserList", allUserList);
-		
-		return "Project/registProject/userList";
-	}
-	*/
 	
 }

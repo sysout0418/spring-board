@@ -52,6 +52,15 @@ rel="stylesheet" type="text/css" />
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <![endif]-->
    
+<!-- 
+content-panel에 라운드 주기
+<style>
+.content-panel {
+	border-radius: 18px;
+	padding: 25px;
+}
+</style> 
+-->
 </head>
 
 <body>
