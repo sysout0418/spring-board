@@ -462,12 +462,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getCommentByIno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Comment">
 	<![CDATA[	
-		SELECT cno, content, regdate, c.uno, ino, uname
-		FROM Comments c
-		JOIN User u
-		ON c.uno = u.uno
-		WHERE ino = #{ino}
-		ORDER BY regdate DESC
+	SELECT cno, content, regdate, c.uno, ino, uname, UPPER(SUBSTRING(u.uemail,1,1)) AS theFirstLetterOfEmail,C.CODE_NAME AS profileBgColor
+	FROM Comments c
+	JOIN User u ON c.uno = u.uno
+  	LEFT JOIN CodeTable C ON C.CODE_TYPE='007' AND C.CODE=u.profileBgColor
+	WHERE ino = #{ino}
+	ORDER BY regdate DESC
 	]]>
 	</select>
 	

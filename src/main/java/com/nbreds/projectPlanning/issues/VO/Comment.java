@@ -7,6 +7,8 @@ public class Comment {
 	private int uno;
 	private int ino;
 	private String uname;
+	private String theFirstLetterOfEmail;
+	private String profileBgColor;
 	
 	public int getCno() {
 		return cno;
@@ -44,5 +46,16 @@ public class Comment {
 	public void setUname(String uname) {
 		this.uname = uname;
 	}
-	
+	public String getTheFirstLetterOfEmail() {
+		return theFirstLetterOfEmail;
+	}
+	public void setTheFirstLetterOfEmail(String theFirstLetterOfEmail) {
+		this.theFirstLetterOfEmail = theFirstLetterOfEmail;
+	}
+	public String getProfileBgColor() {
+		return profileBgColor;
+	}
+	public void setProfileBgColor(String profileBgColor) {
+		this.profileBgColor = profileBgColor;
+	}
 }
