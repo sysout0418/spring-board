@@ -24,6 +24,9 @@ public class Issue {
 	private String lbgcolor;
 	private int commentCnt;
 	
+	/** expired 여부 */
+	private boolean isExpired;
+	
 	public int getIno() {
 		return ino;
 	}
@@ -126,6 +129,12 @@ public class Issue {
 	}
 	public void setIregdate(String iregdate) {
 		this.iregdate = iregdate;
+	}
+	public boolean getIsExpired() {
+		return isExpired;
+	}
+	public void setIsExpired(boolean isExpired) {
+		this.isExpired = isExpired;
 	}
 	
 }

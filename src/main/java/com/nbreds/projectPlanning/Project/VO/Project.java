@@ -22,6 +22,7 @@ public class Project {
 
 	private String uname;
 	private String pskill="";
+	private boolean isExpired;
 	
 	public void setPno(int pno) {
 		this.pno = pno;
@@ -124,6 +125,12 @@ public class Project {
 	}
 	public void setPprogress(int pprogress) {
 		this.pprogress = pprogress;
+	}
+	public boolean getIsExpired() {
+		return isExpired;
+	}
+	public void setIsExpired(boolean isExpired) {
+		this.isExpired = isExpired;
 	}
 	
 }
