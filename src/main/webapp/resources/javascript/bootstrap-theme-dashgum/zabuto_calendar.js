@@ -10,6 +10,24 @@ if (typeof jQuery == 'undefined') {
     throw new Error('jQuery is not loaded');
 }
 
+// 오늘 날짜 구해오기
+var today = "";
+$(document).ready(function() {
+	console.log("로드됨");
+	today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    } 
+    if(mm<10) {
+        mm='0'+mm
+    } 
+    today = yyyy + '-' + mm + '-' + dd; 
+    console.log(today);
+});
+
 /**
  * Create calendar
  *
@@ -268,8 +286,16 @@ $.fn.zabuto_calendar = function (options) {
                     } else {
                         var dateId = $calendarElement.attr('id') + '_' + dateAsString(year, month, currDayOfMonth);
                         var dayId = dateId + '_day';
-
-                        var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
+                        
+                        // 같은 날짜 찾아서 색칠
+                        var allDate = dateId.substring(dateId.length - 10, dateId.length);
+                        if (today == allDate) {
+                        	var $dayElement = $('<div id="' + dayId + '" class="day danger" style="border-radius: 10px; background-color: #FFC55C">' + currDayOfMonth + '</div>');
+                        } else {
+                        	var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
+                        }
+                        // **************************************************************************
+                        
                         $dayElement.data('day', currDayOfMonth);
 
                         if ($calendarElement.data('showToday') === true) {
