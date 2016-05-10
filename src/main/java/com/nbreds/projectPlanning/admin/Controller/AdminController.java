@@ -41,6 +41,9 @@ public class AdminController {
 		
 		List<HashMap<String, Object>> project = adminService.get5Projects();
 		model.addAttribute("project", project);
+		
+		List<Map<String, Object>> labelList = adminService.getAllLabel();
+		model.addAttribute("labelList", labelList);
 
 		model.addAttribute("countUsers", countUsers);
 		model.addAttribute("countProjects", countProjects);
@@ -277,4 +280,5 @@ public class AdminController {
 		
 		return departmentList;
 	}
+	
 }

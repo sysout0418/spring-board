@@ -114,4 +114,8 @@ public class AdminDao {
 		sqlSession.update("admin.updateUserAuthorityAndAdmit", param);
 	}
 	
+	public List<Map<String, Object>> getAllLabel() {
+		return sqlSession.selectList("admin.getAllLabel");
+	}
+	
 }
