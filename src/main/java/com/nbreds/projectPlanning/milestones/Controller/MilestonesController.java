@@ -46,38 +46,26 @@ public class MilestonesController {
 			param.put("mstatement", "000");
 			list = milestonesService.getJoinMilestones(param);
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = list.get(i).getMduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", list);
-					DateCalculator.getInstance().setExpired(param2);
-				}
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", list);
+				DateCalculator.getInstance().setExpired(param2);
 			}
 		} else if (stat.equals("closed")) {
 			param.put("uno", uno);
 			param.put("mstatement", "001");
 			list = milestonesService.getJoinMilestones(param);
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = list.get(i).getMduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", list);
-					DateCalculator.getInstance().setExpired(param2);
-				}
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", list);
+				DateCalculator.getInstance().setExpired(param2);
 			}
 		} else {
 			param.put("uno", uno);
 			list = milestonesService.getJoinMilestones(param);
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = list.get(i).getMduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", list);
-					DateCalculator.getInstance().setExpired(param2);
-				}
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", list);
+				DateCalculator.getInstance().setExpired(param2);
 			}
 		}
 		for (Milestone milestone : list) {
@@ -107,38 +95,26 @@ public class MilestonesController {
 			param.put("mstatement", "000");
 			list = milestonesService.getMilestonesByPno(param);
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = list.get(i).getMduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", list);
-					DateCalculator.getInstance().setExpired(param2);
-				}
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", list);
+				DateCalculator.getInstance().setExpired(param2);
 			}
 		} else if (stat.equals("closed")) {
 			param.put("pno", pno);
 			param.put("mstatement", "001");
 			list = milestonesService.getMilestonesByPno(param);
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = list.get(i).getMduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", list);
-					DateCalculator.getInstance().setExpired(param2);
-				}
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", list);
+				DateCalculator.getInstance().setExpired(param2);
 			}
 		} else {
 			param.put("pno", pno);
 			list = milestonesService.getMilestonesByPno(param);
 			if (!list.isEmpty()) {
-				for (int i = 0; i < list.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = list.get(i).getMduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", list);
-					DateCalculator.getInstance().setExpired(param2);
-				}
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", list);
+				DateCalculator.getInstance().setExpired(param2);
 			}
 		}
 		

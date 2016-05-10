@@ -21,9 +21,9 @@ public class DateCalculator {
 	private static DateCalculator dateCalculator;
 	private SimpleDateFormat format;
 	private Date today;
-	private Date regDate;
+	private Date dueDate;
 	private long today2;
-	private long regDate2;
+	private long dueDate2;
 	private long timeDifference;
 	private List<Issue> issueList;
 	private List<Milestone> milestoneList;
@@ -48,10 +48,10 @@ public class DateCalculator {
 		return today.getTime();
 	}
 
-	private long getRegDate(String date) throws ParseException {
+	private long getDueDate(String date) throws ParseException {
 		format = new SimpleDateFormat(dateFormat);
-		regDate = format.parse(date);
-		return regDate.getTime();
+		dueDate = format.parse(date);
+		return dueDate.getTime();
 	}
 
 	private long getTimeDifference(long regDate, long today) {
@@ -61,14 +61,18 @@ public class DateCalculator {
 
 	@SuppressWarnings("unchecked")
 	public <T> void setExpired(Map<String, Object> param) {
+		List<T> list = (List<T>) param.get("targetList");
+		String dueDateToString = "";
 		try {
 			today2 = getToday();
-			regDate2 = (Long) getRegDate(param.get("regdateToString").toString());
-			timeDifference = getTimeDifference(regDate2, today2);
-			List<T> list = (List<T>) param.get("targetList");
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i) instanceof Issue) {
-					issueList = (List<Issue>) list;
+
+			if (list.get(0) instanceof Issue) {
+				issueList = (List<Issue>) list;
+				for (int i = 0; i < issueList.size(); i++) {
+					dueDateToString = issueList.get(i).getIduedate();
+					dueDate2 = getDueDate(dueDateToString);
+					timeDifference = getTimeDifference(dueDate2, today2);
+
 					if (timeDifference >= 0) {
 						issueList.get(i).setIsExpired(false);
 					} else {
@@ -76,8 +80,15 @@ public class DateCalculator {
 					}
 					logger.info("timeDifference : " + timeDifference);
 					logger.info("issue isExpired : " + issueList.get(i).getIsExpired());
-				} else if (list.get(i) instanceof Milestone) {
-					milestoneList = (List<Milestone>) list;
+				}
+			} else if (list.get(0) instanceof Milestone) {
+				milestoneList = (List<Milestone>) list;
+				logger.info("milestoneSize : " + milestoneList.size());
+				for (int i = 0; i < milestoneList.size(); i++) {
+					dueDateToString = milestoneList.get(i).getMduedate();
+					dueDate2 = getDueDate(dueDateToString);
+					timeDifference = getTimeDifference(dueDate2, today2);
+
 					if (timeDifference >= 0) {
 						milestoneList.get(i).setIsExpired(false);
 					} else {
@@ -85,8 +96,14 @@ public class DateCalculator {
 					}
 					logger.info("timeDifference : " + timeDifference);
 					logger.info("milestone isExpired : " + milestoneList.get(i).getIsExpired());
-				} else {
-					projectList = (List<Project>) list;
+				}
+			} else {
+				projectList = (List<Project>) list;
+				for (int i = 0; i < projectList.size(); i++) {
+					dueDateToString = projectList.get(i).getPduedate();
+					dueDate2 = getDueDate(dueDateToString);
+					timeDifference = getTimeDifference(dueDate2, today2);
+
 					if (timeDifference >= 0) {
 						projectList.get(i).setIsExpired(false);
 					} else {
@@ -104,13 +121,16 @@ public class DateCalculator {
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> checkDateForUpdate(Map<String, Object> param) {
 		Map<String, Object> param2 = new HashMap<String, Object>();
+		List<Issue> issueList = (List<Issue>) param.get("issueList");
+		String dueDateToString = "";
 		try {
 			today2 = getToday();
-			regDate2 = (Long) getRegDate(param.get("regdateToString").toString());
-			timeDifference = getTimeDifference(regDate2, today2);
-			
-			List<Issue> issueList = (List<Issue>) param.get("issueList");
+
 			for (int i = 0; i < issueList.size(); i++) {
+				dueDateToString = issueList.get(i).getIduedate();
+				dueDate2 = getDueDate(dueDateToString);
+				timeDifference = getTimeDifference(dueDate2, today2);
+
 				if (timeDifference < 0) {
 					param2.put("istatement", "001");
 					param2.put("ino", issueList.get(i).getIno());
@@ -120,10 +140,11 @@ public class DateCalculator {
 					param2.put("ino", issueList.get(i).getIno());
 					param2.put("lno", 4);
 				}
+				return param2;
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return param2;
+		return null;
 	}
 }

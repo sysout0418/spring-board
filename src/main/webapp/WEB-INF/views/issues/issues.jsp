@@ -171,7 +171,7 @@ MAIN CONTENT
 														style="background-color:
 														${issues.lbgcolor}; color: #FFFFFF"
 														title="" data-container="body" data-original-title="">${issues.ltitle}</span>&nbsp;&nbsp;
-														<c:if test="${issues.isExpired}"><span style="color: red;">(Expired)</span></c:if><br>
+														<c:if test="${issues.isExpired}"><span style="color: #E50B00;">(Expired)</span></c:if><br>
 														${issues.iregdate} by ${issues.uname} / <i
 														class="fa fa-clock-o" aria-hidden="true"></i> <a
 														href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>

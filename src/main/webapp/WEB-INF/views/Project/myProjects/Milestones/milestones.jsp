@@ -53,7 +53,7 @@ MAIN CONTENT
 										${milestone.countIssues} Issues<br /> 
 										<c:choose>
 											<c:when test="${milestone.isExpired}">
-												<span style="color: red;">(Expired)</span>
+												<span style="color: #E50B00;">(Expired)</span>
 												<span style="color: #adad85">expired at ${milestone.mduedate}</span>
 											</c:when>
 											<c:otherwise>

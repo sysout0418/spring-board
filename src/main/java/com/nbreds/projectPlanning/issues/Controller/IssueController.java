@@ -64,24 +64,26 @@ public class IssueController {
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		List<User> userList = issuesService.getUserListByPno(pno);
-		Map<String, Object> param = new HashMap<String, Object>(); // 이슈 리스트 가져오기 위한 map
-		Map<String, Object> param2 = new HashMap<String, Object>(); // 날짜 계산 위한 map
-		Map<String, Object> param3 = new HashMap<String, Object>(); // 이슈 갯수 계산 위한 map
-		
+		Map<String, Object> param = new HashMap<String, Object>(); // 이슈 리스트
+																	// 가져오기 위한
+																	// map
+		Map<String, Object> param2 = new HashMap<String, Object>(); // 날짜 계산 위한
+																	// map
+		Map<String, Object> param3 = new HashMap<String, Object>(); // 이슈 갯수 계산
+																	// 위한 map
+
 		if (stat.equals("open")) {
 			param.put("pno", pno);
 			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByPno(param);
 			if (!issuesList.isEmpty()) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", issuesList);
+				DateCalculator.getInstance().setExpired(param2);
+				/************************************************************************/
+
 				for (int i = 0; i < issuesList.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = issuesList.get(i).getIduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", issuesList);
-					DateCalculator.getInstance().setExpired(param2);
-					/************************************************************************/
-					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
@@ -92,15 +94,12 @@ public class IssueController {
 			param.put("istatement", "001");
 			issuesList = issuesService.getIssuesByPno(param);
 			if (!issuesList.isEmpty()) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", issuesList);
+				DateCalculator.getInstance().setExpired(param2);
+				/************************************************************************/
+
 				for (int i = 0; i < issuesList.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = issuesList.get(i).getIduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", issuesList);
-					DateCalculator.getInstance().setExpired(param2);
-					/************************************************************************/
-					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
@@ -110,21 +109,18 @@ public class IssueController {
 			param.put("uno", uno);
 			issuesList = issuesService.getIssuesByPno(param);
 			if (!issuesList.isEmpty()) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", issuesList);
+				DateCalculator.getInstance().setExpired(param2);
+				/************************************************************************/
+
 				for (int i = 0; i < issuesList.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = issuesList.get(i).getIduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", issuesList);
-					DateCalculator.getInstance().setExpired(param2);
-					/************************************************************************/
-					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
 			}
 		}
-		
+
 		int issueOpenCnt = 0;
 		int issueClosedCnt = 0;
 		for (int i = 0; i < 2; i++) {
@@ -141,9 +137,9 @@ public class IssueController {
 		}
 		int issueAllCnt = issueOpenCnt + issueClosedCnt;
 		logger.info("issueAllCnt : " + issueAllCnt);
-		
+
 		String pname = issuesService.getPnameByPno(pno);
-		
+
 		if (issuesList.isEmpty()) {
 			model.addAttribute("issuesList", "none");
 		} else {
@@ -166,7 +162,7 @@ public class IssueController {
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
 		Issue issues = issuesService.getIssuesByIno(ino);
-		
+
 		// ino로 파일 리스트 불러오기
 		List<Files> fileList = issuesService.getFileListByIno(ino);
 
@@ -182,7 +178,8 @@ public class IssueController {
 		Files fileInfo = issuesService.getFileInfoByFno(fno);
 
 		try {
-			byte fileByte[] = FileUtils.readFileToByteArray(new File("/home/projectPlan/WebProject/upload/" + fileInfo.getStoreName()));
+			byte fileByte[] = FileUtils
+					.readFileToByteArray(new File("/home/projectPlan/WebProject/upload/" + fileInfo.getStoreName()));
 
 			response.setContentType("application/octet-stream");
 			response.setContentLength(fileByte.length);
@@ -197,13 +194,15 @@ public class IssueController {
 			try {
 				response.getOutputStream().flush();
 				response.getOutputStream().close();
-			} catch(Exception e) {}
+			} catch (Exception e) {
+			}
 		}
 	}
 
 	// issues 등록 폼으로
 	@RequestMapping("/{uno}/{pno}/issues/new")
-	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, HttpServletRequest request, Model model) {
+	public String newIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, HttpServletRequest request,
+			Model model) {
 		List<Label> labels = issuesService.getAllLabel();
 		List<User> userList = issuesService.getUserListByPno(pno);
 		List<User> allUserList = issuesService.getAllUserNameAndNo();
@@ -216,7 +215,7 @@ public class IssueController {
 			model.addAttribute("mno", mno);
 			model.addAttribute("mtitle", mtitle);
 		}
-		
+
 		if (userList.isEmpty()) {
 			model.addAttribute("userList", "none");
 		} else {
@@ -243,30 +242,30 @@ public class IssueController {
 		logger.info("description : " + issues.getIdescription());
 		logger.info("pno : " + issues.getPno());
 		logger.info("lno : " + issues.getLno());
-		
+
 		int loginUserNo = (int) session.getAttribute("user_no");
 		logger.info("loginUserNo : " + loginUserNo);
-		
+
 		issuesService.saveIssues(issues, request);
-		
+
 		// 파일이 view단에서 controller로 잘 넘어오는지 log 찍어봄
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-	    Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-	    MultipartFile multipartFile = null;
-	    while(iterator.hasNext()){
-	        multipartFile = multipartHttpServletRequest.getFile(iterator.next());
-	        if(multipartFile.isEmpty() == false){
-	            logger.info("------------- file start -------------");
-	            logger.info("name : "+multipartFile.getName());
-	            logger.info("filename : "+multipartFile.getOriginalFilename());
-	            logger.info("size : "+multipartFile.getSize());
-	            logger.info("-------------- file end --------------\n");
-	        }
-	    }
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		while (iterator.hasNext()) {
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if (multipartFile.isEmpty() == false) {
+				logger.info("------------- file start -------------");
+				logger.info("name : " + multipartFile.getName());
+				logger.info("filename : " + multipartFile.getOriginalFilename());
+				logger.info("size : " + multipartFile.getSize());
+				logger.info("-------------- file end --------------\n");
+			}
+		}
 
 		return "redirect:/" + loginUserNo + "/" + pno + "/issues/open";
 	}
-	
+
 	// issue 수정 페이지
 	@RequestMapping(value = "/issues/edit/{uno}/{pno}/{ino}", method = RequestMethod.GET)
 	public String editFormIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
@@ -305,24 +304,24 @@ public class IssueController {
 
 	// issue 수정
 	@RequestMapping(value = "/issues/edit", method = RequestMethod.POST)
-	public String editIssue(@ModelAttribute("Issues") Issue issues, 
-			HttpServletRequest request, HttpSession session, BindingResult result) {
+	public String editIssue(@ModelAttribute("Issues") Issue issues, HttpServletRequest request, HttpSession session,
+			BindingResult result) {
 		logger.info("---------------updating page------------------");
 		logger.info("ino : " + issues.getIno());
 		logger.info("title : " + issues.getItitle());
 		logger.info("lnos : " + issues.getLno());
 		logger.info("uno : " + issues.getUno());
 		int loginUserNo = (int) session.getAttribute("user_no");
-		
+
 		issuesService.updateIssueByIno(issues, request);
-		
+
 		return "redirect:/" + loginUserNo + "/" + issues.getPno() + "/issue/" + issues.getIno();
 	}
-	
+
 	// issue 리스트창에서 다이렉트로 issue 수정
 	@RequestMapping("/issues/directEdit/{uno}/{pno}")
-	public String directEditIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
-			String status, String userNo2, String mno2, String[] cbList) {
+	public String directEditIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, String status,
+			String userNo2, String mno2, String[] cbList) {
 		logger.info("status : " + status);
 		logger.info("userNo2 : " + userNo2);
 		logger.info("mno2 : " + mno2);
@@ -331,8 +330,8 @@ public class IssueController {
 				logger.info("cbList[i] : " + cbList[i]);
 			}
 		}
-		
-		if(!status.equals("") && cbList.length > 0) {
+
+		if (!status.equals("") && cbList.length > 0) {
 			if (status.equals("Open")) {
 				for (int i = 0; i < cbList.length; i++) {
 					Map<String, Object> param = new HashMap<String, Object>();
@@ -349,7 +348,7 @@ public class IssueController {
 				}
 			}
 		}
-		
+
 		if (!userNo2.equals("") && cbList.length > 0) {
 			for (int i = 0; i < cbList.length; i++) {
 				Map<String, Object> param = new HashMap<String, Object>();
@@ -358,7 +357,7 @@ public class IssueController {
 				issuesService.updateAssigneeByIno(param);
 			}
 		}
-		
+
 		if (!mno2.equals("") && cbList.length > 0) {
 			for (int i = 0; i < cbList.length; i++) {
 				Map<String, Object> param = new HashMap<String, Object>();
@@ -367,8 +366,7 @@ public class IssueController {
 				issuesService.updateMilestoneByIno(param);
 			}
 		}
-		
-		
+
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 
@@ -382,27 +380,23 @@ public class IssueController {
 		param.put("uno", uno);
 		param.put("istatement", "000");
 		issuesList = issuesService.getIssuesByPno(param);
-		
+
 		if (!issuesList.isEmpty()) {
-			for (int i = 0; i < issuesList.size(); i++) {
-				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 label은 '종료'로 update
-				// 만기되지 않은 issue라면 label은 '중단'으로 update
-				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-				String regdateToString = issuesList.get(i).getIduedate();
-				param2.put("regdateToString", regdateToString);
-				param2.put("issueList", issuesList);
-				
-				param = DateCalculator.getInstance().checkDateForUpdate(param2);
-				issuesService.closeIssue(param);
-			}
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 label은 '종료'로 update
+			// 만기되지 않은 issue라면 label은 '중단'으로 update
+			param2.put("issueList", issuesList);
+
+			param = DateCalculator.getInstance().checkDateForUpdate(param2);
+			issuesService.closeIssue(param);
 		}
-		
+
 		return "redirect:/" + uno + "/" + pno + "/issues/closed";
 	}
-	
+
 	// issue reopen
 	@RequestMapping("/issues/reopen/{uno}/{pno}/{ino}")
-	public String reopenIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
+	public String reopenIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
+			@PathVariable("ino") int ino) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("ino", ino);
 		param.put("istatement", "000");
@@ -419,8 +413,9 @@ public class IssueController {
 		logger.info("mno : " + mno);
 		logger.info("lno : " + lno);
 		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> param2 = new HashMap<String, Object>();
 		List<Issue> issuesList = new ArrayList<Issue>();
-//		List<Label> labelList = new ArrayList<Label>();
+		// List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getUserListByPno(pno);
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
@@ -434,12 +429,12 @@ public class IssueController {
 			param.put("userNo", userNo);
 			param.put("mno", mno);
 			param.put("lno", lno);
-//			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
-//			for (int i = 0; i < issuesList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-//				issuesList.get(i).setLabels(labelList);
-//			}
+
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+			param2.put("targetList", issuesList);
+			DateCalculator.getInstance().setExpired(param2);
+			/************************************************************************/
 		}
 		if (stat.equals("closed")) {
 			param.put("pno", pno);
@@ -447,26 +442,25 @@ public class IssueController {
 			param.put("userNo", userNo);
 			param.put("mno", mno);
 			param.put("lno", lno);
-//			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
-			System.out.println(issuesList.size());
-//			for (int i = 0; i < issuesList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-//				issuesList.get(i).setLabels(labelList);
-//			}
+
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+			param2.put("targetList", issuesList);
+			DateCalculator.getInstance().setExpired(param2);
+			/************************************************************************/
 		} else {
 			param.put("pno", pno);
 			param.put("userNo", userNo);
 			param.put("mno", mno);
 			param.put("lno", lno);
-//			param.put("weight", weight);
 			issuesList = issuesService.searchIssues(param);
-//			for (int i = 0; i < issuesList.size(); i++) {
-//				labelList = issuesService.getLabelsByIno(issuesList.get(i).getIno());
-//				issuesList.get(i).setLabels(labelList);
-//			}
+
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+			param2.put("targetList", issuesList);
+			DateCalculator.getInstance().setExpired(param2);
+			/************************************************************************/
 		}
-		
+
 		if (userList != null && userList.size() > 0) {
 			for (int i = 0; i < userList.size(); i++) {
 				if (userNo != null) {
@@ -476,7 +470,7 @@ public class IssueController {
 				}
 			}
 		}
-		
+
 		if (milestoneList != null && milestoneList.size() > 0) {
 			for (int i = 0; i < milestoneList.size(); i++) {
 				if (mno != null) {
@@ -486,7 +480,7 @@ public class IssueController {
 				}
 			}
 		}
-		
+
 		if (allLabelList != null && allLabelList.size() > 0) {
 			for (int i = 0; i < allLabelList.size(); i++) {
 				if (lno != null) {
@@ -528,29 +522,19 @@ public class IssueController {
 		HashMap<String, Object> param = new HashMap<>();
 		HashMap<String, Object> param2 = new HashMap<>();
 		String userName = "";
-		
-		// 현재 날짜 구하기
-//		long today = 0;
-//		try {
-//			today = DateCalculator.getInstance().getToday();
-//		} catch (ParseException e1) {
-//			e1.printStackTrace();
-//		}
-				
+
 		if (stat.equals("open")) {
 			param.put("uno", uno);
 			param.put("istatement", "000");
 			issuesList = issuesService.getIssuesByUno(param);
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
 			if (!issuesList.isEmpty()) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", issuesList);
+				DateCalculator.getInstance().setExpired(param2);
+				/************************************************************************/
+
 				for (int i = 0; i < issuesList.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = issuesList.get(i).getIduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", issuesList);
-					DateCalculator.getInstance().setExpired(param2);
-					/************************************************************************/
-					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
@@ -561,14 +545,12 @@ public class IssueController {
 			issuesList = issuesService.getIssuesByUno(param);
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
 			if (!issuesList.isEmpty()) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", issuesList);
+				DateCalculator.getInstance().setExpired(param2);
+				/************************************************************************/
+
 				for (int i = 0; i < issuesList.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = issuesList.get(i).getIduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", issuesList);
-					DateCalculator.getInstance().setExpired(param2);
-					/************************************************************************/
-					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
@@ -578,20 +560,18 @@ public class IssueController {
 			issuesList = issuesService.getIssuesByUno(param);
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
 			if (!issuesList.isEmpty()) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+				param2.put("targetList", issuesList);
+				DateCalculator.getInstance().setExpired(param2);
+				/************************************************************************/
+
 				for (int i = 0; i < issuesList.size(); i++) {
-					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-					String regdateToString = issuesList.get(i).getIduedate();
-					param2.put("regdateToString", regdateToString);
-					param2.put("targetList", issuesList);
-					DateCalculator.getInstance().setExpired(param2);
-					/************************************************************************/
-					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
 			}
 		}
-		
+
 		if (userList.size() > 0) {
 			for (int i = 0; i < userList.size(); i++) {
 				if (uno.equals(String.valueOf(userList.get(i).getUno()))) {
@@ -600,7 +580,7 @@ public class IssueController {
 			}
 		}
 		logger.info("userName : " + userName);
-		
+
 		model.addAttribute("stat", stat);
 		if (issuesList.isEmpty()) {
 			model.addAttribute("issuesList", "none");
@@ -626,9 +606,10 @@ public class IssueController {
 		logger.info("lno : " + lno);
 		String userNo = String.valueOf(session.getAttribute("user_no"));
 		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> param2 = new HashMap<String, Object>();
 		List<Issue> issuesList = new ArrayList<Issue>();
 		List<Issue> projectInfoByUno = new ArrayList<Issue>();
-//		List<Label> labelList = new ArrayList<Label>();
+		// List<Label> labelList = new ArrayList<Label>();
 		List<User> userList = issuesService.getAllUserNameAndNo();
 		List<Label> allLabelList = issuesService.getAllLabel();
 		List<Milestone> milestoneList = issuesService.getAllMilestone();
@@ -641,6 +622,12 @@ public class IssueController {
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssuesByParam(param);
+
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+			param2.put("targetList", issuesList);
+			DateCalculator.getInstance().setExpired(param2);
+			/************************************************************************/
+
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
 			if (!issuesList.isEmpty()) {
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -655,6 +642,12 @@ public class IssueController {
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssuesByParam(param);
+
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+			param2.put("targetList", issuesList);
+			DateCalculator.getInstance().setExpired(param2);
+			/************************************************************************/
+
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
 			if (!issuesList.isEmpty()) {
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -667,6 +660,12 @@ public class IssueController {
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssuesByParam(param);
+
+			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+			param2.put("targetList", issuesList);
+			DateCalculator.getInstance().setExpired(param2);
+			/************************************************************************/
+
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
 			if (!issuesList.isEmpty()) {
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -675,7 +674,7 @@ public class IssueController {
 				}
 			}
 		}
-		
+
 		if (userList != null && userList.size() > 0) {
 			for (int i = 0; i < userList.size(); i++) {
 				if (uno != null) {
@@ -685,7 +684,7 @@ public class IssueController {
 				}
 			}
 		}
-		
+
 		if (milestoneList != null && milestoneList.size() > 0) {
 			for (int i = 0; i < milestoneList.size(); i++) {
 				if (mno != null) {
@@ -695,7 +694,7 @@ public class IssueController {
 				}
 			}
 		}
-		
+
 		if (allLabelList != null && allLabelList.size() > 0) {
 			for (int i = 0; i < allLabelList.size(); i++) {
 				if (lno != null) {
@@ -731,7 +730,7 @@ public class IssueController {
 	public String getCommentList(@PathVariable("ino") int ino, Model model) {
 		List<Comment> commentList = issuesService.getCommentByIno(ino);
 		model.addAttribute("commentList", commentList);
-		
+
 		return "/issues/commentIssue";
 	}
 
@@ -770,12 +769,13 @@ public class IssueController {
 		issuesService.updateComment(param);
 		writer.write("end");
 	}
-	
-	//이슈삭제
+
+	// 이슈삭제
 	@RequestMapping("/issues/remove/{uno}/{pno}/{ino}")
-	public String removeIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
+	public String removeIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
+			@PathVariable("ino") int ino) {
 		issuesService.removeIssues(ino);
-		
+
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 }
