@@ -237,7 +237,7 @@ a.cbtn:hover {
 				</div>
 
 			</div>
-
+			</form:form>
 			<!-- Modal -->
 			<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
 				tabindex="-1" id="myModal" class="modal fade">
@@ -248,23 +248,25 @@ a.cbtn:hover {
 								aria-hidden="true">&times;</button>
 							<h4 class="modal-title">Forgot Password ?</h4>
 						</div>
+						<form:form action="/email/send" method="post">
 						<div class="modal-body">
 							<p>Enter your e-mail address below to reset your password.</p>
-							<input type="text" name="email" placeholder="Email"
+							<input type="text" name="address" id="address" placeholder="Email"
 								autocomplete="off" class="form-control placeholder-no-fix">
 
 						</div>
 						<div class="modal-footer">
 							<button data-dismiss="modal" class="btn btn-default"
 								type="button">Cancel</button>
-							<button class="btn btn-theme" type="button">Submit</button>
+							<button class="btn btn-theme" type="submit">Submit</button>
 						</div>
+						</form:form>
 					</div>
 				</div>
 			</div>
 			<!-- modal -->
 
-		</form:form>
+		
 
 	</div>
 </div>
