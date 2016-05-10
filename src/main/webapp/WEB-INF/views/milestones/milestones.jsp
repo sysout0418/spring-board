@@ -45,7 +45,11 @@ MAIN CONTENT
 								<tr onclick="location.href='/milestone/${milestone.mno}'" style="cursor: pointer;">
 									<td
 										<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
-										<a href="/milestone/${milestone.mno}">${milestone.mtitle}</a><br />
+										<a href="/milestone/${milestone.mno}">${milestone.mtitle}</a>&nbsp;&nbsp;
+										<c:if test="${milestone.isExpired}">
+											<span style="color: #E50B00;">(Expired)</span>
+										</c:if>
+										<br />
 										${milestone.countIssues} Issues<br /> <mark
 											style="background-color: #f8fafc">
 											<span style="font-size: 0.8em">${milestone.uname} /
