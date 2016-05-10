@@ -50,8 +50,16 @@ MAIN CONTENT
 									<td
 										<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 										<a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br />
-										${milestone.countIssues} Issues<br /> <span
-										style="color: #adad85">expires at ${milestone.mduedate}</span>
+										${milestone.countIssues} Issues<br /> 
+										<c:choose>
+											<c:when test="${milestone.isExpired}">
+												<span style="color: red;">(Expired)</span>
+												<span style="color: #adad85">expired at ${milestone.mduedate}</span>
+											</c:when>
+											<c:otherwise>
+												<span style="color: #adad85">expires at ${milestone.mduedate}</span>
+											</c:otherwise>
+										</c:choose>
 									</td>
 									<td
 										<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>

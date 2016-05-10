@@ -262,12 +262,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="closeIssue" parameterType="Map">
     <![CDATA[
     UPDATE Issues SET
-	    istatement = #{istatement}
-	    ]]>
-		<if test="lno != 0 and lno != null">
-			, lno = #{lno}
-		</if>
-		<![CDATA[
+	    istatement = #{istatement},
+	    lno = #{lno}
 	WHERE ino = #{ino}
 	]]>
 	</update>

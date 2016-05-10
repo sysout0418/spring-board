@@ -215,7 +215,8 @@ MAIN CONTENT
 												 / <span class="label color-label has_tooltip"
 													style="background-color:
 															${issues.lbgcolor}; color: #FFFFFF"
-													title="" data-container="body" data-original-title="">${issues.ltitle}</span><br>
+													title="" data-container="body" data-original-title="">${issues.ltitle}</span>&nbsp;&nbsp;
+													<c:if test="${issues.isExpired}"><span style="color: red;">(Expired)</span></c:if><br>
 													${issues.iregdate} / Assignee ${issues.uname} / <i
 													class="fa fa-clock-o" aria-hidden="true"></i> <a
 													href="/${issues.uno}/${issues.pno}/milestone/${issues.mno}">${issues.mtitle}</a>

@@ -16,6 +16,8 @@ public class Milestone {
 	private String uname;
 	private String pname;
 	
+	private boolean isExpired;
+	
 	public int getMno() {
 		return mno;
 	}
@@ -90,4 +92,11 @@ public class Milestone {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
+	public boolean getIsExpired() {
+		return isExpired;
+	}
+	public void setIsExpired(boolean isExpired) {
+		this.isExpired = isExpired;
+	}
+	
 }

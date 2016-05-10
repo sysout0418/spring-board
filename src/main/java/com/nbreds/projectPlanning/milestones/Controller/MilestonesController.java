@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nbreds.projectPlanning.common.VO.Files;
+import com.nbreds.projectPlanning.common.util.DateCalculator;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.Service.MilestonesService;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
@@ -39,17 +40,45 @@ public class MilestonesController {
 		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
 		List<Milestone> list;
 		HashMap<String, Object> param = new HashMap<>();
+		Map<String, Object> param2 = new HashMap<String, Object>();
 		if (stat.equals("open")) {
 			param.put("uno", uno);
 			param.put("mstatement", "000");
 			list = milestonesService.getJoinMilestones(param);
+			if (!list.isEmpty()) {
+				for (int i = 0; i < list.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+					String regdateToString = list.get(i).getMduedate();
+					param2.put("regdateToString", regdateToString);
+					param2.put("targetList", list);
+					DateCalculator.getInstance().setExpired(param2);
+				}
+			}
 		} else if (stat.equals("closed")) {
 			param.put("uno", uno);
 			param.put("mstatement", "001");
 			list = milestonesService.getJoinMilestones(param);
+			if (!list.isEmpty()) {
+				for (int i = 0; i < list.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+					String regdateToString = list.get(i).getMduedate();
+					param2.put("regdateToString", regdateToString);
+					param2.put("targetList", list);
+					DateCalculator.getInstance().setExpired(param2);
+				}
+			}
 		} else {
 			param.put("uno", uno);
 			list = milestonesService.getJoinMilestones(param);
+			if (!list.isEmpty()) {
+				for (int i = 0; i < list.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+					String regdateToString = list.get(i).getMduedate();
+					param2.put("regdateToString", regdateToString);
+					param2.put("targetList", list);
+					DateCalculator.getInstance().setExpired(param2);
+				}
+			}
 		}
 		for (Milestone milestone : list) {
 			int countIssues = milestonesService.countIssuesByMno(milestone.getMno());
@@ -70,37 +99,66 @@ public class MilestonesController {
 			@PathVariable("statement") String stat, Model model) {
 		List<Milestone> list;
 		HashMap<String, Object> param = new HashMap<>();
+		Map<String, Object> param2 = new HashMap<String, Object>();
+		Map<String, Object> param3 = new HashMap<String, Object>();
+		
+		if (stat.equals("open")) {
+			param.put("pno", pno);
+			param.put("mstatement", "000");
+			list = milestonesService.getMilestonesByPno(param);
+			if (!list.isEmpty()) {
+				for (int i = 0; i < list.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+					String regdateToString = list.get(i).getMduedate();
+					param2.put("regdateToString", regdateToString);
+					param2.put("targetList", list);
+					DateCalculator.getInstance().setExpired(param2);
+				}
+			}
+		} else if (stat.equals("closed")) {
+			param.put("pno", pno);
+			param.put("mstatement", "001");
+			list = milestonesService.getMilestonesByPno(param);
+			if (!list.isEmpty()) {
+				for (int i = 0; i < list.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+					String regdateToString = list.get(i).getMduedate();
+					param2.put("regdateToString", regdateToString);
+					param2.put("targetList", list);
+					DateCalculator.getInstance().setExpired(param2);
+				}
+			}
+		} else {
+			param.put("pno", pno);
+			list = milestonesService.getMilestonesByPno(param);
+			if (!list.isEmpty()) {
+				for (int i = 0; i < list.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
+					String regdateToString = list.get(i).getMduedate();
+					param2.put("regdateToString", regdateToString);
+					param2.put("targetList", list);
+					DateCalculator.getInstance().setExpired(param2);
+				}
+			}
+		}
 		
 		int milestoneOpenCnt = 0;
 		int milestoneClosedCnt = 0;
 		for (int i = 0; i < 2; i++) {
-			Map<String, Object> param2 = new HashMap<String, Object>();
-			param2.put("pno", pno);
+			param3.put("pno", pno);
 			if (i == 0) {
-				param2.put("mstatement", "000");
-				milestoneOpenCnt = milestonesService.getMilestoneCnt(param2);
+				param3.put("mstatement", "000");
+				milestoneOpenCnt = milestonesService.getMilestoneCnt(param3);
 				logger.info("milestoneOpenCnt : " + milestoneOpenCnt);
 			} else {
-				param2.put("mstatement", "001");
-				milestoneClosedCnt = milestonesService.getMilestoneCnt(param2);
+				param3.put("mstatement", "001");
+				milestoneClosedCnt = milestonesService.getMilestoneCnt(param3);
 				logger.info("milestoneClosedCnt : " + milestoneClosedCnt);
 			}
 		}
 		int milestoneAllCnt = milestoneOpenCnt + milestoneClosedCnt;
 		logger.info("issueAllCnt : " + milestoneAllCnt);
 		
-		if (stat.equals("open")) {
-			param.put("pno", pno);
-			param.put("mstatement", "000");
-			list = milestonesService.getMilestonesByPno(param);
-		} else if (stat.equals("closed")) {
-			param.put("pno", pno);
-			param.put("mstatement", "001");
-			list = milestonesService.getMilestonesByPno(param);
-		} else {
-			param.put("pno", pno);
-			list = milestonesService.getMilestonesByPno(param);
-		}
 		for (Milestone milestone : list) {
 			int countIssues = milestonesService.countIssuesByMno(milestone.getMno());
 			double completeIssuePercent = milestonesService.countClosedIssueByMno(milestone.getMno());
