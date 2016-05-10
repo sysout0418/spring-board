@@ -198,7 +198,10 @@ MAIN CONTENT
 								<p>
 									<a href="#">${list.uname}</a><br>
 									<c:if test="${list.stat == '002'}">
-										${list.CODE_NAME}<a href="/updateStat/${list.uno}/${project.pno}/000">재요청</a>
+										${list.CODE_NAME}
+										<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
+										<a href="/updateStat/${list.uno}/${project.pno}/000" class="btn btn-default btn-xs">reconfirm</a>
+										</sec:authorize>
 									</c:if>
 									<c:if test="${list.stat != '002'}">
 				${list.CODE_NAME}

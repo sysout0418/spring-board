@@ -107,33 +107,29 @@ public class SearchController {
 	}
 	
 	@ModelAttribute("development")
-	public List<CodeTable> getDevelopment(){
+	public List<CodeTable> getDevelopment() {
 		List<CodeTable> devList = searchService.getCodeTable("004");
-		
+		for (int i = 0; i < devList.size(); i++) {
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　　");
+		}
 		return devList;
 	}
+
 	@ModelAttribute("design")
-	public List<CodeTable> getDesign(){
+	public List<CodeTable> getDesign() {
 		List<CodeTable> devList = searchService.getCodeTable("005");
-		
+		for (int i = 0; i < devList.size(); i++) {
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　  　");
+		}
 		return devList;
 	}
+
 	@ModelAttribute("planning")
-	public List<CodeTable> getPlanning(){
-		List<CodeTable> devList= searchService.getCodeTable("006");
-		
-		return devList;
-	}
-	@ModelAttribute("experience")
-	public List<CodeTable> getExperience(){
-		List<CodeTable> devList = searchService.getCodeTable("007");
-		
-		return devList;
-	}
-	@ModelAttribute("level")
-	public List<CodeTable> getLevel(){
-		List<CodeTable> devList = searchService.getCodeTable("008");
-		
+	public List<CodeTable> getPlanning() {
+		List<CodeTable> devList = searchService.getCodeTable("006");
+		for (int i = 0; i < devList.size(); i++) {
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　  　");
+		}
 		return devList;
 	}
 }
