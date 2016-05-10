@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getRequestMember" parameterType="int" resultType="hashmap">
     <![CDATA[
-	SELECT U.uname, S.stat, CA.CODE_NAME, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor
+	SELECT U.uno, U.uname, S.stat, CA.CODE_NAME, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor
 	FROM ProjectMemberStat S
 	LEFT JOIN User U ON S.uno = U.uno
 	LEFT JOIN CodeTable CA ON S.stat=CA.CODE AND CA.CODE_TYPE='010'

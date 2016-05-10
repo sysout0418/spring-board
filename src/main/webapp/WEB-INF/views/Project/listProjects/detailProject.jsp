@@ -190,14 +190,7 @@ MAIN CONTENT
 							<div class="details">
 								<p>
 									<a href="#">${list.uname}</a><br>
-									<c:if test="${list.stat == '002'}">
-										<muted>${list.CODE_NAME}</muted>
-										<a class="btn btn-primary"
-											href="/updateStat/${project.pno}/000" role="button">재요청</a>
-									</c:if>
-									<c:if test="${list.stat != '002'}">
-				${list.CODE_NAME}
-			</c:if>
+										${list.CODE_NAME}
 								</p>
 							</div>
 						</div>

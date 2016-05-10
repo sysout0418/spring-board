@@ -35,15 +35,15 @@ MAIN CONTENT
 						</p>
 						<table class="table">
 							<tr>
-								<td style="width: 200px;">담당자명</td>
+								<td style="width: 200px;" class="active">담당자명</td>
 								<td style="width: 350px">${user.uname}</td>
-								<td style="width: 200px;">부서</td>
+								<td style="width: 200px;" class="active">부서</td>
 								<td>${user.udepartment}</td>
 							</tr>
 							<tr>
-								<td>담당자 연락처</td>
+								<td class="active">담당자 연락처</td>
 								<td>${user.uphoneno}</td>
-								<td>담당자 이메일</td>
+								<td class="active">담당자 이메일</td>
 								<td>${user.uemail}</td>
 							</tr>
 							<tr>
@@ -77,40 +77,51 @@ MAIN CONTENT
 								name="requestUserNameList" value="<%=userNames%>">
 							<table class="table">
 								<tr>
-									<td colspan="2" style="width: 500px">프로젝트 명</td>
+									<td colspan="2"
+										style="width: 500px; vertical-align: middle; text-align: center;"
+										class="active">프로젝트 명</td>
 									<td style="width: 300px" colspan="2"><form:input
 											path="pname" class="form-control" required="required" /></td>
 								</tr>
 								<tr>
-									<td rowspan="3" style="width: 100px">기본분야</td>
-									<td style="width: 200px">개발</td>
+									<td rowspan="3"
+										style="width: 100px; vertical-align: middle; text-align: center;"
+										class="active">기본분야</td>
+									<td
+										style="width: 200px; vertical-align: middle; text-align: center;"
+										class="active">개발</td>
 									<td colspan="2"><form:checkboxes path="pdevelopment"
 											items="${development}" itemValue="CODE" itemLabel="CODE_NAME" />
 									</td>
 								</tr>
 								<tr>
-									<td>디자인/퍼블리싱</td>
+									<td class="active"
+										style="vertical-align: middle; text-align: center;">디자인/퍼블리싱</td>
 									<td colspan="2"><form:checkboxes path="pdesign"
 											items="${design}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
 								</tr>
 								<tr>
-									<td>기획/컨설턴트</td>
+									<td class="active"
+										style="vertical-align: middle; text-align: center;">기획/컨설턴트</td>
 									<td colspan="2"><form:checkboxes path="pplanning"
 											items="${planning}" itemValue="CODE" itemLabel="CODE_NAME" /></td>
 								</tr>
 								<tr>
-									<td colspan="2">상세내용</td>
+									<td colspan="2" class="active"
+										style="vertical-align: middle; text-align: center;">상세내용</td>
 									<td colspan="2"><form:textarea path="pdetail"
 											cssClass="form-control" cssStyle="height:400px"
 											required="required" /></td>
 								</tr>
 								<tr>
-									<td colspan="2">모집마감일자</td>
+									<td colspan="2" class="active"
+										style="vertical-align: middle; text-align: center;">모집마감일자</td>
 									<td><form:input path="pduedate" id="datepicker"
 											name="datepicker" required="required" /></td>
 								</tr>
 								<tr>
-									<td colspan="2">프로젝트 요청</td>
+									<td colspan="2" class="active"
+										style="vertical-align: middle; text-align: center;">프로젝트 요청</td>
 									<td>
 										<div>
 											<a href="#" class="btn btn-primary btn-xs"

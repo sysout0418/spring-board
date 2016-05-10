@@ -181,23 +181,29 @@ public class ListController {
 	}
 		
 	@ModelAttribute("development")
-	public List<CodeTable> getDevelopment(){
+	public List<CodeTable> getDevelopment() {
 		List<CodeTable> devList = listService.getCodeTable("004");
-		
+		for (int i = 0; i < devList.size(); i++) {
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　　");
+		}
 		return devList;
 	}
-	
+
 	@ModelAttribute("design")
-	public List<CodeTable> getDesign(){
+	public List<CodeTable> getDesign() {
 		List<CodeTable> devList = listService.getCodeTable("005");
-		
+		for (int i = 0; i < devList.size(); i++) {
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　  　");
+		}
 		return devList;
 	}
-	
+
 	@ModelAttribute("planning")
-	public List<CodeTable> getPlanning(){
+	public List<CodeTable> getPlanning() {
 		List<CodeTable> devList = listService.getCodeTable("006");
-		
+		for (int i = 0; i < devList.size(); i++) {
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　  　");
+		}
 		return devList;
 	}
 }
