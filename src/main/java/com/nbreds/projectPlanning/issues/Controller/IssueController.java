@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +34,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nbreds.projectPlanning.common.VO.Files;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.common.util.DateCalculator;
 import com.nbreds.projectPlanning.issues.Service.IssueService;
 import com.nbreds.projectPlanning.issues.VO.Comment;
 import com.nbreds.projectPlanning.issues.VO.Issue;
@@ -63,37 +65,16 @@ public class IssueController {
 		List<Milestone> milestoneList = issuesService.getMilestoneByPno(pno);
 		List<User> userList = issuesService.getUserListByPno(pno);
 		Map<String, Object> param = new HashMap<String, Object>();
-		int issueOpenCnt = 0;
-		int issueClosedCnt = 0;
-		for (int i = 0; i < 2; i++) {
-			Map<String, Object> param2 = new HashMap<String, Object>();
-			param2.put("pno", pno);
-			if (i == 0) {
-				param2.put("istatement", "000");
-				issueOpenCnt = issuesService.getIssueCnt(param2);
-				logger.info("issueOepnCnt : " + issueOpenCnt);
-			} else {
-				param2.put("istatement", "001");
-				issueClosedCnt = issuesService.getIssueCnt(param2);
-				logger.info("issueClosedCnt : " + issueClosedCnt);
-			}
-		}
-		int issueAllCnt = issueOpenCnt + issueClosedCnt;
-		logger.info("issueAllCnt : " + issueAllCnt);
 		
 		// 현재 날짜 구하기
-//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Date d = new Date();
-		Date today = null;
-		Date iRegDate = null;
-		String date = format.format(d);
+		long today = 0;
 		try {
-			today = format.parse(date);
-		} catch (Exception e) {
-			e.printStackTrace();
+			today = DateCalculator.getInstance().getToday();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
-		logger.info("today : " + date);
+
+		logger.info("today : " + today);
 		
 		if (stat.equals("open")) {
 			param.put("pno", pno);
@@ -102,22 +83,33 @@ public class IssueController {
 			issuesList = issuesService.getIssuesByPno(param);
 			if (!issuesList.isEmpty()) {
 				for (int i = 0; i < issuesList.size(); i++) {
+					// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 close and label은 종료로 update
 					String iRegdateToString = issuesList.get(i).getIduedate();
+					long regDate = 0;
+					long timeDifference = 0;
 					try {
-						iRegDate = format.parse(iRegdateToString);
-					} catch (Exception e) {
+						regDate = DateCalculator.getInstance().getRegDate(iRegdateToString);
+						timeDifference = DateCalculator.getInstance().getTimeDifference(regDate, today);
+					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					long difference = iRegDate.getTime() - today.getTime();
-					long timeDifference = difference / (24 * 60 * 60 * 1000);
-					logger.info("iRegdateToString : " + iRegdateToString);
 					logger.info("timeDifference : " + timeDifference);
 					
+					if (timeDifference < 0) {
+						Map<String, Object> param3 = new HashMap<String, Object>();
+						param3.put("istatement", "001");
+						param3.put("ino", issuesList.get(i).getIno());
+						param3.put("lno", 5);
+						issuesService.closeIssue(param3);
+					}
+					
+					/************************************************************************/
 					
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
 				}
 			}
+			issuesList = issuesService.getIssuesByPno(param);
 		} else if (stat.equals("closed")) {
 			param.put("pno", pno);
 			param.put("uno", uno);
@@ -140,6 +132,24 @@ public class IssueController {
 				}
 			}
 		}
+		
+		int issueOpenCnt = 0;
+		int issueClosedCnt = 0;
+		for (int i = 0; i < 2; i++) {
+			Map<String, Object> param2 = new HashMap<String, Object>();
+			param2.put("pno", pno);
+			if (i == 0) {
+				param2.put("istatement", "000");
+				issueOpenCnt = issuesService.getIssueCnt(param2);
+				logger.info("issueOepnCnt : " + issueOpenCnt);
+			} else {
+				param2.put("istatement", "001");
+				issueClosedCnt = issuesService.getIssueCnt(param2);
+				logger.info("issueClosedCnt : " + issueClosedCnt);
+			}
+		}
+		int issueAllCnt = issueOpenCnt + issueClosedCnt;
+		logger.info("issueAllCnt : " + issueAllCnt);
 		
 		String pname = issuesService.getPnameByPno(pno);
 		
@@ -375,9 +385,51 @@ public class IssueController {
 	@RequestMapping("/issues/close/{uno}/{pno}/{ino}")
 	public String closeIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("ino", ino);
-		param.put("istatement", "001");
-		issuesService.closeIssue(param);
+		Map<String, Object> param2 = new HashMap<String, Object>();
+		List<Issue> issueList = new ArrayList<Issue>();
+		param.put("pno", pno);
+		param.put("uno", uno);
+		param.put("istatement", "000");
+		issueList = issuesService.getIssuesByPno(param);
+		
+		if (!issueList.isEmpty()) {
+			// 현재 날짜 구하기
+			long today = 0;
+			try {
+				today = DateCalculator.getInstance().getToday();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			logger.info("today : " + today);
+			
+			for (int i = 0; i < issueList.size(); i++) {
+				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 close and label은 종료로 update
+				// 만기되지 않은 issue라면 close and label은 중단으로 update
+				String iRegdateToString = issueList.get(i).getIduedate();
+				long regDate = 0;
+				long timeDifference = 0;
+				try {
+					regDate = DateCalculator.getInstance().getRegDate(iRegdateToString);
+					timeDifference = DateCalculator.getInstance().getTimeDifference(regDate, today);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				logger.info("timeDifference : " + timeDifference);
+				
+				if (timeDifference < 0) {
+					param2.put("istatement", "001");
+					param2.put("ino", issueList.get(i).getIno());
+					param2.put("lno", 5);
+					issuesService.closeIssue(param2);
+				} else {
+					param2.put("istatement", "001");
+					param2.put("ino", issueList.get(i).getIno());
+					param2.put("lno", 4);
+					issuesService.closeIssue(param2);
+				}
+			}
+		}
+		
 		return "redirect:/" + uno + "/" + pno + "/issues/closed";
 	}
 	

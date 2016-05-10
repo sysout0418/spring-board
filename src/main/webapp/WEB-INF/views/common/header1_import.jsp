@@ -53,7 +53,7 @@ rel="stylesheet" type="text/css" />
    <![endif]-->
 
 
-<!-- content-panel에 라운드 주기 일단 보류 -->
+<!-- content-panel에 라운드 주기 -->
 <style>
 .content-panel {
 	border-radius: 18px;
