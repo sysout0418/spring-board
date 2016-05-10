@@ -38,7 +38,7 @@
 	
 <!--  jquery -ui -->
 <link
-	href="<c:url value="/resources/css/jquery-ui/jquery-ui.min.css" />"
+	href="<c:url value="/resources/css/jquery-ui/jquery-ui.css" />"
 	rel="stylesheet" type="text/css" />
 
 <link href="<c:url value="/resources/css/tappanel.css" />"
