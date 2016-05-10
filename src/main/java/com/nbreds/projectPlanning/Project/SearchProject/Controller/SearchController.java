@@ -77,23 +77,7 @@ public class SearchController {
 			logger.info("countAllMilestone: "+countAllMilestone);
 			logger.info("completeMilestonPercent: "+completeMilestonPercent);
 		}
-//		for(int i = 0; i < list.size(); i++){
-//			String pdata = list.get(i).getPdata();
-//			
-//			//한글화
-//			List<String> skills = (List<String>) commonController.getCodeForCodeType(pdata, "skills");
-//			String pprogress = (String) commonController.getCodeForCodeType(pdata, "progress");
-//			
-//			if (skills.size() > 0) {
-//				list.get(i).setPskill(commonController.getCodeName(skills.get(0)));
-//			}
-//			list.get(i).setPprogress(commonController.getCodeName(pprogress));
-//			
-//			//담당자 코드->한글
-//			String uname = searchService.getUserForNo(list.get(i).getUno()).getUname();
-//			list.get(i).setUname(uname);
-//		}
-
+		
 		request.setAttribute("pdatas", pdatas);
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("completeIssuePercent", completeIssuePercents);
