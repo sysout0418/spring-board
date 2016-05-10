@@ -74,11 +74,11 @@ a, a:hover, a:focus {
 /*Theme Backgrounds*/
 
 .bg-theme {
-	background-color: #68dff0;
+	background-color: #4490B2;
 }
 
 .bg-theme02 {
-	background-color: #ac92ec;
+	background-color: #F0E6E7;
 }
 
 .bg-theme03 {
@@ -413,8 +413,8 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #ffd777;
-    border-bottom: 1px solid #c9aa5f;
+    background: #D9C3C6;
+    border-bottom: 1px solid #993D65;
 }
 
 .wrapper {
@@ -523,7 +523,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #68dff0;
+    background-color: #4490B2;
     color: #fff;
 }
 
@@ -727,9 +727,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     border-top-color: #FCB322 !important;
 }
 .notify-arrow-green {
-    border-color: transparent transparent #68dff0;
-    border-bottom-color: #68dff0 !important;
-    border-top-color: #68dff0 !important;
+    border-color: transparent transparent #4490B2;
+    border-bottom-color: #4490B2 !important;
+    border-top-color: #4490B2 !important;
 }
 
 
@@ -775,13 +775,13 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds h3 {
-	color: #ffffff;
+	color: #fff;
 	font-size: 16px;
 	padding: 0 10px;
 	line-height: 60px;
 	height: 60px;
 	margin: 0;
-	background: #ff865c;
+	background: #FF6E82;
 	text-align: center;
 }
 
@@ -2216,7 +2216,7 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #68dff0;
+    background: #0997B2;
     color: #fff;
     padding: 10px 0;
 }

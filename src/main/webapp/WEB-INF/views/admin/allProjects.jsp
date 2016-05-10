@@ -33,7 +33,7 @@ MAIN CONTENT
 									<option value="uname" <%=pageBean.getKey("uname")%>>담당자</option>
 								</select> <input type="text" class="form-control" placeholder="Search"
 									name="word" id="word" value="${pageBean.word}">
-								<button type="button" class="btn btn-theme02"
+								<button type="button" class="btn btn-warning"
 									onclick="javascript:pagelist(1)">검색</button>
 							</div>
 							<br> <input type="hidden" name="pageNo" id="pageNo"

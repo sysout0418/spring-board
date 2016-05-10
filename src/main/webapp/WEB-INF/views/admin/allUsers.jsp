@@ -112,7 +112,7 @@ MAIN CONTENT
 									<option value="email" <%=pageBean.getKey("email")%>>이메일</option>
 								</select> <input type="text" class="form-control" placeholder="Search"
 									name="word" id="word" value="${pageBean.word}">
-								<button type="button" class="btn btn-theme02"
+								<button type="button" class="btn btn-warning"
 									onclick="javascript:pagelist(1)">검색</button>
 							</div>
 

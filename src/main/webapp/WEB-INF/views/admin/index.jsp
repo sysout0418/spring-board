@@ -52,7 +52,7 @@ MAIN CONTENT
 					</tbody>
 					</table>
 				</form>
-				&nbsp;<a class="btn btn-theme03" href="/admin/users" role="button">View all users</a>
+				&nbsp;<a class="btn btn-warning" href="/admin/users" role="button">View all users</a>
 				 </div><!-- /content-panel -->
 				 </div><!-- /col-md-12 -->
 				 <div class="col-md-12 mt">
@@ -88,7 +88,7 @@ MAIN CONTENT
 				</c:forEach>
 				</tbody>
 				</table>
-				&nbsp;<a class="btn btn-theme03" href="/admin/projects" role="button">View all projects</a>
+				&nbsp;<a class="btn btn-warning" href="/admin/projects" role="button">View all projects</a>
 				 </div><!-- /content-panel -->
              </div><!-- /col-md-12 -->
          </div><!-- /row -->

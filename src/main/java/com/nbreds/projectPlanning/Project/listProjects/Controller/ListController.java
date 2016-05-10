@@ -133,7 +133,6 @@ public class ListController {
 	//프로젝트 수정페이지
 	@RequestMapping(value = "update/{pno}", method = RequestMethod.GET)
 	public String  UpdateView(@PathVariable("pno") int pno, Model model, HttpServletRequest request, @ModelAttribute("project") Project project) {
-		System.out.println("돼?");
 		project = listService.getUpdateProjectByPno(pno);
 		List<User> allUserList = listService.getAllUser();
 		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserList(pno);

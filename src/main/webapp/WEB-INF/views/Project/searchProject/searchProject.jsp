@@ -47,7 +47,7 @@ MAIN CONTENT
 													name="checked" style="margin-left: 2px">${dev.CODE_NAME}
 										</c:forEach></td>
 										<td rowspan="3">
-										<a href="javascript:pagelist(1)" class="btn btn-theme03 btn-lg">Search</a>
+										<a href="javascript:pagelist(1)" class="btn btn-warning btn-lg">Search</a>
 										</td>
 									</tr>
 									<tr>

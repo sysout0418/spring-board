@@ -353,12 +353,8 @@ MAIN CONTENT
 										value="${project.pno}" /> <%-- <input type="hidden" id="pprogress" name="pprogress" value="${project.pprogress}" /> --%></td>
 								</tr>
 							</table>
-							<input class="btn btn-success" type="submit" id="submit"
+							<input class="btn btn-warning" type="submit" id="submit"
 								value="Save Changes">
-							<!-- 테스트용 버튼 (지워도 됨) -->
-							<!-- <div align="center">
-			<input class="btn btn-primary btn-lg" type="button" id="test" value="테스트">
-		</div> -->
 						</form:form>
 					</div>
 				</div>

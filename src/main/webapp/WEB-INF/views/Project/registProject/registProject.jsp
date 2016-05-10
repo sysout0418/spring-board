@@ -359,7 +359,7 @@
 									</td>
 								</tr>
 							</table>
-							<input class="btn btn-success" type="submit" id="submit"
+							<input class="btn btn-warning" type="submit" id="submit"
 								value="Create Project">
 						</form:form>
 					</div>
