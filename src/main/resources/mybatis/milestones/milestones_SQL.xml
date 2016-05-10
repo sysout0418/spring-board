@@ -140,8 +140,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getIssuesBymno" parameterType="int" resultType="com.nbreds.projectPlanning.issues.VO.Issue">
     <![CDATA[
-    SELECT ino, ititle, istatement, mno, pno, uno 
-    FROM Issues
+    SELECT I.ino, ititle, istatement, mno, pno, uno, L.ltitle, L.lbgcolor
+    FROM Issues I
+    JOIN Label L ON I.lno = L.lno
 	WHERE mno = #{mno}
 	]]>
     </select>

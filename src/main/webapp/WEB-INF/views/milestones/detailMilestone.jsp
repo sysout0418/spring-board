@@ -108,11 +108,9 @@ MAIN CONTENT
 								<ul id="unstarted1" class="connectedSortable">
 									<li class="ui-state-default ui-state-disabled">Unstarted
 										Issues (open and unassigned)</li>
-									<li class="ui-state-default ui-state-disabled">Drag and
-										drop available</li>
 									<c:forEach var="issue" items="${issues}">
 										<c:if test="${issue.istatement == '000' && issue.uno == ''}">
-											<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
+											<li class="ui-state-default" id="${issue.ino}">${issue.ititle} <span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span></li>
 										</c:if>
 									</c:forEach>
 								</ul>
@@ -120,11 +118,9 @@ MAIN CONTENT
 								<ul id="unstarted2" class="connectedSortable">
 									<li class="ui-state-default ui-state-disabled">Unstarted
 										Issues (open and assigned)</li>
-									<li class="ui-state-default ui-state-disabled">Drag and
-										drop available</li>
 									<c:forEach var="issue" items="${issues}">
 										<c:if test="${issue.istatement == '000' && issue.uno != ''}">
-											<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
+											<li class="ui-state-default" id="${issue.ino}">${issue.ititle} <span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span></li>
 										</c:if>
 									</c:forEach>
 								</ul>
@@ -132,11 +128,9 @@ MAIN CONTENT
 								<ul id="completed" class="connectedSortable">
 									<li class="ui-state-default ui-state-disabled">Completed
 										Issues (closed)</li>
-									<li class="ui-state-default ui-state-disabled">Drag and
-										drop available</li>
 									<c:forEach var="issue" items="${issues}">
 										<c:if test="${issue.istatement == '001'}">
-											<li class="ui-state-default" id="${issue.ino}">${issue.ititle}</li>
+											<li class="ui-state-default" id="${issue.ino}">${issue.ititle} <span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span></li>
 										</c:if>
 									</c:forEach>
 								</ul>
