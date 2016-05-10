@@ -215,7 +215,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <![CDATA[
     SELECT mno, mtitle, mdescription, mduedate, mstatement, pno
     FROM Milestones
-    WHERE pno = #{pno}
+    WHERE pno = #{pno} AND mstatement = '000'
 	]]>
 	</select>
 	

@@ -114,7 +114,7 @@ public class RegistController {
 	public List<CodeTable> getDesign() {
 		List<CodeTable> devList = registService.getCodeTable("005");
 		for (int i = 0; i < devList.size(); i++) {
-			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　　");
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　  　");
 		}
 		return devList;
 	}
@@ -123,7 +123,7 @@ public class RegistController {
 	public List<CodeTable> getPlanning() {
 		List<CodeTable> devList = registService.getCodeTable("006");
 		for (int i = 0; i < devList.size(); i++) {
-			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　　");
+			devList.get(i).setCODE_NAME(devList.get(i).getCODE_NAME() + "　  　");
 		}
 		return devList;
 	}
