@@ -9,6 +9,16 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_project.jsp" />
+<style>
+.desc > .details {
+	margin-left: 20px;
+}
+
+#reconfirmBtn {
+	position: absolute;
+	right: 30px;
+}
+</style>
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
@@ -168,8 +178,11 @@ MAIN CONTENT
 							<br />
 						</p>
 						</c:if>
-						<span class="label label-default"
-							style="background-color: ${project.lbgcolor};">${project.ltitle}</span><br/><br/>
+						<p>
+							<b>상태</b><br />
+							<span class="label label-default"
+								style="background-color: ${project.lbgcolor};">${project.ltitle}</span><br/><br/>
+						</p>
 						<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
 							<a class="btn btn-default btn-sm"
 								href="/update/${project.pno}">EDIT</a>
@@ -196,12 +209,12 @@ MAIN CONTENT
 							</div>
 							<div class="details">
 								<p>
-									<a href="#">${list.uname}</a><br>
 									<c:if test="${list.stat == '002'}">
-										${list.CODE_NAME}
 										<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')">
-										<a href="/updateStat/${list.uno}/${project.pno}/000" class="btn btn-default btn-xs">reconfirm</a>
+										<a href="/updateStat/${list.uno}/${project.pno}/000" class="btn btn-default btn-sm" id="reconfirmBtn">reconfirm</a>
 										</sec:authorize>
+										<a href="#">${list.uname}</a><br>
+										${list.CODE_NAME}
 									</c:if>
 									<c:if test="${list.stat != '002'}">
 				${list.CODE_NAME}
@@ -215,11 +228,11 @@ MAIN CONTENT
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">
                                 <div class="panel-body">
-                                    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                                    <!-- <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
                                         <div class="arrow"></div>
                                         <h3 class="popover-title" style="disadding: none;"></h3>
                                         <div id="date-popover-content" class="popover-content"></div>
-                                    </div>
+                                    </div> -->
                                     <div id="my-calendar"></div>
                                 </div>
                             </div>
@@ -254,7 +267,7 @@ MAIN CONTENT
             $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year + '/' + to.day);
         }
     </script>
 <script type="text/javascript">
