@@ -288,14 +288,15 @@ $.fn.zabuto_calendar = function (options) {
                         var dayId = dateId + '_day';
                         
                         // 같은 날짜 찾아서 색칠
-                        var allDate = dateId.substring(dateId.length - 10, dateId.length);
-                        if (today == allDate) {
-                        	var $dayElement = $('<div id="' + dayId + '" class="day danger" style="border-radius: 10px; background-color: #FFC55C">' + currDayOfMonth + '</div>');
-                        } else {
-                        	var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
-                        }
+                        //var allDate = dateId.substring(dateId.length - 10, dateId.length);
+                        //if (today == allDate) {
+                        //	var $dayElement = $('<div id="' + dayId + '" class="day danger" style="border-radius: 10px; background-color: #43b1a9">' + currDayOfMonth + '</div>');
+                        //} else {
+                        //	var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
+                        //}
                         // **************************************************************************
                         
+                        var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
                         $dayElement.data('day', currDayOfMonth);
 
                         if ($calendarElement.data('showToday') === true) {
@@ -304,7 +305,13 @@ $.fn.zabuto_calendar = function (options) {
                             }
                         }
 
-                        var $dowElement = $('<td id="' + dateId + '"></td>');
+                        // 같은 날짜 찾아서 색칠
+                        var allDate = dateId.substring(dateId.length - 10, dateId.length);
+                        if (today == allDate) {
+                        	var $dowElement = $('<td id="' + dateId + '" style="border-radius: 25px; background-color: #43b1a9;"></td>');
+                        } else {
+                        	var $dowElement = $('<td id="' + dateId + '"></td>');
+                        }
                         $dowElement.append($dayElement);
 
                         $dowElement.data('date', dateAsString(year, month, currDayOfMonth));
