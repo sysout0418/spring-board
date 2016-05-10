@@ -10,8 +10,8 @@
 	<property name="host" value="smtp.gmail.com" />
 	<property name="port" value="587" />
 	<property name="defaultEncoding" value="utf-8"/>
-	<property name="username" value="hyoin01@gmail.com" />
-	<property name="password" value="hyoingoo!4790" />
+	<property name="username" value="nbreds123@gmail.com" />
+	<property name="password" value="0(!nbreds!)" />
 	<property name="javaMailProperties">
 	<props>
 		<prop key="mail.smtp.starttls.enable">true</prop>

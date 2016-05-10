@@ -1,4 +1,4 @@
-package com.nbreds.projectPlanning.common.mail.Controller;
+package com.nbreds.projectPlanning.common.mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class EmailController {
  
         Email email = new Email();
          
-        String reciver = "parkbusim@lenaparkmusic.com"; //받을사람의 이메일입니다.
+        String reciver = "hyoin123@nbreds.com"; //받을사람의 이메일입니다.
         String subject = "이메일 제목";
         String content = "이메일 내용입니다.";
          
