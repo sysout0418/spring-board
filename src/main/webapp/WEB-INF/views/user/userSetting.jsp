@@ -8,14 +8,6 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
-  <script src="../morris.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
-  <script src="lib/example.js"></script>
-  <link rel="stylesheet" href="lib/example.css">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
-  <link rel="stylesheet" href="../morris.css">
   
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
@@ -34,7 +26,7 @@ MAIN CONTENT
 						<div class="col-lg-12">
 							<div class="content-panel">
 								<h4><i class="fa fa-angle-right"></i> Chart Example 1</h4>
-                              	<div id="graph"></div>
+                              	<div id="myfirstchart" style="height: 250px;"></div>
 							</div>
 							<!-- /content-panel -->
 						</div>
@@ -171,5 +163,24 @@ MAIN CONTENT
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year + '/' + to.day);
         }
-    
+        new Morris.Line({
+        	  // ID of the element in which to draw the chart.
+        	  element: 'myfirstchart',
+        	  // Chart data records -- each entry in this array corresponds to a point on
+        	  // the chart.
+        	  data: [
+        	    { year: '2008', value: 20 },
+        	    { year: '2009', value: 10 },
+        	    { year: '2010', value: 5 },
+        	    { year: '2011', value: 5 },
+        	    { year: '2012', value: 20 }
+        	  ],
+        	  // The name of the data record attribute that contains x-values.
+        	  xkey: 'year',
+        	  // A list of names of data record attributes that contain y-values.
+        	  ykeys: ['value'],
+        	  // Labels for the ykeys -- will be displayed when you hover over the
+        	  // chart.
+        	  labels: ['Value']
+        	});
 </script>
