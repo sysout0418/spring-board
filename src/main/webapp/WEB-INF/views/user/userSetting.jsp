@@ -8,7 +8,15 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
-
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+  <script src="../morris.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+  <script src="lib/example.js"></script>
+  <link rel="stylesheet" href="lib/example.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
+  <link rel="stylesheet" href="../morris.css">
+  
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
@@ -26,9 +34,7 @@ MAIN CONTENT
 						<div class="col-lg-12">
 							<div class="content-panel">
 								<h4><i class="fa fa-angle-right"></i> Chart Example 1</h4>
-                              <div class="panel-body">
-                                  <div id="hero-graph" class="graph"></div>
-                              </div>
+                              	<div id="graph"></div>
 							</div>
 							<!-- /content-panel -->
 						</div>
