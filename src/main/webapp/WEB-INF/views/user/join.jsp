@@ -66,7 +66,7 @@ MAIN CONTENT
 			<h2 class="form-login-heading">sign up</h2>
 			<div class="login-wrap">
 				<input type="email" id="uemail" name="uemail" class="form-control"
-					placeholder="Email" onblur="checkId()" maxlength="100" required
+					placeholder="Email" onblur="checkId()" maxlength="20" required
 					autofocus><br> 
 				<input type="text" class="form-control" id="uname" name="uname"
 					placeholder="Name" maxlength="20" required><br>
