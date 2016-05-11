@@ -154,4 +154,9 @@ public class AdminServiceImpl implements AdminService {
 		adminDao.updateUserAuthorityAndAdmit(param);
 	}
 
+	@Override
+	public List<Map<String, Object>> getAllLabel() {
+		return adminDao.getAllLabel();
+	}
+
 }

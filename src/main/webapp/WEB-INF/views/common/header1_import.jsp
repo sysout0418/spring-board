@@ -32,6 +32,9 @@
 <link
 	href="<c:url value="/resources/css/bootstrap-theme-dashgum/style-responsive.css" />"
 	rel="stylesheet" type="text/css" />
+<link
+	href="<c:url value="/resources/css/bootstrap-theme-dashgum/to-do.css" />"
+	rel="stylesheet" type="text/css" />
 
 <script
 	src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/chart-master/Chart.js" />"></script>

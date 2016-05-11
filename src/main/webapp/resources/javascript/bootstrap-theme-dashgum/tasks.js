@@ -1,5 +1,5 @@
 var TaskList = function () {
-
+	console.log("호출됨");
     return {
 
         initTaskWidget: function () {

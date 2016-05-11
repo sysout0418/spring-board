@@ -69,4 +69,7 @@ public interface AdminService {
 	/** 회원권한 및 가입허가 정보 수정 */
 	void updateUserAuthorityAndAdmit(Map<String, Object> param);
 	
+	/** 모든 라벨 가져오기 */
+	List<Map<String, Object>> getAllLabel();
+	
 }

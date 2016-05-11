@@ -256,4 +256,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</update>
 	
+	<select id="getAllLabel" resultType="Map">
+    <![CDATA[
+	SELECT @rownum:=@rownum+1 as rownum, lno, ltitle, lbgcolor
+	FROM Label
+	INNER JOIN (SELECT @rownum:=0) T2
+	ORDER BY rownum ASC;
+    ]]>  
+    </select>
+	
 </mapper>
