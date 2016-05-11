@@ -2183,7 +2183,6 @@ label {
 }
 
 .ui-sortable > li {
-    padding: 15px 0 15px 35px !important ;
     position: relative;
     background: #f5f6f8;
     margin-bottom: 2px;

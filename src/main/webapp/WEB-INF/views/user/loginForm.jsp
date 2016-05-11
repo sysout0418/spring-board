@@ -221,7 +221,7 @@ a.cbtn:hover {
 					<i class="fa fa-lock"></i> SIGN IN
 				</button>
 				<hr>
-
+				<!--  
 				<div class="login-social-link centered">
 					<p>or you can sign in via your social network</p>
 					<button class="btn btn-facebook" type="submit">
@@ -231,6 +231,7 @@ a.cbtn:hover {
 						<i class="fa fa-twitter"></i> Twitter
 					</button>
 				</div>
+				-->
 				<div class="registration">
 					Don't have an account yet?<br /> <a class="" href="/join">
 						Create an account </a>

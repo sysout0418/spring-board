@@ -25,6 +25,19 @@ MAIN CONTENT
 					<div class="row mt">
 						<div class="col-lg-12">
 							<div class="content-panel">
+								<h4><i class="fa fa-angle-right"></i> Chart Example 1</h4>
+                              <div class="panel-body">
+                                  <div id="hero-graph" class="graph"></div>
+                              </div>
+							</div>
+							<!-- /content-panel -->
+						</div>
+						<!-- col-lg-12-->
+					</div>
+					<!-- /row -->
+					<div class="row mt">
+						<div class="col-lg-12">
+							<div class="content-panel">
 								<form action="profile" method="post" id="profile" class="form-horizontal style-form">
 									<div class="form-group">
 										<label for="inputEmail" class="col-lg-2 control-label">이메일</label>

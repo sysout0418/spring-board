@@ -59,7 +59,6 @@ rel="stylesheet" type="text/css" />
 <!-- content-panel에 라운드 주기 -->
 <style>
 .content-panel {
-	border-radius: 18px;
 	padding: 25px;
 }
 </style>
