@@ -118,4 +118,16 @@ public class AdminDao {
 		return sqlSession.selectList("admin.getAllLabel");
 	}
 	
+	public void saveLabel(Map<String, Object> param) {
+		sqlSession.insert("admin.saveLabel", param);
+	}
+	
+	public void updateLabel(Map<String, Object> param) {
+		sqlSession.update("admin.updateLabel", param);
+	}
+	
+	public void deleteLabel(int lno) {
+		sqlSession.delete("admin.deleteLabel", lno);
+	}
+	
 }

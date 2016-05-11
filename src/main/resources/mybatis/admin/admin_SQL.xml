@@ -262,7 +262,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM Label
 	INNER JOIN (SELECT @rownum:=0) T2
 	ORDER BY rownum ASC;
-    ]]>  
+    ]]>
     </select>
+    
+    <insert id="saveLabel" parameterType="Map">
+    <![CDATA[
+    INSERT INTO Label (ltitle, lbgcolor)
+    VALUES (#{ltitle}, #{lbgcolor})
+    ]]>
+    </insert>
+    
+    <update id="updateLabel" parameterType="Map">
+    <![CDATA[
+    UPDATE Label
+    SET ltitle = #{ltitle}, lbgcolor = #{lbgcolor}
+    WHERE lno = #{lno}
+    ]]>
+    </update>
+    
+    <delete id="deleteLabel" parameterType="int">
+    <![CDATA[
+    DELETE FROM Label
+    WHERE lno = #{lno}
+    ]]>
+    </delete>
 	
 </mapper>
