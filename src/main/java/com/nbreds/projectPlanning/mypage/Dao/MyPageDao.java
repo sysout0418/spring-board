@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.mypage.Dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,7 +19,7 @@ public class MyPageDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public User getUserInfoByUno(int uno) {
+	public HashMap<String, String> getUserInfoByUno(int uno) {
 		return sqlSession.selectOne("mypage.getUserInfoByUno", uno);
 	}
 

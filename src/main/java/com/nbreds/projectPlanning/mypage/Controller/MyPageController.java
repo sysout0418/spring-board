@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.mypage.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
-import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.mypage.Service.MyPageService;
 
 @Controller
@@ -27,7 +28,7 @@ public class MyPageController {
 		int uno = (int) session.getAttribute("user_no");
 		logger.info("uno: " + uno);
 		
-		User userInfo = myPageService.getUserInfoByUno(uno);
+		HashMap<String, String> userInfo = myPageService.getUserInfoByUno(uno);
 		List<CodeTable> departmentList = myPageService.getAllDepartmentList();
 		
 		model.addAttribute("userInfo", userInfo);
@@ -36,5 +37,15 @@ public class MyPageController {
 		logger.info("departmentList : " + departmentList);
 		
 		return "user/userSetting";
+	}
+	
+	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	public String userProfileEdit(String uemail, String uname, String uphoneno, String udepartment, String password){
+		System.out.println(uemail);
+		System.out.println(uname);
+		System.out.println(uphoneno);
+		System.out.println(udepartment);
+		System.out.println(password);
+		return "";
 	}
 }

@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.mypage.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class MyPageServiceImpl implements MyPageService {
 	MyPageDao myPageDao;
 
 	@Override
-	public User getUserInfoByUno(int uno) {
+	public HashMap<String, String> getUserInfoByUno(int uno) {
 		return myPageDao.getUserInfoByUno(uno);
 	}
 

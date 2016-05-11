@@ -4,15 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="mypage">
-   	<select id="getUserInfoByUno" parameterType="int" resultType="com.nbreds.projectPlanning.common.VO.User">
+   	<select id="getUserInfoByUno" parameterType="int" resultType="hashmap">
 	<![CDATA[
-	SELECT u.uno, uname, uphoneno, udepartment, CODE_NAME as udepartmentName, uemail
-	FROM User u
-	JOIN ( SELECT CODE_TYPE, CODE, CODE_NAME
-			FROM CodeTable
-			WHERE CODE_TYPE = 002 ) c
-	ON udepartment = c.CODE
-	WHERE u.uno = #{uno}
+	SELECT U.uname, U.uphoneno, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor, CA.CODE_NAME AS udepartment, U.uemail
+	FROM User U
+	LEFT JOIN CodeTable CA ON CA.CODE_TYPE='002' AND CA.CODE=U.udepartment
+	LEFT JOIN CodeTable CB ON CB.CODE_TYPE='007' AND CB.CODE=U.profileBgColor
+	WHERE U.uno = #{uno}
 	]]>
 	</select>
     
