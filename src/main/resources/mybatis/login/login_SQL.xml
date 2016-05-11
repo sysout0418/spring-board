@@ -76,4 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
     ]]>  
     </insert>
+    
+    <update id="editPassword" parameterType="hashmap">
+    <![CDATA[
+   	UPDATE User SET
+  	upassword = #{password}
+	WHERE uemail=#{email}
+	]]>
+	</update>
 </mapper>
