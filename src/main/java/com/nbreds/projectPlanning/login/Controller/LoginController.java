@@ -1,9 +1,11 @@
 package com.nbreds.projectPlanning.login.Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nbreds.projectPlanning.common.VO.Authority;
+import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.login.Service.LoginService;
 import com.nbreds.projectPlanning.login.Service.ShaEncoder;
@@ -30,7 +34,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String goJoinForm() {
-		return "login/join";
+		return "user/join";
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
@@ -44,7 +48,7 @@ public class LoginController {
 			loginService.saveUser(user);
 			return "redirect:/";
 		}
-		return "login/joinError";
+		return "user/joinError";
 	}
 
 	@RequestMapping("/checkId")
@@ -64,6 +68,6 @@ public class LoginController {
 
 	@RequestMapping("/loginForm")
 	public String loginForm() {
-		return "login/loginForm";
+		return "user/loginForm";
 	}
 }

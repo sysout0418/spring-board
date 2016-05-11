@@ -15,5 +15,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper resource="mybatis/milestones/milestones_SQL.xml" />
         <mapper resource="mybatis/issues/issues_SQL.xml" />
         <mapper resource="mybatis/login/login_SQL.xml" />
+        <mapper resource="mybatis/mypage/myPage_SQL.xml" />
     </mappers>
 </configuration>

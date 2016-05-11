@@ -40,6 +40,9 @@ MAIN SIDEBAR MENU
 			<li class="sub-menu"><a href="/issues/open"> <i
 					class="fa fa-tasks"></i> <span>Issues</span>
 			</a></li>
+			<li class="sub-menu"><a href="/profile"> <i
+					class="fa fa-cogs"></i> <span>Profile Settings</span>
+			</a></li>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="sub-menu"><a href="/admin"> <i
 						class="fa fa-cogs"></i> <span>Admin</span>
