@@ -45,7 +45,7 @@ public class EmailController {
 	        emailSender.SendEmail(email);
     	}
          
-        return "login/loginForm";
+        return "redirect:/";
     }
     
     public static String temporaryPassword(int size) {
