@@ -159,4 +159,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.getAllLabel();
 	}
 
+	@Override
+	public void saveLabel(Map<String, Object> param) {
+		adminDao.saveLabel(param);
+	}
+
+	@Override
+	public void updateLabel(Map<String, Object> param) {
+		adminDao.updateLabel(param);
+	}
+
+	@Override
+	public void deleteLabel(int lno) {
+		adminDao.deleteLabel(lno);
+	}
+
 }

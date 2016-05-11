@@ -72,4 +72,12 @@ public interface AdminService {
 	/** 모든 라벨 가져오기 */
 	List<Map<String, Object>> getAllLabel();
 	
+	/** 라벨 저장 */
+	void saveLabel(Map<String, Object> param);
+	
+	/** 라벨 업뎃 */
+	void updateLabel(Map<String, Object> param);
+	
+	/** 라벨 삭제 */
+	void deleteLabel(int lno);
 }
