@@ -294,6 +294,7 @@ public class AdminController {
 		return "/admin/labelList";
 	}
 
+	// 라벨 등록
 	@RequestMapping("/label/regist")
 	public void labelRegist(Model model, String lTitle, String lBgColor, Writer writer) throws IOException {
 		logger.info("lTitle : " + lTitle);
@@ -307,6 +308,7 @@ public class AdminController {
 		writer.write("end");
 	}
 	
+	// 라벨 업뎃
 	@RequestMapping("/label/update")
 	public void labelUpdate(Model model, int lno, String lTitle, String lBgColor, Writer writer) throws IOException {
 		logger.info("lno : " + lno);
@@ -322,6 +324,7 @@ public class AdminController {
 		writer.write("end");
 	}
 	
+	// 라벨 삭제
 	@RequestMapping("/label/delete")
 	public void deleteLabel(Model model, @RequestParam(value="checkArray[]") List<String> lnoList, Writer writer) throws IOException {
 		for (int i = 0; i < lnoList.size(); i++) {

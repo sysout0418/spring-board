@@ -20,44 +20,7 @@ MAIN CONTENT
 		</h3>
 		<div class="col-lg-12">
 			<div class="row">
-				<!-- 라벨 설정 ui -->
 				<div class="col-md-12">
-					<div class="content-panel tasks-widget">
-						<h4>
-							<i class="fa fa-angle-right"></i> Label 목록
-						</h4>
-						<hr>
-						<div class="panel-body">
-							<div class="task-content">
-								<!-- label list -->
-
-							</div>
-
-							<!-- <div class=" add-task-row">
-								<a class="btn btn-success btn-sm pull-left"
-									href="todo_list.html#">Add New Tasks</a> <a
-									class="btn btn-default btn-sm pull-right"
-									href="todo_list.html#">See All Tasks</a>
-							</div> -->
-						</div>
-						&nbsp;
-						<button type="button" class="btn btn-warning" id="addLabelBtn"
-							style="">Add Label</button>
-						<button type="button" class="btn btn-theme" id="registLabelBtn"
-							style="display: none;">Regist Label</button>
-						<button type="button" class="btn btn-theme" id="saveLabelBtn"
-							style="display: none;">Save Label</button>
-						<button type="button" class="btn btn-theme" id="editLabelBtn"
-							style="display: none;">Edit Label</button>
-						<button type="button" class="btn btn-theme" id="deleteLabelBtn"
-							style="display: none;">Delete Label</button>
-						<button type="button" class="btn btn-theme" id="cancelLabelBtn"
-							style="display: none;">Cancel</button>
-					</div>
-				</div>
-				<!-- // 라벨 설정 UI -->
-
-				<div class="col-md-12 mt">
 					<div class="content-panel">
 						<h4>
 							<i class="fa fa-angle-right"></i> 신규 가입회원
@@ -149,6 +112,33 @@ MAIN CONTENT
 					<!-- /content-panel -->
 				</div>
 				<!-- /col-md-12 -->
+				
+				<!-- 라벨 설정 ui -->
+				<div class="col-md-12 mt">
+					<div class="content-panel tasks-widget">
+						<h4>
+							<i class="fa fa-angle-right"></i> Label 관리
+						</h4>
+						<hr>
+						<div class="panel-body">
+							<div class="task-content">
+								<!-- label list -->
+							</div>
+						</div>
+						&nbsp;
+						<button type="button" class="btn btn-warning" id="addLabelBtn"
+							data-toggle="modal" data-target="#myModal" style="">Add
+							Label</button>
+						<button type="button" class="btn btn-theme" id="editLabelBtn"
+							style="display: none;" data-toggle="modal" data-target="#myModal2">Edit Label</button>
+						<button type="button" class="btn btn-theme" id="deleteLabelBtn"
+							style="display: none;">Delete Label</button>
+						<button type="button" class="btn btn-theme" id="cancelLabelBtn"
+							style="display: none;">Cancel</button>
+					</div>
+				</div>
+				<!-- // 라벨 설정 UI -->
+				
 			</div>
 			<!-- /row -->
 		</div>
@@ -157,9 +147,112 @@ MAIN CONTENT
 <!-- /MAIN CONTENT -->
 
 <!--main content end-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Label 등록</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="sr-only" for="labelTitle">Label Title</label> <input
+						type="text" class="form-control" id="labelTitle"
+						placeholder="Label Title" maxlength="15">
+				</div>
+				<!-- color picker -->
+				<div class="form-group">
+					<label for="wheel-demo">Label Color</label> <input type="text"
+						id="wheel-demo" class="form-control demo" data-control="wheel"
+						value="#ff99ee">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="registLabelBtn" class="btn btn-primary"
+					data-dismiss="modal">Regist</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Label 수정</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="lnoForUpdate" name="lnoForUpdate" value="">
+				<div class="form-group">
+					<label class="sr-only" for="labelTitle">Label Title</label>
+					<input type="text" class="form-control" id="labelTitle2" placeholder="Label Title" maxlength="15">
+				</div>
+				<!-- color picker -->
+				<div class="form-group">
+					<label for="wheel-demo">Label Color</label> <input type="text"
+						id="wheel-demo2" class="form-control demo" data-control="wheel"
+						value="">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="updateLabelBtn" class="btn btn-primary"
+					data-dismiss="modal">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
-<script>
+<script type="text/javascript">
+	// color picker
+	$(function() {
+		var colpick = $('.demo').each(function() {
+			$(this).minicolors({
+				control : $(this).attr('data-control') || 'hue',
+				inline : $(this).attr('data-inline') === 'true',
+				letterCase : 'lowercase',
+				opacity : false,
+				change : function(hex, opacity) {
+					if (!hex)
+						return;
+					if (opacity)
+						hex += ', ' + opacity;
+					try {
+						console.log(hex);
+					} catch (e) {
+					}
+					$(this).select();
+				},
+				theme : 'bootstrap'
+			});
+		});
+
+		var $inlinehex = $('#inlinecolorhex h3 small');
+		$('#inlinecolors').minicolors({
+			inline : true,
+			theme : 'bootstrap',
+			change : function(hex) {
+				if (!hex)
+					return;
+				$inlinehex.html(hex);
+			}
+		});
+	});
+	//////////////////////////////////////////////////////
+
 	$(document).ready(function() {
 		getLabelList();
 	});
@@ -167,7 +260,7 @@ MAIN CONTENT
 	function getLabelList() {
 		$('.task-content').load("/getLabelList");
 	}
-
+	
 	$(document).on('change', 'input.list-child', function() {
 		if ($(this).is(':checked')) {
 			$(this).parents('li').addClass("task-done");
@@ -185,16 +278,16 @@ MAIN CONTENT
 
 		if (checkCnt == 1) {
 			$('#addLabelBtn').attr('style', 'display: none;');
-			$('#registLabelBtn').attr('style', 'display: none;');
-			$('#newLabelForm').attr('style', 'display: none;');
+			//$('#registLabelBtn').attr('style', 'display: none;');
+			//$('#newLabelForm').attr('style', 'display: none;');
 
 			$('#editLabelBtn').attr('style', 'display: "";');
 			$('#deleteLabelBtn').attr('style', 'display: "";');
 			$('#cancelLabelBtn').attr('style', 'display: "";');
 		} else if (checkCnt > 1) {
 			$('#addLabelBtn').attr('style', 'display: none;');
-			$('#registLabelBtn').attr('style', 'display: none;');
-			$('#newLabelForm').attr('style', 'display: none;');
+			//$('#registLabelBtn').attr('style', 'display: none;');
+			//$('#newLabelForm').attr('style', 'display: none;');
 			$('#editLabelBtn').attr('style', 'display: none;');
 
 			$('#deleteLabelBtn').attr('style', 'display: "";');
@@ -202,8 +295,8 @@ MAIN CONTENT
 		} else {
 			$('#editLabelBtn').attr('style', 'display: none;');
 			$('#deleteLabelBtn').attr('style', 'display: none;');
-			$('#registLabelBtn').attr('style', 'display: none;');
-			$('#newLabelForm').attr('style', 'display: none;');
+			//$('#registLabelBtn').attr('style', 'display: none;');
+			//$('#newLabelForm').attr('style', 'display: none;');
 			$('#cancelLabelBtn').attr('style', 'display: none;');
 
 			$('#addLabelBtn').attr('style', 'display: "";');
@@ -228,70 +321,50 @@ MAIN CONTENT
 			f.action = "/admin/users/editForm/" + uno;
 			f.submit();
 		});
-
-		$('#addLabelBtn').click(function() {
-			$('#addLabelBtn').attr('style', 'display: none;');
-
-			$('#registLabelBtn').attr('style', 'display: ""');
-			$('#newLabelForm').attr('style', 'display: ""');
-			$('#cancelLabelBtn').attr('style', 'display: ""');
-		});
-
+		
+		// 실행 취소버튼
 		$('#cancelLabelBtn').click(function() {
 			getLabelList();
 			$('#addLabelBtn').attr('style', 'display: "";');
 
 			$('#registLabelBtn').attr('style', 'display: none;');
+			$('#saveLabelBtn').attr('style', 'display: none;');
+			$('#saveLabelBtn2').attr('style', 'display: none;');
 			$('#editLabelBtn').attr('style', 'display: none;');
 			$('#deleteLabelBtn').attr('style', 'display: none;');
 			$('#newLabelForm').attr('style', 'display: none;');
 			$('#cancelLabelBtn').attr('style', 'display: none;');
 		});
-
+		
+		// 라벨 등록 버튼
 		$('#registLabelBtn').click(function() {
-			// rgb 정규표현식
-			var rgbExp = /#[0-9a-zA-F]{6}/;
-
-			// 라벨 내용이 필수이므로 검사
+			// 유효성 체크
 			if ($('#labelTitle').val() == "") {
 				alert("라벨 이름이 없습니다.. 입력하세요!");
 				$('#labelTitle').focus();
 				return;
-			} else if ($('#labelColor').val() == "") {
+			} else if ($('#wheel-demo').val() == "") {
 				alert("라벨 색상이 없습니다.. 입력하세요!");
-				$('#labelColor').focus();
-				return;
-			} else if (!rgbExp.test($('#labelColor').val())) {
-				alert("라벨 색상은 RGB 색상표 규칙을 따라야 합니다. \n ex) #FF00FF");
+				$('#wheel-demo').focus();
 				return;
 			}
-
-			// 버튼 중복 클릭 방지
-			$('#registLabelBtn').attr('disabled', 'disabled');
-
+			
 			// ajax로 label 등록
 			$.post('/label/regist', {
 				lTitle : $('#labelTitle').val(),
-				lBgColor : $('#labelColor').val()
+				lBgColor : $('#wheel-demo').val()
 			}, function(data) {
-				// 내용 비우기
+				// 내용 초기화
 				$('#labelTitle').val("");
-				$('#labelColor').val("");
-
-				// 다시 클릭이 가능하게끔
-				$('#registLabelBtn').attr("disabled", false);
-
-				// display control
-				$('#registLabelBtn').attr('style', 'display: none;');
-				$('#newLabelForm').attr('style', 'display: none;');
-				$('#cancelLabelBtn').attr('style', 'display: none;');
-				$('#addLabelBtn').attr('style', 'display: ""');
+				$('#wheel-demo').val("#ff99ee");
+				$('.minicolors-swatch > .minicolors-swatch-color').attr('style', 'background-color: #ff99ee;');
 
 				// 입력이 완료가 됐으므로 다시 리스트 불러오기
 				getLabelList();
 			});
 		});
-
+		
+		// 라벨 수정폼 여는 버튼
 		$('#editLabelBtn').click(function() {
 			var lno = '';
 			var lTitleAndlBgColor = '';
@@ -303,98 +376,78 @@ MAIN CONTENT
 					$('input[name="checkList"]:checked').each(function(i) {
 						// 현재 체크된 체크박스의 li를 찾는다
 						var li = $(this).parent().parent();
-						
+
 						// ltitle과 lbgcolor을 찾는다
 						lTitleAndlBgColor = $(this).parent().next().children().attr('alt');
-						
-						// 찾은 ltitle과 lbgcolor을 변수에 저장
+
+						// 찾은 lno, ltitle, lbgcolor 변수에 저장
+						lno = $(this).val();
 						lBgColor = lTitleAndlBgColor.substring(0, 7);
 						lTitle = lTitleAndlBgColor.substring(7, lTitleAndlBgColor.length);
-						
-						// 현재 체크된 체크박스의 li를 없앤다
-						li.empty();
-						
-						// 라벨 수정폼을 append한다.
-						li.append('<div class="form-inline">'
-								+ '<div class="form-group"><label class="sr-only" for="labelTitle">Label Title</label>'
-								+ '<input type="text" class="form-control" id="labelTitle2" placeholder="Label Title" value="' + lTitle + '" maxlength="15"></div>'
-								+ '&nbsp;&nbsp;&nbsp;'
-								+ '<div class="form-group"><label class="sr-only" for="labelColor">Label Color</label>'
-								+ '<input type="text" class="form-control" id="labelColor2" placeholder="Label Color" value="' + lBgColor + '" maxlength="7"></div></div>');
-						
-						// edit 버튼과 delete 버튼을 숨기고 save 버튼을 나타낸다
-						$('#editLabelBtn').attr('style', 'display: none;');
-						$('#deleteLabelBtn').attr('style', 'display: none;');
-						$('#saveLabelBtn').attr('style', 'display: "";');
-						
-						// 현재 체크된 체크박스의 lno를 변수에 저장
-						lno = $(this).val();
-						
-						// saveLabelBtn 클릭시 label update
-						$('#saveLabelBtn').click(function() {
-							// rgb 정규표현식
-							var rgbExp = /#[0-9a-zA-F]{6}/;
-							
-							// 라벨 내용이 필수이므로 검사
-							if ($('#labelTitle2').val() == "") {
-								alert("라벨 이름이 없습니다.. 입력하세요!");
-								$('#labelTitle2').focus();
-								return;
-							} else if ($('#labelColor2').val() == "") {
-								alert("라벨 색상이 없습니다.. 입력하세요!");
-								$('#labelColor2').focus();
-								return;
-							} else if (!rgbExp.test($('#labelColor2').val())) {
-								alert("라벨 색상은 RGB 색상표 규칙을 따라야 합니다. \n ex) #FF00FF");
-								return;
-							}
-
-							// 버튼 중복 클릭 방지
-							$('#saveLabelBtn').attr('disabled', 'disabled');
-							
-							// ajax 통신으로 label update
-							$.post('/label/update', {
-								"lno" : lno,
-								"lTitle" : $('#labelTitle2').val(),
-								"lBgColor" : $('#labelColor2').val()
-							},
-							function(data) {
-								getLabelList();
-								$('#addLabelBtn').attr('style', 'display: "";');
-								
-								$('#saveLabelBtn').attr('style', 'display: none;');
-								$('#cancelLabelBtn').attr('style', 'display: none;');
-							});
-						});
 					});
 				}
 			});
+			
+			$('#lnoForUpdate').val(lno);
+			$('#labelTitle2').val(lTitle);
+			$('#wheel-demo2').val(lBgColor);
+			$('.minicolors-swatch > .minicolors-swatch-color').attr('style', 'background-color: ' + lBgColor + ";");
 		});
+		
+		// 라벨 수정 버튼
+		$('#updateLabelBtn').click(function() {
+			// 유효성 체크
+			if ($('#labelTitle2').val() == "") {
+				alert("라벨 이름이 없습니다.. 입력하세요!");
+				$('#labelTitle2').focus();
+				return;
+			} else if ($('#wheel-demo2').val() == "") {
+				alert("라벨 색상이 없습니다.. 입력하세요!");
+				$('#wheel-demo2').focus();
+				return;
+			}
+			
+			// ajax로 label 등록
+			$.post('/label/update', {
+				lno : $('#lnoForUpdate').val(),
+				lTitle : $('#labelTitle2').val(),
+				lBgColor : $('#wheel-demo2').val()
+			}, function(data) {
+				// 내용 초기화
+				$('#labelTitle2').val("");
+				$('#wheel-demo2').val("");
+				//$('.minicolors-swatch > .minicolors-swatch-color').attr('style', 'background-color: #ff99ee;');
 
+				// 입력이 완료가 됐으므로 다시 리스트 불러오기
+				getLabelList();
+			});
+		});
+		
+		// 선택한 라벨 삭제 버튼
 		$('#deleteLabelBtn').click(function() {
 			$(document).ready(function() {
-				if (confirm("정말로 선택하신 Label을 삭제하시겠습니까?")) {
+				if(confirm('정말로 선택하신 라벨을 삭제 하시겠습니까?')) {
 					if ($('input:checkbox[name="checkList"]').is(":checked")) {
 						// 체크한 lno list
 						var lnoList = [];
-						
+
 						// for문 돌면서 체크한 lno value값을 배열변수에 저장
 						$('input[name="checkList"]:checked').each(function(i) {
 							lnoList.push($(this).val());
 						});
-						
+
 						// 유니크한 배열로 만듬
 						var uniqueLnoList = lnoList.reduce(function(a, b) {
-							if (a.indexOf(b) < 0)
+							if (a.indexOf(b) < 0) 
 								a.push(b);
-							return a;
+								return a;
 						}, []);
-						
+
 						// 체크박스 값들(배열)을 name/value 형태로 담는다.
 						var allData = {
 							"checkArray" : uniqueLnoList
 						};
-						
+
 						// ajax 통신으로 label 삭제
 						$.ajax({
 							url : "/label/delete",
@@ -405,7 +458,7 @@ MAIN CONTENT
 								$('#editLabelBtn').attr('style', 'display: none;');
 								$('#deleteLabelBtn').attr('style', 'display: none;');
 								$('#cancelLabelBtn').attr('style', 'display: none;');
-								$('#addLabelBtn').attr('style', 'display: "";');
+								$('#addLabelBtn').attr('style','display: "";');
 							},
 							error : function(jqXHR, textStatus, errorThrown) {
 								alert("에러 발생이군? \n" + textStatus + " : " + errorThrown);
@@ -417,6 +470,43 @@ MAIN CONTENT
 				}
 			});
 		});
-
+		
+		// 라벨 수정 폼 열기2
+		$(document).on('click', '#editLabelBtn2', function() {
+			var labelInfo = $(this).attr('alt');
+			var labelInfoToArray = labelInfo.split(",");
+			
+			$('#lnoForUpdate').val(labelInfoToArray[0]);
+			$('#labelTitle2').val(labelInfoToArray[1]);
+			$('#wheel-demo2').val(labelInfoToArray[2]);
+			$('.minicolors-swatch > .minicolors-swatch-color').attr('style', 'background-color: ' + labelInfoToArray[2] + ";");
+		});
+		
+		// 라벨 삭제2
+		$(document).on('click', '#deleteLabelBtn2', function() {
+			var lno = $(this).attr('alt');
+			if(confirm('정말로 이 라벨을 삭제 하시겠습니까?')) {
+				var lnoList = [];
+				lnoList.push(lno);
+				
+				var allData = {
+					"checkArray" : lnoList
+				};
+				// ajax 통신으로 label 삭제
+				$.ajax({
+					url : "/label/delete",
+					type : 'GET',
+					data : allData,
+					success : function(data) {
+						getLabelList();
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						alert("에러 발생이군? \n" + textStatus + " : " + errorThrown);
+					}
+				});
+			} else {
+				return;
+			}
+		});
 	});
 </script>
