@@ -479,9 +479,9 @@
 .ui-state-disabled,
 .ui-widget-content .ui-state-disabled,
 .ui-widget-header .ui-state-disabled {
-	opacity: .35;
-	filter:Alpha(Opacity=35); /* support: IE8 */
-	background-image: none;
+	text-align: center;
+	background-color: #127F94 !important;
+	color: #eee;
 }
 .ui-state-disabled .ui-icon {
 	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */

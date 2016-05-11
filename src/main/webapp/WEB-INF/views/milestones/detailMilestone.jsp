@@ -10,19 +10,19 @@
 <style>
 #unstarted1, #unstarted2, #completed {
 	border: 1px solid #eee;
-	width: 370px;
+	width: 400px;
 	min-height: 20px;
 	list-style-type: none;
-	margin: 0;
+	margin: 0px 0px 0px 5px;
 	padding: 5px 0 0 0;
 	float: left;
 }
 
 #unstarted1 li, #unstarted2 li, #completed li {
 	margin: 0 5px 5px 5px;
-	padding: 5px;
+	padding: 8px;
 	font-size: 0.9em;
-	width: 360px;
+	width: 390px;
 	height: 35px;
 }
 </style>
