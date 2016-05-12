@@ -244,25 +244,25 @@ MAIN CONTENT
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
 	// graph
-	new Morris.Line({
-		// ID of the element in which to draw the chart.
-		element: 'chart',
-		// Chart data records -- each entry in this array corresponds to a point on
-		// the chart.
-		data: [
-			{ year: '2008', value: 100 },
-			{ year: '2009', value: 10 },
-			{ year: '2010', value: 5 },
-			{ year: '2011', value: 5 },
-			{ year: '2012', value: 20 }
-		],
-		 // The name of the data record attribute that contains x-values.
-		xkey: 'year',
-		// A list of names of data record attributes that contain y-values.
-		ykeys: ['value'],
-		// Labels for the ykeys -- will be displayed when you hover over the
-		// chart.
-		labels: ['Value']
+	$(document).ready(function() {
+		$.ajax({
+			type: "POST",
+			url: "/getIssueCntByDate",
+			success : function(data2) {
+				var dateData = data2;
+				
+				new Morris.Line({
+					element: 'chart',
+					data: dateData,
+					xkey: 'date',
+					ykeys: ['value'],
+					labels: ['이슈 개수'],
+				});
+			},
+			error : function(xhr, status, error) {
+				alert("에러발생");
+			}
+		});
 	});
 
 	// search

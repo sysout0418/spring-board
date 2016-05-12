@@ -260,4 +260,9 @@ public class IssueServiceImpl implements IssueService {
 	public int getIssueCnt(Map<String, Object> param) {
 		return issueDao.getIssueCnt(param);
 	}
+
+	@Override
+	public List<Map<String, Object>> getIssueCntByDate(Map<String, Object> param) {
+		return issueDao.getIssueCntByDate(param);
+	}
 }

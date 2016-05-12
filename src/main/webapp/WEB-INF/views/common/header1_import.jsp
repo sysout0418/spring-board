@@ -61,10 +61,10 @@ rel="stylesheet" type="text/css" />
    <![endif]-->
 
 
-<!-- content-panel에 라운드 주기 -->
+<!-- content-panel에 패딩 주기 -->
 <style>
 .content-panel {
-	padding: 25px;
+	padding: 30px;
 }
 </style>
 

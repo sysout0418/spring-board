@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -777,5 +778,16 @@ public class IssueController {
 		issuesService.removeIssues(ino);
 
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
+	}
+	
+	@RequestMapping("/getIssueCntByDate")
+	@ResponseBody
+	public List<Map<String, Object>> getIssueCntByDate(HttpSession session){
+		Map<String, Object> param = new HashMap<String, Object>();
+		int loginUserNo = (int) session.getAttribute("user_no");
+		param.put("uno", loginUserNo);
+		List<Map<String, Object>> list = issuesService.getIssueCntByDate(param);
+		
+		return list;
 	}
 }

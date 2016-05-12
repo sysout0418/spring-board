@@ -123,4 +123,6 @@ public interface IssueService {
 	void updateMilestoneByIno(Map<String, Object> param);
 
 	int getIssueCnt(Map<String, Object> param);
+	
+	List<Map<String, Object>> getIssueCntByDate(Map<String, Object> param);
 }
