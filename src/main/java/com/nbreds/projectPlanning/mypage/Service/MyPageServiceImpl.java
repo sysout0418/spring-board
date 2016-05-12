@@ -29,4 +29,8 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDao.getAllDepartmentList();
 	}
 
+	@Override
+	public void editProfile(HashMap<String, Object> param) {
+		myPageDao.editProfile(param);
+	}
 }

@@ -21,4 +21,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE CODE_TYPE = 002
 	]]>
 	</select>
+	
+	<update id="editProfile" parameterType="hashmap">
+    <![CDATA[
+    UPDATE User SET
+	uname = #{uname}
+	,uphoneno = #{uphoneno}
+	,udepartment = #{udepartment}
+	,upassword = #{upassword}
+	WHERE uemail=#{uemail}
+	]]> 
+    </update>
 </mapper>

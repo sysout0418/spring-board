@@ -26,4 +26,8 @@ public class MyPageDao {
 	public List<CodeTable> getAllDepartmentList() {
 		return sqlSession.selectList("mypage.getAllDepartmentList");
 	}
+
+	public void editProfile(HashMap<String, Object> param) {
+		sqlSession.update("mypage.editProfile", param);
+	}
 }

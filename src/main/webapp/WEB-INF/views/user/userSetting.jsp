@@ -40,7 +40,7 @@ MAIN CONTENT
 									<div class="form-group">
 										<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 										<div class="col-lg-10">
-											<input type="text" class="form-control" id="uemail"
+											<input type="text" class="form-control" id="uemail" name="uemail"
 												readonly="readonly" value="${userInfo.uemail}">
 										</div>
 									</div>
@@ -75,7 +75,7 @@ MAIN CONTENT
 									<div class="form-group">
 										<label class="col-sm-2 col-sm-2 control-label">비밀번호</label>
 										<div class="col-sm-10">
-											<input type="password" class="form-control" id="password">
+											<input type="password" class="form-control" id="password" name="password">
 										</div>
 									</div>
 									<div class="form-group">
@@ -154,6 +154,7 @@ MAIN CONTENT
                     return myNavFunction(this.id);
                 }
             });
+   
         });
         
         
@@ -163,25 +164,35 @@ MAIN CONTENT
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year + '/' + to.day);
         }
-        new Morris.Line({
-        	console.log("안돼");
-        	  // ID of the element in which to draw the chart.
-        	  element: 'chart',
-        	  // Chart data records -- each entry in this array corresponds to a point on
-        	  // the chart.
-        	  data: [
-        	    { year: '2008', value: 100 },
-        	    { year: '2009', value: 10 },
-        	    { year: '2010', value: 5 },
-        	    { year: '2011', value: 5 },
-        	    { year: '2012', value: 20 }
-        	  ],
-        	  // The name of the data record attribute that contains x-values.
-        	  xkey: 'day',
-        	  // A list of names of data record attributes that contain y-values.
-        	  ykeys: ['value'],
-        	  // Labels for the ykeys -- will be displayed when you hover over the
-        	  // chart.
-        	  labels: ['Value'],
-        	});
+</script>
+<script type="text/javascript">
+new Morris.Line({
+	  // ID of the element in which to draw the chart.
+	  element: 'chart',
+	  // Chart data records -- each entry in this array corresponds to a point on
+	  // the chart.
+	  data: [
+	    { "date": '2012', "value": 20 },
+	    { "date": '2013', "value": 10 },
+	    { "date": '2014', "value": 5 },
+	    { "date": '2015', "value": 5 },
+	    { "date": '2016', "value": 20 }
+	  ],
+	  // The name of the data record attribute that contains x-values.
+	  xkey: 'date',
+	  // A list of names of data record attributes that contain y-values.
+	  ykeys: ['value'],
+	  // Labels for the ykeys -- will be displayed when you hover over the
+	  // chart.
+	  labels: ['Value'],
+	});
+	
+	$.ajax(this.href, {
+	    success: function(data) {
+	    	console.log("ajax success");
+	    },
+	    error: function() {
+	    	console.log("ajax failed");
+	    }
+	 });
 </script>

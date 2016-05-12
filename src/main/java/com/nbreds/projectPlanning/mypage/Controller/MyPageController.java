@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.login.Service.ShaEncoder;
 import com.nbreds.projectPlanning.mypage.Service.MyPageService;
 
 @Controller
@@ -22,6 +23,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageService myPageService;
+	
+	@Autowired
+	private ShaEncoder encoder;
 	
 	@RequestMapping("/profile")
 	public String userProfile(HttpSession session, Model model){
@@ -41,11 +45,18 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
 	public String userProfileEdit(String uemail, String uname, String uphoneno, String udepartment, String password){
-		System.out.println(uemail);
-		System.out.println(uname);
-		System.out.println(uphoneno);
-		System.out.println(udepartment);
-		System.out.println(password);
-		return "";
+		HashMap<String, Object> param = new HashMap<>();
+		param.put("uemail", uemail);
+		param.put("uname", uname);
+		param.put("uphoneno", uphoneno);
+		param.put("udepartment", udepartment);
+		param.put("upassword", encoder.encoding(password));
+		
+		logger.info("param : " + param);
+		
+		//유저 데이터 변경
+		myPageService.editProfile(param);
+		
+		return "redirect:/profile";
 	}
 }

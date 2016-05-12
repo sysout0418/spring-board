@@ -17,4 +17,6 @@ public interface MyPageService {
 
 	List<CodeTable> getAllDepartmentList();
 
+	void editProfile(HashMap<String, Object> param);
+
 }
