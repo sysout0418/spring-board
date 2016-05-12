@@ -165,4 +165,9 @@ public class MilestonesServiceImpl implements MilestonesService{
 		return milestonesdao.getMilestoneCnt(param);
 	}
 
+	@Override
+	public List<HashMap<String, Object>> test(int i) {
+		return milestonesdao.test(i);
+	}
+
 }

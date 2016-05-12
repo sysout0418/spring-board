@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -74,7 +75,7 @@ public class MilestonesController {
 			milestone.setCountIssues(countIssues);
 			milestone.setCompleteIssuePercent((int) Math.round((completeIssuePercent / countIssues) * 100));
 		}
-
+		
 		model.addAttribute("stat", stat);
 		if(list.size() > 0)	model.addAttribute("list", list);
 		else model.addAttribute("list", "none");
@@ -317,5 +318,13 @@ public class MilestonesController {
 		} else {
 
 		}
+	}
+	@RequestMapping("test")
+	@ResponseBody
+	public List<HashMap<String, Object>> test(){
+		System.out.println("ada");
+		List<HashMap<String, Object>> list = milestonesService.test(82);
+		
+		return list;
 	}
 }

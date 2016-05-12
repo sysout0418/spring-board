@@ -57,4 +57,6 @@ public interface MilestonesService {
 	void updateFile(Map<String, Object> param);
 	
 	int getMilestoneCnt(Map<String, Object> param);
+
+	public List<HashMap<String, Object>> test(int i);
 }

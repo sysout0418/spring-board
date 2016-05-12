@@ -8,7 +8,6 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
-  
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
@@ -25,7 +24,7 @@ MAIN CONTENT
 					<div class="row mt">
 						<div class="col-lg-12">
 							<div class="content-panel">
-								<h4><i class="fa fa-angle-right"></i> Chart Example 1</h4>
+								<h4><i class="fa fa-angle-right"></i> Activity</h4>
                               	<div id="chart" style="height: 250px;"></div>
 							</div>
 							<!-- /content-panel -->
@@ -36,6 +35,7 @@ MAIN CONTENT
 					<div class="row mt">
 						<div class="col-lg-12">
 							<div class="content-panel">
+							<h4><i class="fa fa-angle-right"></i> User Report</h4>
 								<form action="profile" method="post" id="profile" class="form-horizontal style-form">
 									<div class="form-group">
 										<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
@@ -164,6 +164,7 @@ MAIN CONTENT
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year + '/' + to.day);
         }
         new Morris.Line({
+        	console.log("안돼");
         	  // ID of the element in which to draw the chart.
         	  element: 'chart',
         	  // Chart data records -- each entry in this array corresponds to a point on
@@ -176,11 +177,11 @@ MAIN CONTENT
         	    { year: '2012', value: 20 }
         	  ],
         	  // The name of the data record attribute that contains x-values.
-        	  xkey: 'year',
+        	  xkey: 'day',
         	  // A list of names of data record attributes that contain y-values.
         	  ykeys: ['value'],
         	  // Labels for the ykeys -- will be displayed when you hover over the
         	  // chart.
-        	  labels: ['Value']
+        	  labels: ['Value'],
         	});
 </script>

@@ -19,6 +19,20 @@ MAIN CONTENT
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content-panel">
+				<h4><i class="fa fa-angle-right"></i> Basic Table</h4>
+						<div id="chart" style="height: 250px;"></div>
+					</div>
+					<!-- /content-panel -->
+				</div>
+				<!-- /col-md-12 -->
+			</div>
+			<!-- /row -->
+		</div>
+		<div class="col-lg-12">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content-panel">
+					<h4><i class="fa fa-angle-right"></i> Basic Table</h4>
 						<div role="tabpanel">
 							<!-- Nav tabs -->
 							<div class="tabbable-panel">
@@ -85,3 +99,34 @@ MAIN CONTENT
 <!--main content end-->
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+<script type="text/javascript">
+new Morris.Line({
+	  // ID of the element in which to draw the chart.
+	  element: 'chart',
+	  // Chart data records -- each entry in this array corresponds to a point on
+	  // the chart.
+	  data: [
+	    { "date": '2012', "value": 20 },
+	    { "date": '2013', "value": 10 },
+	    { "date": '2014', "value": 5 },
+	    { "date": '2015', "value": 5 },
+	    { "date": '2016', "value": 20 }
+	  ],
+	  // The name of the data record attribute that contains x-values.
+	  xkey: 'date',
+	  // A list of names of data record attributes that contain y-values.
+	  ykeys: ['value'],
+	  // Labels for the ykeys -- will be displayed when you hover over the
+	  // chart.
+	  labels: ['Value'],
+	});
+	
+	$.ajax(this.href, {
+	    success: function(data) {
+	    	console.log("ajax success");
+	    },
+	    error: function() {
+	    	console.log("ajax failed");
+	    }
+	 });
+</script>

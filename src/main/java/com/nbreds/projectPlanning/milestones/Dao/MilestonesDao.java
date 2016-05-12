@@ -107,5 +107,9 @@ public class MilestonesDao {
 	public int getMilestoneCnt(Map<String, Object> param) {
 		return sqlSession.selectOne("milestones.getMilestoneCnt", param);
 	}
+
+	public List<HashMap<String, Object>> test(int i) {
+		return sqlSession.selectList("milestones.test", i);
+	}
 	
 }
