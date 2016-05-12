@@ -170,4 +170,8 @@ public class IssueDao {
 	public int getIssueCnt(Map<String, Object> param) {
 		return sqlSession.selectOne("issues.getIssueCnt", param);
 	}
+	
+	public List<Map<String, Object>> getIssueCntByDate(Map<String, Object> param) {
+		return sqlSession.selectList("issues.getIssueCntByDate", param);
+	}
 }

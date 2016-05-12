@@ -46,7 +46,7 @@ MAIN CONTENT
 												<input type="checkbox" value="${dev.CODE_TYPE}${dev.CODE}"
 													name="checked" style="margin-left: 2px">${dev.CODE_NAME}
 										</c:forEach></td>
-										<td rowspan="3" style="width : 200px">
+										<td rowspan="3" style="width: 80px;">
 										<a href="javascript:pagelist(1)" class="btn btn-warning btn-lg" style="width:100%; height : 100%;  line-height: 50px;">Search</a>
 										</td>
 									</tr>

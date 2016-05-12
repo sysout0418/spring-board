@@ -534,4 +534,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE pno = #{pno} AND istatement = #{istatement}
 	]]>
 	</select>
+	
+	<!-- 날짜별 카운트 -->
+	<select id="getIssueCntByDate" parameterType="Map" resultType="Map">
+	<![CDATA[
+	SELECT date_format(`iregdate`, '%Y-%m-%d') as date, count(*) as value
+	FROM Issues
+	WHERE uno = #{uno} AND iregdate > DATE_ADD(now(), INTERVAL -365 day)
+	GROUP BY date
+	]]>
+	</select>
 </mapper>
