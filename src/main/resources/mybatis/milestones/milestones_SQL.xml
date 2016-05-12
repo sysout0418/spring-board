@@ -222,11 +222,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 날짜별 카운트 -->
-	<select id="test" parameterType="int" resultType="hashmap">
+	<select id="getMilestonesData" parameterType="hashmap" resultType="hashmap">
 	<![CDATA[
 	SELECT date_format(`mregdate`, '%Y-%m-%d') as date, count(*) as value
 	FROM Milestones
-	WHERE uno=82 AND mregdate > DATE_ADD(now(), INTERVAL -1000 day)
+	WHERE uno=#{uno} AND mregdate BETWEEN #{startdate} AND #{endDate}
 	GROUP BY date
 	]]>
 	</select>

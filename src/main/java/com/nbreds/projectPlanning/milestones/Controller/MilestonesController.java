@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -320,10 +321,18 @@ public class MilestonesController {
 		}
 	}
 	
-	@RequestMapping(value = "test", method = RequestMethod.POST)
+	@RequestMapping(value = "dataLoad", method = RequestMethod.POST)
 	@ResponseBody
-	public List<HashMap<String, Object>> test(){
-		List<HashMap<String, Object>> list = milestonesService.test(82);
+	public List<HashMap<String, Object>> dataLoad(HttpSession session, @RequestParam(value="startdate") String startdate, @RequestParam(value="endDate") String endDate){
+		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
+		
+		//파라미터 생성
+		HashMap<String, String> param = new HashMap<>();
+		param.put("startdate", startdate);
+		param.put("endDate", endDate);
+		param.put("uno", uno);
+		
+		List<HashMap<String, Object>> list = milestonesService.getMilestonesData(param);
 		
 		return list;
 	}

@@ -166,8 +166,8 @@ public class MilestonesServiceImpl implements MilestonesService{
 	}
 
 	@Override
-	public List<HashMap<String, Object>> test(int i) {
-		return milestonesdao.test(i);
+	public List<HashMap<String, Object>> getMilestonesData(HashMap<String, String> param) {
+		return milestonesdao.getMilestonesData(param);
 	}
 
 }

@@ -128,7 +128,7 @@ MAIN CONTENT
 
         var cb = function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+          $('#reportrange span').html(start.format('MM DD, YYYY') + ' - ' + end.format('MM DD, YYYY'));
         };
 
         var optionSet1 = {
@@ -171,14 +171,47 @@ MAIN CONTENT
         };
         $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
         $('#reportrange').daterangepicker(optionSet1, cb);
+        /*
         $('#reportrange').on('show.daterangepicker', function() {
           console.log("show event fired");
         });
         $('#reportrange').on('hide.daterangepicker', function() {
           console.log("hide event fired");
         });
+        */
+        
         $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-          console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+          var startdate = picker.startDate.format('YYYY-MM-DD');
+          var endDate = picker.endDate.format('YYYY-MM-DD');
+          var param = { "startdate" : startdate, "endDate" : endDate};
+          
+          $.ajax({
+  			type : "POST",
+  			url : "/dataLoad",
+  			data : param,
+  			success : function(data2) {
+  				var dateData = data2;
+
+  				new Morris.Line({
+  					// ID of the element in which to draw the chart.
+  					element : 'chart',
+  					// Chart data records -- each entry in this array corresponds to a point on
+  					// the chart.
+  					data : dateData,
+  					// The name of the data record attribute that contains x-values.
+  					xkey : 'date',
+  					// A list of names of data record attributes that contain y-values.
+  					ykeys : [ 'value' ],
+  					// Labels for the ykeys -- will be displayed when you hover over the
+  					// chart.
+  					labels : [ 'Value' ],
+  				});
+  			},
+  			error : function(xhr, status, error) {
+  				console.log("data load failed");
+  			}
+  		});
+          
         });
         $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
           console.log("cancel event fired");
@@ -196,31 +229,36 @@ MAIN CONTENT
     </script>
     <!-- /bootstrap-daterangepicker -->
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function() {		
+		var startdate = picker.startDate.format('YYYY-MM-DD');
+        var endDate = picker.endDate.format('YYYY-MM-DD');
+        var param = { "startdate" : startdate, "endDate" : endDate};
+        
 		$.ajax({
-			type : "POST",
-			url : "/test",
-			success : function(data2) {
-				var dateData = data2;
+  			type : "POST",
+  			url : "/dataLoad",
+  			data : param,
+  			success : function(data2) {
+  				var dateData = data2;
 
-				new Morris.Line({
-					// ID of the element in which to draw the chart.
-					element : 'chart',
-					// Chart data records -- each entry in this array corresponds to a point on
-					// the chart.
-					data : dateData,
-					// The name of the data record attribute that contains x-values.
-					xkey : 'date',
-					// A list of names of data record attributes that contain y-values.
-					ykeys : [ 'value' ],
-					// Labels for the ykeys -- will be displayed when you hover over the
-					// chart.
-					labels : [ 'Value' ],
-				});
-			},
-			error : function(xhr, status, error) {
-				alert("에러발생");
-			}
-		});
+  				new Morris.Line({
+  					// ID of the element in which to draw the chart.
+  					element : 'chart',
+  					// Chart data records -- each entry in this array corresponds to a point on
+  					// the chart.
+  					data : dateData,
+  					// The name of the data record attribute that contains x-values.
+  					xkey : 'date',
+  					// A list of names of data record attributes that contain y-values.
+  					ykeys : [ 'value' ],
+  					// Labels for the ykeys -- will be displayed when you hover over the
+  					// chart.
+  					labels : [ 'Value' ],
+  				});
+  			},
+  			error : function(xhr, status, error) {
+  				console.log("data load failed");
+  			}
+  		});
 	});
 </script>
