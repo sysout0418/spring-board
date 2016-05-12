@@ -15,9 +15,16 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Project #${pno} / Issues
 		</h3>
+		<div class="col-lg-12 mt">
+			<div class="content-panel">
+				<h4><i class="fa fa-angle-right"></i> Chart Example 1</h4>
+				<div id="chart" style="height: 250px;"></div>
+			</div>
+			<!-- /content-panel -->
+		</div>
 		<div class="col-lg-12">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12 mt">
 					<div class="content-panel">
 						<div role="tabpanel">
 							<!-- Nav tabs -->
@@ -236,6 +243,28 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
+	// graph
+	new Morris.Line({
+		// ID of the element in which to draw the chart.
+		element: 'chart',
+		// Chart data records -- each entry in this array corresponds to a point on
+		// the chart.
+		data: [
+			{ year: '2008', value: 100 },
+			{ year: '2009', value: 10 },
+			{ year: '2010', value: 5 },
+			{ year: '2011', value: 5 },
+			{ year: '2012', value: 20 }
+		],
+		 // The name of the data record attribute that contains x-values.
+		xkey: 'year',
+		// A list of names of data record attributes that contain y-values.
+		ykeys: ['value'],
+		// Labels for the ykeys -- will be displayed when you hover over the
+		// chart.
+		labels: ['Value']
+	});
+
 	// search
 	$('.dropdown-menu > .userNo1 > a').bind('click', function() {
 		var userName = $(this).text();
