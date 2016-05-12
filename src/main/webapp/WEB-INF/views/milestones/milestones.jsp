@@ -100,47 +100,31 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
-function dateload(){
-	 $.ajax({
-	      type: "GET",
-	      url: "/test",
-	      dataType: "JSON",
-	      success : function(data) {
-	    	  console.log("sss11ssss");
-	    	  console.log(data.toString());
-	    	  console.log("1: " +data[0].date);
-	    	  
-	    	  return data;
-	      },
-	      error : function(xhr, status, error) {
-	         console.log("data load error");
-	      }
-	   });
-}
-
-$(document).ready(function() {
-	   new Morris.Line({
-	      // ID of the element in which to draw the chart.
-	      element: 'chart',
-	      // Chart data records -- each entry in this array corresponds to a point on
-	      // the chart.
-	      /*
-	      data: [
-	         { "date": '2012', "value": 20 },
-	         { "date": '2013', "value": 10 },
-	         { "date": '2014', "value": 5 },
-	         { "date": '2015', "value": 5 },
-	         { "date": '2016', "value": 20 }
-	      ],
-	      */
-	      data: dateload(),
-	      // The name of the data record attribute that contains x-values.
-	      xkey: 'date',
-	      // A list of names of data record attributes that contain y-values.
-	      ykeys: ['value'],
-	      // Labels for the ykeys -- will be displayed when you hover over the
-	      // chart.
-	      labels: ['Value'],
-	   });
+	$(document).ready(function() {
+		$.ajax({
+			type: "POST",
+			url: "/test",
+			success : function(data2) {
+				var dateData = data2;
+				
+				new Morris.Line({
+					// ID of the element in which to draw the chart.
+					element: 'chart',
+					// Chart data records -- each entry in this array corresponds to a point on
+					// the chart.
+					data: dateData,
+					// The name of the data record attribute that contains x-values.
+					xkey: 'date',
+					// A list of names of data record attributes that contain y-values.
+					ykeys: ['value'],
+					// Labels for the ykeys -- will be displayed when you hover over the
+					// chart.
+					labels: ['Value'],
+				});
+			},
+			error : function(xhr, status, error) {
+				alert("에러발생");
+			}
+		});
 	});
 </script>

@@ -226,7 +226,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	SELECT date_format(`mregdate`, '%Y-%m-%d') as date, count(*) as value
 	FROM Milestones
-	WHERE uno=82 AND mregdate > DATE_ADD(now(), INTERVAL -7 day)
+	WHERE uno=82 AND mregdate > DATE_ADD(now(), INTERVAL -1000 day)
 	GROUP BY date
 	]]>
 	</select>

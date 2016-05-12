@@ -320,7 +320,7 @@ public class MilestonesController {
 		}
 	}
 	
-	@RequestMapping(value = "test", method = RequestMethod.GET)
+	@RequestMapping(value = "test", method = RequestMethod.POST)
 	@ResponseBody
 	public List<HashMap<String, Object>> test(){
 		List<HashMap<String, Object>> list = milestonesService.test(82);
