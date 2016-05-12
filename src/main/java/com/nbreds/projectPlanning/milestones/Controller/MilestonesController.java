@@ -320,10 +320,9 @@ public class MilestonesController {
 		}
 	}
 	
-	@RequestMapping("test")
+	@RequestMapping(value = "test", method = RequestMethod.GET)
 	@ResponseBody
 	public List<HashMap<String, Object>> test(){
-		System.out.println("ada");
 		List<HashMap<String, Object>> list = milestonesService.test(82);
 		
 		return list;

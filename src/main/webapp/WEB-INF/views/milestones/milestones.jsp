@@ -100,89 +100,47 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
-$(document).ready(function() {
-	var date = [];
-	var value = [];
-	
-	$.ajax({
-		type: "POST",
-		url: "/test",
-		dataType: "JSON",
-		success : function(data) {
-			console.log(data[0].date);
-			console.log(data[0].value);
-			for (var i = 0; i < data.length; i++) {
-				date.push(data[i].date.substring(0, 4));
-				value.push(data[i].value);
-			}
-			console.log("date[] : " + date);
-			console.log("value[] : " + value);
-		},
-		error : function(xhr, status, error) {
-			alert("에러발생");
-		}
-	});
-	
-	new Morris.Line({
-		// ID of the element in which to draw the chart.
-		element: 'chart',
-		// Chart data records -- each entry in this array corresponds to a point on
-		// the chart.
-		data: [
-			{ "date": date[0], "value": value[0] }
-		],
-		// The name of the data record attribute that contains x-values.
-		xkey: 'date',
-		// A list of names of data record attributes that contain y-values.
-		ykeys: ['value'],
-		// Labels for the ykeys -- will be displayed when you hover over the
-		// chart.
-		labels: ['Value'],
-	});
-});
+function dateload(){
+	 $.ajax({
+	      type: "GET",
+	      url: "/test",
+	      dataType: "JSON",
+	      success : function(data) {
+	    	  console.log("sss11ssss");
+	    	  console.log(data.toString());
+	    	  console.log("1: " +data[0].date);
+	    	  
+	    	  return data;
+	      },
+	      error : function(xhr, status, error) {
+	         console.log("data load error");
+	      }
+	   });
+}
 
-/* new Morris.Line({
-	  // ID of the element in which to draw the chart.
-	  element: 'chart',
-	  // Chart data records -- each entry in this array corresponds to a point on
-	  // the chart.
-	  data: [
-	    { "date": '2012', "value": 20 },
-	    { "date": '2013', "value": 10 },
-	    { "date": '2014', "value": 5 },
-	    { "date": '2015', "value": 5 },
-	    { "date": '2016', "value": 20 }
-	  ],
-	  // The name of the data record attribute that contains x-values.
-	  xkey: 'date',
-	  // A list of names of data record attributes that contain y-values.
-	  ykeys: ['value'],
-	  // Labels for the ykeys -- will be displayed when you hover over the
-	  // chart.
-	  labels: ['Value'],
-	}); */
-	
-	$.ajax(this.href, {
-	    success: function(data) {
-	    	console.log("ajax success");
-	    },
-	    error: function() {
-	    	console.log("ajax failed");
-	    }
-	 });
-	
-	/* $(document).ready(function() {
-		$.ajax({
-			type: "POST",
-			url: "/test",
-			dataType: "JSON",
-			success : function(data) {
-				console.log(data[0].date);
-				console.log(data[0].value);
-			},
-			error : function(xhr, status, error) {
-				alert("에러발생");
-			}
-		});
-	}); */
+$(document).ready(function() {
+	   new Morris.Line({
+	      // ID of the element in which to draw the chart.
+	      element: 'chart',
+	      // Chart data records -- each entry in this array corresponds to a point on
+	      // the chart.
+	      /*
+	      data: [
+	         { "date": '2012', "value": 20 },
+	         { "date": '2013', "value": 10 },
+	         { "date": '2014', "value": 5 },
+	         { "date": '2015', "value": 5 },
+	         { "date": '2016', "value": 20 }
+	      ],
+	      */
+	      data: dateload(),
+	      // The name of the data record attribute that contains x-values.
+	      xkey: 'date',
+	      // A list of names of data record attributes that contain y-values.
+	      ykeys: ['value'],
+	      // Labels for the ykeys -- will be displayed when you hover over the
+	      // chart.
+	      labels: ['Value'],
+	   });
+	});
 </script>

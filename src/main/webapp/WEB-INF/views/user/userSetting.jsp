@@ -172,19 +172,17 @@ new Morris.Line({
 	  // Chart data records -- each entry in this array corresponds to a point on
 	  // the chart.
 	  data: [
-	    { "date": '2012', "value": 20 },
-	    { "date": '2013', "value": 10 },
-	    { "date": '2014', "value": 5 },
-	    { "date": '2015', "value": 5 },
-	    { "date": '2016', "value": 20 }
+	    { y: '2006', a: 100, b: 90 },
+	    { y: '2007', a: 75,  b: 65 },
+	    { y: '2008', a: 50,  b: 40 },
+	    { y: '2009', a: 75,  b: 65 },
+	    { y: '2010', a: 50,  b: 40 },
+	    { y: '2011', a: 75,  b: 65 },
+	    { y: '2012', a: 100, b: 90 }
 	  ],
-	  // The name of the data record attribute that contains x-values.
-	  xkey: 'date',
-	  // A list of names of data record attributes that contain y-values.
-	  ykeys: ['value'],
-	  // Labels for the ykeys -- will be displayed when you hover over the
-	  // chart.
-	  labels: ['Value'],
+	  xkey: 'y',
+	  ykeys: ['a', 'b'],
+	  labels: ['Series A', 'Series B']
 	});
 	
 	$.ajax(this.href, {
