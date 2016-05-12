@@ -184,12 +184,15 @@ MAIN CONTENT
           var startdate = picker.startDate.format('YYYY-MM-DD');
           var endDate = picker.endDate.format('YYYY-MM-DD');
           var param = { "startdate" : startdate, "endDate" : endDate};
+          console.log(startdate);
+          console.log(endDate);
           
           $.ajax({
   			type : "POST",
   			url : "/dataLoad",
   			data : param,
   			success : function(data2) {
+  				$('#chart').empty();
   				var dateData = data2;
 
   				new Morris.Line({
@@ -229,11 +232,12 @@ MAIN CONTENT
     </script>
     <!-- /bootstrap-daterangepicker -->
 <script type="text/javascript">
-	$(document).ready(function() {		
+	/* $(document).ready(function() {		
 		var startdate = picker.startDate.format('YYYY-MM-DD');
         var endDate = picker.endDate.format('YYYY-MM-DD');
         var param = { "startdate" : startdate, "endDate" : endDate};
-        
+        console.log(startdate);
+        console.log(endDate);
 		$.ajax({
   			type : "POST",
   			url : "/dataLoad",
@@ -260,5 +264,5 @@ MAIN CONTENT
   				console.log("data load failed");
   			}
   		});
-	});
+	}); */
 </script>
