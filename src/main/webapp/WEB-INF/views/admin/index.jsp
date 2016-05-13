@@ -278,16 +278,12 @@ MAIN CONTENT
 
 		if (checkCnt == 1) {
 			$('#addLabelBtn').attr('style', 'display: none;');
-			//$('#registLabelBtn').attr('style', 'display: none;');
-			//$('#newLabelForm').attr('style', 'display: none;');
 
 			$('#editLabelBtn').attr('style', 'display: "";');
 			$('#deleteLabelBtn').attr('style', 'display: "";');
 			$('#cancelLabelBtn').attr('style', 'display: "";');
 		} else if (checkCnt > 1) {
 			$('#addLabelBtn').attr('style', 'display: none;');
-			//$('#registLabelBtn').attr('style', 'display: none;');
-			//$('#newLabelForm').attr('style', 'display: none;');
 			$('#editLabelBtn').attr('style', 'display: none;');
 
 			$('#deleteLabelBtn').attr('style', 'display: "";');
@@ -295,8 +291,6 @@ MAIN CONTENT
 		} else {
 			$('#editLabelBtn').attr('style', 'display: none;');
 			$('#deleteLabelBtn').attr('style', 'display: none;');
-			//$('#registLabelBtn').attr('style', 'display: none;');
-			//$('#newLabelForm').attr('style', 'display: none;');
 			$('#cancelLabelBtn').attr('style', 'display: none;');
 
 			$('#addLabelBtn').attr('style', 'display: "";');
