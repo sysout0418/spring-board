@@ -8,9 +8,54 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_project.jsp" />
 	<link href="<c:url value="/resources/css/calendar/calendar.css" />"
 	rel="stylesheet" type="text/css" />
+
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 마일스톤을 Close 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 마일스톤을 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <!--main content start-->
 <section id="main-content">
 	<section class="wrapper site-min-height">
@@ -77,9 +122,7 @@ MAIN CONTENT
 							</c:if>
 							<c:if test="${list != 'none'}">
 								<c:forEach var="milestone" items="${list}">
-									<tr
-										onclick="location.href='/${uno}/${pno}/milestone/${milestone.mno}'"
-										style="cursor: pointer;">
+									<tr	id="trEvent" alt="/${uno}/${pno}/milestone/${milestone.mno}" style="cursor: pointer;">
 										<td
 											<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 											<a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br />
@@ -106,11 +149,12 @@ MAIN CONTENT
 											</div> <c:if test="${milestone.mstatement == '000'}">
 												<a href="/milestones/edit/${uno}/${pno}/${milestone.mno}"
 													class="btn btn-default">Edit</a>
-												<a
-													href="/milestones/closeMilestone/${uno}/${pno}/${milestone.mno}"
-													class="btn btn-warning">Close Milestone</a>
-												<a href="/milestones/remove/${uno}/${pno}/${milestone.mno}"
-													class="btn btn-danger">Remove</a>
+												<button type="button" id="milestoneCloseBtn" alt="/milestones/closeMilestone/${uno}/${pno}/${milestone.mno}"
+													data-toggle="modal" data-target="#myModal"
+													class="btn btn-warning">Close Milestone</button>
+												<button type="button" id="milestoneDelBtn" alt="/milestones/remove/${uno}/${pno}/${milestone.mno}"
+													data-toggle="modal" data-target="#myModal2"
+													class="btn btn-danger">Remove</button>
 											</c:if>
 										</td>
 									</tr>
@@ -128,6 +172,21 @@ MAIN CONTENT
 	src="<c:url value="/resources/javascript/calendar/daterangepicker.js" />"></script>
 <!-- bootstrap-daterangepicker -->
     <script>
+	    $("#trEvent").click(function(event) {
+			if (event.target.type == 'button')
+				return;
+			
+			location.href = $("#trEvent").attr('alt');
+		});
+    
+	    $("#okBtn").click(function() {
+			location.href = $('#milestoneCloseBtn').attr('alt');
+		});
+	    
+	    $("#okBtn2").click(function() {
+			location.href = $('#milestoneDelBtn').attr('alt');
+		});
+    
       $(document).ready(function() {
 
         var cb = function(start, end, label) {

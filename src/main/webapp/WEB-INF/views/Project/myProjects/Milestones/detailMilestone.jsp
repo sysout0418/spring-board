@@ -30,6 +30,50 @@
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 마일스톤을 Close 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 마일스톤을 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>

@@ -141,6 +141,72 @@
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 이슈를 Close 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 이슈를 Open 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 이슈를 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn3" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="col-lg-9">
@@ -161,14 +227,17 @@ MAIN CONTENT
 										<a href="/issues/edit/${user_no}/${pno}/${ino}"
 											class="btn btn-default">Edit</a>
 										<c:if test="${issues.istatement=='000'}">
-											<a href="/issues/close/${uno}/${pno}/${ino}"
+											<a href="#" id="issueCloseBtn" alt="/issues/close/${uno}/${pno}/${ino}"
+												data-toggle="modal" data-target="#myModal"
 												class="btn btn-warning">Close Issue</a>
 										</c:if>
 										<c:if test="${issues.istatement=='001'}">
-											<a href="/issues/reopen/${uno}/${pno}/${ino}"
+											<a href="#" id="issueOpenBtn" alt="/issues/reopen/${uno}/${pno}/${ino}"
+												data-toggle="modal" data-target="#myModal2"
 												class="btn btn-default">Reopen Issue</a>
 										</c:if>
-										<a href="/issues/remove/${uno}/${pno}/${ino}"
+										<a href="#" id="issueDelBtn" alt="/issues/remove/${uno}/${pno}/${ino}"
+											data-toggle="modal" data-target="#myModal3"
 											class="btn btn-danger">Remove</a>
 									</div></td>
 							</tr>
@@ -254,6 +323,18 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
+	$("#okBtn").click(function() {
+		location.href = $('#issueCloseBtn').attr('alt');
+	});
+	
+	$("#okBtn2").click(function() {
+		location.href = $('#issueOpenBtn').attr('alt');
+	});
+	
+	$("#okBtn3").click(function() {
+		location.href = $('#issueDelBtn').attr('alt');
+	});
+
 	$(document).ready(function() {
 		$('.list-group').load("/getCommentList/${issues.ino}");
 	});

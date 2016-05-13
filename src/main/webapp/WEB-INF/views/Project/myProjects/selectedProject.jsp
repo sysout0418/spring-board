@@ -19,6 +19,28 @@
 	right: 30px;
 }
 </style>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 프로젝트를 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
@@ -187,7 +209,7 @@ MAIN CONTENT
 							<a class="btn btn-default btn-sm"
 								href="/update/${project.pno}">EDIT</a>
 							<a class="btn btn-default btn-sm"
-								href="/DeleteProject?pno=${project.pno}">DELETE</a>
+								href="#" alt="/DeleteProject?pno=${project.pno}" id="projectDelBtn" data-toggle="modal" data-target="#myModal">DELETE</a>
 						</sec:authorize>
 					</div>
 				</div>
@@ -245,6 +267,10 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 	<script type="application/javascript">
+		$("#okBtn").click(function() {
+			location.href = $('#projectDelBtn').attr('alt');
+		});
+	
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
