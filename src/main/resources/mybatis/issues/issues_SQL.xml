@@ -535,13 +535,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 	
-	<!-- 날짜별 카운트 -->
-	<select id="getIssueCntByDate" parameterType="Map" resultType="Map">
+	<!-- 현재 로그인한 uno로 날짜별 카운트 -->
+	<select id="getIssueDataByUno" parameterType="Map" resultType="Map">
 	<![CDATA[
 	SELECT date_format(`iregdate`, '%Y-%m-%d') as date, count(*) as value
 	FROM Issues
-	WHERE uno = #{uno} AND iregdate > DATE_ADD(now(), INTERVAL -365 day)
+	WHERE uno = #{uno} AND date_format(iregdate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
 	GROUP BY date
 	]]>
 	</select>
+	
+	<!-- 현재 보고 있는 플젝의 pno로 날짜별 카운트 -->
+	<select id="getIssueDataByPno" parameterType="Map" resultType="Map">
+	<![CDATA[
+	SELECT date_format(`iregdate`, '%Y-%m-%d') as date, count(*) as value
+	FROM Issues
+	WHERE pno = #{pno} AND date_format(iregdate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+	GROUP BY date
+	]]>
+	</select>
+	
 </mapper>

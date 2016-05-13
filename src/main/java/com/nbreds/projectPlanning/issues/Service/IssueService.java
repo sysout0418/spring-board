@@ -124,5 +124,7 @@ public interface IssueService {
 
 	int getIssueCnt(Map<String, Object> param);
 	
-	List<Map<String, Object>> getIssueCntByDate(Map<String, Object> param);
+	List<Map<String, Object>> getIssueDataByUno(Map<String, Object> param);
+	
+	List<Map<String, Object>> getIssueDataByPno(Map<String, Object> param);
 }

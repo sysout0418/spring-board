@@ -780,13 +780,32 @@ public class IssueController {
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 	
-	@RequestMapping("/getIssueCntByDate")
+	@RequestMapping("/getIssueData")
 	@ResponseBody
-	public List<Map<String, Object>> getIssueCntByDate(HttpSession session){
+	public List<Map<String, Object>> getIssueCntByDate(HttpSession session, String startDate, String endDate, String pno){
+		logger.info("startDate : " + startDate);
+		logger.info("endDate : " + endDate);
+		logger.info("pno : " + pno);
+		
+		List<Map<String, Object>> list = null;
 		Map<String, Object> param = new HashMap<String, Object>();
-		int loginUserNo = (int) session.getAttribute("user_no");
-		param.put("uno", loginUserNo);
-		List<Map<String, Object>> list = issuesService.getIssueCntByDate(param);
+		
+		if (pno != null) {
+			param.put("pno", pno);
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			logger.info("param : " + param);
+			
+			list = issuesService.getIssueDataByPno(param);
+		} else {
+			int loginUserNo = (int) session.getAttribute("user_no");
+			param.put("uno", loginUserNo);
+			param.put("startDate", startDate);
+			param.put("endDate", endDate);
+			logger.info("param : " + param);
+			
+			list = issuesService.getIssueDataByUno(param);
+		}
 		
 		return list;
 	}

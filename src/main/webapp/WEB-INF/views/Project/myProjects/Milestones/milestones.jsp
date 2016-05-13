@@ -121,9 +121,8 @@ MAIN CONTENT
 				</div>
 	</section>
 </section>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
-	<script type="text/javascript"
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+<script type="text/javascript"
 	src="<c:url value="/resources/javascript/calendar/moment.min.js" />"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/javascript/calendar/daterangepicker.js" />"></script>
