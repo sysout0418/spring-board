@@ -338,7 +338,7 @@ $(document).ready(function() {
    					ykeys : [ 'value' ],
    					// Labels for the ykeys -- will be displayed when you hover over the
    					// chart.
-   					labels : [ 'Milestones' ],
+   					labels : [ 'Issues' ],
    				});
 				} else {
 					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
