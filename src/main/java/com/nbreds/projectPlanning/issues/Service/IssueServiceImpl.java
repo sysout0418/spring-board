@@ -262,7 +262,12 @@ public class IssueServiceImpl implements IssueService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getIssueCntByDate(Map<String, Object> param) {
-		return issueDao.getIssueCntByDate(param);
+	public List<Map<String, Object>> getIssueDataByUno(Map<String, Object> param) {
+		return issueDao.getIssueDataByUno(param);
+	}
+
+	@Override
+	public List<Map<String, Object>> getIssueDataByPno(Map<String, Object> param) {
+		return issueDao.getIssueDataByPno(param);
 	}
 }

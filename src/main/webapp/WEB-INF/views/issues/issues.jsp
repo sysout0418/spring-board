@@ -6,6 +6,7 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<link href="<c:url value="/resources/css/calendar/calendar.css" />" rel="stylesheet" type="text/css" />
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
@@ -22,6 +23,29 @@ MAIN CONTENT
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-12">
+					<div class="content-panel">
+						<div class="row x_title">
+							<div class="col-md-6">
+								<h4>
+									<i class="fa fa-angle-right"></i> Activity
+								</h4>
+							</div>
+							<div class="col-md-6">
+								<div id="reportrange" class="pull-right"
+									style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+									<i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>December
+										30, 2014 - January 28, 2015</span> <b class="caret"></b>
+								</div>
+							</div>
+						</div>
+
+						<div id="chart" style="height: 250px;"></div>
+					</div>
+					<!-- /content-panel -->
+				</div>
+				<!-- /col-md-12 -->
+				
+				<div class="col-md-12 mt">
 					<div class="content-panel">
 						<div role="tabpanel">
 							<!-- Nav tabs -->
@@ -83,7 +107,7 @@ MAIN CONTENT
 										data-toggle="dropdown" aria-expanded="false"><span
 										class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 									<ul class="dropdown-menu">
-										<li class="uno1"><a alt="" href="#">Any</a></li>
+										<li class="uno1"><a alt="" href="#">All</a></li>
 										<li class="uno1"><a alt="0" href="#">UnAssigned</a></li>
 										<c:forEach var="users" items="${userList}">
 											<li class="uno1"><a alt="${users.uno}" href="#">${users.uname}</a></li>
@@ -104,7 +128,7 @@ MAIN CONTENT
 										class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 									<ul class="dropdown-menu">
 										<li class="milestoneNo"><a id="milestoneNo" alt=""
-											href="#">Any</a></li>
+											href="#">All</a></li>
 										<c:forEach var="milestone" items="${milestoneList}">
 											<li class="milestoneNo"><a id="milestoneNo"
 												alt="${milestone.mno}" href="#">${milestone.mtitle}</a></li>
@@ -124,7 +148,7 @@ MAIN CONTENT
 										data-toggle="dropdown" aria-expanded="false"><span
 										class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 									<ul class="dropdown-menu">
-										<li class="labelNo"><a id="labelNo" alt="" href="#">Any</a></li>
+										<li class="labelNo"><a id="labelNo" alt="" href="#">All</a></li>
 										<c:forEach var="label" items="${allLabelList}">
 											<li class="labelNo"><a id="labelNo" alt="${label.lno}"
 												href="#" style="text-color: ${label.lbgcolor}">${label.ltitle}</a></li>
@@ -189,9 +213,158 @@ MAIN CONTENT
 		</div>
 	</section>
 </section>
-<jsp:include
-	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
+<script type="text/javascript" src="<c:url value="/resources/javascript/calendar/moment.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/calendar/daterangepicker.js" />"></script>
 <script type="text/javascript">
+//graph
+$(document).ready(function() {
+
+    var cb = function(start, end, label) {
+      console.log(start.toISOString(), end.toISOString(), label);
+      $('#reportrange span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+    };
+
+    var optionSet1 = {
+      startDate: moment().subtract(29, 'days'),
+      endDate: moment(),
+      minDate: '01/01/2013',
+      maxDate: '12/31/2020',
+      dateLimit: {
+        days: 60
+      },
+      showDropdowns: true,
+      showWeekNumbers: true,
+      timePicker: false,
+      timePickerIncrement: 1,
+      timePicker12Hour: true,
+      ranges: {
+        //'Today': [moment(), moment()],
+        //'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      },
+      opens: 'left',
+      buttonClasses: ['btn btn-default'],
+      applyClass: 'btn-small btn-primary',
+      cancelClass: 'btn-small',
+      format: 'MM/DD/YYYY',
+      separator: ' to ',
+      locale: {
+        applyLabel: 'Apply',
+        cancelLabel: 'Clear',
+        fromLabel: 'From',
+        toLabel: 'To',
+        customRangeLabel: 'Custom',
+        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        firstDay: 1
+      }
+    };
+    $('#reportrange span').html(moment().subtract(29, 'days').format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+    $('#reportrange').daterangepicker(optionSet1, cb);
+    /*
+    $('#reportrange').on('show.daterangepicker', function() {
+      console.log("show event fired");
+    });
+    $('#reportrange').on('hide.daterangepicker', function() {
+      console.log("hide event fired");
+    });
+    */
+    
+    $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+      var startDate = picker.startDate.format('YYYY-MM-DD');
+      var endDate = picker.endDate.format('YYYY-MM-DD');
+      var param = { "startDate" : startDate, "endDate" : endDate };
+      
+      $.ajax({
+			type : "POST",
+			url : "/getIssueData",
+			data : param,
+			success : function(data2) {
+				$('#chart').empty();
+				var dateData = data2;
+				console.log("datas : " + dateData.length)
+				if (dateData.length > 0) {
+  				new Morris.Line({
+  					// ID of the element in which to draw the chart.
+  					element : 'chart',
+  					// Chart data records -- each entry in this array corresponds to a point on
+  					// the chart.
+  					data : dateData,
+  					// The name of the data record attribute that contains x-values.
+  					xkey : 'date',
+  					// A list of names of data record attributes that contain y-values.
+  					ykeys : [ 'value' ],
+  					// Labels for the ykeys -- will be displayed when you hover over the
+  					// chart.
+  					labels : [ 'Milestones' ],
+  				});
+			} else {
+					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
+					$('#chart').append('No activity to show');
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log("data load failed");
+			}
+		});
+    
+    });
+    
+    $('#reportrange').ready(function() {
+       var date = $('#reportrange span').html().split( ' - ');
+       var param = { "startDate" : date[0], "endDate" : date[1] };
+       
+       $.ajax({
+			type : "POST",
+			url : "/getIssueData",
+			data : param,
+			success : function(data2) {
+				var dateData = data2;
+				console.log("datas : " + dateData.length)
+				if (dateData.length > 0) {
+   				new Morris.Line({
+   					// ID of the element in which to draw the chart.
+   					element : 'chart',
+   					// Chart data records -- each entry in this array corresponds to a point on
+   					// the chart.
+   					data : dateData,
+   					// The name of the data record attribute that contains x-values.
+   					xkey : 'date',
+   					// A list of names of data record attributes that contain y-values.
+   					ykeys : [ 'value' ],
+   					// Labels for the ykeys -- will be displayed when you hover over the
+   					// chart.
+   					labels : [ 'Milestones' ],
+   				});
+				} else {
+					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
+					$('#chart').append('No activity to show');
+				}
+			},
+			error : function(xhr, status, error) {
+				console.log("data load failed");
+			}
+		});
+     
+     });
+    $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+      console.log("cancel event fired");
+    });
+    $('#options1').click(function() {
+      $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+    });
+    $('#options2').click(function() {
+      $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+    });
+    $('#destroy').click(function() {
+      $('#reportrange').data('daterangepicker').remove();
+    });
+  });
+
 	$('.dropdown-menu > .uno1 > a').bind('click', function() {
 		var userName = $(this).text();
 		var userNo = $(this).attr("alt");
