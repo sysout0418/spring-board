@@ -128,7 +128,7 @@ MAIN CONTENT
 
         var cb = function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
-          $('#reportrange span').html(start.format('MM DD, YYYY') + ' - ' + end.format('MM DD, YYYY'));
+          $('#reportrange span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
         };
 
         var optionSet1 = {
@@ -169,7 +169,7 @@ MAIN CONTENT
             firstDay: 1
           }
         };
-        $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $('#reportrange span').html(moment().subtract(29, 'days').format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
         $('#reportrange').daterangepicker(optionSet1, cb);
         /*
         $('#reportrange').on('show.daterangepicker', function() {
@@ -223,14 +223,8 @@ MAIN CONTENT
         });
         
         $('#reportrange').ready(function() {
-        	var test = $('#reportrange span').html().split('-');
-       		console.log(test[0] + test[1]);
-       		console.log(test[0].format('YYYY-MM-DD'));
-       		console.log(test[1].format('YYYY-MM-DD'));
-        		//moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-           var startdate = picker.startDate.format('YYYY-MM-DD');
-           var endDate = picker.endDate.format('YYYY-MM-DD');
-           var param = { "startdate" : startdate, "endDate" : endDate};
+           var date = $('#reportrange span').html().split( ' - ');
+           var param = { "startdate" : date[0], "endDate" : date[1]};
            
            $.ajax({
    			type : "POST",
