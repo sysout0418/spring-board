@@ -331,7 +331,7 @@ public class MilestonesController {
 			param.put("endDate", endDate);
 			param.put("pno", pno);
 			
-			System.out.println(param);
+			logger.info("param : " + param);
 			list = milestonesService.getMilestonesDataByPno(param);
 		}
 		else{
