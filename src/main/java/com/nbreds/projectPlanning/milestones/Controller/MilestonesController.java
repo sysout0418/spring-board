@@ -332,6 +332,7 @@ public class MilestonesController {
 		param.put("endDate", endDate);
 		param.put("uno", uno);
 		
+		logger.info("param : " + param);
 		List<HashMap<String, Object>> list = milestonesService.getMilestonesData(param);
 		
 		return list;
