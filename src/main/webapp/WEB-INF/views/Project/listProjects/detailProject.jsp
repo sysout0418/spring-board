@@ -18,8 +18,8 @@ MAIN CONTENT
 		<div class="row">
 			<div class="col-lg-9 main-chart">
 				<h3>
-					<i class="fa fa-angle-right"></i> Project #${pno} /
-					${project.pname}
+					<i class="fa fa-angle-right"></i> Search <small>Project #${pno} /
+					${project.pname}</small>
 				</h3>
 				<div class="row">
 					<div class="col-md-4 col-sm-4 mb">
