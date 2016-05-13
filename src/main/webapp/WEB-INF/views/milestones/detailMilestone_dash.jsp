@@ -9,6 +9,11 @@
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
 <style>
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+	text-align: center;
+	background-color: #127F94
+	color: #eee;
+}
 #sortable1, #sortable2 {
 	border: 1px solid #eee;
 	width: 570px;

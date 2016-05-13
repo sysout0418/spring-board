@@ -29,10 +29,7 @@ MAIN SIDEBAR MENU
 				</a></li>
 			</sec:authorize>
 			<li class="sub-menu"><a href="/search"> <i
-					class="fa fa-desktop"></i> <span>Search</span>
-			</a></li>
-			<li class="sub-menu"><a href="/list"> <i class="fa fa-book"></i>
-					<span>Projects</span>
+					class="fa fa-desktop"></i> <span>Projects</span>
 			</a></li>
 			<li class="sub-menu"><a href="/milestones/open"> <i
 					class="fa fa-dashboard"></i> <span>Milestones</span>

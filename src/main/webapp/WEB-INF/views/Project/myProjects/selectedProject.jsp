@@ -122,7 +122,7 @@ MAIN CONTENT
 					<div class="col-md-12">
 						<div class="content-panel" style="overflow:scroll;overflow-x:hidden;height:800px; padding:10px;">
 							<h4>
-								<i class="fa fa-angle-right"></i> Recent Activity
+								<i class="fa fa-angle-right"></i> Timeline
 							</h4>
 							<hr>
 							<ul class="timeline"><c:set var="i" value="0"/>

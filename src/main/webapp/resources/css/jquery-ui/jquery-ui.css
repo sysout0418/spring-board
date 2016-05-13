@@ -369,7 +369,7 @@
 }
 .ui-widget-header {
 	border: 1px solid #ffffff;
-	background: #D9ADB3;
+	background: #536A7F;
 	color: #fff;
 	
 }
@@ -479,9 +479,9 @@
 .ui-state-disabled,
 .ui-widget-content .ui-state-disabled,
 .ui-widget-header .ui-state-disabled {
-	text-align: center;
-	background-color: #127F94 !important;
-	color: #eee;
+	opacity: .35;
+	filter:Alpha(Opacity=35); /* support: IE8 */
+	background-image: none;
 }
 .ui-state-disabled .ui-icon {
 	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */

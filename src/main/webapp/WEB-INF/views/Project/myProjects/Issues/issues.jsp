@@ -16,7 +16,6 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Project #${pno} / Issues
 		</h3>
-		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content-panel">

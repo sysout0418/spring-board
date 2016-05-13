@@ -36,56 +36,6 @@ public class ListController {
 	@Autowired
 	ListService listService;
 	
-	//상주 프로젝트 리스트
-	@RequestMapping("/list")
-	public String  list(Model model, @RequestParam(defaultValue="1") int pageNo) {
-		int rowsPerPage = 10; 
-		int pagesPerGroup = 10; 
-
-		int totalProjectNo = listService.getTotalProjectNo(); 
-		int totalPageNo = totalProjectNo/rowsPerPage;
-		
-		if(totalProjectNo % rowsPerPage != 0){totalPageNo++;}
-		int totalGroupNo = totalPageNo / pagesPerGroup;
-		if(totalPageNo % pagesPerGroup != 0){totalGroupNo++;}
-		
-		int groupNo = (pageNo-1)/pagesPerGroup +1;
-		int startPageNo = (groupNo-1)*pagesPerGroup+1;
-		int endPageNo = startPageNo + pagesPerGroup -1;
-		
-		if(groupNo == totalGroupNo) {endPageNo = totalPageNo;}
-		
-		HashMap<String,Integer> param = new HashMap<String,Integer>();
-		int value =0;
-		if(pageNo != 1) value = (pageNo-1)*rowsPerPage;
-		param.put("pageNo", value);
-		param.put("rowsPerPage", rowsPerPage);
-		
-		List<HashMap<String, Object>> list = listService.getPageList(param);
-		for (HashMap<String, Object> project : list) {
-			int pno = (int) project.get("pno");
-			int countAllMilestone = listService.getCountAllMilestone(pno);
-			double completeMilestonPercent = listService.getCountClosedMilestone(pno);
-			project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
-			logger.info("countAllMilestone: "+countAllMilestone);
-			logger.info("completeMilestonPercent: "+completeMilestonPercent);
-			logger.info("completeIssuePercent: "+project.get("completeIssuePercent"));
-		}
-
-		model.addAttribute("pagesPerGroup", pagesPerGroup);
-		model.addAttribute("totalPageNo", totalPageNo);
-		model.addAttribute("totalGroupNo", totalGroupNo);
-		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("startPageNo", startPageNo);
-		model.addAttribute("endPageNo", endPageNo);
-		model.addAttribute("pageNo", pageNo);
-		
-		if(list.size() > 0)	model.addAttribute("list", list);
-		else model.addAttribute("list", "none");
-				
-        return "Project/listProjects/listView";
-	}
-	
 	//상세 프로젝트
 	@RequestMapping(value = "/DetailProject/{pno}", method = RequestMethod.GET)
 	public String  DetailView(@PathVariable("pno") int pno, Model model, HttpSession session) {

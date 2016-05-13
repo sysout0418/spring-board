@@ -19,7 +19,7 @@ MAIN SIDEBAR MENU
 			<h5 class="centered">${user.username}</h5>
 			<li class="mt">
 				<center>
-					<a href="/"> <span>Go to dashBoard</span>
+					<a href="/"> <span>Go to Home</span>
 					</a>
 				</center>
 			</li>
