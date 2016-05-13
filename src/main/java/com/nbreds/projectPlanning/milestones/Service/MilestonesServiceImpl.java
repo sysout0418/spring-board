@@ -166,8 +166,13 @@ public class MilestonesServiceImpl implements MilestonesService{
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getMilestonesData(HashMap<String, String> param) {
-		return milestonesdao.getMilestonesData(param);
+	public List<HashMap<String, Object>> getMilestonesDataByUno(HashMap<String, String> param) {
+		return milestonesdao.getMilestonesDataByUno(param);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getMilestonesDataByPno(HashMap<String, String> param) {
+		return milestonesdao.getMilestonesDataByPno(param);
 	}
 
 }
