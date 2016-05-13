@@ -323,18 +323,29 @@ public class MilestonesController {
 	
 	@RequestMapping(value = "dataLoad", method = RequestMethod.POST)
 	@ResponseBody
-	public List<HashMap<String, Object>> dataLoad(HttpSession session, @RequestParam(value="startdate") String startdate, @RequestParam(value="endDate") String endDate){
-		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
-		
-		//파라미터 생성
-		HashMap<String, String> param = new HashMap<>();
-		param.put("startdate", startdate);
-		param.put("endDate", endDate);
-		param.put("uno", uno);
-		
-		logger.info("param : " + param);
-		List<HashMap<String, Object>> list = milestonesService.getMilestonesData(param);
-		
+	public List<HashMap<String, Object>> dataLoad(HttpSession session, String startdate, String endDate, String pno){
+		List<HashMap<String, Object>> list = null;
+		if(pno != null){
+			HashMap<String, String> param = new HashMap<>();
+			param.put("startdate", startdate);
+			param.put("endDate", endDate);
+			param.put("pno", pno);
+			
+			System.out.println(param);
+			list = milestonesService.getMilestonesDataByPno(param);
+		}
+		else{
+			String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
+			
+			//파라미터 생성
+			HashMap<String, String> param = new HashMap<>();
+			param.put("startdate", startdate);
+			param.put("endDate", endDate);
+			param.put("uno", uno);
+			
+			logger.info("param : " + param);
+			list = milestonesService.getMilestonesDataByUno(param);
+		}
 		return list;
 	}
 }

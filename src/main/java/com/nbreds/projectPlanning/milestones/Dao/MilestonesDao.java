@@ -107,9 +107,13 @@ public class MilestonesDao {
 	public int getMilestoneCnt(Map<String, Object> param) {
 		return sqlSession.selectOne("milestones.getMilestoneCnt", param);
 	}
+	
+	public List<HashMap<String, Object>> getMilestonesDataByUno(HashMap<String, String> param) {
+		return sqlSession.selectList("milestones.getMilestonesDataByUno", param);
+	}
 
-	public List<HashMap<String, Object>> getMilestonesData(HashMap<String, String> param) {
-		return sqlSession.selectList("milestones.getMilestonesData", param);
+	public List<HashMap<String, Object>> getMilestonesDataByPno(HashMap<String, String> param) {
+		return sqlSession.selectList("milestones.getMilestonesDataByPno", param);
 	}
 	
 }

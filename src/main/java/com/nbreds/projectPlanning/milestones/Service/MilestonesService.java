@@ -58,5 +58,7 @@ public interface MilestonesService {
 	
 	int getMilestoneCnt(Map<String, Object> param);
 
-	public List<HashMap<String, Object>> getMilestonesData(HashMap<String, String> param);
+	public List<HashMap<String, Object>> getMilestonesDataByUno(HashMap<String, String> param);
+
+	public List<HashMap<String, Object>> getMilestonesDataByPno(HashMap<String, String> param);
 }
