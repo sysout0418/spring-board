@@ -27,7 +27,7 @@ public class MyPageController {
 	@Autowired
 	private ShaEncoder encoder;
 
-	@RequestMapping("/profile")
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String userProfile(HttpSession session, Model model) {
 		int uno = (int) session.getAttribute("user_no");
 		logger.info("uno: " + uno);

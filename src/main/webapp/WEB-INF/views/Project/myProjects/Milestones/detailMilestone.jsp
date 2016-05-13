@@ -64,11 +64,33 @@ MAIN CONTENT
 				<h4 class="modal-title" id="myModalLabel">Warning</h4>
 			</div>
 			<div class="modal-body">
-				<p>정말로 이 마일스톤을 삭제 하시겠습니까?</p>
+				<p>정말로 이 마일스톤을 Open 하시겠습니까?</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 마일스톤을 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn3" class="btn btn-primary"
 					data-dismiss="modal">Yes</button>
 			</div>
 		</div>
@@ -95,17 +117,18 @@ MAIN CONTENT
 										<a href="/milestones/edit/${uno}/${pno}/${milestone.mno}"
 											class="btn btn-default">Edit</a>
 										<c:if test="${milestone.mstatement=='000'}">
-											<a
-												href="/milestones/closeMilestone/${uno}/${pno}/${milestone.mno}"
-												class="btn btn-warning">Close Milestone</a>
+											<button type="button" id="milestoneCloseBtn" alt="/milestones/closeMilestone/${uno}/${pno}/${milestone.mno}"
+												data-toggle="modal" data-target="#myModal"
+												class="btn btn-warning">Close Milestone</button>
 										</c:if>
 										<c:if test="${milestone.mstatement=='001'}">
-											<a
-												href="/milestones/reopenMilestone/${uno}/${pno}/${milestone.mno}"
-												class="btn btn-default">Reopen Milestone</a>
+											<button type="button" id="milestoneOpenBtn" alt="/milestones/reopenMilestone/${uno}/${pno}/${milestone.mno}"
+												data-toggle="modal" data-target="#myModal2"
+												class="btn btn-default">Reopen Milestone</button>
 										</c:if>
-										<a href="/milestones/remove/${uno}/${pno}/${milestone.mno}"
-											class="btn btn-danger">Remove</a>
+										<button type="button" id="milestoneDelBtn" alt="/milestones/remove/${uno}/${pno}/${milestone.mno}"
+											data-toggle="modal" data-target="#myModal3"
+											class="btn btn-danger">Remove</button>
 									</div></td>
 							</tr>
 							<tr>
@@ -190,6 +213,19 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script>
+	$("#okBtn").click(function() {
+		location.href = $('#milestoneCloseBtn').attr('alt');
+	});
+	
+	$("#okBtn2").click(function() {
+		location.href = $('#milestoneOpenBtn').attr('alt');
+	});
+	
+	$("#okBtn3").click(function() {
+		location.href = $('#milestoneDelBtn').attr('alt');
+	});
+
+
 	$(function() {
 		$("#unstarted1, #unstarted2, #completed").sortable({
 			items : "li:not(.ui-state-disabled)",

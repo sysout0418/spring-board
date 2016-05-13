@@ -29,7 +29,7 @@ MAIN CONTENT
 						<div class="col-lg-12">
 							<div class="content-panel">
 							<h4><i class="fa fa-angle-right"></i> User Report</h4>
-								<form action="profile" method="post" id="profile" class="form-horizontal style-form">
+								<form method="post" id="profile" class="form-horizontal style-form">
 									<div class="form-group">
 										<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 										<div class="col-lg-10">
@@ -84,8 +84,7 @@ MAIN CONTENT
 										</div>
 									</div>
 									<div class="form-group">
-										<button class="btn btn-warning"
-											>Update Profile</button>
+										<button class="btn btn-warning" onclick="checkPassword()">Update Profile</button>
 									</div>
 								</form>
 							</div>
@@ -176,7 +175,16 @@ MAIN CONTENT
         }
 </script>
 <script type="text/javascript">
-$(function(){
+function checkPassword() {
+	var oldPw = $('#oldpassword').val();
+	var newPw1 = $('#newpassword1').val();
+	var newPw2 = $('#newpassword2').val();
+	
+	console.log(oldPw);
+	console.log(newPw1);
+	console.log(newPw2);
+}
+/* $(function(){
     $("#profile").validate()({
     	rules: {
     		newpassword1: {
@@ -197,5 +205,5 @@ $(function(){
             }
     }
     });
-});
+}); */
 </script>
