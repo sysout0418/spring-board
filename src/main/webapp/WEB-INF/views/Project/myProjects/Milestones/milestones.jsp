@@ -196,7 +196,7 @@ MAIN CONTENT
           var startdate = picker.startDate.format('YYYY-MM-DD');
           var endDate = picker.endDate.format('YYYY-MM-DD');
           var pno = ${pno};
-          var param = { "startdate" : date[0], "endDate" : date[1], "pno" : pno};
+          var param = { "startdate" : startdate, "endDate" : endDate, "pno" : pno};
           console.log(startdate);
           console.log(endDate);
           
@@ -207,21 +207,26 @@ MAIN CONTENT
   			success : function(data2) {
   				$('#chart').empty();
   				var dateData = data2;
-
-  				new Morris.Line({
-  					// ID of the element in which to draw the chart.
-  					element : 'chart',
-  					// Chart data records -- each entry in this array corresponds to a point on
-  					// the chart.
-  					data : dateData,
-  					// The name of the data record attribute that contains x-values.
-  					xkey : 'date',
-  					// A list of names of data record attributes that contain y-values.
-  					ykeys : [ 'value' ],
-  					// Labels for the ykeys -- will be displayed when you hover over the
-  					// chart.
-  					labels : [ 'Milestones' ],
-  				});
+  				console.log("datas : " + dateData.length)
+  				if (dateData.length > 0) {
+	  				new Morris.Line({
+	  					// ID of the element in which to draw the chart.
+	  					element : 'chart',
+	  					// Chart data records -- each entry in this array corresponds to a point on
+	  					// the chart.
+	  					data : dateData,
+	  					// The name of the data record attribute that contains x-values.
+	  					xkey : 'date',
+	  					// A list of names of data record attributes that contain y-values.
+	  					ykeys : [ 'value' ],
+	  					// Labels for the ykeys -- will be displayed when you hover over the
+	  					// chart.
+	  					labels : [ 'Milestones' ],
+	  				});
+  			} else {
+  					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
+  					$('#chart').append('No activity to show');
+  				}
   			},
   			error : function(xhr, status, error) {
   				console.log("data load failed");
@@ -241,21 +246,26 @@ MAIN CONTENT
    			data : param,
    			success : function(data2) {
    				var dateData = data2;
-
-   				new Morris.Line({
-   					// ID of the element in which to draw the chart.
-   					element : 'chart',
-   					// Chart data records -- each entry in this array corresponds to a point on
-   					// the chart.
-   					data : dateData,
-   					// The name of the data record attribute that contains x-values.
-   					xkey : 'date',
-   					// A list of names of data record attributes that contain y-values.
-   					ykeys : [ 'value' ],
-   					// Labels for the ykeys -- will be displayed when you hover over the
-   					// chart.
-   					labels : [ 'Milestones' ],
-   				});
+   				console.log("datas : " + dateData.length)
+   				if (dateData.length > 0) {
+	   				new Morris.Line({
+	   					// ID of the element in which to draw the chart.
+	   					element : 'chart',
+	   					// Chart data records -- each entry in this array corresponds to a point on
+	   					// the chart.
+	   					data : dateData,
+	   					// The name of the data record attribute that contains x-values.
+	   					xkey : 'date',
+	   					// A list of names of data record attributes that contain y-values.
+	   					ykeys : [ 'value' ],
+	   					// Labels for the ykeys -- will be displayed when you hover over the
+	   					// chart.
+	   					labels : [ 'Milestones' ],
+	   				});
+   				} else {
+  					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
+  					$('#chart').append('No activity to show');
+  				}
    			},
    			error : function(xhr, status, error) {
    				console.log("data load failed");

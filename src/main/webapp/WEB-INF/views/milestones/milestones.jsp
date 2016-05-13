@@ -194,6 +194,7 @@ MAIN CONTENT
   			success : function(data2) {
   				$('#chart').empty();
   				var dateData = data2;
+  				console.log("datas : " + dateData.length)
   				if (dateData.length > 0) {
 	  				new Morris.Line({
 	  					// ID of the element in which to draw the chart.
@@ -210,8 +211,8 @@ MAIN CONTENT
 	  					labels : [ 'Milestones' ],
 	  				});
   				} else {
-  					$('#chart').remove();
-  					$('#isNoResult').append('<div><p><h4 style="text-align: center; vertical-align: middle;">No activity to show</h4></p></div>');
+  					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
+  					$('#chart').append('No activity to show');
   				}
   			},
   			error : function(xhr, status, error) {
@@ -231,21 +232,26 @@ MAIN CONTENT
    			data : param,
    			success : function(data2) {
    				var dateData = data2;
-
-   				new Morris.Line({
-   					// ID of the element in which to draw the chart.
-   					element : 'chart',
-   					// Chart data records -- each entry in this array corresponds to a point on
-   					// the chart.
-   					data : dateData,
-   					// The name of the data record attribute that contains x-values.
-   					xkey : 'date',
-   					// A list of names of data record attributes that contain y-values.
-   					ykeys : [ 'value' ],
-   					// Labels for the ykeys -- will be displayed when you hover over the
-   					// chart.
-   					labels : [ 'Milestones' ],
-   				});
+   				console.log("datas : " + dateData.length)
+   				if (dateData.length > 0) {
+	   				new Morris.Line({
+	   					// ID of the element in which to draw the chart.
+	   					element : 'chart',
+	   					// Chart data records -- each entry in this array corresponds to a point on
+	   					// the chart.
+	   					data : dateData,
+	   					// The name of the data record attribute that contains x-values.
+	   					xkey : 'date',
+	   					// A list of names of data record attributes that contain y-values.
+	   					ykeys : [ 'value' ],
+	   					// Labels for the ykeys -- will be displayed when you hover over the
+	   					// chart.
+	   					labels : [ 'Milestones' ],
+	   				});
+   				} else {
+  					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
+  					$('#chart').append('No activity to show');
+  				}
    			},
    			error : function(xhr, status, error) {
    				console.log("data load failed");

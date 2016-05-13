@@ -202,7 +202,7 @@ public class MilestonesController {
 		model.addAttribute("milestone", milestone);
 		model.addAttribute("fileList", fileList);
 
-		return "Project/Milestones/detailMilestone";
+		return "Project/myProjects/Milestones/detailMilestone";
 	}
 
 	@RequestMapping("/{uno}/{pno}/milestones/new")
