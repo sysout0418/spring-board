@@ -184,12 +184,15 @@ MAIN CONTENT
           var startdate = picker.startDate.format('YYYY-MM-DD');
           var endDate = picker.endDate.format('YYYY-MM-DD');
           var param = { "startdate" : startdate, "endDate" : endDate};
+          console.log(startdate);
+          console.log(endDate);
           
           $.ajax({
   			type : "POST",
   			url : "/dataLoad",
   			data : param,
   			success : function(data2) {
+  				$('#chart').empty();
   				var dateData = data2;
 
   				new Morris.Line({
@@ -267,3 +270,38 @@ MAIN CONTENT
       });
     </script>
     <!-- /bootstrap-daterangepicker -->
+<script type="text/javascript">
+	/* $(document).ready(function() {		
+		var startdate = picker.startDate.format('YYYY-MM-DD');
+        var endDate = picker.endDate.format('YYYY-MM-DD');
+        var param = { "startdate" : startdate, "endDate" : endDate};
+        console.log(startdate);
+        console.log(endDate);
+		$.ajax({
+  			type : "POST",
+  			url : "/dataLoad",
+  			data : param,
+  			success : function(data2) {
+  				var dateData = data2;
+
+  				new Morris.Line({
+  					// ID of the element in which to draw the chart.
+  					element : 'chart',
+  					// Chart data records -- each entry in this array corresponds to a point on
+  					// the chart.
+  					data : dateData,
+  					// The name of the data record attribute that contains x-values.
+  					xkey : 'date',
+  					// A list of names of data record attributes that contain y-values.
+  					ykeys : [ 'value' ],
+  					// Labels for the ykeys -- will be displayed when you hover over the
+  					// chart.
+  					labels : [ 'Value' ],
+  				});
+  			},
+  			error : function(xhr, status, error) {
+  				console.log("data load failed");
+  			}
+  		});
+	}); */
+</script>

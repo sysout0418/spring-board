@@ -171,7 +171,7 @@ a.cbtn:hover {
 <div id="login-page">
 	<div class="container">
 		<c:url value="/login" var="login" />
-		<form:form cssClass="form-login" action="${login}" method="post">
+		<form id="frm" name="frm" method="post" class="form-login">
 			<c:choose>
 				<c:when test="${param.error1 != null}">
 					<script type="text/javascript">
@@ -217,28 +217,29 @@ a.cbtn:hover {
 							Password?</a>
 				</span>
 				</label>
-				<button class="btn btn-theme btn-block" type="submit">
+				<button class="btn btn-theme btn-block" type="button" id="signIn">
 					<i class="fa fa-lock"></i> SIGN IN
 				</button>
 				<hr>
-				<!--  
+
 				<div class="login-social-link centered">
 					<p>or you can sign in via your social network</p>
-					<button class="btn btn-facebook" type="submit">
+					<button class="btn btn-facebook" type="button" id="goFacebookLogin">
 						<i class="fa fa-facebook"></i> Facebook
 					</button>
-					<button class="btn btn-twitter" type="submit">
+					<!-- <button class="btn btn-twitter" type="submit">
 						<i class="fa fa-twitter"></i> Twitter
-					</button>
+					</button> -->
 				</div>
-				-->
+	
 				<div class="registration">
 					Don't have an account yet?<br /> <a class="" href="/join">
 						Create an account </a>
 				</div>
 
 			</div>
-			</form:form>
+			</form>
+			
 			<!-- Modal -->
 			<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
 				tabindex="-1" id="myModal" class="modal fade">
@@ -271,6 +272,20 @@ a.cbtn:hover {
 
 	</div>
 </div>
-
 </body>
+<script>
+	$(document).ready(function() {
+		var f = document.frm;
+		
+		$('#signIn').click(function() {
+			f.action = "/login";
+			f.submit();
+		});
+		
+		$('#goFacebookLogin').click(function() {
+			f.action = "/signin/facebook";
+			f.submit();
+		});
+	});
+</script>
 </html>
