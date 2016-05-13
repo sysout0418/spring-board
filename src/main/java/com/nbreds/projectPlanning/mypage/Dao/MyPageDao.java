@@ -29,8 +29,8 @@ public class MyPageDao {
 	public void editProfile(HashMap<String, Object> param) {
 		sqlSession.update("mypage.editProfile", param);
 	}
-
-	public List<HashMap<String, Object>> getDatasByUno(HashMap<String, String> param) {
-		return sqlSession.selectList("mypage.getDatasByUno");
+	
+	public String getLoadPassword(String uemail) {
+		return sqlSession.selectOne("mypage.getLoadPassword", uemail);
 	}
 }

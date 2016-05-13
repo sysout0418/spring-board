@@ -10,10 +10,16 @@
 </footer>
 <!--footer end-->
 </section>
-
-<!-- js placed at the end of the document so the pages load faster -->
+<!-- jquery -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/jquery/jquery-1.12.1.min.js" />"></script>
+
+<!-- validation -->
+<script type="text/javascript" src="<c:url value="/resources/javascript/form-validation/additional-methods.min.js" />"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/form-validation/messages_ko.min.js" />"></script>
+
+<!-- js placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery-ui-1.9.2.custom.min.js" />"></script>

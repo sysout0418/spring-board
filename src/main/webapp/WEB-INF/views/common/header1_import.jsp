@@ -60,7 +60,6 @@ rel="stylesheet" type="text/css" />
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <![endif]-->
 
-
 <!-- content-panel에 패딩 주기 -->
 <style>
 .content-panel {

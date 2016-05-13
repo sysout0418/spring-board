@@ -23,33 +23,6 @@ MAIN CONTENT
 					<h3>
 						<i class="fa fa-angle-right"></i> Profile Settings
 					</h3>
-					<div class="col-lg-12">
-		
-			<div class="row">
-				<div class="col-md-12">
-					<div class="content-panel" id="isNoResult">
-						<div class="row x_title">
-                  <div class="col-md-6">
-                    <h4>
-							<i class="fa fa-angle-right"></i> Activity
-						</h4>
-                  </div>
-                  <div class="col-md-6">
-                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div>
-                  </div>
-                </div>
-
-						<div id="chart" style="height: 250px;"></div>
-					</div>
-					<!-- /content-panel -->
-				</div>
-				<!-- /col-md-12 -->
-			</div>
-			<!-- /row -->
-		</div>
 		<div class="col-lg-12">
 					<!-- /row -->
 					<div class="row mt">
@@ -68,7 +41,7 @@ MAIN CONTENT
 										<label for="inputName" class="col-lg-2 control-label">이름</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" id="uname"
-												name="uname" value="${userInfo.uname}">
+												name="uname" value="${userInfo.uname}" required="required">
 										</div>
 									</div>
 									<div class="form-group">
@@ -76,7 +49,7 @@ MAIN CONTENT
 											번호</label>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" id="uphoneno"
-												name="uphoneno" value="${userInfo.uphoneno}">
+												name="uphoneno" value="${userInfo.uphoneno}" required="required">
 										</div>
 									</div>
 									<div class="form-group">
@@ -93,14 +66,26 @@ MAIN CONTENT
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-2 col-sm-2 control-label">비밀번호</label>
+										<label class="col-sm-2 col-sm-2 control-label">현재 비밀번호</label>
 										<div class="col-sm-10">
-											<input type="password" class="form-control" id="password" name="password">
+											<input type="password" class="form-control" id="oldpassword" name="oldpassword" required="required">
 										</div>
 									</div>
 									<div class="form-group">
-										<input class="btn btn-warning" type="submit" id="submit"
-											value="Update Profile">
+										<label class="col-sm-2 col-sm-2 control-label">새 비밀번호</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" id="newpassword1" name="newpassword1" required="required">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 col-sm-2 control-label">새 비밀번호 확인</label>
+										<div class="col-sm-10">
+											<input type="password" class="form-control" id="newpassword2" name="newpassword2" required="required">
+										</div>
+									</div>
+									<div class="form-group">
+										<button class="btn btn-warning"
+											>Update Profile</button>
 									</div>
 								</form>
 							</div>
@@ -190,155 +175,27 @@ MAIN CONTENT
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year + '/' + to.day);
         }
 </script>
-<!-- bootstrap-daterangepicker -->
-    <script>
-      $(document).ready(function() {
-
-        var cb = function(start, end, label) {
-          console.log(start.toISOString(), end.toISOString(), label);
-          $('#reportrange span').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
-        };
-
-        var optionSet1 = {
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment(),
-          minDate: '01/01/2013',
-          maxDate: '12/31/2020',
-          dateLimit: {
-            days: 60
-          },
-          showDropdowns: true,
-          showWeekNumbers: true,
-          timePicker: false,
-          timePickerIncrement: 1,
-          timePicker12Hour: true,
-          ranges: {
-            //'Today': [moment(), moment()],
-            //'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          opens: 'left',
-          buttonClasses: ['btn btn-default'],
-          applyClass: 'btn-small btn-primary',
-          cancelClass: 'btn-small',
-          format: 'MM/DD/YYYY',
-          separator: ' to ',
-          locale: {
-            applyLabel: 'Apply',
-            cancelLabel: 'Clear',
-            fromLabel: 'From',
-            toLabel: 'To',
-            customRangeLabel: 'Custom',
-            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            firstDay: 1
-          }
-        };
-        $('#reportrange span').html(moment().subtract(29, 'days').format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
-        $('#reportrange').daterangepicker(optionSet1, cb);
-        /*
-        $('#reportrange').on('show.daterangepicker', function() {
-          console.log("show event fired");
-        });
-        $('#reportrange').on('hide.daterangepicker', function() {
-          console.log("hide event fired");
-        });
-        */
-        
-        $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-          var startdate = picker.startDate.format('YYYY-MM-DD');
-          var endDate = picker.endDate.format('YYYY-MM-DD');
-          var param = { "startdate" : startdate, "endDate" : endDate};
-          console.log(startdate);
-          console.log(endDate);
-          
-          $.ajax({
-  			type : "POST",
-  			url : "/dataLoadByUno",
-  			data : param,
-  			success : function(data2) {
-  				$('#chart').empty();
-  				var dateData = data2;
-  				console.log("datas : " + dateData.length)
-  				if (dateData.length > 0) {
-	  				new Morris.Line({
-	  					// ID of the element in which to draw the chart.
-	  					element : 'chart',
-	  					// Chart data records -- each entry in this array corresponds to a point on
-	  					// the chart.
-	  					data : dateData,
-	  					// The name of the data record attribute that contains x-values.
-	  					xkey : 'date',
-	  					// A list of names of data record attributes that contain y-values.
-	  					ykeys : [ 'value' ],
-	  					// Labels for the ykeys -- will be displayed when you hover over the
-	  					// chart.
-	  					labels : [ 'Milestones' ],
-	  				});
-  				} else {
-  					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
-  					$('#chart').append('No activity to show');
-  				}
-  			},
-  			error : function(xhr, status, error) {
-  				console.log("data load failed");
-  			}
-  		});
-        
-        });
-        
-        $('#reportrange').ready(function() {
-           var date = $('#reportrange span').html().split( ' - ');
-           var param = { "startdate" : date[0], "endDate" : date[1]};
-           
-           $.ajax({
-   			type : "POST",
-   			url : "/dataLoadByUno",
-   			data : param,
-   			success : function(data2) {
-   				var dateData = data2;
-   				console.log("datas : " + dateData.length)
-   				if (dateData.length > 0) {
-	   				new Morris.Line({
-	   					// ID of the element in which to draw the chart.
-	   					element : 'chart',
-	   					// Chart data records -- each entry in this array corresponds to a point on
-	   					// the chart.
-	   					data : dateData,
-	   					// The name of the data record attribute that contains x-values.
-	   					xkey : 'date',
-	   					// A list of names of data record attributes that contain y-values.
-	   					ykeys : [ 'value' ],
-	   					// Labels for the ykeys -- will be displayed when you hover over the
-	   					// chart.
-	   					labels : [ 'Milestones' ],
-	   				});
-   				} else {
-  					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
-  					$('#chart').append('No activity to show');
-  				}
-   			},
-   			error : function(xhr, status, error) {
-   				console.log("data load failed");
-   			}
-   		});
-         
-         });
-        $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
-          console.log("cancel event fired");
-        });
-        $('#options1').click(function() {
-          $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
-        });
-        $('#options2').click(function() {
-          $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
-        });
-        $('#destroy').click(function() {
-          $('#reportrange').data('daterangepicker').remove();
-        });
-      });
-    </script>
-    <!-- /bootstrap-daterangepicker -->
+<script type="text/javascript">
+$(function(){
+    $("#profile").validate()({
+    	rules: {
+    		newpassword1: {
+                required : true
+            },
+    		newpassword2: {
+                required : true,
+                equalTo : newpassword1
+            },
+        },
+        messages : {
+            password: {
+                required : "필수로입력하세요",
+            },
+            repassword: {
+                required : "필수로입력하세요",
+                equalTo : "비밀번호가 일치하지 않습니다."
+            }
+    }
+    });
+});
+</script>

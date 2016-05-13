@@ -34,7 +34,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getDatasByUno(HashMap<String, String> param) {
-		return myPageDao.getDatasByUno(param);
+	public String getLoadPassword(String uemail) {
+		return myPageDao.getLoadPassword(uemail);
 	}
 }

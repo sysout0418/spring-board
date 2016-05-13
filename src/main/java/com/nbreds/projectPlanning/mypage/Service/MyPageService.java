@@ -19,6 +19,6 @@ public interface MyPageService {
 
 	void editProfile(HashMap<String, Object> param);
 
-	List<HashMap<String, Object>> getDatasByUno(HashMap<String, String> param);
+	String getLoadPassword(String uemail);
 
 }

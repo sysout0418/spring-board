@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.login.Service.ShaEncoder;
@@ -21,60 +20,49 @@ import com.nbreds.projectPlanning.mypage.Service.MyPageService;
 @Controller
 public class MyPageController {
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
-	
+
 	@Autowired
 	private MyPageService myPageService;
-	
+
 	@Autowired
 	private ShaEncoder encoder;
-	
+
 	@RequestMapping("/profile")
-	public String userProfile(HttpSession session, Model model){
+	public String userProfile(HttpSession session, Model model) {
 		int uno = (int) session.getAttribute("user_no");
 		logger.info("uno: " + uno);
-		
+
 		HashMap<String, String> userInfo = myPageService.getUserInfoByUno(uno);
 		List<CodeTable> departmentList = myPageService.getAllDepartmentList();
-		
+
 		model.addAttribute("userInfo", userInfo);
 		model.addAttribute("departmentList", departmentList);
 		logger.info("userInfo : " + userInfo);
 		logger.info("departmentList : " + departmentList);
-		
+
 		return "user/userSetting";
 	}
-	
+
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public String userProfileEdit(String uemail, String uname, String uphoneno, String udepartment, String password){
-		HashMap<String, Object> param = new HashMap<>();
-		param.put("uemail", uemail);
-		param.put("uname", uname);
-		param.put("uphoneno", uphoneno);
-		param.put("udepartment", udepartment);
-		param.put("upassword", encoder.encoding(password));
-		
-		logger.info("param : " + param);
-		
-		//유저 데이터 변경
-		myPageService.editProfile(param);
-		
-		return "redirect:/profile";
-	}
-	
-	@RequestMapping(value = "dataLoadByUno", method = RequestMethod.POST)
-	@ResponseBody
-	public List<HashMap<String, Object>> dataLoad(HttpSession session, String startdate, String endDate){
-		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
-		
-		//파라미터 생성
-		HashMap<String, String> param = new HashMap<>();
-		param.put("startdate", startdate);
-		param.put("endDate", endDate);
-		param.put("uno", uno);
-		
-		logger.info("param : " + param);
-		List<HashMap<String, Object>> list = myPageService.getDatasByUno(param);
-		
-		return list;
+	public String userProfileEdit(String uemail, String uname, String uphoneno, String udepartment, String oldpassword, String newpassword1){
+		if(myPageService.getLoadPassword(uemail).equals(encoder.encoding(oldpassword))){
+			HashMap<String, Object> param = new HashMap<>();
+			param.put("uemail", uemail);
+			param.put("uname", uname);
+			param.put("uphoneno", uphoneno);
+			param.put("udepartment", udepartment);
+			param.put("upassword", encoder.encoding(newpassword1));
+			
+			logger.info("param : " + param);
+			
+			//유저 데이터 변경
+			myPageService.editProfile(param);
+			
+			return "redirect:/profile";
+		}
+		else{
+			System.out.println("야니 현재 비번틀렸어");
+			return "redirect:/profile";
+		}
 	}
 }
