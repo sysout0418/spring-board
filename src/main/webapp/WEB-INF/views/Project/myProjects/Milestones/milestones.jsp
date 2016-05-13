@@ -17,8 +17,6 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Project #${pno} / Milestone
 		</h3>
-		<div class="col-lg-12">
-
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content-panel">
@@ -42,10 +40,7 @@ MAIN CONTENT
 					<!-- /content-panel -->
 				</div>
 				<!-- /col-md-12 -->
-			</div>
-			<!-- /row -->
-			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12 mt">
 					<div class="content-panel">
 					<h4>
 									<i class="fa fa-angle-right"></i> Milestones
@@ -124,8 +119,6 @@ MAIN CONTENT
 						</table>
 					</div>
 				</div>
-			</div>
-		</div>
 	</section>
 </section>
 <jsp:include

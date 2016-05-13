@@ -17,8 +17,6 @@ MAIN CONTENT
 		<h3>
 			<i class="fa fa-angle-right"></i> Milestones
 		</h3>
-		<div class="col-lg-12">
-		
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content-panel" id="isNoResult">
@@ -41,12 +39,7 @@ MAIN CONTENT
 					<!-- /content-panel -->
 				</div>
 				<!-- /col-md-12 -->
-			</div>
-			<!-- /row -->
-		</div>
-		<div class="col-lg-12">
-			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12 mt">
 					<div class="content-panel">
 						<h4>
 							<i class="fa fa-angle-right"></i> Milestones
@@ -110,7 +103,6 @@ MAIN CONTENT
 				<!-- /col-md-12 -->
 			</div>
 			<!-- /row -->
-		</div>
 	</section>
 	<!--wrapper -->
 </section>

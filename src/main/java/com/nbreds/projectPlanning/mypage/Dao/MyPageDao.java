@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
-import com.nbreds.projectPlanning.common.VO.User;
 
 @Repository("MyPageDao")
 public class MyPageDao {
@@ -29,5 +28,9 @@ public class MyPageDao {
 
 	public void editProfile(HashMap<String, Object> param) {
 		sqlSession.update("mypage.editProfile", param);
+	}
+
+	public List<HashMap<String, Object>> getDatasByUno(HashMap<String, String> param) {
+		return sqlSession.selectList("mypage.getDatasByUno");
 	}
 }

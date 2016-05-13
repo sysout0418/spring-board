@@ -346,6 +346,7 @@ public class MilestonesController {
 			logger.info("param : " + param);
 			list = milestonesService.getMilestonesDataByUno(param);
 		}
+		logger.info("list : " + list);
 		return list;
 	}
 }

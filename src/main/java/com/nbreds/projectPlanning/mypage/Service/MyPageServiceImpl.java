@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
-import com.nbreds.projectPlanning.common.VO.User;
 import com.nbreds.projectPlanning.mypage.Dao.MyPageDao;
 
 @Service("MyPageService")
@@ -32,5 +31,10 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void editProfile(HashMap<String, Object> param) {
 		myPageDao.editProfile(param);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getDatasByUno(HashMap<String, String> param) {
+		return myPageDao.getDatasByUno(param);
 	}
 }

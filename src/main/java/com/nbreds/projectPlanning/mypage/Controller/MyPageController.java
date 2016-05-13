@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.login.Service.ShaEncoder;
@@ -58,5 +59,22 @@ public class MyPageController {
 		myPageService.editProfile(param);
 		
 		return "redirect:/profile";
+	}
+	
+	@RequestMapping(value = "dataLoadByUno", method = RequestMethod.POST)
+	@ResponseBody
+	public List<HashMap<String, Object>> dataLoad(HttpSession session, String startdate, String endDate){
+		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
+		
+		//파라미터 생성
+		HashMap<String, String> param = new HashMap<>();
+		param.put("startdate", startdate);
+		param.put("endDate", endDate);
+		param.put("uno", uno);
+		
+		logger.info("param : " + param);
+		List<HashMap<String, Object>> list = myPageService.getDatasByUno(param);
+		
+		return list;
 	}
 }

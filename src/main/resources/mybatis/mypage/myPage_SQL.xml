@@ -32,4 +32,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE uemail=#{uemail}
 	]]> 
     </update>
+    
+    <select id="getDatasByUno" parameterType="hashmap" resultType="hashmap">
+	<![CDATA[
+	SELECT date_format(`mregdate`, '%Y-%m-%d') as date, count(*) as value
+	FROM Milestones
+	WHERE pno=#{pno} AND mregdate BETWEEN #{startdate} AND #{endDate}
+	GROUP BY date
+	]]>
+	</select>
 </mapper>
