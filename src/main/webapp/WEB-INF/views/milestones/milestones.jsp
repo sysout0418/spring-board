@@ -21,7 +21,7 @@ MAIN CONTENT
 		
 			<div class="row">
 				<div class="col-md-12">
-					<div class="content-panel">
+					<div class="content-panel" id="isNoResult">
 						<div class="row x_title">
                   <div class="col-md-6">
                     <h4>
@@ -210,9 +210,8 @@ MAIN CONTENT
 	  					labels : [ 'Milestones' ],
 	  				});
   				} else {
-  					$('#chart').empty();
-  					$('#chart').append('<div style="text-align: center; vertical-align: center;">'
-							+ '<p><h4>No result to show</h4></p></div>');
+  					$('#chart').remove();
+  					$('#isNoResult').append('<div><p><h4 style="text-align: center; vertical-align: middle;">No activity to show</h4></p></div>');
   				}
   			},
   			error : function(xhr, status, error) {
