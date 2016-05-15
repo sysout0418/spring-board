@@ -15,17 +15,17 @@ MAIN CONTENT
 *********************************************************************************************************************************************************** -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
+		<h3>
+			<i class="fa fa-angle-right"></i> Profile Settings
+		</h3>
 
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-lg-9 main-chart">
 					<!-- BASIC FORM ELELEMNTS -->
-					<h3>
-						<i class="fa fa-angle-right"></i> Profile Settings
-					</h3>
 					<div class="col-lg-12">
 						<!-- /row -->
-						<div class="row mt">
+						<div class="row">
 							<div class="col-lg-12">
 								<div class="content-panel">
 									<h4>
@@ -143,15 +143,17 @@ MAIN CONTENT
 							<span style="font-size: 15px; color: #E8E8E8;">${userInfo.theFirstLetterOfEmail}</span>
 						</div>
 					</div>
-					<h2>${userInfo.uname}</h2>
-					<i class="fa fa-map-marker" aria-hidden="true"></i>
-					${userInfo.udepartment}
-					<div style="height: 6px"></div>
-					<i class="fa fa-sitemap" aria-hidden="true"></i>
-					${userInfo.uphoneno}
-					<div style="height: 6px"></div>
-					<i class="fa fa-envelope-o" aria-hidden="true"></i>
-					${userInfo.uemail} <br> <br>
+					<div style="width: 150px; position: absolute; top: 100px; right: 50px;">
+						<h2>${userInfo.uname}</h2>
+						<i class="fa fa-map-marker" aria-hidden="true"></i>
+						${userInfo.udepartment}
+						<div style="height: 6px"></div>
+						<i class="fa fa-sitemap" aria-hidden="true"></i>
+						${userInfo.uphoneno}
+						<div style="height: 6px"></div>
+						<i class="fa fa-envelope-o" aria-hidden="true"></i>
+						${userInfo.uemail} <br> <br>
+					</div>
 
 					<!-- CALENDAR-->
 					<div id="calendar" class="mb">
