@@ -243,23 +243,24 @@ MAIN CONTENT
 							</tr>
 							<tr>
 								<td>
-									<h4>${issues.ititle}</h4> ${issues.idescription} <c:forEach
+									<h4>${issues.ititle}</h4> ${issues.idescription}
+									<c:forEach
 										var="file" items="${fileList}">
 										<input type="hidden" id="fno" value="${file.fno}">
 										<a href="/issue/downloadFile/${file.fno}"
 											style="color: #4d94c4"><i class="fa fa-paperclip"
 											aria-hidden="true"></i>${file.originalName}</a> 
-		(${file.fileSize}kb)
-	</c:forEach>
+										(${file.fileSize}kb)
+									</c:forEach>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<div class="input-group">
 										<input class="form-control" placeholder="Add a comment"
-											type="text" id="content" name="content"> <span
-											class="input-group-addon"> <a href="#" id="cInsertBtn"
-											onclick="doCreateCmt()"><i class="fa fa-edit"></i></a>
+											type="text" id="content" name="content"> 
+										<span class="input-group-addon" id="cInsertBtn" onclick="doCreateCmt()" style="cursor: pointer;">
+											<a href="#"><i class="fa fa-edit"></i></a>
 										</span>
 									</div>
 								</td>
