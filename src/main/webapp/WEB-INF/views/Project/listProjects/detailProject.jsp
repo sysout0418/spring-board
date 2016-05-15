@@ -9,6 +9,11 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
+<style>
+.desc > .details {
+	margin-left: 20px;
+}
+</style>
 <!-- **********************************************************************************************************************************************************
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
