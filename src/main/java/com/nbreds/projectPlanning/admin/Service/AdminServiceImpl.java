@@ -174,4 +174,9 @@ public class AdminServiceImpl implements AdminService {
 		adminDao.deleteLabel(lno);
 	}
 
+	@Override
+	public Map<String, Object> getAuthorityByUno(int uno) {
+		return adminDao.getAuthorityByUno(uno);
+	}
+
 }

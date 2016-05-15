@@ -121,6 +121,7 @@ MAIN CONTENT
 										</div>
 										<div class="form-group">
 											<input type="submit" class="btn btn-warning" id="profileUpdateBtn" value="Update Profile">
+											<!-- <input type="button" class="btn btn-danger" id="profileExpireBtn" value="Withdraw This Site"> -->
 										</div>
 									</form>
 								</div>
@@ -234,6 +235,28 @@ MAIN CONTENT
 	</div>
 </div>
 
+<!-- Modal4 -->
+<!-- <div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">WARNING</h4>
+			</div>
+			<div class="modal-body">
+				탈퇴 처리는 3일 ~ 7일 정도가 소요 됩니다.<br>
+				정말로 이 사이트를 탈퇴 하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"
+					id="closeBtn2">Close</button>
+			</div>
+		</div>
+	</div>
+</div> -->
+
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript"
@@ -317,6 +340,10 @@ MAIN CONTENT
 					});
 	            }
 			});
+		});
+		
+		$('#profileExpireBtn').click(function() {
+			console.log("탈퇴버튼");
 		});
 		
 	});

@@ -13,9 +13,13 @@ MAIN CONTENT
 	<section class="wrapper site-min-height">
 		<form class="form-horizontal" name="frm" id="frm" method="post" action="/admin/users/edit">
 			<input type="hidden" id="uno" name="uno" value="${userInfo.uno}">
+			<input type="hidden" id="uemail" name="uemail" value="${userInfo.uemail}">
 			<c:choose>
 				<c:when test="${userInfo.enabled == 1}">
 					<input type="hidden" id="checkAdmit" name="checkAdmit" value="1">
+				</c:when>
+				<c:when test="${userInfo.enabled == -1}">
+					<input type="hidden" id="checkAdmit" name="checkAdmit" value="-1">
 				</c:when>
 				<c:otherwise>
 					<input type="hidden" id="checkAdmit" name="checkAdmit" value="0">
@@ -184,7 +188,11 @@ $(function() {
 			//f.submit();
 			$('#isAdmit').empty();
 			$('#isAdmit').append('<a href="#" id="deny" class="btn btn-success btn-xs" alt="${userInfo.uno}">승인</a>');
-			$('#checkAdmit').val("1");
+			if ('${userInfo.enabled}' == -1) {
+				$('#checkAdmit').val("2");				
+			} else {
+				$('#checkAdmit').val("1");
+			}
 		}
 	});
 	
@@ -196,7 +204,11 @@ $(function() {
 			//f.submit();
 			$('#isAdmit').empty();
 			$('#isAdmit').append('<a href="#" id="admit" class="btn btn-warning btn-xs" alt="${userInfo.uno}">미승인</a>');
-			$('#checkAdmit').val("0");
+			if ('${userInfo.enabled}' == -1) {
+				$('#checkAdmit').val("-1");
+			} else {
+				$('#checkAdmit').val("0");
+			}
 		}
 	});
 });

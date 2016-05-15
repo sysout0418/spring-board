@@ -119,7 +119,10 @@ MAIN CONTENT
 							<input type="hidden" name="isCheckCbListAll" value="F"> <input
 								type="hidden" name="pageNo" id="pageNo"
 								value="${pageBean.pageNo}" /> <input type="hidden" name="uno"
-								id="uno" value="" /><br />
+								id="uno" value="" />
+								<input type="hidden" name="enabledValue" id="enabledValue" value="" />
+								<input type="hidden" name="emailForAdmit" id="emailForAdmit" value="" />
+								<br />
 							<table class="table table-hover ">
 								<thead>
 									<tr>
@@ -141,7 +144,7 @@ MAIN CONTENT
 								<tbody>
 									<c:forEach var="user" items="${allUserList}">
 										<c:choose>
-											<c:when test="${user.enabled == 0}">
+											<c:when test="${user.enabled == 0 or user.enabled == -1}">
 												<tr class="danger">
 											</c:when>
 											<c:when test="${user.expired eq 'Y'}">
@@ -164,9 +167,12 @@ MAIN CONTENT
 										<td>${user.uemail}</td>
 										<td>${user.uregdate}</td>
 										<c:choose>
-											<c:when test="${user.enabled == 0}">
-												<td class="admit"><a class="label label-warning"
-													alt="${user.uno}">미승인</a></td>
+											<c:when test="${user.enabled == 0 or user.enabled == -1}">
+												<td class="admit">
+													<input type="hidden" value="${user.enabled}">
+													<a class="label label-warning" alt="${user.uno}">미승인</a>
+													<input type="hidden" value="${user.uemail}">
+												</td>
 											</c:when>
 											<c:otherwise>
 												<td class="deny"><a class="label label-success"
@@ -391,6 +397,8 @@ $(function() {
 	$('.admit > a').bind('click', function() {
 		console.log($(this).attr('alt'));
 		$('#uno').val($(this).attr('alt'));
+		$('#enabledValue').val($(this).prev().val());
+		$('#emailForAdmit').val($(this).next().val());
 		if (confirm("해당 회원을 가입 승인 처리 하시겠습니까?")) {
 			f.action = "/admin/users/admit";
 			f.submit();

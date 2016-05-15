@@ -286,5 +286,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE lno = #{lno}
     ]]>
     </delete>
+    
+    <select id="getAuthorityByUno" parameterType="int" resultType="Map">
+    <![CDATA[
+	SELECT uemail, enabled
+	FROM Authority a
+	JOIN User u
+	ON a.uno = u.uno
+	WHERE a.uno = #{uno}
+    ]]>
+    </select>
 	
 </mapper>

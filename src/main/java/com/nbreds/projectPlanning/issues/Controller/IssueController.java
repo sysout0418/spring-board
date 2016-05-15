@@ -49,6 +49,9 @@ public class IssueController {
 	@Autowired
 	IssueService issuesService;
 
+	@Autowired
+	DateCalculator dateCalculator;
+	
 	@RequestMapping("/issues")
 	public String home(Model model) {
 		return "/issues/issues";
@@ -81,7 +84,7 @@ public class IssueController {
 			if (!issuesList.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", issuesList);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 				/************************************************************************/
 
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -97,7 +100,7 @@ public class IssueController {
 			if (!issuesList.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", issuesList);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 				/************************************************************************/
 
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -112,7 +115,7 @@ public class IssueController {
 			if (!issuesList.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", issuesList);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 				/************************************************************************/
 
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -387,7 +390,7 @@ public class IssueController {
 			// 만기되지 않은 issue라면 label은 '중단'으로 update
 			param2.put("issueList", issuesList);
 
-			param = DateCalculator.getInstance().checkDateForUpdate(param2);
+			param = dateCalculator.checkDateForUpdate(param2);
 			issuesService.closeIssue(param);
 		}
 
@@ -434,7 +437,7 @@ public class IssueController {
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 			param2.put("targetList", issuesList);
-			DateCalculator.getInstance().setExpired(param2);
+			dateCalculator.setExpired(param2);
 			/************************************************************************/
 		}
 		if (stat.equals("closed")) {
@@ -447,7 +450,7 @@ public class IssueController {
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 			param2.put("targetList", issuesList);
-			DateCalculator.getInstance().setExpired(param2);
+			dateCalculator.setExpired(param2);
 			/************************************************************************/
 		} else {
 			param.put("pno", pno);
@@ -458,7 +461,7 @@ public class IssueController {
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 			param2.put("targetList", issuesList);
-			DateCalculator.getInstance().setExpired(param2);
+			dateCalculator.setExpired(param2);
 			/************************************************************************/
 		}
 
@@ -532,7 +535,7 @@ public class IssueController {
 			if (!issuesList.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", issuesList);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 				/************************************************************************/
 
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -548,7 +551,7 @@ public class IssueController {
 			if (!issuesList.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", issuesList);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 				/************************************************************************/
 
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -563,7 +566,7 @@ public class IssueController {
 			if (!issuesList.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", issuesList);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 				/************************************************************************/
 
 				for (int i = 0; i < issuesList.size(); i++) {
@@ -626,7 +629,7 @@ public class IssueController {
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 			param2.put("targetList", issuesList);
-			DateCalculator.getInstance().setExpired(param2);
+			dateCalculator.setExpired(param2);
 			/************************************************************************/
 
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
@@ -646,7 +649,7 @@ public class IssueController {
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 			param2.put("targetList", issuesList);
-			DateCalculator.getInstance().setExpired(param2);
+			dateCalculator.setExpired(param2);
 			/************************************************************************/
 
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);
@@ -664,7 +667,7 @@ public class IssueController {
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 			param2.put("targetList", issuesList);
-			DateCalculator.getInstance().setExpired(param2);
+			dateCalculator.setExpired(param2);
 			/************************************************************************/
 
 			projectInfoByUno = issuesService.getProjectInfoByUno(param);

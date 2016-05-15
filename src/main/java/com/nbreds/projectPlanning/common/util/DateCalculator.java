@@ -9,11 +9,13 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.issues.VO.Issue;
 import com.nbreds.projectPlanning.milestones.VO.Milestone;
 
+@Component
 public class DateCalculator {
 
 	private static final Logger logger = LoggerFactory.getLogger(DateCalculator.class); // 로그
@@ -28,19 +30,6 @@ public class DateCalculator {
 	private List<Issue> issueList; // 이슈 리스트
 	private List<Milestone> milestoneList; // 마일스톤 리스트
 	private List<Project> projectList; // 프로젝트 리스트
-
-	// 기본생성자
-	private DateCalculator() {
-
-	}
-
-	// 싱글톤 패턴 적용
-	public static DateCalculator getInstance() {
-		if (dateCalculator == null) {
-			dateCalculator = new DateCalculator();
-		}
-		return dateCalculator;
-	}
 
 	// 오늘 날짜를 날짜 포멧에 맞게 계산하여 long 타입으로 리턴
 	private long getToday() throws ParseException {

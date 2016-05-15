@@ -106,7 +106,7 @@ a.cbtn:hover {
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">이미 탈퇴한 회원입니다. 관리자에게 문의하세요.</div>
+			<div class="modal-body">가입 승인되지 않은 ID 입니다.<br>관리자 가입 승인 후 사용 가능합니다.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
@@ -124,7 +124,7 @@ a.cbtn:hover {
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">가입 승인되지 않은 ID 입니다. 관리자에게 문의하세요.</div>
+			<div class="modal-body">이미 탈퇴한 회원입니다. 관리자에게 문의하세요.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>

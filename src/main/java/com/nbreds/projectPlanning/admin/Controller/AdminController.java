@@ -23,7 +23,9 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.admin.Service.AdminService;
 import com.nbreds.projectPlanning.common.VO.Authority;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
+import com.nbreds.projectPlanning.common.VO.Email;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.common.mail.EmailSender;
 import com.nbreds.projectPlanning.common.util.PageBean;
 import com.nbreds.projectPlanning.common.util.PageUtility;
 import com.nbreds.projectPlanning.issues.VO.Comment;
@@ -34,6 +36,9 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+
+	@Autowired
+	private EmailSender emailSender;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -198,18 +203,51 @@ public class AdminController {
 	}
 
 	// 가입 허가. Authority 테이블 enabled 컬럼값 0 -> 1 로 update
+	// 최초 가입 허가의 경우 enable 컬럼값 -1이므로 1로 변경과 동시에 사용자에게 가입 허가 됐다는 메일 발송)
 	@RequestMapping("/admin/users/admit")
-	public String admitUser(HttpServletRequest request) {
+	public String admitUser(HttpServletRequest request) throws Exception {
 		String[] admitUnoList = request.getParameterValues("cbList");
 		String uno = request.getParameter("uno");
+		String enabledValue = request.getParameter("enabledValue");
+		String emailForAdmit = request.getParameter("emailForAdmit");
 
 		if (admitUnoList != null) {
 			for (int i = 0; i < admitUnoList.length; i++) {
 				logger.info("admitUnoList[" + i + "] : " + admitUnoList[i]);
-				adminService.admitUserByUno(Integer.parseInt(admitUnoList[i]));
+				Map<String, Object> userInfo = adminService.getAuthorityByUno(Integer.parseInt(admitUnoList[i]));
+				int enabled = (int) userInfo.get("enabled");
+				String userEmail = (String) userInfo.get("uemail");
+				logger.info("enabled : " + enabled);
+				logger.info("userEmail : " + userEmail);
+				
+				if (enabled == 0) {
+					adminService.admitUserByUno(Integer.parseInt(admitUnoList[i]));
+				} else if (enabled == -1) {
+					// 사용자에게 승인 허가 됐다는 이메일 발송
+					Email email = new Email();
+					email.setReciver(userEmail);
+					email.setSubject("[BIDDING] 가입 승인 되었습니다.");
+					email.setContent("[BIDDING] 사이트에 가입 승인 되었습니다. 감사합니다.");
+					emailSender.SendEmail(email);
+					adminService.admitUserByUno(Integer.parseInt(admitUnoList[i]));
+				}
 			}
 		} else if (uno != null && !uno.equals("")) {
-			adminService.admitUserByUno(Integer.parseInt(uno));
+			if (!enabledValue.equals("") && enabledValue != null) {
+				if (enabledValue.equals("0")) {
+					adminService.admitUserByUno(Integer.parseInt(uno));
+				} else if (enabledValue.equals("-1")) {
+					logger.info("enabled : " + enabledValue);
+					logger.info("userEmail : " + emailForAdmit);
+					// 사용자에게 승인 허가 됐다는 이메일 발송
+					Email email = new Email();
+					email.setReciver(emailForAdmit);
+					email.setSubject("[BIDDING] 가입 승인 되었습니다.");
+					email.setContent("[BIDDING] 사이트에 가입 승인 되었습니다. 감사합니다.");
+					emailSender.SendEmail(email);
+					adminService.admitUserByUno(Integer.parseInt(uno));
+				}
+			}
 		}
 
 		return "redirect:/admin/users";
@@ -248,8 +286,9 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/users/edit")
-	public String userEdit(HttpServletRequest request, int uno, String checkAdmit, String checkExpired, String uname,
-			String uphoneno, String udepartment, String authority) {
+	public String userEdit(HttpServletRequest request, String uemail, int uno, String checkAdmit, String checkExpired, String uname,
+			String uphoneno, String udepartment, String authority) throws Exception {
+		logger.info("uemail: " + uemail);
 		logger.info("uno: " + uno);
 		logger.info("checkAdmit: " + checkAdmit);
 		logger.info("checkExpired: " + checkExpired);
@@ -260,7 +299,17 @@ public class AdminController {
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("uno", uno);
-		param.put("enabled", checkAdmit);
+		if (checkAdmit.equals("1")) {
+			param.put("enabled", checkAdmit);
+		} else if (checkAdmit.equals("2")) {
+			param.put("enabled", 1);
+			// 사용자에게 승인 허가 됐다는 이메일 발송
+			Email email = new Email();
+			email.setReciver(uemail);
+			email.setSubject("[BIDDING] 가입 승인 되었습니다.");
+			email.setContent("[BIDDING] 사이트에 가입 승인 되었습니다. 감사합니다.");
+			emailSender.SendEmail(email);
+		}
 		param.put("expired", checkExpired);
 		param.put("uname", uname);
 		param.put("uphoneno", uphoneno);
@@ -302,12 +351,12 @@ public class AdminController {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("ltitle", lTitle);
 		param.put("lbgcolor", lBgColor);
-		
+
 		adminService.saveLabel(param);
-		
+
 		writer.write("end");
 	}
-	
+
 	// 라벨 업뎃
 	@RequestMapping("/label/update")
 	public void labelUpdate(Model model, int lno, String lTitle, String lBgColor, Writer writer) throws IOException {
@@ -318,15 +367,16 @@ public class AdminController {
 		param.put("lno", lno);
 		param.put("ltitle", lTitle);
 		param.put("lbgcolor", lBgColor);
-		
+
 		adminService.updateLabel(param);
-		
+
 		writer.write("end");
 	}
-	
+
 	// 라벨 삭제
 	@RequestMapping("/label/delete")
-	public void deleteLabel(Model model, @RequestParam(value="checkArray[]") List<String> lnoList, Writer writer) throws IOException {
+	public void deleteLabel(Model model, @RequestParam(value = "checkArray[]") List<String> lnoList, Writer writer)
+			throws IOException {
 		for (int i = 0; i < lnoList.size(); i++) {
 			logger.info("lno[" + i + "] : " + lnoList.get(i));
 			adminService.deleteLabel(Integer.parseInt(lnoList.get(i)));

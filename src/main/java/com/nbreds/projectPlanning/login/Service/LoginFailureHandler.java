@@ -32,9 +32,9 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 			String expired = (String) userInfo.get("expired");
 			logger.info("enabled: " + enabled);
 			logger.info("expired: " + expired);
-			if (enabled == 0 && expired.equals("Y")) {
+			if (enabled == 0 || enabled == -1) {
 				response.sendRedirect("/loginForm?error1");
-			} else if (enabled == 0 && expired.equals("N")) {
+			} else if (expired.equals("Y")) {
 				response.sendRedirect("/loginForm?error2");
 			} else {
 				response.sendRedirect("/loginForm?error3");
