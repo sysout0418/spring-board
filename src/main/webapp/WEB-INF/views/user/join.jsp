@@ -67,9 +67,9 @@ MAIN CONTENT
 			<div class="login-wrap">
 				<input type="email" id="uemail" name="uemail" class="form-control"
 					placeholder="Email" onblur="checkId()" maxlength="100" required
-					autofocus><br> 
+					autofocus <c:if test="${!empty facebookEmail}"> value="${facebookEmail}"</c:if>><br> 
 				<input type="text" class="form-control" id="uname" name="uname"
-					placeholder="Name" maxlength="20" required><br>
+					placeholder="Name" maxlength="20" required <c:if test="${!empty facebookName}"> value="${facebookName}"</c:if>><br>
 				<input type="text" class="form-control" id="uphoneno" name="uphoneno"
 					placeholder="Phone Number" maxlength="20" required><br>
 				<input type="password" id="upassword" name="upassword"
