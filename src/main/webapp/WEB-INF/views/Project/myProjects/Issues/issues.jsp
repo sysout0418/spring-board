@@ -96,7 +96,7 @@ MAIN CONTENT
 								
 								<input type="checkbox" name="cbListAll"
 									onclick="checkCbListAll()"
-									style="position: absolute; top: 115px; left: 57px;">
+									style="position: absolute; top: 120px; left: 90px;">
 								<div class="tab-content well" id="originalForm"
 									style="display: block;">
 									<div style="margin-left: 20px;">
@@ -189,7 +189,7 @@ MAIN CONTENT
 												data-toggle="dropdown" aria-expanded="false"> <span
 												class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 											<ul class="dropdown-menu">
-												<li class="userNo2"><a alt="" href="#">Unassigned</a></li>
+												<li class="userNo2"><a alt="0" href="#">Unassigned</a></li>
 												<c:forEach var="users" items="${userList}">
 													<li class="userNo2"><a alt="${users.uno}" href="#">${users.uname}</a></li>
 												</c:forEach>
@@ -230,7 +230,7 @@ MAIN CONTENT
 												varStatus="status">
 												<input type="hidden" name="issueState"
 													value="${issues.istatement }">
-												<li class="list-group-item" onclick="location.href='/${user_no}/${issues.pno}/issue/${issues.ino}'" style="cursor: pointer;"><span class="badge"><i
+												<li class="list-group-item" id="liEvent" alt="/${issues.uno}/${issues.pno}/issue/${issues.ino}" style="cursor: pointer;"><span class="badge"><i
 														class="fa fa-comment" aria-hidden="true"></i>
 														${issues.commentCnt}</span> <input type="checkbox" name="cbList"
 													value="${issues.ino}" onclick="openUpdateIssuesForm()">
@@ -253,7 +253,6 @@ MAIN CONTENT
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 </section>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
@@ -408,6 +407,15 @@ MAIN CONTENT
         $('#destroy').click(function() {
           $('#reportrange').data('daterangepicker').remove();
         });
+        
+        // li onclick 때문에 체크박스 이벤트 안먹는 현상 해결하는 자바스크립트
+        $("#liEvent").click(function(event) {
+    		if (event.target.type == 'checkbox')
+    			return;
+    		
+    		location.href = $("#liEvent").attr('alt');
+    	});
+        
       });
 	/* $(document).ready(function() {
 		$.ajax({

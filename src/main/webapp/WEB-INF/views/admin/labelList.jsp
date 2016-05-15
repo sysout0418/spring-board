@@ -20,7 +20,7 @@
 						<i class="fa fa-pencil"></i>
 					</button>
 					<button class="btn btn-danger btn-xs" alt="${label.lno}"
-						id="deleteLabelBtn2">
+						id="deleteLabelBtn2" data-toggle="modal" data-target="#myModal5">
 						<i class="fa fa-trash-o "></i>
 					</button>
 				</div>

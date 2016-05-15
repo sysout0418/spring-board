@@ -155,6 +155,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE i.ino = #{ino}
 	]]>
 	</select>
+	
+	<!-- 2016.03.28 ino로 issue 하나 가져오기 (detailIssue.jsp 에서 사용) -->
+	<select id="getIssuesByIno2" parameterType="int"
+		resultType="com.nbreds.projectPlanning.issues.VO.Issue">
+    <![CDATA[
+    SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, iregdate, mtitle, i.lno, ltitle, lbgcolor
+	FROM Issues i
+	LEFT JOIN Milestones m
+	ON i.mno = m.mno
+	LEFT JOIN Label l
+	ON i.lno = l.lno
+	WHERE i.ino = #{ino}
+	]]>
+	</select>
 
 	<!-- 2016.03.28 특정 pno에 등록되어 있는 모든 Issue 가져오기 -->
 	<select id="getIssuesByPno" parameterType="map"
@@ -163,7 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT i.ino, ititle, idescription, istatement, i.mno, i.pno, i.uno, iduedate, iregdate, uname, mtitle, i.lno, ltitle, lbgcolor
 	FROM Issues i
     JOIN User u
-    ON i.uno = u.uno
+    ON i.uno = u.uno OR i.uno = 0
 	LEFT JOIN Milestones m
 	ON i.mno = m.mno
 	LEFT JOIN Label l

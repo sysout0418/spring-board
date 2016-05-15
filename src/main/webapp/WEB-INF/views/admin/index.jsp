@@ -52,10 +52,10 @@ MAIN CONTENT
 											<td>${user.uregdate}</td>
 											<td><a href="#" id="getUserNo"
 												class="btn btn-primary btn-xs" role="button"
-												alt="${user.uno}"><i class="fa fa-pencil"></i></a> <a
-												href="#" id="del" class="btn btn-danger btn-xs"
-												role="button" alt="${user.uno}"><i
-													class="fa fa-trash-o "></i></a></td>
+												alt="${user.uno}"><i class="fa fa-pencil"></i></a>
+												<a href="#" id="del" class="btn btn-danger btn-xs"
+												role="button" alt="${user.uno}" data-toggle="modal" data-target="#myModal3">
+												<i class="fa fa-trash-o "></i></a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -94,14 +94,14 @@ MAIN CONTENT
 										<td>${project.pduedate}</td>
 										<td>${project.uname}</td>
 										<td><a href="/${project.uno}/${project.pno}"
-											class="btn btn-success btn-xs" role="button"><i
-												class="fa fa-check"></i></a> <a
-											href="/update?pno=${project.pno}"
-											class="btn btn-primary btn-xs" role="button"><i
-												class="fa fa-pencil"></i></a> <a
-											href="/DeleteProject?pno=${project.pno}"
-											class="btn btn-danger btn-xs" role="button"><i
-												class="fa fa-trash-o "></i></a></td>
+											class="btn btn-success btn-xs" role="button">
+											<i class="fa fa-check"></i></a> 
+											<a href="/update?pno=${project.pno}"
+											class="btn btn-primary btn-xs" role="button">
+											<i class="fa fa-pencil"></i></a>
+											<a href="#" alt="/DeleteProject?pno=${project.pno}" id="prjDelBtn"
+											class="btn btn-danger btn-xs" role="button" data-toggle="modal" data-target="#myModal4">
+											<i class="fa fa-trash-o"></i></a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -132,7 +132,7 @@ MAIN CONTENT
 						<button type="button" class="btn btn-theme" id="editLabelBtn"
 							style="display: none;" data-toggle="modal" data-target="#myModal2">Edit Label</button>
 						<button type="button" class="btn btn-theme" id="deleteLabelBtn"
-							style="display: none;">Delete Label</button>
+							style="display: none;" data-toggle="modal" data-target="#myModal5">Delete Label</button>
 						<button type="button" class="btn btn-theme" id="cancelLabelBtn"
 							style="display: none;">Cancel</button>
 					</div>
@@ -209,6 +209,98 @@ MAIN CONTENT
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" id="updateLabelBtn" class="btn btn-primary"
 					data-dismiss="modal">Update</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 해당 회원을 탈퇴 처리 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 프로젝트를 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal5 -->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 라벨을 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn3" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal5 -->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 라벨을 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn3" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
 			</div>
 		</div>
 	</div>
@@ -297,17 +389,32 @@ MAIN CONTENT
 		}
 	});
 
+	$(document).on('click', '#del', function() {
+		console.log($(this).attr('alt'));
+		$('#uno').val($(this).attr('alt'));
+	});
+	
+	$(document).on('click', '#prjDelBtn', function() {
+		console.log($(this).attr('alt'));
+		var delUrl = $(this).attr('alt');
+		$('#okBtn2').click(function() {
+			location.href = delUrl;
+		});
+	});
+	
 	$(function() {
 		var f = document.frm;
 
-		$('#del').bind('click', function() {
-			console.log($(this).attr('alt'));
-			$('#uno').val($(this).attr('alt'));
-			if (confirm("정말로 해당 회원을 탈퇴 처리 하시겠습니까?")) {
-				f.action = "/admin/users/delete";
-				f.submit();
-			}
+		$('#okBtn').click(function() {
+			f.action = "/admin/users/delete";
+			f.submit();
 		});
+		
+		/* $('#prjDelBtn').click(function() {
+			console.log($(this).attr('alt'));
+			var delUrl = $(this).attr('alt');
+		}); */
+		
 
 		$('#getUserNo').bind('click', function() {
 			var uno = $(this).attr("alt");
@@ -418,9 +525,8 @@ MAIN CONTENT
 		});
 		
 		// 선택한 라벨 삭제 버튼
-		$('#deleteLabelBtn').click(function() {
+		$('#okBtn3').click(function() {
 			$(document).ready(function() {
-				if(confirm('정말로 선택하신 라벨을 삭제 하시겠습니까?')) {
 					if ($('input:checkbox[name="checkList"]').is(":checked")) {
 						// 체크한 lno list
 						var lnoList = [];
@@ -459,9 +565,6 @@ MAIN CONTENT
 							}
 						});
 					}
-				} else {
-					return;
-				}
 			});
 		});
 		
@@ -479,7 +582,7 @@ MAIN CONTENT
 		// 라벨 삭제2
 		$(document).on('click', '#deleteLabelBtn2', function() {
 			var lno = $(this).attr('alt');
-			if(confirm('정말로 이 라벨을 삭제 하시겠습니까?')) {
+			$('#okBtn3').click(function() {
 				var lnoList = [];
 				lnoList.push(lno);
 				
@@ -498,9 +601,11 @@ MAIN CONTENT
 						alert("에러 발생이군? \n" + textStatus + " : " + errorThrown);
 					}
 				});
+			});
+			/* if(confirm('정말로 이 라벨을 삭제 하시겠습니까?')) {
 			} else {
 				return;
-			}
+			} */
 		});
 	});
 </script>

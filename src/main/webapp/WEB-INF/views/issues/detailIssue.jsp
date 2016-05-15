@@ -207,6 +207,28 @@ MAIN CONTENT
 		</div>
 	</div>
 </div>
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>정말로 이 댓글을 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn4" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="col-lg-9">
@@ -224,7 +246,7 @@ MAIN CONTENT
 										<span class="label label-danger">Closed</span>
 									</c:if> Issue #${issues.ino}
 									<div style="float: right;">
-										<a href="/issues/edit/${user_no}/${pno}/${ino}"
+										<a href="/issues/edit/${issues.uno}/${pno}/${ino}"
 											class="btn btn-default">Edit</a>
 										<c:if test="${issues.istatement=='000'}">
 											<a href="#" id="issueCloseBtn" alt="/issues/close/${uno}/${pno}/${ino}"
@@ -367,17 +389,16 @@ MAIN CONTENT
 	}
 
 	$(document).on('click', '.post-description > #stat > a', function() {
+		var cno = '';
 		if ($(this).attr("name") == "pDel") {
-			if (confirm("정말 삭제하시겠습니까?") == true) { //확인
-				var cno = $(this).next().val();
+			cno = $(this).next().val();
+			$('#okBtn4').click(function() {
 				$.post('/remove/comment', {
 					"cno" : cno
 				}, function(data) {
 					$('.list-group').load("/getCommentList/${issues.ino}");
 				});
-			} else {// 취소
-				return;
-			}
+			});
 		} else if ($(this).attr("name") == "pEdit") {
 			// 자기 부모의 tr을 알아낸다.
 			var parentElement = $(this).parent().parent(); // <div class="post-description"> ... </div>
@@ -385,7 +406,7 @@ MAIN CONTENT
 			// 기존 입력 되있던 댓글내용과 cno 추출
 			var text = $(this).parent().prev().text();
 			console.log(text);
-			var cno = $(this).next().next().val();
+			cno = $(this).next().next().val();
 			console.log(cno);
 			
 			// 부모의 하단에 댓글편집 창을 삽입
@@ -409,7 +430,7 @@ MAIN CONTENT
 		// 댓글 수정
 		$("#cUpdateBtn").on('click', function() {
 			var content2 = $(this).prev().prev().val();
-			var cno = $(this).prev().prev().prev().val();
+			cno = $(this).prev().prev().prev().val();
 			$.post('/update/comment', {
 				"cno" : cno,
 				"content2" : content2

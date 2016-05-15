@@ -35,6 +35,9 @@ public interface IssueService {
 	/** ino로 이슈 리스트 가져오기 */
 	Issue getIssuesByIno(int ino);
 
+	/** unassigned 이슈 가져오기 */
+	Issue getIssuesByIno2(int ino);
+	
 	/** pno로 이슈 리스트 가져오기*/
 	List<Issue> getIssuesByPno(Map<String, Object> param);
 	

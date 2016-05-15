@@ -67,9 +67,6 @@ rel="stylesheet" type="text/css" />
 	margin: 0px 30px 0px 30px;
 }
 
-.fa-angle-right {
-	margin-left: 45px;
-}
 </style>
 
 <style type="text/css">

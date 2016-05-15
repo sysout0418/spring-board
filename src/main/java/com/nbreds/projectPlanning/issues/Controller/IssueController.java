@@ -90,6 +90,9 @@ public class IssueController {
 				for (int i = 0; i < issuesList.size(); i++) {
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
+					if (issuesList.get(i).getUno() == 0) {
+						issuesList.get(i).setUname("Unassigned");
+					}
 				}
 			}
 		} else if (stat.equals("closed")) {
@@ -106,6 +109,9 @@ public class IssueController {
 				for (int i = 0; i < issuesList.size(); i++) {
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
+					if (issuesList.get(i).getUno() == 0) {
+						issuesList.get(i).setUname("Unassigned");
+					}
 				}
 			}
 		} else {
@@ -121,6 +127,9 @@ public class IssueController {
 				for (int i = 0; i < issuesList.size(); i++) {
 					int commentCnt = issuesService.getCommentCnt(issuesList.get(i).getIno());
 					issuesList.get(i).setCommentCnt(commentCnt);
+					if (issuesList.get(i).getUno() == 0) {
+						issuesList.get(i).setUname("Unassigned");
+					}
 				}
 			}
 		}
@@ -165,7 +174,13 @@ public class IssueController {
 	@RequestMapping("/{uno}/{pno}/issue/{ino}")
 	public String detailIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno, @PathVariable("ino") int ino,
 			Model model) {
-		Issue issues = issuesService.getIssuesByIno(ino);
+		Issue issues = null;
+		if (uno == 0) {
+			issues = issuesService.getIssuesByIno2(ino);
+			issues.setUname("Unassigned");
+		} else if (uno != 0) {
+			issues = issuesService.getIssuesByIno(ino);
+		}
 
 		// ino로 파일 리스트 불러오기
 		List<Files> fileList = issuesService.getFileListByIno(ino);
@@ -274,7 +289,11 @@ public class IssueController {
 	@RequestMapping(value = "/issues/edit/{uno}/{pno}/{ino}", method = RequestMethod.GET)
 	public String editFormIssue(@PathVariable("uno") int uno, @PathVariable("pno") int pno,
 			@PathVariable("ino") int ino, @ModelAttribute("issues") Issue issues, Model model) {
-		issues = issuesService.getIssuesByIno(ino);
+		if (uno == 0) {
+			issues = issuesService.getIssuesByIno2(ino);
+		} else if (uno != 0) {
+			issues = issuesService.getIssuesByIno(ino);
+		}
 		List<User> userList = issuesService.getUserListByPno(pno);
 		List<User> allUserList = issuesService.getAllUserNameAndNo();
 		List<Label> labelList = issuesService.getAllLabel();
@@ -315,11 +334,11 @@ public class IssueController {
 		logger.info("title : " + issues.getItitle());
 		logger.info("lnos : " + issues.getLno());
 		logger.info("uno : " + issues.getUno());
-		int loginUserNo = (int) session.getAttribute("user_no");
+		//int loginUserNo = (int) session.getAttribute("user_no");
 
 		issuesService.updateIssueByIno(issues, request);
 
-		return "redirect:/" + loginUserNo + "/" + issues.getPno() + "/issue/" + issues.getIno();
+		return "redirect:/" + issues.getUno() + "/" + issues.getPno() + "/issue/" + issues.getIno();
 	}
 
 	// issue 리스트창에서 다이렉트로 issue 수정
@@ -434,10 +453,18 @@ public class IssueController {
 			param.put("mno", mno);
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssues(param);
+			
+			for (int i = 0; i < issuesList.size(); i++) {
+				if (issuesList.get(i).getUno() == 0) {
+					issuesList.get(i).setUname("Unassigned");
+				}
+			}
 
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-			param2.put("targetList", issuesList);
-			dateCalculator.setExpired(param2);
+			if (!issuesList.isEmpty()) {
+				param2.put("targetList", issuesList);
+				dateCalculator.setExpired(param2);
+			}
 			/************************************************************************/
 		}
 		if (stat.equals("closed")) {
@@ -448,9 +475,17 @@ public class IssueController {
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssues(param);
 
+			for (int i = 0; i < issuesList.size(); i++) {
+				if (issuesList.get(i).getUno() == 0) {
+					issuesList.get(i).setUname("Unassigned");
+				}
+			}
+			
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-			param2.put("targetList", issuesList);
-			dateCalculator.setExpired(param2);
+			if (!issuesList.isEmpty()) {
+				param2.put("targetList", issuesList);
+				dateCalculator.setExpired(param2);
+			}
 			/************************************************************************/
 		} else {
 			param.put("pno", pno);
@@ -459,9 +494,17 @@ public class IssueController {
 			param.put("lno", lno);
 			issuesList = issuesService.searchIssues(param);
 
+			for (int i = 0; i < issuesList.size(); i++) {
+				if (issuesList.get(i).getUno() == 0) {
+					issuesList.get(i).setUname("Unassigned");
+				}
+			}
+			
 			// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
-			param2.put("targetList", issuesList);
-			dateCalculator.setExpired(param2);
+			if (!issuesList.isEmpty()) {
+				param2.put("targetList", issuesList);
+				dateCalculator.setExpired(param2);
+			}
 			/************************************************************************/
 		}
 

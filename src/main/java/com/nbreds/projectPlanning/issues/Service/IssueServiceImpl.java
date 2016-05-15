@@ -80,6 +80,11 @@ public class IssueServiceImpl implements IssueService {
 	public Issue getIssuesByIno(int ino) {
 		return issueDao.getIssuesByIno(ino);
 	}
+	
+	@Override
+	public Issue getIssuesByIno2(int ino) {
+		return issueDao.getIssuesByIno2(ino);
+	}
 
 	@Override
 	public List<Issue> getIssuesByPno(Map<String, Object> param) {
