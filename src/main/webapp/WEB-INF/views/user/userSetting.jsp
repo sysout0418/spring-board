@@ -156,7 +156,7 @@ MAIN CONTENT
 					</div>
 
 					<!-- CALENDAR-->
-					<div id="calendar" class="mb">
+					<div id="calendar" class="mb" style="margin-top: 20px;">
 						<div class="panel green-panel no-margin">
 							<div class="panel-body">
 								<!-- <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
