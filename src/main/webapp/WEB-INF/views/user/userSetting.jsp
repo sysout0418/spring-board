@@ -133,7 +133,7 @@ MAIN CONTENT
 					</div>
 				</div>
 				<!-- /row -->
-				<div class="col-lg-3 ds">
+				<div class="col-lg-3 ds" style="position: absolute; right: -15px;">
 					<!--COMPLETED ACTIONS DONUTS CHART-->
 					<h3>USER PROFILE</h3>
 					<br>
