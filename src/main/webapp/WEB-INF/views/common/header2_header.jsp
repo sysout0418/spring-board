@@ -100,6 +100,9 @@ TOP BAR CONTENT & NOTIFICATIONS
 		</div>
 		<div class="top-menu">
 			<ul class="nav pull-right top-menu">
+								<li><a href="http://redmine.nbreds.com:32/" target="_blank" style="margin-top: 15px;"> <i class="fa fa-calendar-o" aria-hidden="true"></i></a></li>
+					<li><a href="http://gitlab.nbreds.com:30" target="_blank" style="margin-top: 15px;"> <i class="fa fa-git" aria-hidden="true"></i></a></li>
+					<li><a href="http://192.168.0.7:5000/" target="_blank" style="margin-top: 15px;"> <i class="fa fa-hdd-o"></i></a></li>
 				<li><a class="logout" href="/logout">Logout</a></li>
 			</ul>
 		</div>
