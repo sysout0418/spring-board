@@ -22,7 +22,7 @@
 				<div class="stats" id="stat">
 					<a class="btn btn-warning btn-xs" role="button" name="pEdit"><i
 						class="fa fa-pencil"></i> Update</a> <a class="btn btn-theme04 btn-xs"
-						role="button" name="pDel"><i class="fa fa-trash-o "></i>
+						role="button" name="pDel" data-toggle="modal" data-target="#myModal4"><i class="fa fa-trash-o"></i>
 						Delete</a> <input type="hidden" name="cno" id="cno"
 						value="${comment.cno}">
 				</div>

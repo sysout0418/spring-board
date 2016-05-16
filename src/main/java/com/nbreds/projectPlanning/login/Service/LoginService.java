@@ -20,4 +20,6 @@ public interface LoginService extends UserDetailsService {
 	User checkUserById(String uemail);
 	
 	Map<String, Object> getUserInfo();
+	
+	Map<String, Object> getUserInfoByEmail(String uemail);
 }

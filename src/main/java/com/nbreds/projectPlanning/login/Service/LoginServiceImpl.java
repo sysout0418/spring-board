@@ -86,4 +86,9 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return null;
 	}
+
+	@Override
+	public Map<String, Object> getUserInfoByEmail(String uemail) {
+		return loginDao.getUserInfoByEmail(uemail);
+	}
 }

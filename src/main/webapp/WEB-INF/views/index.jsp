@@ -93,7 +93,7 @@ MAIN CONTENT
 													class="fa fa-pencil"></i></a>
 												<button type="button" class="btn btn-danger btn-xs" id="projectDelBtn" data-toggle="modal" data-target="#myModal"
 													alt="/DeleteProject?pno=${project.pno}">
-													<i class="fa fa-trash-o "></i>
+													<i class="fa fa-trash-o"></i>
 												</button></td>
 										</tr>
 									</c:forEach>
@@ -115,8 +115,12 @@ MAIN CONTENT
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script>
 	$("#trEvent").click(function(event) {
-		if (event.target.type == 'button')
+		$target = $(event.target);
+		if (event.target.type == 'button') {
 			return;
+		} else if ($target.is('i')) {
+			return;
+		}
 		
 		location.href = $("#trEvent").attr('alt');
 	});

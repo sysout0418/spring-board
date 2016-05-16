@@ -104,11 +104,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
    	<select id="getActivityByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-	SELECT 'Milestone' AS tableName, M.mtitle AS title, U.uname, M.mregdate AS regdate
+	SELECT 'Milestone' AS tableName, M.mtitle AS title, U.uname, U.uno, M.mregdate AS regdate, mno AS identificationNo
 	FROM Milestones M, User U
 	WHERE M.pno=#{pno} AND M.uno = U.uno
 	UNION ALL
-	SELECT 'Issue' AS tableName, I.ititle AS title, U.uname, I.iregdate AS regdate
+	SELECT 'Issue' AS tableName, I.ititle AS title, U.uname, U.uno, I.iregdate AS regdate, ino AS identificationNo
 	FROM Issues I, User U
 	WHERE I.pno=#{pno} AND I.uno = U.uno
 	ORDER BY regdate DESC

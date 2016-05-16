@@ -18,8 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
 	<select id="get5Projects" resultType="hashmap">
     <![CDATA[
-   	SELECT @rownum2:=@rownum2+1 as rownum2, P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
+   	SELECT @rownum:=@rownum+1 AS rownum, P.pno, P.pname, P.pregdate, P.pduedate, P.uno, U.uname
 	FROM Project P, User U
+	INNER JOIN (SELECT @rownum:=0) T2
 	WHERE P.uno = U.uno
 	ORDER BY P.pregdate DESC
 	LIMIT 5
@@ -28,8 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="get5Users" resultType="hashmap">
     <![CDATA[
-	SELECT @rownum1:=@rownum1+1 as rownum1, uno, uphoneno, uname, C.CODE_NAME AS udepartment, uemail, uregdate, expired
+	SELECT @rownum:=@rownum+1 AS rownum, uno, uphoneno, uname, C.CODE_NAME AS udepartment, uemail, uregdate, expired
 	FROM User U, CodeTable C
+	INNER JOIN (SELECT @rownum:=0) T2
 	WHERE U.udepartment =C.CODE AND C.CODE_TYPE='002'
 	ORDER BY uregdate DESC
 	LIMIT 5
@@ -286,5 +288,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE lno = #{lno}
     ]]>
     </delete>
+    
+    <select id="getAuthorityByUno" parameterType="int" resultType="Map">
+    <![CDATA[
+	SELECT uemail, enabled
+	FROM Authority a
+	JOIN User u
+	ON a.uno = u.uno
+	WHERE a.uno = #{uno}
+    ]]>
+    </select>
 	
 </mapper>

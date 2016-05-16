@@ -59,20 +59,20 @@ MAIN CONTENT
 											<td>${project.pduedate}</td>
 											<td>${project.uname}</td>
 											<td><a href="/${project.uno}/${project.pno}"
-												class="btn btn-success btn-xs" role="button"><i
-													class="fa fa-check"></i></a> <a
-												href="/update?pno=${project.pno}"
-												class="btn btn-primary btn-xs" role="button"><i
-													class="fa fa-pencil"></i></a> <a
-												href="/DeleteProject?pno=${project.pno}"
-												class="btn btn-danger btn-xs" role="button"><i
-													class="fa fa-trash-o "></i></a></td>
+												class="btn btn-success btn-xs" role="button">
+												<i class="fa fa-check"></i></a>
+												<a href="/update?pno=${project.pno}"
+												class="btn btn-primary btn-xs" role="button">
+												<i class="fa fa-pencil"></i></a>
+												<a href="#" alt="/DeleteProject?pno=${project.pno}" id="prjDelBtn"
+												class="btn btn-danger btn-xs" role="button" data-toggle="modal" data-target="#myModal">
+												<i class="fa fa-trash-o "></i></a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 							&nbsp;
-							<button class="btn btn-theme03" onclick="delList()">선택삭제</button>
+							<button type="button" class="btn btn-theme03" onclick="delList()">선택삭제</button>
 							<!-- 페이징 -->
 							<div align="center">${pageBean.pagelink}</div>
 						</form>
@@ -89,6 +89,49 @@ MAIN CONTENT
 <!-- /MAIN CONTENT -->
 
 <!--main content end-->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>해당 프로젝트를 삭제 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>삭제할 프로젝트를 선택하세요.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
@@ -108,6 +151,11 @@ MAIN CONTENT
 		})
 	})
 
+	$('#okBtn').click(function() {
+		var delUrl = $('#prjDelBtn').attr('alt');
+		location.href = delUrl;
+	});
+	
 	function delList() {
 		var f = document.frm;
 		var items = "";
@@ -127,13 +175,13 @@ MAIN CONTENT
 		}
 
 		if (items == "") {
-			alert("삭제 할 프로젝트를 선택하세요.");
-			return false;
-		}
-
-		if (confirm("정말로 해당 프로젝트를 삭제 하시겠습니까?")) {
-			f.action = "/admin/projects/delete";
-			f.submit();
+			$('#myModal2').modal('show');
+		} else {
+			$('#myModal').modal('show');
+			$('#okBtn').click(function() {
+				f.action = "/admin/projects/delete";
+				f.submit();
+			});
 		}
 	}
 </script>

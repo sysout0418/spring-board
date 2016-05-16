@@ -80,4 +80,8 @@ public interface AdminService {
 	
 	/** 라벨 삭제 */
 	void deleteLabel(int lno);
+	
+	/** uno로 사용자 authority enabled 값 가져오기 */
+	Map<String, Object> getAuthorityByUno(int uno);
+	
 }

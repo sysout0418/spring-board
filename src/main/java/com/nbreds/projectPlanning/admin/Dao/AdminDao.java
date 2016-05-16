@@ -130,4 +130,8 @@ public class AdminDao {
 		sqlSession.delete("admin.deleteLabel", lno);
 	}
 	
+	public Map<String, Object> getAuthorityByUno(int uno) {
+		return sqlSession.selectOne("admin.getAuthorityByUno", uno);
+	}
+	
 }

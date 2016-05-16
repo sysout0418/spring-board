@@ -38,25 +38,14 @@
     </bean>
     
 	<!-- Facebook 연동 -->
-	<!-- <bean id="connectionFactory" class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+	<bean id="connectionFactory" class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
 		<constructor-arg value="1697412003859056" />
 		<constructor-arg value="8bf5b087705f74b18a98677526f43a0e" />
 	</bean>
-		
+
 	<bean id="oAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
 		<property name="scope" value="email"/>
-		<property name="redirectUri" value="/"/>
-	</bean> -->
-	<bean id="connectionFactoryLocator"
-		class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
-		<property name="connectionFactories">
-			<list>
-				<bean
-					class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
-					<constructor-arg value="1697412003859056" />
-					<constructor-arg value="8bf5b087705f74b18a98677526f43a0e" />
-				</bean>
-			</list>
-		</property>
+		<property name="redirectUri" value="http://localhost:8181/checkFacebookId"/>
 	</bean>
+
 </beans>

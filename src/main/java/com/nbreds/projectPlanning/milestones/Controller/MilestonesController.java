@@ -37,6 +37,9 @@ public class MilestonesController {
 	@Autowired
 	MilestonesService milestonesService;
 
+	@Autowired
+	DateCalculator dateCalculator;
+	
 	@RequestMapping(value = "/milestones/{statement}", method = RequestMethod.GET)
 	public String home(@PathVariable("statement") String stat, Model model, HttpSession session) {
 		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
@@ -50,7 +53,7 @@ public class MilestonesController {
 			if (!list.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", list);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 			}
 		} else if (stat.equals("closed")) {
 			param.put("uno", uno);
@@ -59,7 +62,7 @@ public class MilestonesController {
 			if (!list.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", list);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 			}
 		} else {
 			param.put("uno", uno);
@@ -67,7 +70,7 @@ public class MilestonesController {
 			if (!list.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", list);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 			}
 		}
 		for (Milestone milestone : list) {
@@ -99,7 +102,7 @@ public class MilestonesController {
 			if (!list.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", list);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 			}
 		} else if (stat.equals("closed")) {
 			param.put("pno", pno);
@@ -108,7 +111,7 @@ public class MilestonesController {
 			if (!list.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", list);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 			}
 		} else {
 			param.put("pno", pno);
@@ -116,7 +119,7 @@ public class MilestonesController {
 			if (!list.isEmpty()) {
 				// 현재 날짜랑 issue iDuedate 날짜랑 비교해서 만기된 issue면 expired
 				param2.put("targetList", list);
-				DateCalculator.getInstance().setExpired(param2);
+				dateCalculator.setExpired(param2);
 			}
 		}
 		

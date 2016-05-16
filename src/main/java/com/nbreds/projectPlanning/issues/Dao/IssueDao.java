@@ -50,6 +50,10 @@ public class IssueDao {
 	public Issue getIssuesByIno(int ino) {
 		return sqlSession.selectOne("issues.getIssuesByIno", ino);
 	}
+	
+	public Issue getIssuesByIno2(int ino) {
+		return sqlSession.selectOne("issues.getIssuesByIno2", ino);
+	}
 
 	public List<Issue> getIssuesByPno(Map<String, Object> param) {
 		return sqlSession.selectList("issues.getIssuesByPno", param);

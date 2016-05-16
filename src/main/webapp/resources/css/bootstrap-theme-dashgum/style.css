@@ -797,9 +797,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	width: 100%;
 }
 
-.ds .desc:hover {
+/* .ds .desc:hover {
 	background: #f2f2f2;
-}
+} */
 
 .ds .thumb {
 	width: 30px;
@@ -989,10 +989,10 @@ PANELS CONFIGURATIONS
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
-.pn:hover {
+/* .pn:hover {
 	box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 	
-}
+} */
 
 /*Grey Panel*/
 

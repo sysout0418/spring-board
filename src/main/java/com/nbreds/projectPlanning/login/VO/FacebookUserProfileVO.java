@@ -1,30 +1,32 @@
 package com.nbreds.projectPlanning.login.VO;
 
 public class FacebookUserProfileVO {
-
-	private String userEmail;
-	private String userName;
+	private String token;
+	private String email;
+	private String name;
 	
-	public FacebookUserProfileVO(String userEmail, String userName) {
-		super();
-		this.userEmail = userEmail;
-		this.userName = userName;
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
-	public String getUserEmail() {
-		return userEmail;
-	}
-	
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	@Override
+	public String toString() {
+		return "FacebookUserProfileVO [token=" + token + ", email=" + email + ", name=" + name + "]";
 	}
 	
 }

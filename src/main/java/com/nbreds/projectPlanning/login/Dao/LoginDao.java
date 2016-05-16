@@ -41,4 +41,8 @@ public class LoginDao {
 	public void saveAuthority(int uno){
 		sqlSession.insert("login.saveAuthority", uno);
 	}
+	
+	public Map<String, Object> getUserInfoByEmail(String uemail) {
+		return sqlSession.selectOne("login.getUserInfoByEmail", uemail);
+	}
 }

@@ -119,7 +119,10 @@ MAIN CONTENT
 							<input type="hidden" name="isCheckCbListAll" value="F"> <input
 								type="hidden" name="pageNo" id="pageNo"
 								value="${pageBean.pageNo}" /> <input type="hidden" name="uno"
-								id="uno" value="" /><br />
+								id="uno" value="" />
+								<input type="hidden" name="enabledValue" id="enabledValue" value="" />
+								<input type="hidden" name="emailForAdmit" id="emailForAdmit" value="" />
+								<br />
 							<table class="table table-hover ">
 								<thead>
 									<tr>
@@ -141,7 +144,7 @@ MAIN CONTENT
 								<tbody>
 									<c:forEach var="user" items="${allUserList}">
 										<c:choose>
-											<c:when test="${user.enabled == 0}">
+											<c:when test="${user.enabled == 0 or user.enabled == -1}">
 												<tr class="danger">
 											</c:when>
 											<c:when test="${user.expired eq 'Y'}">
@@ -164,23 +167,26 @@ MAIN CONTENT
 										<td>${user.uemail}</td>
 										<td>${user.uregdate}</td>
 										<c:choose>
-											<c:when test="${user.enabled == 0}">
-												<td class="admit"><a class="label label-warning"
-													alt="${user.uno}">미승인</a></td>
+											<c:when test="${user.enabled == 0 or user.enabled == -1}">
+												<td class="admit">
+													<input type="hidden" value="${user.enabled}">
+													<a class="label label-warning" alt="${user.uno}" data-toggle="modal" data-target="#myModal2">미승인</a>
+													<input type="hidden" value="${user.uemail}">
+												</td>
 											</c:when>
 											<c:otherwise>
 												<td class="deny"><a class="label label-success"
-													alt="${user.uno}">승인</a></td>
+													alt="${user.uno}" data-toggle="modal" data-target="#myModal3">승인</a></td>
 											</c:otherwise>
 										</c:choose>
 										<c:choose>
 											<c:when test="${user.expired eq 'Y'}">
 												<td class="reco"><a class="label label-info"
-													alt="${user.uno}">Y</a></td>
+													alt="${user.uno}" data-toggle="modal" data-target="#myModal4">Y</a></td>
 											</c:when>
 											<c:otherwise>
 												<td class="del"><a class="label label-danger"
-													alt="${user.uno}">N</a></td>
+													alt="${user.uno}" data-toggle="modal" data-target="#myModal">N</a></td>
 											</c:otherwise>
 										</c:choose>
 										<td class="getUserNo"><a href="#"
@@ -190,18 +196,18 @@ MAIN CONTENT
 								</tbody>
 							</table>
 							<div style="margin-bottom: 10px; float: right;">
-								<button class="btn btn-theme03" onclick="recoverList()">
+								<button type="button" class="btn btn-theme03" onclick="recoverList()">
 									선택 회원<br>복구 처리
 								</button>
-								<button class="btn btn-theme04" onclick="delList()">
+								<button type="button" class="btn btn-theme04" onclick="delList()">
 									선택 회원<br>탈퇴 처리
 								</button>
 							</div>
 							<div style="float: left;">
-								<button class="btn btn-theme03" onclick="admitList()">
+								<button type="button" class="btn btn-theme03" onclick="admitList()">
 									선택 회원<br>가입 승인
 								</button>
-								<button class="btn btn-theme04" onclick="denyList()">
+								<button type="button" class="btn btn-theme04" onclick="denyList()">
 									선택 회원<br>가입 거절
 								</button>
 							</div>
@@ -296,6 +302,181 @@ MAIN CONTENT
 		</div>
 	</section>
 </section>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>해당 회원을 탈퇴 처리 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>해당 회원을 가입 승인 처리 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>해당 회원을 가입 거절 처리 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn3" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal4 -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>해당 회원을 복구 처리 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn4" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal5 -->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>탈퇴 처리 할 유저를 선택하세요.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal6 -->
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>가입 승인 할 유저를 선택하세요.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal7 -->
+<div class="modal fade" id="myModal7" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>가입 거절 할 유저를 선택하세요.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal8 -->
+<div class="modal fade" id="myModal8" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>탈퇴 복구 할 유저를 선택하세요.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript">
@@ -382,37 +563,39 @@ $(function() {
 	$('.del > a').bind('click', function() {
 		console.log($(this).attr('alt'));
 		$('#uno').val($(this).attr('alt'));
-		if (confirm("정말로 해당 회원을 탈퇴 처리 하시겠습니까?")) {
+		$('#okBtn').click(function() {
 			f.action = "/admin/users/delete";
 			f.submit();
-		}
+		});
 	});
 	
 	$('.admit > a').bind('click', function() {
 		console.log($(this).attr('alt'));
 		$('#uno').val($(this).attr('alt'));
-		if (confirm("해당 회원을 가입 승인 처리 하시겠습니까?")) {
+		$('#enabledValue').val($(this).prev().val());
+		$('#emailForAdmit').val($(this).next().val());
+		$('#okBtn2').click(function() {
 			f.action = "/admin/users/admit";
 			f.submit();
-		}
+		});
 	});
 	
 	$('.deny > a').bind('click', function() {
 		console.log($(this).attr('alt'));
 		$('#uno').val($(this).attr('alt'));
-		if (confirm("해당 회원을 가입 거절 처리 하시겠습니까?")) {
+		$('#okBtn3').click(function() {
 			f.action = "/admin/users/deny";
 			f.submit();
-		}
+		});
 	});
 	
 	$('.reco > a').bind('click', function() {
 		console.log($(this).attr('alt'));
 		$('#uno').val($(this).attr('alt'));
-		if (confirm("정말로 해당 회원을 복구 처리 하시겠습니까?")) {
+		$('#okBtn4').click(function() {
 			f.action = "/admin/users/recover";
 			f.submit();
-		}
+		});
 	});
 	
 	$('.getUserName > a').bind('click', function() {
@@ -498,13 +681,13 @@ $(function() {
 		}
 
 		if (items == "") {
-			alert("탈퇴 처리 할 유저를 선택하세요.");
-			return false;
-		}
-
-		if (confirm("정말로 해당 회원을 탈퇴 처리 하시겠습니까?")) {
-			f.action = "/admin/users/delete";
-			f.submit();
+			$('#myModal5').modal('show');
+		} else {
+			$('#myModal').modal('show');
+			$('#okBtn').click(function() {
+				f.action = "/admin/users/delete";
+				f.submit();
+			});
 		}
 	}
 
@@ -527,13 +710,13 @@ $(function() {
 		}
 
 		if (items == "") {
-			alert("가입 승인 처리 할 유저를 선택하세요.");
-			return false;
-		}
-
-		if (confirm("해당 회원을 가입 승인 처리 하시겠습니까?")) {
-			f.action = "/admin/users/admit";
-			f.submit();
+			$('#myModal6').modal('show');
+		} else {
+			$('#myModal2').modal('show');
+			$('#okBtn2').click(function() {
+				f.action = "/admin/users/admit";
+				f.submit();
+			});
 		}
 	}
 
@@ -556,13 +739,13 @@ $(function() {
 		}
 
 		if (items == "") {
-			alert("가입 거절 처리 할 유저를 선택하세요.");
-			return false;
-		}
-
-		if (confirm("해당 회원을 가입 거절 처리 하시겠습니까?")) {
-			f.action = "/admin/users/deny";
-			f.submit();
+			$('#myModal7').modal('show');
+		} else {
+			$('#myModal3').modal('show');
+			$('#okBtn3').click(function() {
+				f.action = "/admin/users/deny";
+				f.submit();
+			});
 		}
 	}
 
@@ -585,13 +768,13 @@ $(function() {
 		}
 
 		if (items == "") {
-			alert("탈퇴 복구할 유저를 선택하세요.");
-			return false;
-		}
-
-		if (confirm("해당 회원을 탈퇴 복구 하시겠습니까?")) {
-			f.action = "/admin/users/recover";
-			f.submit();
+			$('#myModal8').modal('show');
+		} else {
+			$('#myModal4').modal('show');
+			$('#okBtn4').click(function() {
+				f.action = "/admin/users/recover";
+				f.submit();
+			});
 		}
 	}
 </script>

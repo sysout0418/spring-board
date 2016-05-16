@@ -16,7 +16,7 @@
 
 <!-- validation -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/form-validation/additional-methods.min.js" />"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="<c:url value="/resources/javascript/form-validation/jquery.validate.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/form-validation/messages_ko.min.js" />"></script>
 
 <!-- js placed at the end of the document so the pages load faster -->

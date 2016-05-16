@@ -106,7 +106,7 @@ a.cbtn:hover {
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">이미 탈퇴한 회원입니다. 관리자에게 문의하세요.</div>
+			<div class="modal-body">가입 승인되지 않은 ID 입니다.<br>관리자 가입 승인 후 사용 가능합니다.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
@@ -124,7 +124,7 @@ a.cbtn:hover {
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">LOGIN FAILED</h4>
 			</div>
-			<div class="modal-body">가입 승인되지 않은 ID 입니다. 관리자에게 문의하세요.</div>
+			<div class="modal-body">이미 탈퇴한 회원입니다. 관리자에게 문의하세요.</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
@@ -168,10 +168,29 @@ a.cbtn:hover {
 	</div>
 </div>
 
+<!-- Modal5 -->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">GO LOGIN</h4>
+			</div>
+			<div class="modal-body">이미 Facebook E-Mail로 가입하셨습니다. 로그인 하세요!</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div id="login-page">
 	<div class="container">
 		<c:url value="/login" var="login" />
 		<form id="frm" name="frm" method="post" class="form-login">
+			<input type="hidden" name="scope" value="user_posts" />
 			<c:choose>
 				<c:when test="${param.error1 != null}">
 					<script type="text/javascript">
@@ -205,11 +224,19 @@ a.cbtn:hover {
 						});
 					</script>
 				</c:when>
+				<c:when test="${param.error5 != null}">
+					<script type="text/javascript">
+						// 이미 facebook으로 가입한 경우
+						$(document).ready(function() {
+							$('#myModal5').modal('show');
+						});
+					</script>
+				</c:when>
 			</c:choose>
 			<h2 class="form-login-heading">sign in now</h2>
 			<div class="login-wrap">
 				<input type="text" id="uemail" name="uemail" class="form-control"
-					placeholder="Email Address" required="required" autofocus> <br> 
+					placeholder="Email Address" required="required" autofocus <c:if test="${!empty facebookEmail}"> value="${facebookEmail}"</c:if>> <br> 
 					<input type="password" id="upassword" name="upassword"
 					class="form-control" placeholder="Password" required="required"> <label
 					class="checkbox"> <span class="pull-right"> <a
@@ -283,7 +310,7 @@ a.cbtn:hover {
 		});
 		
 		$('#goFacebookLogin').click(function() {
-			f.action = "/signin/facebook";
+			f.action = "/login/facebook";
 			f.submit();
 		});
 	});

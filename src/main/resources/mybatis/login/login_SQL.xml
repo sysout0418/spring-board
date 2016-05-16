@@ -84,4 +84,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE uemail=#{email}
 	]]>
 	</update>
+	
+	<select id="getUserInfoByEmail" parameterType="String" resultType="Map">
+    <![CDATA[
+	SELECT * FROM User
+	WHERE uemail = #{uemail}
+    ]]>  
+    </select>
 </mapper>
