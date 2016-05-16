@@ -54,6 +54,8 @@
 								name="requestUserNoList" value="">
 							<input type="hidden" id="requestUserNameList"
 								name="requestUserNameList" value="">
+							<input type="hidden" id="pAmount"
+								name="pAmount" value="0">
 							<table class="table">
 								<tr>
 									<td colspan="2"
@@ -61,7 +63,7 @@
 										class="active">프로젝트 명</td>
 									<td style="width: 300px" colspan="2"><form:input
 											path="pname" class="form-control" name="projectName"
-											required="required" maxlength="20" /></td>
+											required="required" maxlength="100" /></td>
 								</tr>
 								<tr>
 									<td rowspan="3"
@@ -91,6 +93,41 @@
 									<td colspan="2"><form:textarea path="pdetail"
 											cssClass="form-control" cssStyle="height:400px"
 											name="projectContent" required="required" /></td>
+								</tr>
+								<tr>
+									<td colspan="2" class="active"
+										style="vertical-align: middle; text-align: center;">수주 금액</td>
+									<td>
+										<div>
+											<div class="radio">
+												<span>단위&nbsp;&nbsp;&nbsp;</span>
+												
+												<label>
+													<input type="radio" name="optionsRadios" id="radio1" value="원" checked="">
+													<span>없음&nbsp;&nbsp;&nbsp;</span>
+												</label>
+												<label>
+													<input type="radio" name="optionsRadios" id="radio2" value="만">
+													<span>만&nbsp;&nbsp;&nbsp;</span>
+												</label>
+												<label>
+													<input type="radio" name="optionsRadios" id="radio3" value="억">
+													<span>억&nbsp;&nbsp;&nbsp;</span>
+												</label>
+												
+											</div>
+										</div>
+										<div>
+											<input type="text" id="pAmount2" name="pAmount2" value="" onkeyup="separator()" maxlength="19" required="required">
+											<span id="unit">원</span>&nbsp;&nbsp;&nbsp;
+											<button type="button" id="10" class="btn btn-default btn-xs">+10</button>&nbsp;
+											<button type="button" id="50" class="btn btn-default btn-xs">+50</button>&nbsp;
+											<button type="button" id="100" class="btn btn-default btn-xs">+100</button>&nbsp;
+											<button type="button" id="500" class="btn btn-default btn-xs">+500</button>&nbsp;
+											<button type="button" id="1000" class="btn btn-default btn-xs">+1000</button>&nbsp;
+											<button type="button" id="eraser" class="btn btn-default btn-xs">초기화</button>
+										</div>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="2" class="active"
@@ -537,6 +574,8 @@
 							</table>
 							<input class="btn btn-warning" type="submit" id="submit"
 								value="Create Project">
+							<!-- <input class="btn btn-warning" type="button" id="test"
+								value="test"> -->
 						</form:form>
 					</div>
 				</div>
@@ -696,4 +735,138 @@
 		//alert(rowName);
 		//alert(rowId);
 	}
+	
+	function separator() {
+		var amount = $('#pAmount2').val();
+		amount.replaceAll(",", "");
+		$('#pAmount2').val(Number(amount.replaceAll(",", "")).toLocaleString());
+	}
+	
+	// replaceAll prototype 선언
+	String.prototype.replaceAll = function(org, dest) {
+	    return this.split(org).join(dest);
+	}
+
+	// replaceAll 사용
+	/* var str = "Hello World";
+	str = str.replaceAll("o","*");
+	alert(str); */
+	
+	$(document).ready(function() {
+		$('#radio1').click(function() {
+			console.log($(this).val());
+			var val = $(this).val();
+			$('#unit').text(val);
+		});
+		
+		$('#radio2').click(function() {
+			console.log($(this).val());
+			var val = $(this).val();
+			$('#unit').text(val);
+		});
+		
+		$('#radio3').click(function() {
+			console.log($(this).val());
+			var val = $(this).val();
+			$('#unit').text(val);
+		});
+		
+		$('#10').click(function() {
+			var ten = 10;
+			if ($('#pAmount2').val() == '') {
+				$('#pAmount2').val(ten);
+				separator();
+			} else if ($('#pAmount2').val() != '') {
+				var nowVal = $('#pAmount2').val();
+				$('#pAmount2').val('');
+				var calculateVal = Number(nowVal.replaceAll(",", "")) + ten;
+				console.log(calculateVal);
+				$('#pAmount2').val(calculateVal);
+				separator();
+			}
+		});
+		
+		$('#50').click(function() {
+			var fifty = 50;
+			if ($('#pAmount2').val() == '') {
+				$('#pAmount2').val(fifty);
+				separator();
+			} else if ($('#pAmount2').val() != '') {
+				var nowVal = $('#pAmount2').val();
+				$('#pAmount2').val('');
+				var calculateVal = Number(nowVal.replaceAll(",", "")) + fifty;
+				console.log(calculateVal);
+				$('#pAmount2').val(calculateVal);
+				separator();
+			}
+		});
+		
+		$('#100').click(function() {
+			var hundred = 100;
+			if ($('#pAmount2').val() == '') {
+				$('#pAmount2').val(hundred);
+				separator();
+			} else if ($('#pAmount2').val() != '') {
+				var nowVal = $('#pAmount2').val();
+				$('#pAmount2').val('');
+				var calculateVal = Number(nowVal.replaceAll(",", "")) + hundred;
+				console.log(calculateVal);
+				$('#pAmount2').val(calculateVal);
+				separator();
+			}
+		});
+		
+		$('#500').click(function() {
+			var fiveHundred = 500;
+			if ($('#pAmount2').val() == '') {
+				$('#pAmount2').val(fiveHundred);
+				separator();
+			} else if ($('#pAmount2').val() != '') {
+				var nowVal = $('#pAmount2').val();
+				$('#pAmount2').val('');
+				var calculateVal = Number(nowVal.replaceAll(",", "")) + fiveHundred;
+				console.log(calculateVal);
+				$('#pAmount2').val(calculateVal);
+				separator();
+			}
+		});
+		
+		$('#1000').click(function() {
+			var thousand = 1000;
+			if ($('#pAmount2').val() == '') {
+				$('#pAmount2').val(thousand);
+				separator();
+			} else if ($('#pAmount2').val() != '') {
+				var nowVal = $('#pAmount2').val();
+				$('#pAmount2').val('');
+				var calculateVal = Number(nowVal.replaceAll(",", "")) + thousand;
+				console.log(calculateVal);
+				$('#pAmount2').val(calculateVal);
+				separator();
+			}
+		});
+		
+		$('#eraser').click(function() {
+			$('#pAmount2').val('');
+		});
+		
+		$('#submit').click(function() {
+			var status = $('#unit').text();
+			var amount = $('#pAmount2').val();
+			var realAmount = '';
+			console.log(status);
+			console.log(amount);
+			if (status == '원') {
+				realAmount = amount.replaceAll(",", "");
+			} else if (status == '만') {
+				realAmount = amount.replaceAll(",", "") + "0000";
+			} else if (status == '억') {
+				realAmount = amount.replaceAll(",", "") + "00000000";
+			}
+			console.log(Number(realAmount));
+			console.log(Number(realAmount).toLocaleString());
+			
+			$('#pAmount').val(Number(realAmount).toLocaleString());
+		});
+	});
 </script>

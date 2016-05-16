@@ -409,12 +409,12 @@ MAIN CONTENT
         });
         
         // li onclick 때문에 체크박스 이벤트 안먹는 현상 해결하는 자바스크립트
-        $("#liEvent").click(function(event) {
+        $(document).on('click', '#liEvent', function() {
     		if (event.target.type == 'checkbox')
     			return;
-    		
-    		location.href = $("#liEvent").attr('alt');
-    	});
+
+    		location.href = $(this).attr('alt');
+        });
         
       });
 	/* $(document).ready(function() {

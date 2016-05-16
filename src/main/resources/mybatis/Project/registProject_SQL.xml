@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,pregdate
 		  ,pduedate
 		  ,uno
+		  ,pamount
 		) VALUES (
 		  #{pname}
 		  ,#{pdetail}
@@ -20,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,NOW()
 		  ,#{pduedate}
 		  ,#{uno}
+		  ,#{pAmount}
 		)
     ]]>  
     </insert>

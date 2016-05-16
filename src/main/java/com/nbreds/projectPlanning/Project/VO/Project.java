@@ -24,6 +24,8 @@ public class Project {
 	private String pskill="";
 	private boolean isExpired;
 	
+	private String pAmount;
+	
 	public void setPno(int pno) {
 		this.pno = pno;
 	}
@@ -131,6 +133,12 @@ public class Project {
 	}
 	public void setIsExpired(boolean isExpired) {
 		this.isExpired = isExpired;
+	}
+	public String getpAmount() {
+		return pAmount;
+	}
+	public void setpAmount(String pAmount) {
+		this.pAmount = pAmount;
 	}
 	
 }

@@ -53,6 +53,7 @@ public class RegistController {
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
 		String requestedUserNoList = request.getParameter("requestUserNoList");
 		registService.savePrjAndPrjMS(project, requestedUserNoList);
+		logger.info("pAmount : " + project.getpAmount());
 		
 		return "redirect:/";
 	}

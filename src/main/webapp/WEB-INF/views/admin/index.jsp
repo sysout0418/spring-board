@@ -44,7 +44,7 @@ MAIN CONTENT
 								<tbody>
 									<c:forEach items="${user}" var="user">
 										<tr>
-											<td>${user.rownum1}</td>
+											<td>${user.rownum}</td>
 											<td>${user.uname}</td>
 											<td>${user.uphoneno}</td>
 											<td>${user.udepartment}</td>
@@ -88,7 +88,7 @@ MAIN CONTENT
 							<tbody>
 								<c:forEach items="${project}" var="project">
 									<tr>
-										<td>${project.rownum2}</td>
+										<td>${project.rownum}</td>
 										<td>${project.pname}</td>
 										<td>${project.pregdate}</td>
 										<td>${project.pduedate}</td>
