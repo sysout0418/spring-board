@@ -14,16 +14,12 @@
 MAIN CONTENT
 *********************************************************************************************************************************************************** -->
 <section id="main-content">
-	<section class="wrapper site-min-height">
-		<h3>
+	<section class="wrapper">
+	<div class="row">
+		<div class="col-lg-9 main-chart">
+			<h3>
 			<i class="fa fa-angle-right"></i> Profile Settings
 		</h3>
-
-		<div class="col-lg-12">
-			<div class="row">
-				<div class="col-lg-9 main-chart">
-					<!-- BASIC FORM ELELEMNTS -->
-					<div class="col-lg-12">
 						<!-- /row -->
 						<div class="row">
 							<div class="col-lg-12">
@@ -131,30 +127,32 @@ MAIN CONTENT
 						</div>
 						<!-- /row -->
 					</div>
-				</div>
-				<!-- /row -->
-				<div class="col-lg-3 ds" style="position: absolute; right: -15px;">
+					<div class="col-lg-3 ds">
 					<!--COMPLETED ACTIONS DONUTS CHART-->
 					<h3>USER PROFILE</h3>
 					<br>
+					<table class="table" style="border: #fff solid;">
+					<tr><td>
 					<div class="user-img">
 						<div class="img"
 							style="background-color: ${userInfo.profileBgColor}; width: 160px; height: 160px; line-height: 160px;">
 							<span style="font-size: 15px; color: #E8E8E8;">${userInfo.theFirstLetterOfEmail}</span>
 						</div>
 					</div>
-					<div style="width: 150px; position: absolute; top: 100px; right: 50px;">
-						<h2>${userInfo.uname}</h2>
-						<i class="fa fa-map-marker" aria-hidden="true"></i>
-						${userInfo.udepartment}
-						<div style="height: 6px"></div>
-						<i class="fa fa-sitemap" aria-hidden="true"></i>
-						${userInfo.uphoneno}
-						<div style="height: 6px"></div>
-						<i class="fa fa-envelope-o" aria-hidden="true"></i>
-						${userInfo.uemail} <br> <br>
-					</div>
-
+					</td><td>
+					<div>
+							<h2>${userInfo.uname}</h2>
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+							${userInfo.udepartment}
+							<div style="height: 6px"></div>
+							<i class="fa fa-sitemap" aria-hidden="true"></i>
+							${userInfo.uphoneno}
+							<div style="height: 6px"></div>
+							<i class="fa fa-envelope-o" aria-hidden="true"></i>
+							${userInfo.uemail} <br> <br>
+						</div>
+					</td></tr>
+						</table>
 					<!-- CALENDAR-->
 					<div id="calendar" class="mb" style="margin-top: 20px;">
 						<div class="panel green-panel no-margin">
@@ -171,8 +169,8 @@ MAIN CONTENT
 					<!-- / calendar -->
 
 				</div>
-			</div>
-		</div>
+				</div>
+				<!-- /row -->
 		<!-- /row -->
 	</section>
 </section>
