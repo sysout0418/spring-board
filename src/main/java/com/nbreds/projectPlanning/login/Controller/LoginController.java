@@ -49,7 +49,7 @@ public class LoginController {
 	@Autowired
 	private OAuth2Parameters oAuth2Parameters;
 	
-	private String redirectUri = "http://localhost:8181/checkFacebookId";
+	private String redirectUri = "http://bidding.nbreds.com/checkFacebookId";
 
 	public String getAuthorizeUrl() {
 		OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();

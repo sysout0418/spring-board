@@ -64,7 +64,6 @@ rel="stylesheet" type="text/css" />
 <style>
 .content-panel {
 	padding: 30px;
-	margin: 0px 30px 0px 30px;
 }
 
 </style>

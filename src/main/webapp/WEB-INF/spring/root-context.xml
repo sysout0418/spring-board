@@ -45,7 +45,7 @@
 
 	<bean id="oAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
 		<property name="scope" value="email"/>
-		<property name="redirectUri" value="http://localhost:8181/checkFacebookId"/>
+		<property name="redirectUri" value="http://bidding.nbreds.com/checkFacebookId"/>
 	</bean>
 
 </beans>
