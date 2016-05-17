@@ -1,5 +1,8 @@
 package com.nbreds.projectPlanning.milestones.Controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -327,29 +331,33 @@ public class MilestonesController {
 	@RequestMapping(value = "dataLoad", method = RequestMethod.POST)
 	@ResponseBody
 	public List<HashMap<String, Object>> dataLoad(HttpSession session, String startdate, String endDate, String pno){
-		List<HashMap<String, Object>> list = null;
+		logger.info("startDate : " + startdate);
+		logger.info("endDate : " + endDate);
+		logger.info("pno : " + pno);
+		HashMap<String, String> param = new HashMap<>();
+		
+		List<HashMap<String, Object>> list;
 		if(pno != null){
-			HashMap<String, String> param = new HashMap<>();
 			param.put("startdate", startdate);
 			param.put("endDate", endDate);
 			param.put("pno", pno);
 			
 			logger.info("param : " + param);
 			list = milestonesService.getMilestonesDataByPno(param);
+			logger.info("list : " + list);
 		}
 		else{
 			String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
 			
 			//파라미터 생성
-			HashMap<String, String> param = new HashMap<>();
 			param.put("startdate", startdate);
 			param.put("endDate", endDate);
 			param.put("uno", uno);
 			
 			logger.info("param : " + param);
 			list = milestonesService.getMilestonesDataByUno(param);
+			logger.info("list : " + list);
 		}
-		logger.info("list : " + list);
 		return list;
 	}
 }
