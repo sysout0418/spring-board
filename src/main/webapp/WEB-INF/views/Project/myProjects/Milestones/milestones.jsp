@@ -172,12 +172,12 @@ MAIN CONTENT
 	src="<c:url value="/resources/javascript/calendar/daterangepicker.js" />"></script>
 <!-- bootstrap-daterangepicker -->
     <script>
-	    $("#trEvent").click(function(event) {
+    	$(document).on('click', '#trEvent', function() {
 			if (event.target.type == 'button')
 				return;
 			
-			location.href = $("#trEvent").attr('alt');
-		});
+			location.href = $(this).attr('alt');
+    	});
     
 	    $("#okBtn").click(function() {
 			location.href = $('#milestoneCloseBtn').attr('alt');
