@@ -163,6 +163,9 @@ MAIN CONTENT
 							<b>프로젝트 만기일</b><br /> ${project.pduedate}<br />
 						</p>
 						<p>
+							<b>수주 금액</b><br /> ${project.pamount}<br />
+						</p>
+						<p>
 							<b>담당자</b><br /> ${project.uname}<br />
 						</p>
 						<p>
