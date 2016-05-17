@@ -118,6 +118,7 @@ public class ListController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result) {
 		String requestUserNoList = request.getParameter("requestUserNoList");
+		String pAmount = request.getParameter("pAmount");
 		
 		//pdata입력
 		String pdata = "";
@@ -125,6 +126,7 @@ public class ListController {
 		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
 		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
 		project.setPdata(pdata);
+		project.setpAmount(pAmount);
 		listService.updateProject(project, requestUserNoList);
 		
 		return "redirect:/"+project.getUno()+"/"+project.getPno();

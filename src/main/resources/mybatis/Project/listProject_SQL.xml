@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getUpdateProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno, lno
+	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno, lno, pamount
 	FROM Project
 	WHERE pno= #{pno}
     ]]>  
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pdata=#{pdata},
 		pregdate=curdate(),
 		pduedate=#{pduedate},
-		pamount=#{pamount}
+		pamount=#{pAmount}
 	WHERE pno = #{pno}
 	]]> 
     </update>
