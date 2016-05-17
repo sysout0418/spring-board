@@ -328,8 +328,9 @@ MAIN CONTENT
   			data : param,
   			success : function(data2) {
   				$('#chart').empty();
+  				$('#chart').removeAttr('style');
   				var dateData = data2;
-  				console.log("datas : " + dateData.length)
+  				console.log("datas1 : " + dateData.length)
   				if (dateData.length > 0) {
 	  				new Morris.Line({
 	  					// ID of the element in which to draw the chart.
@@ -343,9 +344,10 @@ MAIN CONTENT
 	  					ykeys : [ 'value' ],
 	  					// Labels for the ykeys -- will be displayed when you hover over the
 	  					// chart.
-	  					labels : [ 'Milestones' ],
+	  					labels : [ 'Issues' ],
 	  				});
-  			} else {
+  				} else {
+  					$('#chart').empty();
   					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
   					$('#chart').append('No activity to show');
   				}
@@ -367,9 +369,12 @@ MAIN CONTENT
    			url : "/getIssueData",
    			data : param,
    			success : function(data2) {
+   				$('#chart').empty();
+   				$('#chart').removeAttr('style');
    				var dateData = data2;
-   				console.log("datas : " + dateData.length)
+   				console.log("datas2 : " + dateData.length)
    				if (dateData.length > 0) {
+   					$('#chart').empty();
 	   				new Morris.Line({
 	   					// ID of the element in which to draw the chart.
 	   					element : 'chart',
@@ -385,6 +390,7 @@ MAIN CONTENT
 	   					labels : [ 'Issues' ],
 	   				});
    				} else {
+   					$('#chart').empty();
   					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
   					$('#chart').append('No activity to show');
   				}

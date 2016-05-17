@@ -187,6 +187,7 @@ MAIN CONTENT
   			data : param,
   			success : function(data2) {
   				$('#chart').empty();
+  				$('#chart').removeAttr('style');
   				var dateData = data2;
   				console.log("datas : " + dateData.length)
   				if (dateData.length > 0) {
@@ -205,6 +206,7 @@ MAIN CONTENT
 	  					labels : [ 'Milestones' ],
 	  				});
   				} else {
+  					$('#chart').empty();
   					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
   					$('#chart').append('No activity to show');
   				}
@@ -225,6 +227,8 @@ MAIN CONTENT
    			url : "/dataLoad",
    			data : param,
    			success : function(data2) {
+   				$('#chart').empty();
+   				$('#chart').removeAttr('style');
    				var dateData = data2;
    				console.log("datas : " + dateData.length)
    				if (dateData.length > 0) {
@@ -243,6 +247,7 @@ MAIN CONTENT
 	   					labels : [ 'Milestones' ],
 	   				});
    				} else {
+   					$('#chart').empty();
   					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
   					$('#chart').append('No activity to show');
   				}
