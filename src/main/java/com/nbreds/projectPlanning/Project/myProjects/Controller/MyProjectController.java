@@ -56,6 +56,18 @@ public class MyProjectController {
 		List<HashMap<String, Object>> activities = myProjectService.getActivityByPno(pno);
 		model.addAttribute("activity", activities);
 		
+		// 수주금액 n빵 계산
+		String pAmount = (String) project.get("pamount");
+		int pAmount2 = Integer.parseInt(pAmount.replaceAll(",", ""));
+		int reqeustMemberCnt = request.size() + 1;
+		int divideAmount = pAmount2 / reqeustMemberCnt;
+		logger.info("pAmount : " + pAmount2);
+		logger.info("reqeustMemberCnt : " + reqeustMemberCnt);
+		String divideAmount2 = String.format("%,d", divideAmount);
+		logger.info("divideAmount : " + divideAmount2);
+		// n빵한 금액
+		model.addAttribute("divideAmount", divideAmount2);
+		
 		model.addAttribute("countAllMilestone", countAllMilestone);
 		model.addAttribute("countAllIssue", myProjectService.getcountAllIssue(pno));
 		model.addAttribute("project", project);

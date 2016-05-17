@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, U.uname, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor, CA.CODE_NAME AS udepartment, L.ltitle, L.lbgcolor
+	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, pamount, U.uname, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor, CA.CODE_NAME AS udepartment, L.ltitle, L.lbgcolor
 	FROM Project P
 	LEFT JOIN User U ON P.uno = U.uno
 	LEFT JOIN Label L ON P.lno = L.lno
