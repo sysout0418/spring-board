@@ -10,7 +10,7 @@
 <style>
 #unstarted1, #unstarted2, #completed {
 	border: 1px solid #eee;
-	width: 400px;
+	width: 330px;
 	min-height: 20px;
 	list-style-type: none;
 	margin: 0px 0px 0px 5px;
@@ -22,7 +22,7 @@
 	margin: 0 5px 5px 5px;
 	padding: 8px;
 	font-size: 0.9em;
-	width: 390px;
+	width: 340px;
 	height: 35px;
 }
 </style>

@@ -122,7 +122,7 @@ MAIN CONTENT
 							</c:if>
 							<c:if test="${list != 'none'}">
 								<c:forEach var="milestone" items="${list}">
-									<tr	id="trEvent" alt="/${uno}/${pno}/milestone/${milestone.mno}" style="cursor: pointer;">
+									<tr id="trEvent" alt="/${uno}/${pno}/milestone/${milestone.mno}" style="cursor: pointer;">
 										<td
 											<c:if test="${milestone.mstatement == '001'}"> style="background-color : #f9f9f9"</c:if>>
 											<a href="/${uno}/${pno}/milestone/${milestone.mno}">${milestone.mtitle}</a><br />

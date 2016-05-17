@@ -95,9 +95,9 @@ TOP BAR CONTENT & NOTIFICATIONS
 						<li><a href="/requestProject/requested">See all messages</a></li>
 					</ul></li>
 				<!-- inbox dropdown end -->
-				<!--
+				<!-- 
 				<li style="color: #fff; font-size: 18px">우리는 N빵을 지향합니다.</li>
-				 -->
+				  -->
 			</ul>
 			<!--  notification end -->
 		</div>
