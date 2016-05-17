@@ -201,7 +201,6 @@ MAIN CONTENT
 			<div class="col-lg-3 ds">
 				<h3>PROJECT DESCRIPTION</h3>
 				<div class="desc">
-					<div class="details">
 						<h4 class="green">
 							<i class="fa fa-paint-brush"></i> ${project.pname}
 						</h4>
@@ -235,7 +234,6 @@ MAIN CONTENT
 								alt="/DeleteProject?pno=${project.pno}" id="projectDelBtn"
 								data-toggle="modal" data-target="#myModal">DELETE</a>
 						</sec:authorize>
-					</div>
 				</div>
 				<!-- USERS ONLINE SECTION -->
 				<h3>TEAM MEMBERS</h3>

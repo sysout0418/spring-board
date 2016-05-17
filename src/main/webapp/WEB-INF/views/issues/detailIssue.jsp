@@ -304,7 +304,6 @@ MAIN CONTENT
 			<h3>ISSUE DESCRIPTION</h3>
 
 			<div class="desc">
-					<div class="details">
 						<h4 class="green">
 							<i class="fa fa-paint-brush"></i> ${issues.ititle}
 						</h4>
@@ -323,7 +322,6 @@ MAIN CONTENT
 							<b>담당자</b><br> ${issues.uname}<br>
 						</p>
 						<span class="label label-default" style="background-color: ${issues.lbgcolor};">${issues.ltitle}</span><br><br>
-					</div>
 				</div>
 
 							<!-- CALENDAR-->
