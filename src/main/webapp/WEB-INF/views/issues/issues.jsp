@@ -285,24 +285,26 @@ $(document).ready(function() {
 			data : param,
 			success : function(data2) {
 				$('#chart').empty();
+				$('#chart').removeAttr('style');
 				var dateData = data2;
 				console.log("datas : " + dateData.length)
 				if (dateData.length > 0) {
-  				new Morris.Line({
-  					// ID of the element in which to draw the chart.
-  					element : 'chart',
-  					// Chart data records -- each entry in this array corresponds to a point on
-  					// the chart.
-  					data : dateData,
-  					// The name of the data record attribute that contains x-values.
-  					xkey : 'date',
-  					// A list of names of data record attributes that contain y-values.
-  					ykeys : [ 'value' ],
-  					// Labels for the ykeys -- will be displayed when you hover over the
-  					// chart.
-  					labels : [ 'Milestones' ],
-  				});
-			} else {
+	  				new Morris.Line({
+	  					// ID of the element in which to draw the chart.
+	  					element : 'chart',
+	  					// Chart data records -- each entry in this array corresponds to a point on
+	  					// the chart.
+	  					data : dateData,
+	  					// The name of the data record attribute that contains x-values.
+	  					xkey : 'date',
+	  					// A list of names of data record attributes that contain y-values.
+	  					ykeys : [ 'value' ],
+	  					// Labels for the ykeys -- will be displayed when you hover over the
+	  					// chart.
+	  					labels : [ 'Issues' ],
+	  				});
+				} else {
+					$('#chart').empty();
 					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
 					$('#chart').append('No activity to show');
 				}
@@ -323,24 +325,27 @@ $(document).ready(function() {
 			url : "/getIssueData",
 			data : param,
 			success : function(data2) {
+				$('#chart').empty();
+				$('#chart').removeAttr('style');
 				var dateData = data2;
 				console.log("datas : " + dateData.length)
 				if (dateData.length > 0) {
-   				new Morris.Line({
-   					// ID of the element in which to draw the chart.
-   					element : 'chart',
-   					// Chart data records -- each entry in this array corresponds to a point on
-   					// the chart.
-   					data : dateData,
-   					// The name of the data record attribute that contains x-values.
-   					xkey : 'date',
-   					// A list of names of data record attributes that contain y-values.
-   					ykeys : [ 'value' ],
-   					// Labels for the ykeys -- will be displayed when you hover over the
-   					// chart.
-   					labels : [ 'Issues' ],
-   				});
+	   				new Morris.Line({
+	   					// ID of the element in which to draw the chart.
+	   					element : 'chart',
+	   					// Chart data records -- each entry in this array corresponds to a point on
+	   					// the chart.
+	   					data : dateData,
+	   					// The name of the data record attribute that contains x-values.
+	   					xkey : 'date',
+	   					// A list of names of data record attributes that contain y-values.
+	   					ykeys : [ 'value' ],
+	   					// Labels for the ykeys -- will be displayed when you hover over the
+	   					// chart.
+	   					labels : [ 'Issues' ],
+	   				});
 				} else {
+					$('#chart').empty();
 					$('#chart').attr("style", "height: 250px; text-align: center; line-height:250px");
 					$('#chart').append('No activity to show');
 				}
