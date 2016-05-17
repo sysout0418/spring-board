@@ -126,7 +126,7 @@ public class ListController {
 		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
 		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
 		project.setPdata(pdata);
-		project.setpAmount(pAmount);
+		project.setPamount(pAmount);
 		listService.updateProject(project, requestUserNoList);
 		
 		return "redirect:/"+project.getUno()+"/"+project.getPno();

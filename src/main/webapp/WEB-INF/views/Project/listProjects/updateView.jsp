@@ -77,7 +77,7 @@ MAIN CONTENT
 							<input type="hidden" id="requestUserNameList"
 								name="requestUserNameList" value="<%=userNames%>">
 							<input type="hidden" id="pAmount"
-								name="pAmount" value="${project.pAmount}">
+								name="pAmount" value="${project.pamount}">
 							<table class="table">
 								<tr>
 									<td colspan="2"
@@ -146,7 +146,7 @@ MAIN CONTENT
 													value="0"
 												</c:when>
 												<c:otherwise>
-													value="${project.pAmount}"
+													value="${project.pamount}"
 												</c:otherwise>
 											</c:choose> onkeyup="separator()" maxlength="19" required="required">
 											<span id="unit">원</span>&nbsp;&nbsp;&nbsp;

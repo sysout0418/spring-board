@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pdata=#{pdata},
 		pregdate=curdate(),
 		pduedate=#{pduedate},
-		pamount=#{pAmount}
+		pamount=#{pamount}
 	WHERE pno = #{pno}
 	]]> 
     </update>
