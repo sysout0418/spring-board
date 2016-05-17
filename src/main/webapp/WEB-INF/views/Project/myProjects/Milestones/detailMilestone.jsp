@@ -8,6 +8,13 @@
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_project.jsp" />
 <style>
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+	background-color: #2a3f54 !important;
+	text-align: center;
+	color : #eee
+}
 #unstarted1, #unstarted2, #completed {
 	border: 1px solid #eee;
 	width: 330px;
@@ -22,7 +29,7 @@
 	margin: 0 5px 5px 5px;
 	padding: 8px;
 	font-size: 0.9em;
-	width: 340px;
+	width: 320px;
 	height: 35px;
 }
 </style>
