@@ -21,6 +21,7 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Controller
 public class RegistController {
@@ -34,9 +35,10 @@ public class RegistController {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
 		HashMap<String, Object> user = registService.getUserForNo(uno);
 		List<User> allUserList = registService.getAllUser();
-		
+		List<Label> allLabelList = registService.getAllLabel();
 		model.addAttribute("user", user);
 		model.addAttribute("allUserList", allUserList);
+		model.addAttribute("labels", allLabelList);
 		
 		return "Project/registProject/registProject";
 	}
@@ -46,11 +48,13 @@ public class RegistController {
 			HttpServletRequest request, HttpSession session) {
 		String pdata = "";
 		String pAmount = request.getParameter("pAmount");
+		String lno = request.getParameter("lno");
 		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
 		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
 		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
 		project.setPdata(pdata);
 		project.setPamount(pAmount);
+		project.setLno(Integer.parseInt(lno));
 		
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
 		String requestedUserNoList = request.getParameter("requestUserNoList");

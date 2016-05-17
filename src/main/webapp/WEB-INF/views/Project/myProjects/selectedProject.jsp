@@ -302,9 +302,12 @@ MAIN CONTENT
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="application/javascript">
 	
+	$(document).on('click', '#projectDelBtn', function() {
+		var delUrl = $(this).attr('alt');
 		$("#okBtn").click(function() {
-			location.href = $('#projectDelBtn').attr('alt');
+			location.href = delUrl;
 		});
+	});
 	
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});

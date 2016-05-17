@@ -54,8 +54,8 @@
 								name="requestUserNoList" value="">
 							<input type="hidden" id="requestUserNameList"
 								name="requestUserNameList" value="">
-							<input type="hidden" id="pAmount"
-								name="pAmount" value="0">
+							<input type="hidden" id="pAmount" name="pAmount" value="0">
+							<input type="hidden" id="lno" name="lno" value="2">
 							<table class="table">
 								<tr>
 									<td colspan="2"
@@ -100,33 +100,53 @@
 									<td>
 										<div>
 											<div class="radio">
-												<span>단위&nbsp;&nbsp;&nbsp;</span>
-												
-												<label>
-													<input type="radio" name="optionsRadios" id="radio1" value="원" checked="">
-													<span>없음&nbsp;&nbsp;&nbsp;</span>
+												<span>단위&nbsp;&nbsp;&nbsp;</span> <label> <input
+													type="radio" name="optionsRadios" id="radio1" value="원"
+													checked=""> <span>없음&nbsp;&nbsp;&nbsp;</span>
+												</label> <label> <input type="radio" name="optionsRadios"
+													id="radio2" value="만"> <span>만&nbsp;&nbsp;&nbsp;</span>
+												</label> <label> <input type="radio" name="optionsRadios"
+													id="radio3" value="억"> <span>억&nbsp;&nbsp;&nbsp;</span>
 												</label>
-												<label>
-													<input type="radio" name="optionsRadios" id="radio2" value="만">
-													<span>만&nbsp;&nbsp;&nbsp;</span>
-												</label>
-												<label>
-													<input type="radio" name="optionsRadios" id="radio3" value="억">
-													<span>억&nbsp;&nbsp;&nbsp;</span>
-												</label>
-												
+
 											</div>
 										</div>
 										<div>
-											<input type="text" id="pAmount2" name="pAmount2" value="" onkeyup="separator()" maxlength="19" required="required">
+											<input type="text" id="pAmount2" name="pAmount2" value=""
+												onkeyup="separator()" maxlength="19" required="required">
 											<span id="unit">원</span>&nbsp;&nbsp;&nbsp;
-											<button type="button" id="10" class="btn btn-default btn-xs">+10</button>&nbsp;
-											<button type="button" id="50" class="btn btn-default btn-xs">+50</button>&nbsp;
-											<button type="button" id="100" class="btn btn-default btn-xs">+100</button>&nbsp;
-											<button type="button" id="500" class="btn btn-default btn-xs">+500</button>&nbsp;
-											<button type="button" id="1000" class="btn btn-default btn-xs">+1000</button>&nbsp;
-											<button type="button" id="eraser" class="btn btn-default btn-xs">초기화</button>
+											<button type="button" id="10" class="btn btn-default btn-xs">+10</button>
+											&nbsp;
+											<button type="button" id="50" class="btn btn-default btn-xs">+50</button>
+											&nbsp;
+											<button type="button" id="100" class="btn btn-default btn-xs">+100</button>
+											&nbsp;
+											<button type="button" id="500" class="btn btn-default btn-xs">+500</button>
+											&nbsp;
+											<button type="button" id="1000"
+												class="btn btn-default btn-xs">+1000</button>
+											&nbsp;
+											<button type="button" id="eraser"
+												class="btn btn-default btn-xs">초기화</button>
 										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="active"
+										style="vertical-align: middle; text-align: center;">라벨</td>
+									<td>
+											<div class="btn-group">
+												<a href="#" class="btn btn-default btn-width"
+													style="text-align: left;"><span
+													id="selectedLabel">Select Weight</span></a> <a href="#"
+													class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
+													class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+												<ul class="dropdown-menu">
+													<c:forEach var="labels" items="${labels}" varStatus="status">
+														<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
+													</c:forEach>
+												</ul>
+											</div>
 									</td>
 								</tr>
 								<tr>
@@ -148,7 +168,7 @@
 											-->
 											<!-- Button trigger modal -->
 											<a href="#" class="btn btn-primary btn-xs"
-												data-toggle="modal" data-target="#myModal"> 추가</a>
+												data-toggle="modal" data-target="#myModal" style="display: inline-block; margin-bottom: 8px;"> 추가</a>
 											<div class="selectedUserList"></div>
 										</div> <%-- 
 										<div class="layer">
@@ -224,49 +244,52 @@
 																<c:forEach var="user" items="${allUserList}"
 																	varStatus="status">
 																	<div class="checkbox" style="display: inline;">
-																		<c:choose>
-																			<c:when test="${ fn:length(user.uname) != 2}">
-																				<c:if test="${user_no == user.uno}">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
+																		<c:if test="${ fn:length(user.uname) != 2}">
+																			<c:if test="${user_no == user.uno}">
+																				<label> <input type="checkbox"
+																					disabled="disabled" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																							checked="checked"
+																						</c:if>>${user.uname}
+																				</label>
+																			</c:if>
+																			<c:if test="${user_no != user.uno}">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
 																									checked="checked"
 																								</c:if>>${user.uname}
-																					</label>
-																				</c:if>
-																				<c:if test="${user_no != user.uno}">
-																					<label> <input type="checkbox"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
+																				</label>
+																			</c:if>
+																		</c:if>
+																	</div>
+																</c:forEach>
+																<c:forEach var="user" items="${allUserList}"
+																	varStatus="status">
+																	<div class="checkbox" style="display: inline;">
+																		<c:if test="${ fn:length(user.uname) == 2}">
+																			<c:if test="${user_no == user.uno}">
+																				<label> <input type="checkbox"
+																					disabled="disabled" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																							checked="checked"
+																						</c:if>>${user.uname}
+																				</label>
+																			</c:if>
+																			<c:if test="${user_no != user.uno}">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
 																									checked="checked"
 																								</c:if>>${user.uname}
-																					</label>
-																				</c:if>
-																			</c:when>
-																			<c:otherwise>
-																				<c:if test="${user_no == user.uno}">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
-																									checked="checked"
-																								</c:if>>${user.uname}
-																					</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																				</c:if>
-																				<c:if test="${user_no != user.uno}">
-																					<label> <input type="checkbox"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
-																									checked="checked"
-																								</c:if>>${user.uname}
-																					</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																				</c:if>
-																			</c:otherwise>
-																		</c:choose>
-																	</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																				</label>
+																			</c:if>
+																		</c:if>
+																	</div>
 																</c:forEach>
 															</div>
 															<div
@@ -277,9 +300,9 @@
 																		<c:when test="${user.udepartment == 000}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -309,9 +332,9 @@
 																		<c:when test="${user.udepartment == 001}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -341,9 +364,9 @@
 																		<c:when test="${user.udepartment == 002}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -373,9 +396,9 @@
 																		<c:when test="${user.udepartment == 003}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -405,9 +428,9 @@
 																		<c:when test="${user.udepartment == 004}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -437,9 +460,9 @@
 																		<c:when test="${user.udepartment == 005}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -469,9 +492,9 @@
 																		<c:when test="${user.udepartment == 006}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -501,9 +524,9 @@
 																		<c:when test="${user.udepartment == 007}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -533,9 +556,9 @@
 																		<c:when test="${user.udepartment == 008}">
 																			<c:if test="${user_no == user.uno}">
 																				<div class="checkbox">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
+																					<label> <input type="checkbox"
+																						disabled="disabled" name="userName"
+																						value="${user.uno}" alt="${user.uname}"
 																						<c:if test="${user.isChecked}">
 																								checked="checked"
 																							</c:if>>${user.uname}
@@ -735,133 +758,157 @@
 		//alert(rowName);
 		//alert(rowId);
 	}
-	
+
 	function separator() {
 		var amount = $('#pAmount2').val();
 		amount.replaceAll(",", "");
 		$('#pAmount2').val(Number(amount.replaceAll(",", "")).toLocaleString());
 	}
-	
+
 	// replaceAll prototype 선언
 	String.prototype.replaceAll = function(org, dest) {
-	    return this.split(org).join(dest);
+		return this.split(org).join(dest);
 	}
-	
-	$(document).ready(function() {
-		$('#radio1').click(function() {
-			$('#pAmount2').val('');
-			var val = $(this).val();
-			$('#unit').text(val);
-		});
-		
-		$('#radio2').click(function() {
-			$('#pAmount2').val('');
-			var val = $(this).val();
-			$('#unit').text(val);
-		});
-		
-		$('#radio3').click(function() {
-			$('#pAmount2').val('');
-			var val = $(this).val();
-			$('#unit').text(val);
-		});
-		
-		$('#10').click(function() {
-			var ten = 10;
-			if ($('#pAmount2').val() == '') {
-				$('#pAmount2').val(ten);
-				separator();
-			} else if ($('#pAmount2').val() != '') {
-				var nowVal = $('#pAmount2').val();
-				$('#pAmount2').val('');
-				var calculateVal = Number(nowVal.replaceAll(",", "")) + ten;
-				console.log(calculateVal);
-				$('#pAmount2').val(calculateVal);
-				separator();
-			}
-		});
-		
-		$('#50').click(function() {
-			var fifty = 50;
-			if ($('#pAmount2').val() == '') {
-				$('#pAmount2').val(fifty);
-				separator();
-			} else if ($('#pAmount2').val() != '') {
-				var nowVal = $('#pAmount2').val();
-				$('#pAmount2').val('');
-				var calculateVal = Number(nowVal.replaceAll(",", "")) + fifty;
-				console.log(calculateVal);
-				$('#pAmount2').val(calculateVal);
-				separator();
-			}
-		});
-		
-		$('#100').click(function() {
-			var hundred = 100;
-			if ($('#pAmount2').val() == '') {
-				$('#pAmount2').val(hundred);
-				separator();
-			} else if ($('#pAmount2').val() != '') {
-				var nowVal = $('#pAmount2').val();
-				$('#pAmount2').val('');
-				var calculateVal = Number(nowVal.replaceAll(",", "")) + hundred;
-				console.log(calculateVal);
-				$('#pAmount2').val(calculateVal);
-				separator();
-			}
-		});
-		
-		$('#500').click(function() {
-			var fiveHundred = 500;
-			if ($('#pAmount2').val() == '') {
-				$('#pAmount2').val(fiveHundred);
-				separator();
-			} else if ($('#pAmount2').val() != '') {
-				var nowVal = $('#pAmount2').val();
-				$('#pAmount2').val('');
-				var calculateVal = Number(nowVal.replaceAll(",", "")) + fiveHundred;
-				console.log(calculateVal);
-				$('#pAmount2').val(calculateVal);
-				separator();
-			}
-		});
-		
-		$('#1000').click(function() {
-			var thousand = 1000;
-			if ($('#pAmount2').val() == '') {
-				$('#pAmount2').val(thousand);
-				separator();
-			} else if ($('#pAmount2').val() != '') {
-				var nowVal = $('#pAmount2').val();
-				$('#pAmount2').val('');
-				var calculateVal = Number(nowVal.replaceAll(",", "")) + thousand;
-				console.log(calculateVal);
-				$('#pAmount2').val(calculateVal);
-				separator();
-			}
-		});
-		
-		$('#eraser').click(function() {
-			$('#pAmount2').val('');
-		});
-		
-		$('#submit').click(function() {
-			var status = $('#unit').text();
-			var amount = $('#pAmount2').val();
-			var realAmount = '';
-			console.log(status);
-			console.log(amount);
-			if (status == '원') {
-				realAmount = amount.replaceAll(",", "");
-			} else if (status == '만') {
-				realAmount = amount.replaceAll(",", "") + "0000";
-			} else if (status == '억') {
-				realAmount = amount.replaceAll(",", "") + "00000000";
-			}
-			console.log(Number(realAmount));
-			console.log(Number(realAmount).toLocaleString());
-			
-			$('#pAmount').val(Number(realAmount).toLocaleString());
-		});
-	});
+
+	$(document).ready(
+			function() {
+				$('#radio1').click(function() {
+					$('#pAmount2').val('');
+					var val = $(this).val();
+					$('#unit').text(val);
+				});
+
+				$('#radio2').click(function() {
+					$('#pAmount2').val('');
+					var val = $(this).val();
+					$('#unit').text(val);
+				});
+
+				$('#radio3').click(function() {
+					$('#pAmount2').val('');
+					var val = $(this).val();
+					$('#unit').text(val);
+				});
+
+				$('#10').click(
+						function() {
+							var ten = 10;
+							if ($('#pAmount2').val() == '') {
+								$('#pAmount2').val(ten);
+								separator();
+							} else if ($('#pAmount2').val() != '') {
+								var nowVal = $('#pAmount2').val();
+								$('#pAmount2').val('');
+								var calculateVal = Number(nowVal.replaceAll(
+										",", ""))
+										+ ten;
+								console.log(calculateVal);
+								$('#pAmount2').val(calculateVal);
+								separator();
+							}
+						});
+
+				$('#50').click(
+						function() {
+							var fifty = 50;
+							if ($('#pAmount2').val() == '') {
+								$('#pAmount2').val(fifty);
+								separator();
+							} else if ($('#pAmount2').val() != '') {
+								var nowVal = $('#pAmount2').val();
+								$('#pAmount2').val('');
+								var calculateVal = Number(nowVal.replaceAll(
+										",", ""))
+										+ fifty;
+								console.log(calculateVal);
+								$('#pAmount2').val(calculateVal);
+								separator();
+							}
+						});
+
+				$('#100').click(
+						function() {
+							var hundred = 100;
+							if ($('#pAmount2').val() == '') {
+								$('#pAmount2').val(hundred);
+								separator();
+							} else if ($('#pAmount2').val() != '') {
+								var nowVal = $('#pAmount2').val();
+								$('#pAmount2').val('');
+								var calculateVal = Number(nowVal.replaceAll(
+										",", ""))
+										+ hundred;
+								console.log(calculateVal);
+								$('#pAmount2').val(calculateVal);
+								separator();
+							}
+						});
+
+				$('#500').click(
+						function() {
+							var fiveHundred = 500;
+							if ($('#pAmount2').val() == '') {
+								$('#pAmount2').val(fiveHundred);
+								separator();
+							} else if ($('#pAmount2').val() != '') {
+								var nowVal = $('#pAmount2').val();
+								$('#pAmount2').val('');
+								var calculateVal = Number(nowVal.replaceAll(
+										",", ""))
+										+ fiveHundred;
+								console.log(calculateVal);
+								$('#pAmount2').val(calculateVal);
+								separator();
+							}
+						});
+
+				$('#1000').click(
+						function() {
+							var thousand = 1000;
+							if ($('#pAmount2').val() == '') {
+								$('#pAmount2').val(thousand);
+								separator();
+							} else if ($('#pAmount2').val() != '') {
+								var nowVal = $('#pAmount2').val();
+								$('#pAmount2').val('');
+								var calculateVal = Number(nowVal.replaceAll(
+										",", ""))
+										+ thousand;
+								console.log(calculateVal);
+								$('#pAmount2').val(calculateVal);
+								separator();
+							}
+						});
+
+				$('#eraser').click(function() {
+					$('#pAmount2').val('');
+				});
+
+				$('#submit').click(function() {
+					var status = $('#unit').text();
+					var amount = $('#pAmount2').val();
+					var realAmount = '';
+					console.log(status);
+					console.log(amount);
+					if (status == '원') {
+						realAmount = amount.replaceAll(",", "");
+					} else if (status == '만') {
+						realAmount = amount.replaceAll(",", "") + "0000";
+					} else if (status == '억') {
+						realAmount = amount.replaceAll(",", "") + "00000000";
+					}
+					console.log(Number(realAmount));
+					console.log(Number(realAmount).toLocaleString());
+
+					$('#pAmount').val(Number(realAmount).toLocaleString());
+				});
+				
+				$('.dropdown-menu > .labelNo > a').bind('click', function() {
+					var lTitle = $(this).text();
+					var lno = $(this).attr("alt");
+					console.log(lno);
+					$("#lno").val(lno);
+					$("#selectedLabel").text(lTitle);
+				});
+			});
 </script>

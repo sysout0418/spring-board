@@ -78,6 +78,8 @@ MAIN CONTENT
 								name="requestUserNameList" value="<%=userNames%>">
 							<input type="hidden" id="pAmount"
 								name="pAmount" value="${project.pamount}">
+							<input type="hidden" id="lno"
+								name="lno" value="${project.lno}">
 							<table class="table">
 								<tr>
 									<td colspan="2"
@@ -161,6 +163,24 @@ MAIN CONTENT
 								</tr>
 								<tr>
 									<td colspan="2" class="active"
+										style="vertical-align: middle; text-align: center;">라벨</td>
+									<td>
+											<div class="btn-group">
+												<a href="#" class="btn btn-default btn-width"
+													style="text-align: left;"><span
+													id="selectedLabel">${project.ltitle}</span></a> <a href="#"
+													class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
+													class="caret" style="height: 10px; margin-top: 10px;"></span></a>
+												<ul class="dropdown-menu">
+													<c:forEach var="labels" items="${allLabelList}" varStatus="status">
+														<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
+													</c:forEach>
+												</ul>
+											</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="active"
 										style="vertical-align: middle; text-align: center;">모집마감일자</td>
 									<td><form:input path="pduedate" id="datepicker"
 											name="datepicker" required="required" /></td>
@@ -171,7 +191,7 @@ MAIN CONTENT
 									<td>
 										<div>
 											<a href="#" class="btn btn-primary btn-xs"
-												data-toggle="modal" data-target="#myModal"> 변경</a>
+												data-toggle="modal" data-target="#myModal" style="display: inline-block; margin-bottom: 8px;"> 변경</a>
 											<div class="selectedUserList">
 												<c:forEach var="participate" items="${participatedUserList}">
 													<span class="btn btn-warning btn-xs">${participate.uname}</span>&nbsp;
@@ -226,51 +246,55 @@ MAIN CONTENT
 																<c:when test="${index == 0}">active in</c:when>
 																<c:when test="${empty index}">active in</c:when>
 															</c:choose>" id="a">
-																<c:forEach var="user" items="${allUserList}">
+																<c:forEach var="user" items="${allUserList}"
+																	varStatus="status">
 																	<div class="checkbox" style="display: inline;">
-																		<c:choose>
-																			<c:when test="${ fn:length(user.uname) != 2}">
-																				<c:if test="${user_no == user.uno}">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
+																		<c:if test="${ fn:length(user.uname) != 2}">
+																			<c:if test="${user_no == user.uno}">
+																				<label> <input type="checkbox"
+																					disabled="disabled" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																							checked="checked"
+																						</c:if>>${user.uname}
+																				</label>
+																			</c:if>
+																			<c:if test="${user_no != user.uno}">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
 																									checked="checked"
 																								</c:if>>${user.uname}
-																					</label>
-																				</c:if>
-																				<c:if test="${user_no != user.uno}">
-																					<label> <input type="checkbox"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
+																				</label>
+																			</c:if>
+																		</c:if>
+																	</div>
+																</c:forEach>
+																<c:forEach var="user" items="${allUserList}"
+																	varStatus="status">
+																	<div class="checkbox" style="display: inline;">
+																		<c:if test="${ fn:length(user.uname) == 2}">
+																			<c:if test="${user_no == user.uno}">
+																				<label> <input type="checkbox"
+																					disabled="disabled" name="userName"
+																					value="${user.uno}" alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
+																							checked="checked"
+																						</c:if>>${user.uname}
+																				</label>
+																			</c:if>
+																			<c:if test="${user_no != user.uno}">
+																				<label> <input type="checkbox"
+																					name="userName" value="${user.uno}"
+																					alt="${user.uname}"
+																					<c:if test="${user.isChecked}">
 																									checked="checked"
 																								</c:if>>${user.uname}
-																					</label>
-																				</c:if>
-																			</c:when>
-																			<c:otherwise>
-																				<c:if test="${user_no == user.uno}">
-																					<label> <input type="checkbox" disabled="disabled"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
-																									checked="checked"
-																								</c:if>>${user.uname}
-																					</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																				</c:if>
-																				<c:if test="${user_no != user.uno}">
-																					<label> <input type="checkbox"
-																						name="userName" value="${user.uno}"
-																						alt="${user.uname}"
-																						<c:if test="${user.isChecked}">
-																									checked="checked"
-																								</c:if>>${user.uname}
-																					</label>&nbsp;&nbsp;&nbsp;&nbsp;
-																				</c:if>
-																			</c:otherwise>
-																		</c:choose>
-																	</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																				</label>
+																			</c:if>
+																		</c:if>
+																	</div>
 																</c:forEach>
 															</div>
 															<div class="tab-pane fade <c:if test="${index == 1}">active in</c:if>" id="b">
@@ -745,6 +769,14 @@ MAIN CONTENT
 			console.log(Number(realAmount).toLocaleString());
 			
 			$('#pAmount').val(Number(realAmount).toLocaleString());
+		});
+		
+		$('.dropdown-menu > .labelNo > a').bind('click', function() {
+			var lTitle = $(this).text();
+			var lno = $(this).attr("alt");
+			console.log(lno);
+			$("#lno").val(lno);
+			$("#selectedLabel").text(lTitle);
 		});
 	});
 </script>

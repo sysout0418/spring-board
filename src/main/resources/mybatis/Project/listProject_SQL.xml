@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getProjectByPno" parameterType="int" resultType="hashmap">
     <![CDATA[
-	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, pamount, U.uname, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor, CA.CODE_NAME AS udepartment, L.ltitle, L.lbgcolor
+	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, pamount, U.uname, UPPER(SUBSTRING(U.uemail,1,1)) AS theFirstLetterOfEmail, CB.CODE_NAME AS profileBgColor, CA.CODE_NAME AS udepartment, L.lno, L.ltitle, L.lbgcolor
 	FROM Project P
 	LEFT JOIN User U ON P.uno = U.uno
 	LEFT JOIN Label L ON P.lno = L.lno
@@ -49,8 +49,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="getUpdateProjectByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.Project">
     <![CDATA[
-	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno, lno, pamount
-	FROM Project
+	SELECT pno, pname, pdetail, pdata, pregdate, pduedate, uno, L.lno, L.ltitle, L.lbgcolor, pamount
+	FROM Project P
+	LEFT JOIN Label L ON P.lno = L.lno
 	WHERE pno= #{pno}
     ]]>  
     </select>
@@ -63,7 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		pdata=#{pdata},
 		pregdate=curdate(),
 		pduedate=#{pduedate},
-		pamount=#{pamount}
+		pamount=#{pamount},
+		lno = #{lno}
 	WHERE pno = #{pno}
 	]]> 
     </update>
@@ -94,18 +96,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!-- 2016. 04. 19. 현재 pno에 참여하고 있는 플젝 인원 정보 select -->
-    <select id="getParticipateUserList" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
+    <select id="getParticipateUserListByPno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
     <![CDATA[
     SELECT pno, p.uno, stat, uname
     FROM ProjectMemberStat p
     JOIN User u
     ON p.uno = u.uno
     WHERE pno = #{pno}
-    ]]>  
+    ]]>
+    </select>
+    
+    <select id="getParticipateUserListByUno" parameterType="int" resultType="com.nbreds.projectPlanning.Project.VO.ProjectMemberStat">
+    <![CDATA[
+    SELECT pno, p.uno, stat, uname, uemail
+    FROM ProjectMemberStat p
+    JOIN User u
+    ON p.uno = u.uno
+    WHERE u.uno = #{uno}
+    ]]>
     </select>
     
     <!-- 2016. 04. 19. 플젝 수정 시 ProjectMemberStat 테이블 초기화 -->
-    <delete id="deleteMSByPno" parameterType="int">
+    <delete id="deleteMSByUno" parameterType="int">
+    <![CDATA[
+    DELETE FROM ProjectMemberStat
+	WHERE uno = #{uno}
+    ]]>
+	</delete>
+	
+	<delete id="deleteMSByPno" parameterType="int">
     <![CDATA[
     DELETE FROM ProjectMemberStat
 	WHERE pno = #{pno}
@@ -186,4 +205,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	ORDER BY regdate DESC
     ]]>  
     </select>
+    
+    <select id="getAllLabel" resultType="com.nbreds.projectPlanning.issues.VO.Label">
+    <![CDATA[
+    SELECT lno, ltitle, lbgcolor
+    FROM Label
+	]]>
+	</select>
 </mapper>

@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,pregdate
 		  ,pduedate
 		  ,uno
+		  ,lno
 		  ,pamount
 		) VALUES (
 		  #{pname}
@@ -21,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  ,NOW()
 		  ,#{pduedate}
 		  ,#{uno}
+		  ,#{lno}
 		  ,#{pamount}
 		)
     ]]>  
@@ -76,5 +78,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM User
     ]]>  
     </select>
+    
+    <select id="getAllLabel" resultType="com.nbreds.projectPlanning.issues.VO.Label">
+    <![CDATA[
+    SELECT lno, ltitle, lbgcolor
+    FROM Label
+	]]>
+	</select>
     
 </mapper>

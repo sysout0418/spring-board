@@ -114,7 +114,8 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script>
-	$("#trEvent").click(function(event) {
+	$(document).on('click', '#trEvent', function() {
+		var url = $(this).attr('alt');
 		$target = $(event.target);
 		if (event.target.type == 'button') {
 			return;
@@ -122,10 +123,13 @@ MAIN CONTENT
 			return;
 		}
 		
-		location.href = $("#trEvent").attr('alt');
+		location.href = url;
 	});
 	
-	$("#okBtn").click(function() {
-		location.href = $('#projectDelBtn').attr('alt');
+	$(document).on('click', '#projectDelBtn', function() {
+		var delUrl = $(this).attr('alt');
+		$("#okBtn").click(function() {
+			location.href = delUrl;
+		});
 	});
 </script>

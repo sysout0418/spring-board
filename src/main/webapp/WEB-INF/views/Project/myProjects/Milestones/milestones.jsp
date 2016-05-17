@@ -179,14 +179,20 @@ MAIN CONTENT
 			location.href = $(this).attr('alt');
     	});
     
-	    $("#okBtn").click(function() {
-			location.href = $('#milestoneCloseBtn').attr('alt');
-		});
-	    
-	    $("#okBtn2").click(function() {
-			location.href = $('#milestoneDelBtn').attr('alt');
-		});
-    
+    	$(document).on('click', '#milestoneCloseBtn', function() {
+    		var closeUrl = $(this).attr('alt');
+    		$('#okBtn').click(function() {
+				location.href = closeUrl;
+    		});
+    	});
+    	
+		$(document).on('click', '#milestoneDelBtn', function() {
+			var delUrl = $(this).attr('alt');
+    		$('#okBtn2').click(function() {
+				location.href = delUrl;
+    		});
+    	});
+    	
       $(document).ready(function() {
 
         var cb = function(start, end, label) {

@@ -5,6 +5,7 @@ public class ProjectMemberStat {
 	private int pno;
 	private String stat;
 	private String uname; // 2016. 04. 19. User 테이블과 join 위해서 추가
+	private String uemail;
 	
 	public ProjectMemberStat() {}
 	
@@ -32,4 +33,11 @@ public class ProjectMemberStat {
 	public void setUname(String uname) {
 		this.uname = uname;
 	}
+	public String getUemail() {
+		return uemail;
+	}
+	public void setUemail(String uemail) {
+		this.uemail = uemail;
+	}
+	
 }

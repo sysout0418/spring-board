@@ -363,11 +363,17 @@ public class IssueController {
 					issuesService.reopenIssue(param);
 				}
 			} else if (status.equals("Closed")) {
+				System.out.println(1);
 				for (int i = 0; i < cbList.length; i++) {
+					System.out.println(2);
 					Map<String, Object> param = new HashMap<String, Object>();
+					System.out.println(3);
 					param.put("ino", cbList[i]);
+					System.out.println(4);
 					param.put("istatement", "001");
+					System.out.println(5);
 					issuesService.closeIssue(param);
+					System.out.println(6);
 				}
 			}
 		}
@@ -390,6 +396,9 @@ public class IssueController {
 			}
 		}
 
+		System.out.println(uno);
+		System.out.println(pno);
+		
 		return "redirect:/" + uno + "/" + pno + "/issues/open";
 	}
 

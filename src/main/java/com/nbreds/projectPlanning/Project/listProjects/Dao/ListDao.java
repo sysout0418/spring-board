@@ -13,6 +13,7 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Repository("ListDao")
 public class ListDao {
@@ -50,12 +51,20 @@ public class ListDao {
 		return sqlSession.selectOne("project.list.getParticipateUserCnt", pno);
 	}
 	
-	public List<ProjectMemberStat> getParticipateUserList(int pno) {
-		return sqlSession.selectList("project.list.getParticipateUserList", pno);
+	public List<ProjectMemberStat> getParticipateUserListByPno(int pno) {
+		return sqlSession.selectList("project.list.getParticipateUserListByPno", pno);
+	}
+	
+	public List<ProjectMemberStat> getParticipateUserListByUno(int uno) {
+		return sqlSession.selectList("project.list.getParticipateUserListByUno", uno);
 	}
 	
 	public List<User> getAllUser() {
 		return sqlSession.selectList("project.list.getAllUser");
+	}
+	
+	public void deleteMSByUno(int uno) {
+		sqlSession.delete("project.list.deleteMSByUno", uno);
 	}
 	
 	public void deleteMSByPno(int pno) {
@@ -97,5 +106,9 @@ public class ListDao {
 
 	public Project getUpdateProjectByPno(int pno) {
 		return sqlSession.selectOne("project.list.getUpdateProjectByPno", pno);
+	}
+	
+	public List<Label> getAllLabel() {
+		return sqlSession.selectList("project.list.getAllLabel");
 	}
 }

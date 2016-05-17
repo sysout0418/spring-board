@@ -33,47 +33,49 @@
 		<c:when test="${empty index}">active in</c:when>
 	</c:choose>"
 	id="a">
-	<c:forEach var="user" items="${allUserList}">
+	<c:forEach var="user" items="${allUserList}" varStatus="status">
 		<div class="checkbox" style="display: inline;">
-			<c:choose>
-				<c:when test="${ fn:length(user.uname) != 2}">
-					<c:if test="${user_no == user.uno}">
-						<label> <input type="checkbox" disabled="disabled"
-							name="userName" value="${user.uno}" alt="${user.uname}"
-							<c:if test="${user.isChecked}">
-								checked="checked"
+			<c:if test="${ fn:length(user.uname) != 2}">
+				<c:if test="${user_no == user.uno}">
+					<label> <input type="checkbox" disabled="disabled"
+						name="userName" value="${user.uno}" alt="${user.uname}"
+						<c:if test="${user.isChecked}">
+							checked="checked"
 							</c:if>>${user.uname}
-						</label>
-					</c:if>
-					<c:if test="${user_no != user.uno}">
-						<label> <input type="checkbox" name="userName"
-							value="${user.uno}" alt="${user.uname}"
-							<c:if test="${user.isChecked}">
-								checked="checked"
+					</label>
+				</c:if>
+				<c:if test="${user_no != user.uno}">
+					<label> <input type="checkbox" name="userName"
+						value="${user.uno}" alt="${user.uname}"
+						<c:if test="${user.isChecked}">
+							checked="checked"
 							</c:if>>${user.uname}
-						</label>
-					</c:if>
-				</c:when>
-				<c:otherwise>
-					<c:if test="${user_no == user.uno}">
-						<label> <input type="checkbox" disabled="disabled"
-							name="userName" value="${user.uno}" alt="${user.uname}"
-							<c:if test="${user.isChecked}">
-								checked="checked"
+					</label>
+				</c:if>
+			</c:if>
+		</div>
+	</c:forEach>
+	<c:forEach var="user" items="${allUserList}" varStatus="status">
+		<div class="checkbox" style="display: inline;">
+			<c:if test="${ fn:length(user.uname) == 2}">
+				<c:if test="${user_no == user.uno}">
+					<label> <input type="checkbox" disabled="disabled"
+						name="userName" value="${user.uno}" alt="${user.uname}"
+						<c:if test="${user.isChecked}">
+							checked="checked"
 							</c:if>>${user.uname}
-						</label>&nbsp;&nbsp;&nbsp;&nbsp;
-					</c:if>
-					<c:if test="${user_no != user.uno}">
-						<label> <input type="checkbox" name="userName"
-							value="${user.uno}" alt="${user.uname}"
-							<c:if test="${user.isChecked}">
-								checked="checked"
+					</label>
+				</c:if>
+				<c:if test="${user_no != user.uno}">
+					<label> <input type="checkbox" name="userName"
+						value="${user.uno}" alt="${user.uname}"
+						<c:if test="${user.isChecked}">
+							checked="checked"
 							</c:if>>${user.uname}
-						</label>&nbsp;&nbsp;&nbsp;&nbsp;
-					</c:if>
-				</c:otherwise>
-			</c:choose>
-		</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</label>
+				</c:if>
+			</c:if>
+		</div>
 	</c:forEach>
 </div>
 <div class="tab-pane fade <c:if test="${index == 1}">active in</c:if>"

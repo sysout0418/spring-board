@@ -61,7 +61,7 @@ MAIN CONTENT
 											<td><a href="/${project.uno}/${project.pno}"
 												class="btn btn-success btn-xs" role="button">
 												<i class="fa fa-check"></i></a>
-												<a href="/update?pno=${project.pno}"
+												<a href="/update/${project.pno}"
 												class="btn btn-primary btn-xs" role="button">
 												<i class="fa fa-pencil"></i></a>
 												<a href="#" alt="/DeleteProject?pno=${project.pno}" id="prjDelBtn"
@@ -151,9 +151,11 @@ MAIN CONTENT
 		})
 	})
 
-	$('#okBtn').click(function() {
-		var delUrl = $('#prjDelBtn').attr('alt');
-		location.href = delUrl;
+	$(document).on('click', '#prjDelBtn', function() {
+		var delUrl = $(this).attr('alt');
+		$('#okBtn').click(function() {
+			location.href = delUrl;
+		});
 	});
 	
 	function delList() {

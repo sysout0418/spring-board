@@ -13,6 +13,7 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Repository("RegistDao")
 public class RegistDao {
@@ -47,6 +48,10 @@ public class RegistDao {
 	
 	public List<User> getAllUser() {
 		return sqlSession.selectList("project.regist.getAllUser");
+	}
+	
+	public List<Label> getAllLabel() {
+		return sqlSession.selectList("project.regist.getAllLabel");
 	}
 	
 }

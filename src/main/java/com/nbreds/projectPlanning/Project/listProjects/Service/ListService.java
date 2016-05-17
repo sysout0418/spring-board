@@ -11,6 +11,7 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Service
 public interface ListService {
@@ -30,9 +31,13 @@ public interface ListService {
 	
 	int getParticipateUserCnt(int pno);
 	
-	List<ProjectMemberStat> getParticipateUserList(int pno);
+	List<ProjectMemberStat> getParticipateUserListByPno(int pno);
+	
+	List<ProjectMemberStat> getParticipateUserListByUno(int uno);
 	
 	List<User> getAllUser();
+	
+	void deleteMSByUno(int uno);
 	
 	void deleteMSByPno(int pno);
 	
@@ -53,5 +58,7 @@ public interface ListService {
 	public int getcountAllIssue(int pno);
 
 	public Project getUpdateProjectByPno(int pno);
+	
+	List<Label> getAllLabel();
 	
 }

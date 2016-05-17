@@ -9,6 +9,7 @@ import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Service
 public interface RegistService {
@@ -23,5 +24,7 @@ public interface RegistService {
 	public HashMap<String, Object> getUserForNo(int uno);
 	
 	List<User> getAllUser();
+	
+	List<Label> getAllLabel();
 	
 }

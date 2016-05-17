@@ -25,6 +25,7 @@ import com.nbreds.projectPlanning.Project.common.Controller.CommonController;
 import com.nbreds.projectPlanning.Project.listProjects.Service.ListService;
 import com.nbreds.projectPlanning.common.VO.CodeTable;
 import com.nbreds.projectPlanning.common.VO.User;
+import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Controller
 public class ListController {
@@ -85,7 +86,8 @@ public class ListController {
 	public String  UpdateView(@PathVariable("pno") int pno, Model model, HttpServletRequest request, @ModelAttribute("project") Project project) {
 		project = listService.getUpdateProjectByPno(pno);
 		List<User> allUserList = listService.getAllUser();
-		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserList(pno);
+		List<Label> allLabelList = listService.getAllLabel();
+		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserListByPno(pno);
 		
 		List<String> dev = new ArrayList<>();
 		List<String> design = new ArrayList<>();
@@ -106,6 +108,7 @@ public class ListController {
 		if (model != null) {
 			model.addAttribute("project", project);
 			model.addAttribute("user",user);
+			model.addAttribute("allLabelList",allLabelList);
 			model.addAttribute("allUserList", allUserList);
 			model.addAttribute("participatedUserList", participatedUserList);
 			request.setAttribute("participatedUserList", participatedUserList);
@@ -116,9 +119,11 @@ public class ListController {
 	
 	//프로젝트 수정
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result) {
+	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result, HttpSession session) {
 		String requestUserNoList = request.getParameter("requestUserNoList");
 		String pAmount = request.getParameter("pAmount");
+		String lno = request.getParameter("lno");
+		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
 		
 		//pdata입력
 		String pdata = "";
@@ -127,9 +132,10 @@ public class ListController {
 		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
 		project.setPdata(pdata);
 		project.setPamount(pAmount);
+		project.setLno(Integer.parseInt(lno));
 		listService.updateProject(project, requestUserNoList);
 		
-		return "redirect:/"+project.getUno()+"/"+project.getPno();
+		return "redirect:/"+uno+"/"+project.getPno();
 	}
 		
 	@ModelAttribute("development")

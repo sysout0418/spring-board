@@ -255,6 +255,48 @@ MAIN CONTENT
 			</div>
 	</section>
 </section>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>선택하신 이슈를 Close 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>업데이트 할 이슈를 선택하세요.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script type="text/javascript" src="<c:url value="/resources/javascript/calendar/moment.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/calendar/daterangepicker.js" />"></script>
@@ -560,13 +602,14 @@ MAIN CONTENT
 		}
 
 		if (items == "") {
-			alert("업데이트 할 이슈를 선택하세요.");
+			$('#myModal2').modal('show');
 			return false;
-		}
-
-		if (confirm("선택한 이슈를 설정한 값으로 업데이트 하시겠습니까?")) {
-			f.action = "/issues/directEdit/${uno}/${pno}";
-			f.submit();
+		} else {
+			$('#myModal').modal('show');
+			$('#okBtn').click(function() {
+				f.action = "/issues/directEdit/${uno}/${pno}";
+				f.submit();
+			});
 		}
 	}
 	
