@@ -746,27 +746,22 @@
 	String.prototype.replaceAll = function(org, dest) {
 	    return this.split(org).join(dest);
 	}
-
-	// replaceAll 사용
-	/* var str = "Hello World";
-	str = str.replaceAll("o","*");
-	alert(str); */
 	
 	$(document).ready(function() {
 		$('#radio1').click(function() {
-			console.log($(this).val());
+			$('#pAmount2').val('');
 			var val = $(this).val();
 			$('#unit').text(val);
 		});
 		
 		$('#radio2').click(function() {
-			console.log($(this).val());
+			$('#pAmount2').val('');
 			var val = $(this).val();
 			$('#unit').text(val);
 		});
 		
 		$('#radio3').click(function() {
-			console.log($(this).val());
+			$('#pAmount2').val('');
 			var val = $(this).val();
 			$('#unit').text(val);
 		});
