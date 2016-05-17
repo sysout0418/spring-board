@@ -27,6 +27,7 @@ public class GeneralInterceptor extends HandlerInterceptorAdapter{
 	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		logger.info("인터셉터");
 		String uno = String.valueOf(request.getSession().getAttribute("user_no"));
 		
 		//요청 Projects
