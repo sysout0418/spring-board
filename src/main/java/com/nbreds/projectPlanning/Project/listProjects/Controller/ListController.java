@@ -125,6 +125,12 @@ public class ListController {
 		String lno = request.getParameter("lno");
 		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
 		
+		logger.info("requestUserNoList : " + requestUserNoList);
+		logger.info("pAmount : " + pAmount);
+		logger.info("lno : " + lno);
+		logger.info("uno : " + project.getUno());
+		
+		/*
 		//pdata입력
 		String pdata = "";
 		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
@@ -134,7 +140,7 @@ public class ListController {
 		project.setPamount(pAmount);
 		project.setLno(Integer.parseInt(lno));
 		listService.updateProject(project, requestUserNoList);
-		
+		*/
 		return "redirect:/"+uno+"/"+project.getPno();
 	}
 		
