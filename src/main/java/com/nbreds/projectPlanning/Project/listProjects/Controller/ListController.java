@@ -30,21 +30,21 @@ import com.nbreds.projectPlanning.issues.VO.Label;
 @Controller
 public class ListController {
 	private static final Logger logger = LoggerFactory.getLogger(ListController.class);
-	
+
 	@Autowired
 	CommonController commonController;
-	
+
 	@Autowired
 	ListService listService;
-	
-	//상세 프로젝트
+
+	// 상세 프로젝트
 	@RequestMapping(value = "/DetailProject/{pno}", method = RequestMethod.GET)
-	public String  DetailView(@PathVariable("pno") int pno, Model model, HttpSession session) {
+	public String DetailView(@PathVariable("pno") int pno, Model model, HttpSession session) {
 		HashMap<String, Object> project = listService.getProjectByPno(pno);
 		List<HashMap<String, Object>> request = listService.getRequestMember(pno);
-		
-		//필요 기술 한글화
-		if(project.get("pdata") != ""){
+
+		// 필요 기술 한글화
+		if (project.get("pdata") != "") {
 			String[] pdata = ((String) project.get("pdata")).split(",");
 			List<String> pdatas = new ArrayList<>();
 			for (String code : pdata) {
@@ -52,93 +52,104 @@ public class ListController {
 			}
 			model.addAttribute("pdatas", pdatas);
 		}
-		
-		//마일스톤으로 프로젝트 완료 퍼센테이지 계산
+
+		// 마일스톤으로 프로젝트 완료 퍼센테이지 계산
 		int countAllMilestone = listService.getCountAllMilestone(pno);
 		double completeMilestonPercent = listService.getCountClosedMilestone(pno);
 		project.put("completeIssuePercent", Math.round((completeMilestonPercent / countAllMilestone) * 100));
-		
-		//요청 멤버 데이터 model추가
-		if(request.size() > 0)		model.addAttribute("request", request);
-		else model.addAttribute("request", "none");
-		
-		//Activity불러오기
+
+		// 요청 멤버 데이터 model추가
+		if (request.size() > 0)
+			model.addAttribute("request", request);
+		else
+			model.addAttribute("request", "none");
+
+		// Activity불러오기
 		List<HashMap<String, Object>> activities = listService.getActivityByPno(pno);
 		model.addAttribute("activity", activities);
-		
+
 		model.addAttribute("countAllMilestone", countAllMilestone);
 		model.addAttribute("countAllIssue", listService.getcountAllIssue(pno));
 		model.addAttribute("project", project);
-		
+
 		return "Project/listProjects/detailProject";
 	}
-	
-	//프로젝트 삭제
+
+	// 프로젝트 삭제
 	@RequestMapping(value = "/DeleteProject", method = RequestMethod.GET)
-	public String  DeleteProject(int pno) {
+	public String DeleteProject(int pno) {
 		listService.removeProject(pno);
-		
+
 		return "redirect:/";
 	}
-	
-	//프로젝트 수정페이지
+
+	// 프로젝트 수정페이지
 	@RequestMapping(value = "update/{pno}", method = RequestMethod.GET)
-	public String  UpdateView(@PathVariable("pno") int pno, Model model, HttpServletRequest request, @ModelAttribute("project") Project project) {
+	public String UpdateView(@PathVariable("pno") int pno, Model model, HttpServletRequest request,
+			@ModelAttribute("project") Project project) {
 		project = listService.getUpdateProjectByPno(pno);
 		List<User> allUserList = listService.getAllUser();
 		List<Label> allLabelList = listService.getAllLabel();
 		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserListByPno(pno);
-		
+
 		List<String> dev = new ArrayList<>();
 		List<String> design = new ArrayList<>();
 		List<String> plan = new ArrayList<>();
-		if(project.getPdata() != ""){
+		if (project.getPdata() != "") {
 			String[] pdata = project.getPdata().split(",");
 			for (String tmp : pdata) {
-				if(tmp.substring(0, 3).equals("004"))	dev.add(tmp.substring(3, 6));
-				if(tmp.substring(0, 3).equals("005"))	design.add(tmp.substring(3, 6));
-				if(tmp.substring(0, 3).equals("006"))	plan.add(tmp.substring(3, 6));
+				if (tmp.substring(0, 3).equals("004"))
+					dev.add(tmp.substring(3, 6));
+				if (tmp.substring(0, 3).equals("005"))
+					design.add(tmp.substring(3, 6));
+				if (tmp.substring(0, 3).equals("006"))
+					plan.add(tmp.substring(3, 6));
 			}
 			project.setPdevelopment(dev);
 			project.setPdesign(design);
 			project.setPplanning(plan);
 		}
-		
+
 		User user = listService.getUserForNo(project.getUno());
 		if (model != null) {
 			model.addAttribute("project", project);
-			model.addAttribute("user",user);
-			model.addAttribute("allLabelList",allLabelList);
+			model.addAttribute("user", user);
+			model.addAttribute("allLabelList", allLabelList);
 			model.addAttribute("allUserList", allUserList);
 			model.addAttribute("participatedUserList", participatedUserList);
 			request.setAttribute("participatedUserList", participatedUserList);
 		}
-		
+
 		return "Project/listProjects/updateView";
 	}
-	
-	//프로젝트 수정
+
+	// 프로젝트 수정
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result, HttpSession session) {
+	public String updateProject(@ModelAttribute("project") Project project, HttpServletRequest request,
+			BindingResult result, HttpSession session) {
 		String requestUserNoList = request.getParameter("requestUserNoList");
-		String pAmount = request.getParameter("pAmount");
-		String lno = request.getParameter("lno");
-		String uno = request.getParameter("uno");
-		
-		//pdata입력
+		logger.info("pno : " + project.getPno());
+		logger.info("uno : " + project.getUno());
+		logger.info("lno : " + project.getLno());
+		logger.info("pamount : " + project.getPamount());
+
+		// pdata입력
 		String pdata = "";
-		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
-		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
-		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
+		if (project.getPdevelopment() != null)
+			for (String tmp : project.getPdevelopment())
+				pdata += "004" + tmp + ",";
+		if (project.getPdesign() != null)
+			for (String tmp : project.getPdesign())
+				pdata += "005" + tmp + ",";
+		if (project.getPplanning() != null)
+			for (String tmp : project.getPplanning())
+				pdata += "006" + tmp + ",";
 		project.setPdata(pdata);
-		project.setPamount(pAmount);
-		project.setLno(Integer.parseInt(lno));
-		project.setPno(Integer.parseInt(uno));
 		listService.updateProject(project, requestUserNoList);
-		
-		return "redirect:/"+project.getUno()+"/"+project.getPno();
+
+		return "redirect:/" + project.getUno() + "/" + project.getPno();
 	}
-		
+
 	@ModelAttribute("development")
 	public List<CodeTable> getDevelopment() {
 		List<CodeTable> devList = listService.getCodeTable("004");

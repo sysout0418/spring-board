@@ -57,40 +57,40 @@ public class ListServiceImpl implements ListService {
 		try {
 			listDao.updateProject(project);
 			ProjectMemberStat projectMS = new ProjectMemberStat();
-			projectMS.setPno(project.getPno());
-			List<ProjectMemberStat> getParticipateUserListByPno = getParticipateUserListByPno(project.getPno());
-			
-			List<ProjectMemberStat> getParticipateUserListByUno = new ArrayList<ProjectMemberStat>();
-			String[] requestUserNos = requestUserNoList.split(",");
-			ArrayList<String> requestUserNoList1 = new ArrayList<String>(Arrays.asList(requestUserNos));
-			
-			getParticipateUserListByUno.clear();
-			for (int i = 0; i < requestUserNoList1.size(); i++) {
-				getParticipateUserListByUno = getParticipateUserListByUno(Integer.parseInt(requestUserNoList1.get(i)));
-			}
-			deleteMSByPno(project.getPno());
-			
-			for (int i = 0; i < requestUserNoList1.size(); i++) {
+//			projectMS.setPno(project.getPno());
+//			List<ProjectMemberStat> getParticipateUserListByPno = getParticipateUserListByPno(project.getPno());
+//			
+//			List<ProjectMemberStat> getParticipateUserListByUno = new ArrayList<ProjectMemberStat>();
+//			String[] requestUserNos = requestUserNoList.split(",");
+//			ArrayList<String> requestUserNoList1 = new ArrayList<String>(Arrays.asList(requestUserNos));
+//			
+//			getParticipateUserListByUno.clear();
+//			for (int i = 0; i < requestUserNoList1.size(); i++) {
+//				getParticipateUserListByUno = getParticipateUserListByUno(Integer.parseInt(requestUserNoList1.get(i)));
+//			}
+//			deleteMSByPno(project.getPno());
+//			
+//			for (int i = 0; i < requestUserNoList1.size(); i++) {
 //				if (getParticipateUserListByUno.isEmpty()) {
-					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
-					saveProjectMS(projectMS);
-					
-					User userInfo = getUserForNo(Integer.parseInt(requestUserNoList1.get(i)));
-					Email email = new Email();
-					email.setReciver((String) userInfo.getUemail());
-					email.setSubject("[BIDDING] 프로젝트 요청");
-					email.setContent("[BIDDING] 프로젝트 요청 \n" 
-							+ "프로젝트명: " + project.getPname() + "\n"
-							+ "위 프로젝트에 참여 요청이 왔습니다. \n"
-							+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
-					emailSender.SendEmail(email);
+//					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
+//					saveProjectMS(projectMS);
+//					
+//					User userInfo = getUserForNo(Integer.parseInt(requestUserNoList1.get(i)));
+//					Email email = new Email();
+//					email.setReciver((String) userInfo.getUemail());
+//					email.setSubject("[BIDDING] 프로젝트 요청");
+//					email.setContent("[BIDDING] 프로젝트 요청 \n" 
+//							+ "프로젝트명: " + project.getPname() + "\n"
+//							+ "위 프로젝트에 참여 요청이 왔습니다. \n"
+//							+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
+//					emailSender.SendEmail(email);
 //				} else {
 //					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
 //					saveProjectMS(projectMS);
 //				}
-			}
-			logger.info("requestUserNoList1 size : " + requestUserNoList1.size());
-			logger.info("getParticipateUserListByPno size : " + getParticipateUserListByPno.size());
+//			}
+//			logger.info("requestUserNoList1 size : " + requestUserNoList1.size());
+//			logger.info("getParticipateUserListByPno size : " + getParticipateUserListByPno.size());
 			
 //			if (!participatingUserList.isEmpty()) {
 //				for (int i = 0; i < participatingUserList.size(); i++) {
