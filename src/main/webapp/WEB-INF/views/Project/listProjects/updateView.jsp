@@ -80,6 +80,8 @@ MAIN CONTENT
 								name="pAmount" value="${project.pamount}">
 							<input type="hidden" id="lno"
 								name="lno" value="${project.lno}">
+							<input type="hidden" id="uno"
+								name="uno" value="${project.uno}">
 							<table class="table">
 								<tr>
 									<td colspan="2"

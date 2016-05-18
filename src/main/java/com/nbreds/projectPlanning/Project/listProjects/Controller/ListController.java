@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
@@ -119,17 +118,12 @@ public class ListController {
 	
 	//프로젝트 수정
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String  updateProject(@ModelAttribute("project") Project project, HttpServletRequest request, BindingResult result, HttpSession session) {
-		String requestUserNoList = request.getParameter("requestUserNoList");
-		String pAmount = request.getParameter("pAmount");
-		String lno = request.getParameter("lno");
-		String uno = String.valueOf(session.getAttribute("user_no")); // 세션의 uno
-		
+	public String  updateProject(@ModelAttribute("project") Project project, String requestUserNoList,String pAmount, BindingResult result, HttpSession session) {
 		logger.info("requestUserNoList : " + requestUserNoList);
 		logger.info("pAmount : " + pAmount);
-		logger.info("lno : " + lno);
 		logger.info("uno : " + project.getUno());
-		
+		logger.info("pamount2 : " + project.getPamount());
+		logger.info("lno : " + project.getLno());
 		/*
 		//pdata입력
 		String pdata = "";
@@ -139,9 +133,11 @@ public class ListController {
 		project.setPdata(pdata);
 		project.setPamount(pAmount);
 		project.setLno(Integer.parseInt(lno));
+		project.setPno(Integer.parseInt(uno));
 		listService.updateProject(project, requestUserNoList);
 		*/
-		return "redirect:/"+uno+"/"+project.getPno();
+		
+		return "redirect:/"+project.getUno()+"/"+project.getPno();
 	}
 		
 	@ModelAttribute("development")
