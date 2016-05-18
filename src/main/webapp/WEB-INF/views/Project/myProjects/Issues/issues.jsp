@@ -277,7 +277,7 @@ MAIN CONTENT
 		</div>
 	</div>
 </div>
-<!-- Modal -->
+<!-- Modal2 -->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true"
 	style="display: none;">
@@ -293,6 +293,28 @@ MAIN CONTENT
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Warning</h4>
+			</div>
+			<div class="modal-body">
+				<p>선택한 이슈를 수정 하시겠습니까?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="okBtn2" class="btn btn-primary"
+					data-dismiss="modal">Yes</button>
 			</div>
 		</div>
 	</div>
@@ -605,8 +627,8 @@ MAIN CONTENT
 			$('#myModal2').modal('show');
 			return false;
 		} else {
-			$('#myModal').modal('show');
-			$('#okBtn').click(function() {
+			$('#myModal3').modal('show');
+			$('#okBtn2').click(function() {
 				f.action = "/issues/directEdit/${uno}/${pno}";
 				f.submit();
 			});

@@ -96,7 +96,7 @@ MAIN CONTENT
 										<td><a href="/${project.uno}/${project.pno}"
 											class="btn btn-success btn-xs" role="button">
 											<i class="fa fa-check"></i></a> 
-											<a href="/update?pno=${project.pno}"
+											<a href="/update/${project.pno}"
 											class="btn btn-primary btn-xs" role="button">
 											<i class="fa fa-pencil"></i></a>
 											<a href="#" alt="/DeleteProject?pno=${project.pno}" id="prjDelBtn"
@@ -402,6 +402,12 @@ MAIN CONTENT
 		});
 	});
 	
+	$(document).on('click', '#getUserNo', function() {
+		var uno = $(this).attr("alt");
+		console.log(uno);
+		f.action = "/admin/users/editForm/" + uno;
+		f.submit();
+	});
 	
 	$(function() {
 		var f = document.frm;
@@ -411,12 +417,6 @@ MAIN CONTENT
 			f.submit();
 		});
 		
-		$(document).on('click', '#getUserNo', function() {
-			var uno = $(this).attr("alt");
-			console.log(uno);
-			f.action = "/admin/users/editForm/" + uno;
-			f.submit();
-		});
 		/* $('#prjDelBtn').click(function() {
 			console.log($(this).attr('alt'));
 			var delUrl = $(this).attr('alt');
