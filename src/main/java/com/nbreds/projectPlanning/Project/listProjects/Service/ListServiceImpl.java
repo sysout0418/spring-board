@@ -60,12 +60,17 @@ public class ListServiceImpl implements ListService {
 			projectMS.setPno(project.getPno());
 			List<ProjectMemberStat> getParticipateUserListByPno = getParticipateUserListByPno(project.getPno());
 			
+			List<ProjectMemberStat> getParticipateUserListByUno = new ArrayList<ProjectMemberStat>();
 			String[] requestUserNos = requestUserNoList.split(",");
 			ArrayList<String> requestUserNoList1 = new ArrayList<String>(Arrays.asList(requestUserNos));
 			
+			getParticipateUserListByUno.clear();
 			for (int i = 0; i < requestUserNoList1.size(); i++) {
-				List<ProjectMemberStat> getParticipateUserListByUno = new ArrayList<ProjectMemberStat>();
 				getParticipateUserListByUno = getParticipateUserListByUno(Integer.parseInt(requestUserNoList1.get(i)));
+			}
+			deleteMSByPno(project.getPno());
+			
+			for (int i = 0; i < requestUserNoList1.size(); i++) {
 				if (getParticipateUserListByUno.isEmpty()) {
 					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
 					saveProjectMS(projectMS);
