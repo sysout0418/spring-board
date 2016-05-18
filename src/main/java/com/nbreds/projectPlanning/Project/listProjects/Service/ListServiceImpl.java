@@ -71,7 +71,7 @@ public class ListServiceImpl implements ListService {
 			deleteMSByPno(project.getPno());
 			
 			for (int i = 0; i < requestUserNoList1.size(); i++) {
-				if (getParticipateUserListByUno.isEmpty()) {
+//				if (getParticipateUserListByUno.isEmpty()) {
 					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
 					saveProjectMS(projectMS);
 					
@@ -84,7 +84,10 @@ public class ListServiceImpl implements ListService {
 							+ "위 프로젝트에 참여 요청이 왔습니다. \n"
 							+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
 					emailSender.SendEmail(email);
-				}
+//				} else {
+//					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
+//					saveProjectMS(projectMS);
+//				}
 			}
 			logger.info("requestUserNoList1 size : " + requestUserNoList1.size());
 			logger.info("getParticipateUserListByPno size : " + getParticipateUserListByPno.size());
