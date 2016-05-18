@@ -402,6 +402,7 @@ MAIN CONTENT
 		});
 	});
 	
+	
 	$(function() {
 		var f = document.frm;
 
@@ -410,18 +411,24 @@ MAIN CONTENT
 			f.submit();
 		});
 		
+		$(document).on('click', '#getUserNo', function() {
+			var uno = $(this).attr("alt");
+			console.log(uno);
+			f.action = "/admin/users/editForm/" + uno;
+			f.submit();
+		});
 		/* $('#prjDelBtn').click(function() {
 			console.log($(this).attr('alt'));
 			var delUrl = $(this).attr('alt');
 		}); */
 		
 
-		$('#getUserNo').bind('click', function() {
+		/* $('#getUserNo').bind('click', function() {
 			var uno = $(this).attr("alt");
 			console.log(uno);
 			f.action = "/admin/users/editForm/" + uno;
 			f.submit();
-		});
+		}); */
 		
 		// 실행 취소버튼
 		$('#cancelLabelBtn').click(function() {
