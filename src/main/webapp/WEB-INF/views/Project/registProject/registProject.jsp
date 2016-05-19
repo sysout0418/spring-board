@@ -10,7 +10,9 @@
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header2_header.jsp" />
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/header3_menu_dash.jsp" />
-<!-- Begin page content -->
+<!-- **********************************************************************************************************************************************************
+MAIN CONTENT
+*********************************************************************************************************************************************************** -->
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<h3>
