@@ -76,12 +76,12 @@ MAIN CONTENT
 								name="requestUserNoList" value="<%=userNos%>">
 							<input type="hidden" id="requestUserNameList"
 								name="requestUserNameList" value="<%=userNames%>">
-							<input type="hidden" id="pAmount"
-								name="pAmount" value="${project.pamount}">
-							<input type="hidden" id="lno"
-								name="lno" value="${project.lno}">
-							<input type="hidden" id="uno"
-								name="uno" value="${project.uno}">
+							<form:input type="hidden" path="pamount" class="form-control" id="pamount"
+								name="pamount" value="${project.pamount}" />
+							<form:input type="hidden" path="lno" id="lno" class="form-control"
+								name="lno" value="${project.lno}" />
+							<form:input type="hidden" path="uno" id="uno" class="form-control"
+								name="uno" value="${project.uno}" />
 							<table class="table">
 								<tr>
 									<td colspan="2"
@@ -770,7 +770,7 @@ MAIN CONTENT
 			console.log(Number(realAmount));
 			console.log(Number(realAmount).toLocaleString());
 			
-			$('#pAmount').val(Number(realAmount).toLocaleString());
+			$('#pamount').val(Number(realAmount).toLocaleString());
 		});
 		
 		$('.dropdown-menu > .labelNo > a').bind('click', function() {

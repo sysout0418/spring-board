@@ -212,4 +212,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM Label
 	]]>
 	</select>
+	
+	<select id="getParticipateUsers" parameterType="int" resultType="hashmap">
+    <![CDATA[
+    SELECT uno
+    FROM ProjectMemberStat
+    WHERE pno = #{pno}
+	]]>
+	</select>
+	
+	<delete id="deleteMS" parameterType="hashmap">
+    <![CDATA[
+    DELETE FROM ProjectMemberStat
+	WHERE pno = #{pno} AND uno = #{uno}
+    ]]>
+	</delete>
+	
+	<select id="getEmailByUno" parameterType="int" resultType="String">
+    <![CDATA[
+	SELECT uemail
+	FROM User
+	WHERE uno=#{uno}
+	]]>
+	</select>
 </mapper>

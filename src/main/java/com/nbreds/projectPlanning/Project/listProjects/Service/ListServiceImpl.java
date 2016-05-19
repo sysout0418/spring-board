@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.VO.ProjectMemberStat;
@@ -53,129 +52,66 @@ public class ListServiceImpl implements ListService {
 
 	@Override
 	@Transactional
-	public void updateProject(Project project, String requestUserNoList) {
-		try {
+	public void updateProject(Project project, String[] requestUserNoList) {
+		
+			//프로젝트 업데이트
 			listDao.updateProject(project);
-			ProjectMemberStat projectMS = new ProjectMemberStat();
-			projectMS.setPno(project.getPno());
-			List<ProjectMemberStat> getParticipateUserListByPno = getParticipateUserListByPno(project.getPno());
 			
-			List<ProjectMemberStat> getParticipateUserListByUno = new ArrayList<ProjectMemberStat>();
-			String[] requestUserNos = requestUserNoList.split(",");
-			ArrayList<String> requestUserNoList1 = new ArrayList<String>(Arrays.asList(requestUserNos));
+			//기존 프로젝트에 요청되어 있는 사람 목록
+			List<HashMap<String, Object>> oldMembers = listDao.getParticipateUsers(project.getPno());
+			logger.info("기존 요청 목록 : " + oldMembers);
 			
-			getParticipateUserListByUno.clear();
-			for (int i = 0; i < requestUserNoList1.size(); i++) {
-				getParticipateUserListByUno = getParticipateUserListByUno(Integer.parseInt(requestUserNoList1.get(i)));
+			//새 프로젝트 요청 인원 목록
+			ArrayList<String> newMembers1 = new ArrayList<String>(Arrays.asList(requestUserNoList));
+			logger.info("새로운 요청 목록 : " + newMembers1);
+			
+			ArrayList<String> newMembers2 = new ArrayList<String>(Arrays.asList(requestUserNoList));
+			
+			//새로 삽입해야 할 사람 찾기
+			for (String newMember : newMembers2) {
+				for (HashMap<String, Object> oldMember : oldMembers) {
+					if(newMember.equals(String.valueOf(oldMember.get("uno")))){
+						newMembers1.remove(newMember);
+					}
+				}
 			}
-			deleteMSByPno(project.getPno());
+			logger.info("새로 삽입해야할 사람 : " + newMembers1);
 			
-			for (int i = 0; i < requestUserNoList1.size(); i++) {
-//				if (getParticipateUserListByUno.isEmpty()) {
-					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
-					saveProjectMS(projectMS);
-					
-					User userInfo = getUserForNo(Integer.parseInt(requestUserNoList1.get(i)));
-					Email email = new Email();
-					email.setReciver((String) userInfo.getUemail());
-					email.setSubject("[BIDDING] 프로젝트 요청");
-					email.setContent("[BIDDING] 프로젝트 요청 \n" 
-							+ "프로젝트명: " + project.getPname() + "\n"
-							+ "위 프로젝트에 참여 요청이 왔습니다. \n"
-							+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
-					emailSender.SendEmail(email);
-//				} else {
-//					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
-//					saveProjectMS(projectMS);
-//				}
-			}
-			logger.info("requestUserNoList1 size : " + requestUserNoList1.size());
-			logger.info("getParticipateUserListByPno size : " + getParticipateUserListByPno.size());
-			
-//			if (!participatingUserList.isEmpty()) {
-//				for (int i = 0; i < participatingUserList.size(); i++) {
-//					int participatingUserNo = participatingUserList.get(i).getUno();
-//					for (int j = 0; j < requestUserNoList1.size(); j++) {
-//						if (requestUserNoList1.get(j).equals(String.valueOf(participatingUserNo))) {
-//							break;
-//						} else {
-//							newParticipatingUserList.add(requestUserNoList1.get(j));
-//						}
-//					}
-//				}
-//			}
-//			
-//			logger.info("newParticipatingUserList : " + newParticipatingUserList.isEmpty());
-//			if (requestUserNos != null && !requestUserNos[0].equals("")) {
-//				for (int i = 0; i < requestUserNos.length; i++) {
-//					for (int j = 0; j < participatingUserList.size(); j++) {
-//						if (Integer.parseInt(requestUserNos[i]) == participatingUserList.get(j).getUno()) {
-//							originalParticipatingUserList.add(requestUserNos[i]); // 146, 149
-//						} else {
-//							newParticipatingUserList.add(requestUserNos[i]); // 149, 146
-//						}
-//					}
-//				}
-//				
-//				for (int i = 0; i < originalParticipatingUserList.size(); i++) {
-//					deleteMSByUno(Integer.parseInt(originalParticipatingUserList.get(i)));
-//				}
-//				
-//				for (int i = 0; i < requestUserNos.length; i++) {
-//					projectMS.setUno(Integer.parseInt(requestUserNos[i]));
-//					saveProjectMS(projectMS);
-//				}
-//				
-//				logger.info("requestUserNos size : " + requestUserNos.length);
-//				logger.info("originalParticipatingUserList size : " + originalParticipatingUserList.size());
-//				logger.info("newParticipatingUserList size : " + newParticipatingUserList.size());
-//				
-//				for (int i = 0; i < newParticipatingUserList.size(); i++) {
-//					User userInfo = getUserForNo(Integer.parseInt(newParticipatingUserList.get(i)));
-//					if (userInfo != null) {
-//						Email email = new Email();
-//						email.setReciver((String) userInfo.getUemail());
-//						email.setSubject("[BIDDING] 프로젝트 요청");
-//						email.setContent("[BIDDING] 프로젝트 요청 \n" 
-//								+ "프로젝트명: " + project.getPname() + "\n"
-//								+ "위 프로젝트에 참여 요청이 왔습니다. \n"
-//								+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
-//						emailSender.SendEmail(email);
-//					}
-//				}
+			//상태값 저장
+			for (String newMember : newMembers1) {
+				ProjectMemberStat stat = new ProjectMemberStat();
+				stat.setPno(project.getPno());
+				stat.setUno(Integer.parseInt(newMember));
 				
-//				for (int i = 0; i < requestUserNos.length; i++) {
-//					for (int j = 0; j < participatingUserList.size(); j++) {
-//						if (Integer.parseInt(requestUserNos[i]) == participatingUserList.get(j).getUno()) {
-//							deleteMSByUno(participatingUserList.get(j).getUno());
-//							projectMS.setUno(Integer.parseInt(requestUserNos[i]));
-//							saveProjectMS(projectMS);
-//						} else {
-//							deleteMSByUno(Integer.parseInt(requestUserNos[i]));
-//							projectMS.setUno(Integer.parseInt(requestUserNos[i]));
-//							saveProjectMS(projectMS);
-//							// 사용자에게 플젝 요청 됐다는 이메일 발송
-//							User userInfo = getUserForNo(Integer.parseInt(requestUserNos[i]));
-//							if (userInfo != null) {
-//								Email email = new Email();
-//								email.setReciver((String) userInfo.getUemail());
-//								email.setSubject("[BIDDING] 프로젝트 요청");
-//								email.setContent("[BIDDING] 프로젝트 요청 \n" 
-//										+ "프로젝트명: " + project.getPname() + "\n"
-//										+ "위 프로젝트에 참여 요청이 왔습니다. \n"
-//										+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
-//								emailSender.SendEmail(email);
-//							}
-//						}
-//					}
-//				}
-//			} else {
-//				deleteMSByPno(project.getPno());
-//			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
+				listDao.saveProjectMS(stat);
+				
+				Email email = new Email();
+		        
+		        email.setReciver(listDao.getEmailByUno(Integer.parseInt(newMember)));
+		        email.setSubject("[BIDDING] 프로젝트 요청");
+		        		email.setContent("[BIDDING] 프로젝트 요청 \n" 
+								+ "프로젝트명: " + project.getPname() + "\n"
+								+ "위 프로젝트에 참여 요청이 왔습니다. \n"
+								+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
+		        		
+		        try {
+					emailSender.SendEmail(email);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			//기존 멤버에서 삭제해야 할 사람 찾기
+			for (HashMap<String, Object> oldMember : oldMembers) {
+				if(!(newMembers2.contains(String.valueOf(oldMember.get("uno"))))){
+					HashMap<String, Object> param = new HashMap<>();
+					param.put("uno", oldMember.get("uno"));
+					param.put("pno", project.getPno());
+					
+					listDao.deleteMS(param);
+					logger.info("삭제해야 할 사람 uno : " + oldMember.get("uno") + ", pno : " + project.getPno());
+				}
+			}
 	}
 	
 	public User getUserForNo(int uno) {

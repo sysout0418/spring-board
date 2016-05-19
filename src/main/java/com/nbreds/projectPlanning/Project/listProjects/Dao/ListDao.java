@@ -111,4 +111,16 @@ public class ListDao {
 	public List<Label> getAllLabel() {
 		return sqlSession.selectList("project.list.getAllLabel");
 	}
+
+	public List<HashMap<String, Object>> getParticipateUsers(int pno) {
+		return sqlSession.selectList("project.list.getParticipateUsers", pno);
+	}
+
+	public void deleteMS(HashMap<String, Object> param) {
+		sqlSession.delete("project.list.deleteMS", param);
+	}
+
+	public String getEmailByUno(int uno) {
+		return sqlSession.selectOne("project.list.getEmailByUno", uno);
+	}
 }
