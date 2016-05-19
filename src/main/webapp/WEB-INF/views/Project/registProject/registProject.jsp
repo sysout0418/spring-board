@@ -50,8 +50,10 @@
 								name="requestUserNoList" value="">
 							<input type="hidden" id="requestUserNameList"
 								name="requestUserNameList" value="">
-							<input type="hidden" id="pAmount" name="pAmount" value="0">
-							<input type="hidden" id="lno" name="lno" value="2">
+							<form:input type="hidden" path="pamount" class="form-control" id="pamount"
+								name="pamount" value="0" />
+							<form:input type="hidden" path="lno" id="lno" class="form-control"
+								name="lno" value="2" />
 							<table class="table">
 								<tr>
 									<td colspan="2"
@@ -320,7 +322,7 @@
 					console.log(Number(realAmount));
 					console.log(Number(realAmount).toLocaleString());
 
-					$('#pAmount').val(Number(realAmount).toLocaleString());
+					$('#pamount').val(Number(realAmount).toLocaleString());
 				});
 
 				$('.dropdown-menu > .labelNo > a').bind('click', function() {

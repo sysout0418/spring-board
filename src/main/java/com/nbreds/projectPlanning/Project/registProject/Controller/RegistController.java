@@ -44,6 +44,7 @@ public class RegistController {
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String RegistProcess(@ModelAttribute("project") Project project, BindingResult result,
 			HttpSession session) {
+		logger.info("pamount : " + project.getPamount());
 		String pdata = "";
 		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
 		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";

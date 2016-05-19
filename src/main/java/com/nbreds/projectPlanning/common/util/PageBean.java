@@ -14,7 +14,7 @@ public class PageBean implements Serializable {
 	/** 현재 페이 번호 */
 	private int pageNo;
 	/** 한 페이지에 보여줄 데이타 개수 */
-	private int interval = 15;
+	private int interval = 9;
 	/** 페이지의 시작 번호 */
 	private int start = 0;
 	/** 페이지의 끝 번호 */
