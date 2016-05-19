@@ -21,7 +21,23 @@
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
-</script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/select/select2.full.js" />"></script>
+<!-- select2 -->
+  <script>
+    $(document).ready(function() {
+      $(".select2_single").select2({
+        placeholder: "Select a state",
+        allowClear: true
+      });
+      $(".select2_group").select2({});
+      $(".select2_multiple").select2({
+        maximumSelectionLength: 4,
+        placeholder: "With Max Selection limit 4",
+        allowClear: true
+      });
+    });
+  </script>
+  <!-- /select2 -->
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/zabuto_calendar.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery-ui-1.9.2.custom.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/jquery.ui.touch-punch.min.js" />"></script>
@@ -35,6 +51,5 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-
 </body>
 </html>

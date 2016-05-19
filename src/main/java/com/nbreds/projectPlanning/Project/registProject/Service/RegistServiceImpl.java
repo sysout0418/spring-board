@@ -30,8 +30,8 @@ public class RegistServiceImpl implements RegistService{
 	private EmailSender emailSender;
 	
 	@Transactional
-	public void savePrjAndPrjMS(Project project, String requestedUserNoList) {
-		try {
+	public void savePrjAndPrjMS(Project project) {
+		/*
 			registDao.saveProject(project);
 			int maxPno = getLastno();
 			ProjectMemberStat projectMS = new ProjectMemberStat();
@@ -59,10 +59,7 @@ public class RegistServiceImpl implements RegistService{
 					}
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
+			*/
 	}
 	
 	public int getLastno() {

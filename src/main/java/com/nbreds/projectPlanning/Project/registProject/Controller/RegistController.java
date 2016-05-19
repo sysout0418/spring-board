@@ -34,10 +34,8 @@ public class RegistController {
 	public String Regist(Project project, HttpSession session, Model model) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
 		HashMap<String, Object> user = registService.getUserForNo(uno);
-		List<User> allUserList = registService.getAllUser();
 		List<Label> allLabelList = registService.getAllLabel();
 		model.addAttribute("user", user);
-		model.addAttribute("allUserList", allUserList);
 		model.addAttribute("labels", allLabelList);
 		
 		return "Project/registProject/registProject";
@@ -45,67 +43,25 @@ public class RegistController {
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String RegistProcess(@ModelAttribute("project") Project project, BindingResult result,
-			HttpServletRequest request, HttpSession session) {
+			HttpSession session) {
 		String pdata = "";
-		String pAmount = request.getParameter("pAmount");
-		String lno = request.getParameter("lno");
 		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
 		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
 		if(project.getPplanning() != null)	for (String tmp : project.getPplanning())		pdata +="006"+tmp+",";
 		project.setPdata(pdata);
-		project.setPamount(pAmount);
-		project.setLno(Integer.parseInt(lno));
 		
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
-		String requestedUserNoList = request.getParameter("requestUserNoList");
-		registService.savePrjAndPrjMS(project, requestedUserNoList);
-		logger.info("pAmount : " + project.getPamount());
+		registService.savePrjAndPrjMS(project);
 		
 		return "redirect:/";
 	}
-	
-	@RequestMapping("/getUserList")
-	public String getUserList(Model model, @RequestParam(value="checkArray[]") List<String> arrayParams,
-			@RequestParam(value="index") int index, HttpServletRequest request) {
-		logger.info("index : " + index);
-		HttpSession session = request.getSession();
-		session.removeAttribute("index");
-		session.setAttribute("index", index);
-		int sessionIndex = Integer.parseInt(session.getAttribute("index").toString());
-
+	@ModelAttribute("allUserList")
+	public List<User> allUserList() {
 		List<User> allUserList = registService.getAllUser();
-		if (arrayParams != null && !arrayParams.get(0).equals("")) {
-			// 넘어온 체크박스값 로그 찍어보자
-			for (int i = 0; i < arrayParams.size(); i++) {
-				logger.info("arrayParams[" + i + "] : " + arrayParams.get(i));
-			}
-			
-			// 체크박스 체크 여부가 true인 객체만 찾아서 true로 바꾸기
-			for (int i = 0; i < allUserList.size(); i++) {
-				allUserList.get(i).setChecked(false);
-				for (int j = 0; j < arrayParams.size(); j++) {
-					if (allUserList.get(i).getUno() == Integer.parseInt(arrayParams.get(j))) {
-						allUserList.get(i).setChecked(true);
-					}
-				}
-			}
-			
-			// 체크박스 값이 잘 변경 됐는지 로그 찍어보자
-			for (int i = 0; i < allUserList.size(); i++) {
-				logger.info("allUserList.get(" + i + ").getIsChecked() : " + allUserList.get(i).getIsChecked());
-			}
-		} else {
-			// 넘어온 체크박스값 없으면 모든 객체 체크박스값도 false로
-			for (int i = 0; i < allUserList.size(); i++) {
-				allUserList.get(i).setChecked(false);
-			}
-		}
-		model.addAttribute("allUserList", allUserList);
-		model.addAttribute("index", sessionIndex);
-		
-		return "Project/registProject/userList";
-	}
 
+		return allUserList;
+	}
+	
 	@ModelAttribute("development")
 	public List<CodeTable> getDevelopment() {
 		List<CodeTable> devList = registService.getCodeTable("004");

@@ -13,7 +13,7 @@ import com.nbreds.projectPlanning.issues.VO.Label;
 
 @Service
 public interface RegistService {
-	public void savePrjAndPrjMS(Project project, String requestedUserNoList);
+	public void savePrjAndPrjMS(Project project);
 	
 	public int getLastno();
 	

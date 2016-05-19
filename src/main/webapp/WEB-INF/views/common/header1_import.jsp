@@ -11,7 +11,9 @@
 	content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
 <title>BIDDING</title>
-
+<link
+	href="<c:url value="/resources/css/reset.css" />"
+	rel="stylesheet" type="text/css" />
 <!-- Bootstrap core CSS -->
 <link
 	href="<c:url value="/resources/css/bootstrap/bootstrap.min.css" />"
@@ -22,7 +24,7 @@
 	rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/bootstrap-theme-dashgum/zabuto_calendar.css"/>">
-	
+
 <!-- Custom styles for this template -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/lineicons/style.css" />">
@@ -38,16 +40,15 @@
 
 <script
 	src="<c:url value="/resources/javascript/bootstrap-theme-dashgum/chart-master/Chart.js" />"></script>
-	
+
 <!--  jquery -ui -->
-<link
-	href="<c:url value="/resources/css/jquery-ui/jquery-ui.css" />"
+<link href="<c:url value="/resources/css/jquery-ui/jquery-ui.css" />"
 	rel="stylesheet" type="text/css" />
 
 <link href="<c:url value="/resources/css/tappanel.css" />"
 	rel="stylesheet" type="text/css" />
 <link href="<c:url value="/resources/css/timeline.css" />"
-rel="stylesheet" type="text/css" />
+	rel="stylesheet" type="text/css" />
 
 <!-- color picker -->
 <link
@@ -65,19 +66,21 @@ rel="stylesheet" type="text/css" />
 .content-panel {
 	padding: 30px;
 }
-
 </style>
 
 <style type="text/css">
-html { 
-	overflow-y:scroll; 
+html {
+	overflow-y: scroll;
 }
-.user-img{
+
+.user-img {
 	text-align: center;
 }
-.img-circle{
-	display:inline-block;
-	height:60px; line-height:60px;
+
+.img-circle {
+	display: inline-block;
+	height: 60px;
+	line-height: 60px;
 }
 </style>
 </head>

@@ -1,5 +1,6 @@
 package com.nbreds.projectPlanning.Project.VO;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Project {
@@ -16,6 +17,7 @@ public class Project {
 	private List<String> pdevelopment;
 	private List<String> pdesign;
 	private List<String> pplanning;
+	private List<String> requestMember;
 	private int pprogress;
 	private String ltitle;
 	private String lbgcolor;
@@ -139,5 +141,11 @@ public class Project {
 	}
 	public void setPamount(String pamount) {
 		this.pamount = pamount;
+	}
+	public List<String> getRequestMember() {
+		return requestMember;
+	}
+	public void setRequestMember(List<String> requestMember) {
+		this.requestMember = requestMember;
 	}
 }
