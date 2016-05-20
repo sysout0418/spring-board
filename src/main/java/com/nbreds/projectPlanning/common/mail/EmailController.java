@@ -39,7 +39,8 @@ public class EmailController {
 	        String subject = "임시 비밀번호입니다.";
 	        String content = "임시 비밀번호는 "+password+"입니다.";
 	        
-	        email.setReciver(address);
+	        //email.setReciver(address);
+	        email.setReciver("hyoin123@nate.com");
 	        email.setSubject(subject);
 	        email.setContent(content);
 	        emailSender.SendEmail(email);

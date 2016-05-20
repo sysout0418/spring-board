@@ -62,11 +62,9 @@ public class RegistController {
 		List<User> allUserList = registService.getAllUser();
 		
 		Iterator<User> itr = allUserList.iterator();
+		
 		//자기자신 제외
-		while(itr.hasNext()){
-			if(itr.next().getUno() == uno)
-				itr.remove();
-		}
+		while(itr.hasNext())	if(itr.next().getUno() == uno)		itr.remove();
 
 		return allUserList;
 	}

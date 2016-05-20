@@ -45,7 +45,8 @@ public class RegistServiceImpl implements RegistService {
 			//메일전송
 			Email email = new Email();
 	        
-	        email.setReciver(registDao.getEmailByUno(Integer.parseInt(newMember)));
+			email.setReciver("hyoin123@nate.com");
+	        //email.setReciver(registDao.getEmailByUno(Integer.parseInt(newMember)));
 	        email.setSubject("[BIDDING] 프로젝트 요청");
 	        		email.setContent("[BIDDING] 프로젝트 요청 \n" 
 							+ "프로젝트명: " + project.getPname() + "\n"

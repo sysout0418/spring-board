@@ -25,7 +25,7 @@ public interface ListService {
 
 	public void removeProject(int pno);
 
-	public void updateProject(Project project, String[] requestUserNoList) throws Exception;
+	public void updateProject(Project project, List<String> list) throws Exception;
 	
 	public User getUserForNo(int uno);
 	

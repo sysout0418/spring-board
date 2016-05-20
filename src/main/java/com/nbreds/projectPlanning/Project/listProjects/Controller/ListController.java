@@ -89,13 +89,12 @@ public class ListController {
 			@ModelAttribute("project") Project project) {
 		project = listService.getUpdateProjectByPno(pno);
 		List<Label> allLabelList = listService.getAllLabel();
-		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserListByPno(pno);
 
 		List<String> dev = new ArrayList<>();
 		List<String> design = new ArrayList<>();
 		List<String> plan = new ArrayList<>();
-		List<String> requestMember = new ArrayList<>();
 		
+		//데이터
 		if (project.getPdata() != "") {
 			String[] pdata = project.getPdata().split(",");
 			for (String tmp : pdata) {
@@ -106,21 +105,24 @@ public class ListController {
 				if (tmp.substring(0, 3).equals("006"))
 					plan.add(tmp.substring(3, 6));
 			}
-			requestMember.add("146");
 			
 			project.setPdevelopment(dev);
 			project.setPdesign(design);
 			project.setPplanning(plan);
-			project.setRequestMember(requestMember);
 		}
+		
+		//요청 인원추가
+		List<String> requestMember = new ArrayList<>();
+		List<HashMap<String, Object>> Members = listService.getRequestMember(pno);
+		
+		for (HashMap<String, Object> requestUno : Members)	requestMember.add(String.valueOf(requestUno.get("uno")));
+		project.setRequestMember(requestMember);
 
 		User user = listService.getUserForNo(project.getUno());
 		if (model != null) {
 			model.addAttribute("project", project);
 			model.addAttribute("user", user);
 			model.addAttribute("allLabelList", allLabelList);
-			model.addAttribute("participatedUserList", participatedUserList);
-			request.setAttribute("participatedUserList", participatedUserList);
 		}
 
 		return "Project/listProjects/updateView";
@@ -128,13 +130,12 @@ public class ListController {
 
 	// 프로젝트 수정
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String updateProject(@ModelAttribute("project") Project project, String[] requestUserNoList,
-			BindingResult result, HttpSession session) {
+	public String updateProject(@ModelAttribute("project") Project project, BindingResult result, HttpSession session) {
 		logger.info("pno : " + project.getPno());
 		logger.info("uno : " + project.getUno());
 		logger.info("lno : " + project.getLno());
 		logger.info("pamount : " + project.getPamount());
-		logger.info("requestUserNoList : " + requestUserNoList);
+		logger.info("requestUserNoList : " + project.getRequestMember());
 		
 		
 		// pdata입력
@@ -146,7 +147,7 @@ public class ListController {
 		
 		//서비스 호출
 		try {
-			listService.updateProject(project, requestUserNoList);
+			listService.updateProject(project, project.getRequestMember());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,10 +163,7 @@ public class ListController {
 		Iterator<User> itr = allUserList.iterator();
 		
 		//자기자신 제외
-		while(itr.hasNext()){
-			if(itr.next().getUno() == uno)
-				itr.remove();
-		}
+		while(itr.hasNext())	if(itr.next().getUno() == uno)	itr.remove();
 
 		return allUserList;
 	}
