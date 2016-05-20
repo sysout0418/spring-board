@@ -235,4 +235,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE uno=#{uno}
 	]]>
 	</select>
+	
+	<delete id="deleteMSAll">
+    <![CDATA[
+    DELETE FROM ProjectMemberStat
+	WHERE pno = #{pno}
+    ]]>
+	</delete>
 </mapper>

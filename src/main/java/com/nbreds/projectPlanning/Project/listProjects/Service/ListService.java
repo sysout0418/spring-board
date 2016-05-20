@@ -60,5 +60,7 @@ public interface ListService {
 	public Project getUpdateProjectByPno(int pno);
 	
 	List<Label> getAllLabel();
+
+	public void deleteMSAll(int pno);
 	
 }

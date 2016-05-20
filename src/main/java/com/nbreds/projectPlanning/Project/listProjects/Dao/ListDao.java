@@ -123,4 +123,8 @@ public class ListDao {
 	public String getEmailByUno(int uno) {
 		return sqlSession.selectOne("project.list.getEmailByUno", uno);
 	}
+
+	public void deleteMSAll(int pno) {
+		sqlSession.delete("project.list.deleteMSAll", pno);
+	}
 }

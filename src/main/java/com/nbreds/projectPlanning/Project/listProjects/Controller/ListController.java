@@ -114,6 +114,7 @@ public class ListController {
 		//요청 인원추가
 		List<String> requestMember = new ArrayList<>();
 		List<HashMap<String, Object>> Members = listService.getRequestMember(pno);
+
 		
 		for (HashMap<String, Object> requestUno : Members)	requestMember.add(String.valueOf(requestUno.get("uno")));
 		project.setRequestMember(requestMember);
@@ -147,7 +148,8 @@ public class ListController {
 		
 		//서비스 호출
 		try {
-			listService.updateProject(project, project.getRequestMember());
+			if(project.getRequestMember() != null)	listService.updateProject(project, new ArrayList<>(project.getRequestMember()));
+			else	listService.deleteMSAll(project.getPno());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
