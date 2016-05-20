@@ -69,5 +69,10 @@ public class HomeController {
 
 		return list;
 	}
+	
+	@RequestMapping("/chat")
+	public void chat() {
+		
+	}
 
 }
