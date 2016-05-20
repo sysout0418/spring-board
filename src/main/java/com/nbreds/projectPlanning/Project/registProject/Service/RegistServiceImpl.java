@@ -40,8 +40,9 @@ public class RegistServiceImpl implements RegistService {
 			stat.setPno(project.getPno());
 			stat.setUno(Integer.parseInt(newMember));
 			
+			logger.info("newMember : " + newMember);
 			registDao.saveProjectMS(stat);
-			
+
 			//메일전송
 			Email email = new Email();
 	        
@@ -52,12 +53,11 @@ public class RegistServiceImpl implements RegistService {
 							+ "프로젝트명: " + project.getPname() + "\n"
 							+ "위 프로젝트에 참여 요청이 왔습니다. \n"
 							+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
-	        		
-	        try {
-				emailSender.SendEmail(email);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				try {
+					emailSender.SendEmail(email);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 		}
 	}
 

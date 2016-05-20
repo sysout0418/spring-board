@@ -51,6 +51,6 @@ public class RegistDao {
 	}
 
 	public String getEmailByUno(int uno) {
-		return sqlSession.selectOne("project.regist.getEmailByUno");
+		return sqlSession.selectOne("project.regist.getEmailByUno", uno);
 	}
 }
