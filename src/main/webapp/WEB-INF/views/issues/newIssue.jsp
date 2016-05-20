@@ -132,6 +132,7 @@ MAIN CONTENT
 					</ul>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<label for="inputDuedate" class="col-lg-2 control-label">Due Date</label>
 				<div class="btn-group" style="margin-left: 15px;">
@@ -306,4 +307,5 @@ $(function(){
 	$('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
 	$('#trigger-upload').attr('alt', "1");
 }); */
+
 </script>

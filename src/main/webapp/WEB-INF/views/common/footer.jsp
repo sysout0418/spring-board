@@ -20,7 +20,6 @@
 <script type="text/javascript" src="<c:url value="/resources/javascript/form-validation/messages_ko.min.js" />"></script>
 
 <!-- js placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/select/select2.full.js" />"></script>
 <!-- select2 -->
   <script>
@@ -35,6 +34,9 @@
         placeholder: "With Max Selection limit 4",
         allowClear: true
       });
+      
+      // tooltip
+      $('[data-toggle="tooltip"]').tooltip();   
     });
   </script>
   <!-- /select2 -->
@@ -51,5 +53,6 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
 </body>
 </html>
