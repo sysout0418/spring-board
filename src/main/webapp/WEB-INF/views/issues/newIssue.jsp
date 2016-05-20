@@ -66,20 +66,20 @@ MAIN CONTENT
 			<div class="form-group">
 				<label for="inputAssignee" class="col-lg-2 control-label">Assignee</label>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default btn-width"
+					<span class="btn btn-default btn-width"
 						style="text-align: left; margin-left: 15px;"><span id="selectedAssign">Select
-						Assignee</span></a> <a href="#" class="btn btn-default dropdown-toggle"
+						Assignee</span></span> <span class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"><span class="caret"
-						style="height: 10px; margin-top: 10px;"></span></a>
-					<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
+						style="height: 10px; margin-top: 10px;"></span></span>
+					<a href="#" class="btn btn-default" id="assigntome" style="">ASSIGN TO ME</a>
 					<ul class="dropdown-menu">
 						<c:forEach var="users" items="${userList}">
 							<c:choose>
 								<c:when test="${users == 'none'}">
-									<li><a href="#">No user participating in this project</a></li>
+									<li><span>No user participating in this project</span></li>
 								</c:when>
 								<c:otherwise>
-									<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
+									<li class="userNo1"><span alt="${users.uno}">${users.uname}</span></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -89,7 +89,7 @@ MAIN CONTENT
 			<div class="form-group">
 				<label for="inputMilestone" class="col-lg-2 control-label">Milestone</label>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default btn-width" style="text-align: left; margin-left: 15px;">
+					<span class="btn btn-default btn-width" style="text-align: left;">
 						<c:choose>
 							<c:when test="${!empty mno and !empty mtitle}">
 								<span id="selectedMilestone">${mtitle}</span>
@@ -98,19 +98,19 @@ MAIN CONTENT
 								<span id="selectedMilestone">Select Milestone</span>
 							</c:otherwise>
 						</c:choose>
-					</a> 
-					<a href="#" class="btn btn-default dropdown-toggle"
+					</span> 
+					<span class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown"><span class="caret"
-						style="height: 10px; margin-top: 10px;"></span></a>
+						style="height: 10px; margin-top: 10px;"></span></span>
 					<a href="/${uno}/${pno}/milestones/new" class="btn btn-default" id="assigntome" style="margin-left: 10px;">Create New Milestone</a>
 					<ul class="dropdown-menu">
 						<c:forEach var="milestone" items="${milestoneList}">
 							<c:choose>
 								<c:when test="${milestone == 'none'}">
-									<li><a href="#">No milestone to show</a></li>
+									<li><span>No milestone to show</span></li>
 								</c:when>
 								<c:otherwise>
-									<li class="milestoneNo"><a href="#" alt="${milestone.mno}">${milestone.mtitle}</a></li>
+									<li class="milestoneNo"><span alt="${milestone.mno}">${milestone.mtitle}</span></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -120,14 +120,14 @@ MAIN CONTENT
 			<div class="form-group">
 				<label for="inputWeight" class="col-lg-2 control-label">Weight</label>
 				<div class="btn-group">
-					<a href="#" class="btn btn-default btn-width"
+					<span class="btn btn-default btn-width"
 						style="text-align: left; margin-left: 15px;"><span
-						id="selectedLabel">Select Weight</span></a> <a href="#"
+						id="selectedLabel">Select Weight</span></span> <a href="#"
 						class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span
 						class="caret" style="height: 10px; margin-top: 10px;"></span></a>
 					<ul class="dropdown-menu">
 						<c:forEach var="labels" items="${labels}" varStatus="status">
-							<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
+							<li class="labelNo"><span href="#" alt="${labels.lno}">${labels.ltitle}</span></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -213,7 +213,7 @@ $("#assigntome").click(function() {
 	$('#lno').val(lno.substring(0, lno.length - 1));
 }); */
 
-$('.dropdown-menu > .userNo1 > a').bind('click', function() {
+$('.dropdown-menu > .userNo1 > span').bind('click', function() {
 	var userName = $(this).text();
 	var userNo = $(this).attr("alt");
 	console.log(userNo);
@@ -221,7 +221,7 @@ $('.dropdown-menu > .userNo1 > a').bind('click', function() {
 	$("#selectedAssign").text(userName);
 });
 
-$('.dropdown-menu > .milestoneNo > a').bind('click', function() {
+$('.dropdown-menu > .milestoneNo > span').bind('click', function() {
 	var mTitle = $(this).text();
 	var milestoneNo = $(this).attr("alt");
 	console.log(milestoneNo);
@@ -229,7 +229,7 @@ $('.dropdown-menu > .milestoneNo > a').bind('click', function() {
 	$("#selectedMilestone").text(mTitle);
 });
 
-$('.dropdown-menu > .labelNo > a').bind('click', function() {
+$('.dropdown-menu > .labelNo > span').bind('click', function() {
 	var lTitle = $(this).text();
 	var lno = $(this).attr("alt");
 	console.log(lno);

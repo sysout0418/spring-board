@@ -54,5 +54,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/javascript/bootstrap/bootstrap.min.js" />"></script>
+<script type="text/javascript" src="<c:url value="/resources/javascript/pace/pace.min.js" />"></script>
 </body>
 </html>

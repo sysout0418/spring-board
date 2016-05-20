@@ -89,156 +89,126 @@ html {
 }
 </style>
 
-<!-- heart progressbar -->
+<!-- timer progressbar -->
 <style>
-[data-loader='heart']
+[data-loader='timer']
 {
     position: relative;
 
-    width: 100px;
-    height: 90px;
+    width: 24px;
+    height: 24px;
 
-    -webkit-animation: heart infinite .85s linear;
-       -moz-animation: heart infinite .85s linear;
-         -o-animation: heart infinite .85s linear;
-            animation: heart infinite .85s linear;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background-color: transparent;
 }
-[data-loader='heart']:before,
-[data-loader='heart']:after
+[data-loader='timer']:after,
+[data-loader='timer']:before
 {
     position: absolute;
-    top: 0;
-    left: 30px;
-
-    width: 30px;
-    height: 50px;
 
     content: '';
-    -webkit-transform: rotate(-45deg);
-       -moz-transform: rotate(-45deg);
-        -ms-transform: rotate(-45deg);
-         -o-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-    -webkit-transform-origin: 0 100%;
-       -moz-transform-origin: 0 100%;
-        -ms-transform-origin: 0 100%;
-         -o-transform-origin: 0 100%;
-            transform-origin: 0 100%;
 
-    -moz-border-radius: 30px 30px 0 0;
-         border-radius: 30px 30px 0 0;
-    background: #fff;
+    background-color: #fff;
 }
-[data-loader='heart']:after
+[data-loader='timer']:after
 {
-    left: 0;
+    top: 11px;
+    left: 11px;
 
-    -webkit-transform: rotate(45deg);
-       -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-         -o-transform: rotate(45deg);
-            transform: rotate(45deg);
-    -webkit-transform-origin: 100% 100%;
-       -moz-transform-origin: 100% 100%;
-        -ms-transform-origin: 100% 100%;
-         -o-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
+    width: 10px;
+    height: 2px;
+
+    -webkit-transform-origin: 1px 1px;
+       -moz-transform-origin: 1px 1px;
+            transform-origin: 1px 1px;
+    -webkit-animation: timerhand 2s linear infinite;
+       -moz-animation: timerhand 2s linear infinite;
+            animation: timerhand 2s linear infinite;
 }
-@-webkit-keyframes heart
+
+[data-loader='timer']:before
+{
+    top: 11px;
+    left: 11px;
+
+    width: 8px;
+    height: 2px;
+
+    -webkit-transform-origin: 1px 1px;
+       -moz-transform-origin: 1px 1px;
+            transform-origin: 1px 1px;
+    -webkit-animation: timerhand 8s linear infinite;
+       -moz-animation: timerhand 8s linear infinite;
+            animation: timerhand 8s linear infinite;
+}
+
+@-webkit-keyframes timerhand
 {
     0%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
-    }
-    50%
-    {
-        -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-             -o-transform: scale(1);
-                transform: scale(1);
+        -webkit-transform: rotate(0deg);
     }
     100%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
+        -webkit-transform: rotate(360deg);
     }
 }
-@-moz-keyframes heart
+@-moz-keyframes timerhand
 {
     0%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
-    }
-    50%
-    {
-        -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-             -o-transform: scale(1);
-                transform: scale(1);
+        -webkit-transform: rotate(0deg);
     }
     100%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
+        -webkit-transform: rotate(360deg);
     }
 }
-@-o-keyframes heart
+@-o-keyframes timerhand
 {
     0%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
-    }
-    50%
-    {
-        -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-             -o-transform: scale(1);
-                transform: scale(1);
+        -webkit-transform: rotate(0deg);
     }
     100%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
+        -webkit-transform: rotate(360deg);
     }
 }
-@keyframes heart
+@keyframes timerhand
 {
     0%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
-    }
-    50%
-    {
-        -webkit-transform: scale(1);
-            -ms-transform: scale(1);
-             -o-transform: scale(1);
-                transform: scale(1);
+        -webkit-transform: rotate(0deg);
     }
     100%
     {
-        -webkit-transform: scale(.8);
-            -ms-transform: scale(.8);
-             -o-transform: scale(.8);
-                transform: scale(.8);
+        -webkit-transform: rotate(360deg);
     }
+}
+</style>
+
+<!-- face loader -->
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.pace-inactive {
+  display: none;
+}
+.pace .pace-progress {
+  background: #1abb9c;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
 }
 </style>
 </head>

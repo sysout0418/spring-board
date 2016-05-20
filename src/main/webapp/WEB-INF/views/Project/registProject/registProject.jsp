@@ -178,6 +178,14 @@ MAIN CONTENT
 <jsp:include
 	page="${pageContext.request.contextPath}/WEB-INF/views/common/footer.jsp" />
 <script>
+	jQuery.fn.center = function () {
+	    this.css("position","absolute");
+	    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 3) + $(window).scrollTop()) + "px");
+	    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+	    this.css("z-index", "9001");
+	    return this;
+	}
+
 	$(function() {
 		$("#datepicker").datepicker({
 			altFormat : "mm/dd/yy",
@@ -329,9 +337,10 @@ MAIN CONTENT
 
 					$('#pamount').val(Number(realAmount).toLocaleString());
 					
-					$('html').append('<div id="mask" style="position: absolute; left:0; top:0; z-index:9000; background-color:#000; display:none;"></div>'
-							+ '<div data-loader="heart" style="position: absolute; top: 50%; left: 50%; z-index: 9001;"></div>');
+					$('html').append('<div id="mask" style="position: absolute; left:0; top:0; z-index:9000; background-color:#000; display:none;"></div>');
+					$('body').after('<div id="progressBar" data-loader="timer" style="display: none;"></div>');
 					
+					showProgressBar();
 					wrapWindowByMask();
 					
 				});
@@ -346,9 +355,6 @@ MAIN CONTENT
 				
 			});
 	
-	/* $(document).on('ready', 'html', function() {
-		$(this).append('<div data-loader="circle-scale" style="position: absolute; top: 50%; left: 50%; border: 1px solid red;></div>');
-	}); */
 	
 	function wrapWindowByMask() {
 		//화면의 높이와 너비를 구한다.
@@ -361,5 +367,10 @@ MAIN CONTENT
 		//애니메이션 효과
 		$('#mask').fadeIn(100);      
 		$('#mask').fadeTo("slow", 0.8);    
+	}
+	
+	function showProgressBar() {
+		$("#progressBar").show();
+		$("#progressBar").center();
 	}
 </script>
