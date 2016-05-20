@@ -166,6 +166,8 @@ MAIN CONTENT
 							</table>
 							<input class="btn btn-warning" type="submit" id="submit"
 								value="Create Project">
+							<!-- <input class="btn btn-warning" type="button" id="test"
+								value="test"> -->
 						</form:form>
 					</div>
 				</div>
@@ -309,6 +311,7 @@ MAIN CONTENT
 				});
 
 				$('#submit').click(function() {
+					
 					var status = $('#unit').text();
 					var amount = $('#pAmount2').val();
 					var realAmount = '';
@@ -325,6 +328,12 @@ MAIN CONTENT
 					console.log(Number(realAmount).toLocaleString());
 
 					$('#pamount').val(Number(realAmount).toLocaleString());
+					
+					$('html').append('<div id="mask" style="position: absolute; left:0; top:0; z-index:9000; background-color:#000; display:none;"></div>'
+							+ '<div data-loader="heart" style="position: absolute; top: 50%; left: 50%; z-index: 9001;"></div>');
+					
+					wrapWindowByMask();
+					
 				});
 
 				$('.dropdown-menu > .labelNo > a').bind('click', function() {
@@ -334,5 +343,23 @@ MAIN CONTENT
 					$("#lno").val(lno);
 					$("#selectedLabel").text(lTitle);
 				});
+				
 			});
+	
+	/* $(document).on('ready', 'html', function() {
+		$(this).append('<div data-loader="circle-scale" style="position: absolute; top: 50%; left: 50%; border: 1px solid red;></div>');
+	}); */
+	
+	function wrapWindowByMask() {
+		//화면의 높이와 너비를 구한다.
+		var maskHeight = $(document).height();  
+		var maskWidth = $(window).width();  
+
+		//마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+		$('#mask').css({'width': maskWidth, 'height': maskHeight});  
+
+		//애니메이션 효과
+		$('#mask').fadeIn(100);      
+		$('#mask').fadeTo("slow", 0.8);    
+	}
 </script>
