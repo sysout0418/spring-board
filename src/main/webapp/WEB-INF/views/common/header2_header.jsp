@@ -18,7 +18,7 @@ TOP BAR CONTENT & NOTIFICATIONS
 			<!--  notification start -->
 			<ul class="nav top-menu">
 				<!-- settings start -->
-				<li class="dropdown"><a data-toggle="dropdown"
+				<li class="dropdown" data-toggle="tooltip" data-placement="bottom" title="Your Projects"><a data-toggle="dropdown"
 					class="dropdown-toggle" href="#"> <i class="fa fa-tasks"></i>
 				</a>
 					<ul class="dropdown-menu extended tasks-bar">
@@ -50,7 +50,7 @@ TOP BAR CONTENT & NOTIFICATIONS
 					</ul></li>
 				<!-- settings end -->
 				<!-- inbox dropdown start-->
-				<li id="header_inbox_bar" class="dropdown"><a
+				<li id="header_inbox_bar" class="dropdown" data-toggle="tooltip" data-placement="bottom" title="Requested projects"><a
 					data-toggle="dropdown" class="dropdown-toggle" href="#"> <i
 						class="fa fa-envelope-o"></i> <c:if test="${req > 0}">
 							<span class="badge bg-theme">${req}</span>
@@ -104,9 +104,9 @@ TOP BAR CONTENT & NOTIFICATIONS
 		<div class="top-menu">
 			<!-- <a href="#" data-toggle="tooltip" title="Hooray!">Hover over me</a> -->
 			<ul class="nav pull-right top-menu">
-					<li><a href="http://redmine.nbreds.com:32/" target="_blank" style="margin-top: 15px;"> <i class="fa fa-calendar-o" aria-hidden="true"></i></a></li>
-					<li><a href="http://gitlab.nbreds.com:30" target="_blank" style="margin-top: 15px;"> <i class="fa fa-git" aria-hidden="true"></i></a></li>
-					<li><a href="http://192.168.0.7:5000/" target="_blank" style="margin-top: 15px;"> <i class="fa fa-hdd-o" aria-hidden="true"></i></a></li>
+					<li><a href="http://redmine.nbreds.com:32/" target="_blank" style="margin-top: 15px;" data-toggle="tooltip" data-placement="bottom" title="Redmine"> <i class="fa fa-calendar-o" aria-hidden="true"></i></a></li>
+					<li><a href="http://gitlab.nbreds.com:30" target="_blank" style="margin-top: 15px;" data-toggle="tooltip" data-placement="bottom" title="GitLab"> <i class="fa fa-git" aria-hidden="true"></i></a></li>
+					<li><a href="http://192.168.0.7:5000/" target="_blank" style="margin-top: 15px;" data-toggle="tooltip" data-placement="bottom" title="NAS"> <i class="fa fa-hdd-o" aria-hidden="true"></i></a></li>
 				<li><a class="logout" href="/logout">Logout</a></li>
 			</ul>
 		</div>
