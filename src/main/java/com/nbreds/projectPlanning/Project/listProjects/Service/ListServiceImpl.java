@@ -63,58 +63,63 @@ public class ListServiceImpl implements ListService {
 
 		// 새 프로젝트 요청 인원 목록
 		List<String> newMembers = project.getRequestMember();
-		Iterator<String> newMembersItr = newMembers.iterator();
 		
-		logger.info("새로운 요청 목록 : " + newMembers);
-		//while(itr.hasNext())	if(itr.next().getUno() == uno)	itr.remove();
-		
-		while(newMembersItr.hasNext()){
-			String newMember = newMembersItr.next();
-			for (int i=0; i<oldMembers.size(); i++) { 
-				if (newMember.equals(String.valueOf(oldMembers.get(i).get("uno")))) {
-					newMembersItr.remove();
+		if(newMembers != null){
+			Iterator<String> newMembersItr = newMembers.iterator();
+			
+			logger.info("새로운 요청 목록 : " + newMembers);
+			
+			while(newMembersItr.hasNext()){
+				String newMember = newMembersItr.next();
+				for (int i=0; i<oldMembers.size(); i++) { 
+					if (newMember.equals(String.valueOf(oldMembers.get(i).get("uno")))) {
+						newMembersItr.remove();
+					}
 				}
 			}
-		}
-		
-		logger.info("추가할 사람 목록 : " + newMembers);
 			
-		// 상태값 저장
-		for (String newMember : newMembers) {
-			ProjectMemberStat stat = new ProjectMemberStat();
-			stat.setPno(project.getPno());
-			stat.setUno(Integer.parseInt(newMember));
-
-			listDao.saveProjectMS(stat);
-
-			Email email = new Email();
-
-			//email.setReciver(listDao.getEmailByUno(Integer.parseInt(newMember)));
-			email.setReciver("hyoin123@nate.com");
-			email.setSubject("[BIDDING] 프로젝트 요청");
-			email.setContent("[BIDDING] 프로젝트 요청 \n" + "프로젝트명: " + project.getPname() + "\n" + "위 프로젝트에 참여 요청이 왔습니다. \n"
-					+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
-
-			try {
-				emailSender.SendEmail(email);
-			} catch (Exception e) {
-				e.printStackTrace();
+			logger.info("추가할 사람 목록 : " + newMembers);
+				
+			// 상태값 저장
+			for (String newMember : newMembers) {
+				ProjectMemberStat stat = new ProjectMemberStat();
+				stat.setPno(project.getPno());
+				stat.setUno(Integer.parseInt(newMember));
+	
+				listDao.saveProjectMS(stat);
+	
+				Email email = new Email();
+	
+				//email.setReciver(listDao.getEmailByUno(Integer.parseInt(newMember)));
+				email.setReciver("hyoin123@nate.com");
+				email.setSubject("[BIDDING] 프로젝트 요청");
+				email.setContent("[BIDDING] 프로젝트 요청 \n" + "프로젝트명: " + project.getPname() + "\n" + "위 프로젝트에 참여 요청이 왔습니다. \n"
+						+ "자세한 사항은 bidding.nbreds.com에 접속하여 확인하세요.");
+	
+				try {
+					emailSender.SendEmail(email);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				logger.info("추가된 사람 목록 : " + newMember);
 			}
-			
-			logger.info("추가된 사람 목록 : " + newMember);
 		}
 		
 		// 기존 멤버에서 삭제해야 할 사람 찾기
-		for (HashMap<String, Object> oldMember : oldMembers) {
-			if (!(newMembers.contains(String.valueOf(oldMember.get("uno"))))) {
+		for (int i=0; i<oldMembers.size(); i++) { 
+			System.out.println("old : " + oldMembers.get(i));
+			System.out.println("new : " +project.getRequestMember());
+			if (!(project.getRequestMember().contains(String.valueOf(oldMembers.get(i).get("uno"))))) {
 				HashMap<String, Object> param = new HashMap<>();
-				param.put("uno", oldMember.get("uno"));
+				param.put("uno", oldMembers.get(i).get("uno"));
 				param.put("pno", project.getPno());
 
-				listDao.deleteMS(param);
-				logger.info("삭제해야 할 사람 uno : " + oldMember.get("uno") + ", pno : " + project.getPno());
+				//listDao.deleteMS(param);
+				logger.info("삭제해야 할 사람 uno : " + oldMembers.get(i).get("uno") + ", pno : " + project.getPno());
 			}
 		}
+		
 	}
 
 	public User getUserForNo(int uno) {
