@@ -2,6 +2,7 @@ package com.nbreds.projectPlanning.Project.listProjects.Controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -154,8 +155,17 @@ public class ListController {
 	}
 	
 	@ModelAttribute("allUserList")
-	public List<User> allUserList() {
+	public List<User> allUserList(HttpSession session) {
+		int uno = (int) session.getAttribute("user_no");
 		List<User> allUserList = listService.getAllUser();
+		
+		Iterator<User> itr = allUserList.iterator();
+		
+		//자기자신 제외
+		while(itr.hasNext()){
+			if(itr.next().getUno() == uno)
+				itr.remove();
+		}
 
 		return allUserList;
 	}
