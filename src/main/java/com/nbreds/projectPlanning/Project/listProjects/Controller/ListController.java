@@ -87,13 +87,14 @@ public class ListController {
 	public String UpdateView(@PathVariable("pno") int pno, Model model, HttpServletRequest request,
 			@ModelAttribute("project") Project project) {
 		project = listService.getUpdateProjectByPno(pno);
-		List<User> allUserList = listService.getAllUser();
 		List<Label> allLabelList = listService.getAllLabel();
 		List<ProjectMemberStat> participatedUserList = listService.getParticipateUserListByPno(pno);
 
 		List<String> dev = new ArrayList<>();
 		List<String> design = new ArrayList<>();
 		List<String> plan = new ArrayList<>();
+		List<String> requestMember = new ArrayList<>();
+		
 		if (project.getPdata() != "") {
 			String[] pdata = project.getPdata().split(",");
 			for (String tmp : pdata) {
@@ -104,9 +105,12 @@ public class ListController {
 				if (tmp.substring(0, 3).equals("006"))
 					plan.add(tmp.substring(3, 6));
 			}
+			requestMember.add("146");
+			
 			project.setPdevelopment(dev);
 			project.setPdesign(design);
 			project.setPplanning(plan);
+			project.setRequestMember(requestMember);
 		}
 
 		User user = listService.getUserForNo(project.getUno());
@@ -114,7 +118,6 @@ public class ListController {
 			model.addAttribute("project", project);
 			model.addAttribute("user", user);
 			model.addAttribute("allLabelList", allLabelList);
-			model.addAttribute("allUserList", allUserList);
 			model.addAttribute("participatedUserList", participatedUserList);
 			request.setAttribute("participatedUserList", participatedUserList);
 		}
@@ -148,6 +151,13 @@ public class ListController {
 		}
 		
 		return "redirect:/"+project.getUno()+"/"+project.getPno();
+	}
+	
+	@ModelAttribute("allUserList")
+	public List<User> allUserList() {
+		List<User> allUserList = listService.getAllUser();
+
+		return allUserList;
 	}
 
 	@ModelAttribute("development")

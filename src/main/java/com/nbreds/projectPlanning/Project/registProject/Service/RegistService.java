@@ -15,8 +15,6 @@ import com.nbreds.projectPlanning.issues.VO.Label;
 public interface RegistService {
 	public void savePrjAndPrjMS(Project project);
 	
-	public int getLastno();
-	
 	public List<CodeTable> getCodeTable(String CODE_TYPE);
 
 	public List<User> getUsersForName(String uname);

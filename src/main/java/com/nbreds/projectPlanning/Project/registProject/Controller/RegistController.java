@@ -3,7 +3,6 @@ package com.nbreds.projectPlanning.Project.registProject.Controller;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nbreds.projectPlanning.Project.VO.Project;
 import com.nbreds.projectPlanning.Project.registProject.Service.RegistService;
@@ -33,6 +31,7 @@ public class RegistController {
 	@RequestMapping(value = "/regist", method = RequestMethod.GET)
 	public String Regist(Project project, HttpSession session, Model model) {
 		int uno = Integer.parseInt(session.getAttribute("user_no").toString());
+		
 		HashMap<String, Object> user = registService.getUserForNo(uno);
 		List<Label> allLabelList = registService.getAllLabel();
 		model.addAttribute("user", user);
@@ -44,7 +43,6 @@ public class RegistController {
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String RegistProcess(@ModelAttribute("project") Project project, BindingResult result,
 			HttpSession session) {
-		logger.info("pamount : " + project.getPamount());
 		String pdata = "";
 		if(project.getPdevelopment() != null)	for (String tmp : project.getPdevelopment())	pdata +="004"+tmp+",";
 		if(project.getPdesign() != null)	for (String tmp : project.getPdesign())	pdata +="005"+tmp+",";
@@ -52,6 +50,7 @@ public class RegistController {
 		project.setPdata(pdata);
 		
 		project.setUno(Integer.parseInt(session.getAttribute("user_no").toString()));
+		
 		registService.savePrjAndPrjMS(project);
 		
 		return "redirect:/";

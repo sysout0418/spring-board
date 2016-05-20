@@ -30,10 +30,6 @@ public class RegistDao {
 		sqlSession.insert("project.regist.saveProjectMS", projectMS);
 	}
 	
-	public int getLastno() {
-		return sqlSession.selectOne("project.regist.getLastno");
-	}
-	
 	public List<CodeTable> getCodeTable(String CODE_TYPE) {
 		return sqlSession.selectList("project.regist.getCodeTable", CODE_TYPE);
 	}
@@ -53,5 +49,8 @@ public class RegistDao {
 	public List<Label> getAllLabel() {
 		return sqlSession.selectList("project.regist.getAllLabel");
 	}
-	
+
+	public String getEmailByUno(int uno) {
+		return sqlSession.selectOne("project.regist.getEmailByUno");
+	}
 }
