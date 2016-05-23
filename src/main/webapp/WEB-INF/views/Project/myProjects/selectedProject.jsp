@@ -136,23 +136,22 @@ MAIN CONTENT
 								<c:set var="i" value="0" />
 								<c:forEach var="activity" items="${activity}">
 									<!-- onclick="location.href='/DetailProject/${project.pno}'" style="cursor: pointer;" -->
-									<li id="li-hover"
-										<c:if test='${i==0}'> class='timeline-inverted'</c:if> 
-										<c:choose>
-											<c:when test='${activity.tableName == "Issue"}'> 
-												onclick="location.href='/${activity.uno}/${pno}/issue/${activity.identificationNo}'"
-											</c:when>
-											<c:when test='${activity.tableName == "Milestone"}'> 
-												onclick="location.href='/${activity.uno}/${pno}/milestone/${activity.identificationNo}'"
-											</c:when>
-										</c:choose> style="cursor: pointer;">
+									<li<c:if test='${i==0}'> class='timeline-inverted'</c:if>>
 										<div class="timeline-badge warning">
 											<i class="glyphicon glyphicon-ok"></i>
 										</div>
 										<div class="timeline-panel">
 											<div class="timeline-heading">
-												<h4 class="timeline-title">${activity.tableName}
-													'${activity.title}'</h4>
+												<h4 class="timeline-title">
+												<c:choose>
+											<c:when test='${activity.tableName == "Issue"}'><a href="/${activity.uno}/${pno}/issue/${activity.identificationNo}">
+											</c:when>
+											<c:when test='${activity.tableName == "Milestone"}'> 
+												<a href="/${activity.uno}/${pno}/milestone/${activity.identificationNo}">
+											</c:when>
+										</c:choose>
+												${activity.tableName}
+													'${activity.title}'</a></h4>
 											</div>
 											<p>
 												<small class="text-muted"><i

@@ -184,7 +184,7 @@ MAIN CONTENT
 										Issues (open and unassigned)</li>
 									<c:forEach var="issue" items="${issues}">
 										<c:if test="${issue.istatement == '000' && issue.uno == ''}">
-											<li class="ui-state-default" id="${issue.ino}">${issue.ititle} <span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span></li>
+											<li class="ui-state-default" id="${issue.ino}"><span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span> ${issue.ititle}</li>
 										</c:if>
 									</c:forEach>
 								</ul>
@@ -194,7 +194,7 @@ MAIN CONTENT
 										Issues (open and assigned)</li>
 									<c:forEach var="issue" items="${issues}">
 										<c:if test="${issue.istatement == '000' && issue.uno != ''}">
-											<li class="ui-state-default" id="${issue.ino}">${issue.ititle} <span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span></li>
+											<li class="ui-state-default" id="${issue.ino}"><span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span> ${issue.ititle}</li>
 										</c:if>
 									</c:forEach>
 								</ul>
@@ -204,7 +204,7 @@ MAIN CONTENT
 										Issues (closed)</li>
 									<c:forEach var="issue" items="${issues}">
 										<c:if test="${issue.istatement == '001'}">
-											<li class="ui-state-default" id="${issue.ino}">${issue.ititle} <span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span></li>
+											<li class="ui-state-default" id="${issue.ino}"><span class="label label-warning label-mini" style="background-color: ${issue.lbgcolor}">${issue.ltitle}</span> ${issue.ititle}</li>
 										</c:if>
 									</c:forEach>
 								</ul>
