@@ -75,7 +75,7 @@ MAIN CONTENT
 				<div class="form-group">
 					<label for="inputAssignee" class="col-lg-2 control-label">Assignee</label>
 					<div class="btn-group">
-						<a href="#" class="btn btn-default btn-width"
+						<a class="btn btn-default btn-width"
 							style="text-align: left; margin-left: 15px;"><span
 							id="selectedAssign"> 
 							<c:choose>
@@ -86,28 +86,29 @@ MAIN CONTENT
 									Select Assignee
 								</c:when>
 							</c:choose>
-						</span></a> <a href="#" class="btn btn-default dropdown-toggle"
+						</span></a> <a class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown"><span class="caret"
 							style="height: 10px; margin-top: 10px;"></span></a>
 						<a href="#" class="btn btn-default" id="assigntome" style="margin-left: 10px;">ASSIGN TO ME</a>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu" style="margin-left: 15px;">
 							<c:forEach var="users" items="${userList}">
 								<c:choose>
 									<c:when test="${users == 'none'}">
-										<li><a href="#">No user participating in this project</a></li>
+										<li><a>No user participating in this project</a></li>
 									</c:when>
 									<c:otherwise>
-										<li class="userNo1"><a href="#" alt="${users.uno}">${users.uname}</a></li>
+										<li class="userNo1"><a alt="${users.uno}">${users.uname}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 						</ul>
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="inputMilestone" class="col-lg-2 control-label">Milestone</label>
 					<div class="btn-group">
-						<a href="#" class="btn btn-default btn-width"
+						<a class="btn btn-default btn-width"
 							style="text-align: left; margin-left: 15px;"><span
 							id="selectedMilestone"> 
 							<c:choose>
@@ -118,54 +119,29 @@ MAIN CONTENT
 									Select Milestone
 								</c:when>
 							</c:choose>
-						</span></a> <a href="#" class="btn btn-default dropdown-toggle"
+						</span></a> <a class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown"><span class="caret"
 							style="height: 10px; margin-top: 10px;"></span></a>
 						<a href="/${uno}/${pno}/milestones/new" class="btn btn-default" id="assigntome" style="margin-left: 10px;">Create New Milestone</a>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu" style="margin-left: 15px;">
 							<c:forEach var="milestone" items="${milestoneList}">
 								<c:choose>
 									<c:when test="${milestone == 'none'}">
-										<li><a href="#">No milestone to show</a></li>
+										<li><a>No milestone to show</a></li>
 									</c:when>
 									<c:otherwise>
-										<li class="milestoneNo"><a href="#" alt="${milestone.mno}">${milestone.mtitle}</a></li>
+										<li class="milestoneNo"><a alt="${milestone.mno}">${milestone.mtitle}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 						</ul>
 					</div>
 				</div>
-				<%-- <div class="form-group">
-					<label for="inputWeight" class="col-lg-2 control-label">Weight</label>
-					<div class="btn-group">
-						<a href="#" class="btn btn-default btn-width"
-							style="text-align: left; margin-left: 15px;"><span
-							id="selectedWeight"> <c:choose>
-									<c:when test="${!empty issues.iweight}">
-									${issues.iweight}
-								</c:when>
-									<c:when test="${empty issues.iweight}">
-									select weight
-								</c:when>
-								</c:choose></span></a> <a href="#" class="btn btn-default dropdown-toggle"
-							data-toggle="dropdown"><span class="caret"
-							style="height: 10px; margin-top: 10px;"></span></a>
-						<ul class="dropdown-menu">
-							<%
-								for (i = 1; i < 10; i++) {
-							%>
-							<li class="weight"><a href="#" id="weight<%=i%>"><%=i%></a></li>
-							<%
-								}
-							%>
-						</ul>
-					</div>
-				</div> --%>
+				
 				<div class="form-group">
 					<label for="inputLabels" class="col-lg-2 control-label">Weight</label>
 					<div class="btn-group">
-						<a href="#" class="btn btn-default btn-width"
+						<a class="btn btn-default btn-width"
 							style="text-align: left; margin-left: 15px;">
 							<span id="selectedLabel">
 							<c:choose>
@@ -177,11 +153,11 @@ MAIN CONTENT
 								</c:when>
 							</c:choose>
 							</span></a>
-							<a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret" style="height: 10px; margin-top: 10px;"></span></a>
-						<ul class="dropdown-menu">
+						<ul class="dropdown-menu" style="margin-left: 15px;">
 							<c:forEach var="labels" items="${labelList}" varStatus="status">
-								<li class="labelNo"><a href="#" alt="${labels.lno}">${labels.ltitle}</a></li>
+								<li class="labelNo"><a alt="${labels.lno}">${labels.ltitle}</a></li>
 							</c:forEach>
 						</ul>
 						<!-- <div style="margin-left: 15px; margin-top: 50px;">
@@ -190,6 +166,7 @@ MAIN CONTENT
 						</div> -->
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label for="inputDuedate" class="col-lg-2 control-label">Due Date</label>
 					<div class="btn-group" style="margin-left: 15px;">
