@@ -180,8 +180,10 @@ MAIN CONTENT
 <script>
 	jQuery.fn.center = function () {
 	    this.css("position", "absolute");
-	    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 3) + $(window).scrollTop()) + "px");
-	    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+	    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 3) 
+	    		+ $(window).scrollTop()) + "px");
+	    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) 
+	    		+ $(window).scrollLeft()) + "px");
 	    this.css("z-index", "9001");
 	    return this;
 	}
@@ -337,7 +339,8 @@ MAIN CONTENT
 
 					$('#pamount').val(Number(realAmount).toLocaleString());
 					
-					$('html').append('<div id="mask" style="position: absolute; left:0; top:0; z-index:9000; background-color:#000; display:none;"></div>');
+					$('html').append('<div id="mask" style="position: absolute; left:0; top:0; '
+									+ 'z-index:9000; background-color:#000; display:none;"></div>');
 					$('body').after('<div id="progressBar" data-loader="timer" style="display: none;"></div>');
 					
 					showProgressBar();

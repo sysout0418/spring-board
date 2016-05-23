@@ -241,7 +241,14 @@
 		    <artifactId>spring-social-config</artifactId>
 		    <version>1.1.4.RELEASE</version>
 		</dependency>
-
+		
+		<!-- web socket -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
