@@ -1,43 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!-- chatting room body -->
-<div class="col-md-4" id="chattingRoom" style="display: none;">
-	<div class="panel panel-primary">
-		<div class="panel-heading" id="accordion">
-			<span class="glyphicon glyphicon-comment"></span> Chat
-			<div class="btn-group pull-right">
-				<a type="button" class="btn btn-default btn-xs"
-					data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-					<span class="glyphicon glyphicon-chevron-down"></span>
-				</a> <a type="button" id="hiddenChattingRoom"
-					class="btn btn-default btn-xs" data-toggle="collapse"
-					data-parent="#accordion" href="#collapseOne"> <span
-					class="glyphicon glyphicon-remove"></span>
-				</a>
-			</div>
-		</div>
-		<div class="panel-collapse collapse" id="collapseOne">
-			<div class="panel-body">
-				<ul class="chat" id="chatContent">
-					<!-- chatContent -->
-					
-				</ul>
-			</div>
-			<div class="panel-footer">
-				<div class="input-group">
-					<input type="text" class="form-control input-sm"
-						placeholder="Type your message here..." id="chattingMessage" /> <span
-						class="input-group-btn">
-						<button type="submit" class="btn btn-warning btn-sm"
-							id="sendMessage" onclick="send()">Send</button>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- //chatting room body -->
 <section id="container" style="">
 	<!-- **********************************************************************************************************************************************************
 TOP BAR CONTENT & NOTIFICATIONS
@@ -157,36 +120,8 @@ TOP BAR CONTENT & NOTIFICATIONS
 					style="margin-top: 15px;" data-toggle="tooltip"
 					data-placement="bottom" title="NAS"> <i class="fa fa-hdd-o"
 						aria-hidden="true"></i></a></li>
-				<li id="goChattingRoom" data-toggle="collapse"
-					data-parent="#accordion" href="#collapseOne"><a href="#"
-					style="margin-top: 15px;" data-toggle="tooltip"
-					data-placement="bottom" title="Chatting"> <i
-						class="fa fa-weixin" aria-hidden="true"></i>
-				</a></li>
 				<li><a class="logout" href="/logout">Logout</a></li>
 			</ul>
 		</div>
 	</header>
 	<!--header end-->
-
-	<!-- Modal -->
-	<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="myModalLabel">Chatting Room</h4>
-				</div>
-				<div class="modal-body">
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div> -->
